@@ -3,7 +3,7 @@ import time
 from ansible.module_utils.basic import AnsibleModule
 from waldur_api_client.models import OrderState
 
-from ansible_collections.community.generic.plugins.module_utils.waldur.base_runner import (
+from ansible_collections.waldur.cloud.plugins.module_utils.waldur.base_runner import (
     BaseRunner,
 )
 
