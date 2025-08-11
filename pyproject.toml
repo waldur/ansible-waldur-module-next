@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "ansible-waldur-module-next"
+version = "0.0.1"
+description = "Ansible module for the Waldur API."
+authors = ["OpenNode Team <info@opennodecloud.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://waldur.com"
+packages = [
+    { include = "ansible_waldur_module" }
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.dependencies]
+ansible-core = ">=2.11.0"
+python = ">=3.11,<4.0"
+waldur-api-client = "7.7.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
