@@ -1,0 +1,20 @@
+namespace: community
+name: generic
+version: 1.0.0
+readme: README.md
+authors:
+- Waldur Team <info@waldur.com>
+description: A collection of Ansible modules for managing Waldur resources, generated
+  automatically.
+license:
+- MIT
+tags:
+- waldur
+- cloud
+- management
+- automation
+dependencies: {}
+repository: https://github.com/waldur/ansible-waldur-module-next
+documentation: https://docs.waldur.com/
+homepage: https://waldur.com/
+issues: https://github.com/waldur/ansible-waldur-module-next/issues
