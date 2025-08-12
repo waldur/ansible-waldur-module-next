@@ -447,9 +447,9 @@ RUNNER_CONTEXT = {
     "order_model_class": OrderCreateRequest,
     "terminate_model_class": ResourceTerminateRequest,
     "attribute_param_names": [
+        "description",
         "size",
         "type",
-        "description",
     ],
     "resolvers": {
         "offering": {
