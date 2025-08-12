@@ -54,23 +54,23 @@ options:
   customer:
     type: str
     required: true
-    description: The name or UUID of the customer.
+    description: The name or UUID of the customer. Customer
   description:
     type: str
     required: false
-    description: ''
+    description: Description
   type:
     type: str
     required: false
-    description: The name or UUID of the type.
+    description: The name or UUID of the type. Type
   backend_id:
     type: str
     required: false
-    description: ''
+    description: Backend id
   start_date:
     type: str
     required: false
-    description: ''
+    description: Start date
   end_date:
     type: str
     required: false
@@ -78,7 +78,7 @@ options:
   oecd_fos_2007_code:
     type: str
     required: false
-    description: ''
+    description: Oecd fos 2007 code
     choices:
     - '1.1'
     - '1.2'
@@ -127,11 +127,11 @@ options:
   is_industry:
     type: bool
     required: false
-    description: ''
+    description: Is industry
   image:
     type: str
     required: false
-    description: ''
+    description: Image
 
 """
 
@@ -165,87 +165,87 @@ resource:
   returned: on success
   contains:
     url:
-      description: url
+      description: Url
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: uuid
+      description: Uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     name:
-      description: name
+      description: Name
       type: str
       returned: always
-      sample: string_value
+      sample: My Awesome Resource
     slug:
-      description: slug
+      description: Slug
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     customer:
-      description: customer
+      description: Customer
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     customer_uuid:
-      description: customer uuid
+      description: Customer uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer_name:
-      description: customer name
+      description: Customer name
       type: str
       returned: always
-      sample: string_value
+      sample: Big Corp Inc.
     customer_slug:
-      description: customer slug
+      description: Customer slug
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     customer_native_name:
-      description: customer native name
+      description: Customer native name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     customer_abbreviation:
-      description: customer abbreviation
+      description: Customer abbreviation
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     description:
-      description: description
+      description: Description
       type: str
       returned: always
-      sample: string_value
+      sample: This is a sample description for the resource.
     created:
-      description: created
+      description: Created
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     type:
-      description: type
+      description: Type
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     type_name:
-      description: type name
+      description: Type name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     type_uuid:
-      description: type uuid
+      description: Type uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     backend_id:
-      description: backend id
+      description: Backend id
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     start_date:
-      description: start date
+      description: Start date
       type: str
       returned: always
       sample: '2023-10-01'
@@ -255,32 +255,32 @@ resource:
       returned: always
       sample: '2023-10-01'
     end_date_requested_by:
-      description: end date requested by
+      description: End date requested by
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     oecd_fos_2007_code:
-      description: oecd fos 2007 code
+      description: Oecd fos 2007 code
       type: str
       returned: always
       sample: null
     oecd_fos_2007_label:
-      description: oecd fos 2007 label
+      description: Oecd fos 2007 label
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     is_industry:
-      description: is industry
+      description: Is industry
       type: bool
       returned: always
       sample: true
     image:
-      description: image
+      description: Image
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     resources_count:
-      description: resources count
+      description: Resources count
       type: int
       returned: always
       sample: 123
@@ -290,41 +290,41 @@ resource:
       returned: always
       sample: 123
     project_credit:
-      description: project credit
+      description: Project credit
       type: float
       returned: always
       sample: 123.45
     marketplace_resource_count:
-      description: marketplace resource count
+      description: Marketplace resource count
       type: dict
       returned: always
-      sample: null
+      sample: {}
     billing_price_estimate:
       description: ''
       type: dict
       returned: always
-      sample: null
+      sample: {}
       contains:
         total:
-          description: total
+          description: Total
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
         current:
-          description: current
+          description: Current
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
         tax:
-          description: tax
+          description: Tax
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
         tax_current:
-          description: tax current
+          description: Tax current
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
 
 """
 

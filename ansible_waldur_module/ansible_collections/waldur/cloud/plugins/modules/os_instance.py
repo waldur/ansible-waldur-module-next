@@ -168,127 +168,127 @@ resource:
   returned: on success when state is 'present'
   contains:
     url:
-      description: url
+      description: Url
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: uuid
+      description: Uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     name:
-      description: name
+      description: Name
       type: str
       returned: always
-      sample: string_value
+      sample: My Awesome Resource
     description:
-      description: description
+      description: Description
       type: str
       returned: always
-      sample: string_value
+      sample: This is a sample description for the resource.
     service_name:
-      description: service name
+      description: Service name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     service_settings:
-      description: service settings
+      description: Service settings
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     service_settings_uuid:
-      description: service settings uuid
+      description: Service settings uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     service_settings_state:
-      description: service settings state
+      description: Service settings state
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     service_settings_error_message:
-      description: service settings error message
+      description: Service settings error message
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     project:
-      description: project
+      description: Project
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     project_name:
-      description: project name
+      description: Project name
       type: str
       returned: always
-      sample: string_value
+      sample: Internal Research Project
     project_uuid:
-      description: project uuid
+      description: Project uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer:
-      description: customer
+      description: Customer
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     customer_name:
-      description: customer name
+      description: Customer name
       type: str
       returned: always
-      sample: string_value
+      sample: Big Corp Inc.
     customer_native_name:
-      description: customer native name
+      description: Customer native name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     customer_abbreviation:
-      description: customer abbreviation
+      description: Customer abbreviation
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     error_message:
-      description: error message
+      description: Error message
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     error_traceback:
-      description: error traceback
+      description: Error traceback
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     resource_type:
-      description: resource type
+      description: Resource type
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     state:
       description: ''
       type: str
       returned: always
-      sample: string_value
+      sample: CREATION_SCHEDULED
     created:
-      description: created
+      description: Created
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     modified:
-      description: modified
+      description: Modified
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: backend id
+      description: Backend id
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     access_url:
-      description: access url
+      description: Access url
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     start_time:
-      description: start time
+      description: Start time
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
@@ -296,110 +296,110 @@ resource:
       description: Number of cores in a VM
       type: int
       returned: always
-      sample: 123
+      sample: 2
     ram:
       description: Memory size in MiB
       type: int
       returned: always
-      sample: 123
+      sample: 2048
     disk:
       description: Disk size in MiB
       type: int
       returned: always
-      sample: 123
+      sample: 20480
     min_ram:
       description: Minimum memory size in MiB
       type: int
       returned: always
-      sample: 123
+      sample: 2048
     min_disk:
       description: Minimum disk size in MiB
       type: int
       returned: always
-      sample: 123
+      sample: 20480
     user_data:
       description: Additional data that will be added to instance on provisioning
       type: str
       returned: always
-      sample: string_value
+      sample: "#cloud-config\npackages:\n  - nginx"
     external_ips:
-      description: external ips
+      description: External ips
       type: list
       returned: always
-      sample: null
+      sample: []
     internal_ips:
-      description: internal ips
+      description: Internal ips
       type: list
       returned: always
-      sample: null
+      sample: []
     latitude:
-      description: latitude
+      description: Latitude
       type: float
       returned: always
       sample: 123.45
     longitude:
-      description: longitude
+      description: Longitude
       type: float
       returned: always
       sample: 123.45
     key_name:
-      description: key name
+      description: Key name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     key_fingerprint:
-      description: key fingerprint
+      description: Key fingerprint
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     image_name:
-      description: image name
+      description: Image name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     flavor_disk:
       description: Flavor disk size in MiB
       type: int
       returned: always
-      sample: 123
+      sample: 20480
     flavor_name:
-      description: flavor name
+      description: Flavor name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     volumes:
-      description: volumes
+      description: Volumes
       type: list
       returned: always
-      sample: null
+      sample: []
       contains:
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         uuid:
-          description: uuid
+          description: Uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         name:
-          description: name
+          description: Name
           type: str
           returned: always
-          sample: string_value
+          sample: My Awesome Resource
         image_name:
-          description: image name
+          description: Image name
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         state:
-          description: state
+          description: State
           type: str
           returned: always
-          sample: string_value
+          sample: OK
         bootable:
-          description: bootable
+          description: Bootable
           type: bool
           returned: always
           sample: true
@@ -407,655 +407,655 @@ resource:
           description: Size in MiB
           type: int
           returned: always
-          sample: 123
+          sample: 100
         device:
           description: Name of volume as instance device e.g. /dev/vdb.
           type: str
           returned: always
-          sample: My Resource Name
+          sample: string-value
         resource_type:
-          description: resource type
+          description: Resource type
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         type:
-          description: type
+          description: Type
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         type_name:
-          description: type name
+          description: Type name
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         marketplace_resource_uuid:
-          description: marketplace resource uuid
+          description: Marketplace resource uuid
           type: str
           returned: always
-          sample: string_value
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     security_groups:
-      description: security groups
+      description: Security groups
       type: list
       returned: always
-      sample: null
+      sample: []
       contains:
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         name:
-          description: name
+          description: Name
           type: str
           returned: always
-          sample: string_value
+          sample: My Awesome Resource
         rules:
-          description: rules
+          description: Rules
           type: list
           returned: always
-          sample: null
+          sample: []
           contains:
             ethertype:
               description: ''
               type: str
               returned: always
-              sample: string_value
+              sample: IPv4
             direction:
               description: ''
               type: str
               returned: always
-              sample: string_value
+              sample: ingress
             protocol:
-              description: protocol
+              description: Protocol
               type: str
               returned: always
               sample: null
             from_port:
-              description: from port
+              description: From port
               type: int
               returned: always
-              sample: 123
+              sample: 8080
             to_port:
-              description: to port
+              description: To port
               type: int
               returned: always
-              sample: 123
+              sample: 8080
             cidr:
-              description: cidr
+              description: Cidr
               type: str
               returned: always
-              sample: string_value
+              sample: 192.168.1.0/24
             description:
-              description: description
+              description: Description
               type: str
               returned: always
-              sample: string_value
+              sample: This is a sample description for the resource.
             remote_group_name:
-              description: remote group name
+              description: Remote group name
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             remote_group_uuid:
-              description: remote group uuid
+              description: Remote group uuid
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             id:
-              description: id
+              description: Id
               type: int
               returned: always
               sample: 123
         description:
-          description: description
+          description: Description
           type: str
           returned: always
-          sample: string_value
+          sample: This is a sample description for the resource.
         state:
-          description: state
+          description: State
           type: str
           returned: always
-          sample: string_value
+          sample: OK
     server_group:
       description: ''
       type: dict
       returned: always
-      sample: null
+      sample: {}
       contains:
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         name:
-          description: name
+          description: Name
           type: str
           returned: always
-          sample: string_value
+          sample: My Awesome Resource
         policy:
           description: ''
           type: str
           returned: always
-          sample: string_value
+          sample: affinity
         state:
-          description: state
+          description: State
           type: str
           returned: always
-          sample: string_value
+          sample: OK
     floating_ips:
-      description: floating ips
+      description: Floating ips
       type: list
       returned: always
-      sample: null
+      sample: 8.8.8.8
       contains:
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         uuid:
-          description: uuid
+          description: Uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         address:
-          description: address
+          description: Address
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         port_fixed_ips:
-          description: port fixed ips
+          description: Port fixed ips
           type: list
           returned: always
-          sample: null
+          sample: []
           contains:
             ip_address:
-              description: ip address
+              description: Ip address
               type: str
               returned: always
-              sample: string_value
+              sample: 8.8.8.8
             subnet_id:
-              description: subnet id
+              description: Subnet id
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
         port_mac_address:
-          description: port mac address
+          description: Port mac address
           type: str
           returned: always
-          sample: string_value
+          sample: 00:1B:44:11:3A:B7
         subnet:
-          description: subnet
+          description: Subnet
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         subnet_uuid:
-          description: subnet uuid
+          description: Subnet uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         subnet_name:
-          description: subnet name
+          description: Subnet name
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         subnet_description:
-          description: subnet description
+          description: Subnet description
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         subnet_cidr:
-          description: subnet cidr
+          description: Subnet cidr
           type: str
           returned: always
-          sample: string_value
+          sample: 192.168.1.0/24
     ports:
-      description: ports
+      description: Ports
       type: list
       returned: always
-      sample: null
+      sample: []
       contains:
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         fixed_ips:
-          description: fixed ips
+          description: Fixed ips
           type: list
           returned: always
-          sample: null
+          sample: []
           contains:
             ip_address:
-              description: ip address
+              description: Ip address
               type: str
               returned: always
-              sample: string_value
+              sample: 8.8.8.8
             subnet_id:
-              description: subnet id
+              description: Subnet id
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
         mac_address:
-          description: mac address
+          description: Mac address
           type: str
           returned: always
-          sample: string_value
+          sample: 00:1B:44:11:3A:B7
         subnet:
-          description: subnet
+          description: Subnet
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         subnet_uuid:
-          description: subnet uuid
+          description: Subnet uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         subnet_name:
-          description: subnet name
+          description: Subnet name
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         subnet_description:
-          description: subnet description
+          description: Subnet description
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         subnet_cidr:
-          description: subnet cidr
+          description: Subnet cidr
           type: str
           returned: always
-          sample: string_value
+          sample: 192.168.1.0/24
         allowed_address_pairs:
-          description: allowed address pairs
+          description: Allowed address pairs
           type: list
           returned: always
-          sample: null
+          sample: []
           contains:
             mac_address:
-              description: mac address
+              description: Mac address
               type: str
               returned: always
-              sample: string_value
+              sample: 00:1B:44:11:3A:B7
         device_id:
-          description: device id
+          description: Device id
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         device_owner:
-          description: device owner
+          description: Device owner
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         security_groups:
-          description: security groups
+          description: Security groups
           type: list
           returned: always
-          sample: null
+          sample: []
           contains:
             url:
-              description: url
+              description: Url
               type: str
               returned: always
-              sample: https://api.example.com/api/resource/...
+              sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             uuid:
-              description: uuid
+              description: Uuid
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             name:
-              description: name
+              description: Name
               type: str
               returned: always
-              sample: string_value
+              sample: My Awesome Resource
             description:
-              description: description
+              description: Description
               type: str
               returned: always
-              sample: string_value
+              sample: This is a sample description for the resource.
             service_name:
-              description: service name
+              description: Service name
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             service_settings:
-              description: service settings
+              description: Service settings
               type: str
               returned: always
-              sample: https://api.example.com/api/resource/...
+              sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             service_settings_uuid:
-              description: service settings uuid
+              description: Service settings uuid
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             service_settings_state:
-              description: service settings state
+              description: Service settings state
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             service_settings_error_message:
-              description: service settings error message
+              description: Service settings error message
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             project:
-              description: project
+              description: Project
               type: str
               returned: always
-              sample: https://api.example.com/api/resource/...
+              sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             project_name:
-              description: project name
+              description: Project name
               type: str
               returned: always
-              sample: string_value
+              sample: Internal Research Project
             project_uuid:
-              description: project uuid
+              description: Project uuid
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             customer:
-              description: customer
+              description: Customer
               type: str
               returned: always
-              sample: https://api.example.com/api/resource/...
+              sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             customer_name:
-              description: customer name
+              description: Customer name
               type: str
               returned: always
-              sample: string_value
+              sample: Big Corp Inc.
             customer_native_name:
-              description: customer native name
+              description: Customer native name
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             customer_abbreviation:
-              description: customer abbreviation
+              description: Customer abbreviation
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             error_message:
-              description: error message
+              description: Error message
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             error_traceback:
-              description: error traceback
+              description: Error traceback
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             resource_type:
-              description: resource type
+              description: Resource type
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             state:
               description: ''
               type: str
               returned: always
-              sample: string_value
+              sample: CREATION_SCHEDULED
             created:
-              description: created
+              description: Created
               type: str
               returned: always
               sample: '2023-10-01T12:00:00Z'
             modified:
-              description: modified
+              description: Modified
               type: str
               returned: always
               sample: '2023-10-01T12:00:00Z'
             backend_id:
-              description: backend id
+              description: Backend id
               type: str
               returned: always
-              sample: string_value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             access_url:
-              description: access url
+              description: Access url
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             tenant:
-              description: tenant
+              description: Tenant
               type: str
               returned: always
-              sample: https://api.example.com/api/resource/...
+              sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             tenant_name:
-              description: tenant name
+              description: Tenant name
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             tenant_uuid:
-              description: tenant uuid
+              description: Tenant uuid
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             rules:
-              description: rules
+              description: Rules
               type: list
               returned: always
-              sample: null
+              sample: []
               contains:
                 ethertype:
                   description: ''
                   type: str
                   returned: always
-                  sample: string_value
+                  sample: IPv4
                 direction:
                   description: ''
                   type: str
                   returned: always
-                  sample: string_value
+                  sample: ingress
                 protocol:
-                  description: protocol
+                  description: Protocol
                   type: str
                   returned: always
                   sample: null
                 from_port:
-                  description: from port
+                  description: From port
                   type: int
                   returned: always
-                  sample: 123
+                  sample: 8080
                 to_port:
-                  description: to port
+                  description: To port
                   type: int
                   returned: always
-                  sample: 123
+                  sample: 8080
                 cidr:
-                  description: cidr
+                  description: Cidr
                   type: str
                   returned: always
-                  sample: string_value
+                  sample: 192.168.1.0/24
                 description:
-                  description: description
+                  description: Description
                   type: str
                   returned: always
-                  sample: string_value
+                  sample: This is a sample description for the resource.
                 remote_group_name:
-                  description: remote group name
+                  description: Remote group name
                   type: str
                   returned: always
-                  sample: string_value
+                  sample: string-value
                 remote_group_uuid:
-                  description: remote group uuid
+                  description: Remote group uuid
                   type: str
                   returned: always
                   sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                 id:
-                  description: id
+                  description: Id
                   type: int
                   returned: always
                   sample: 123
                 remote_group:
-                  description: remote group
+                  description: Remote group
                   type: str
                   returned: always
-                  sample: https://api.example.com/api/resource/...
+                  sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             marketplace_offering_uuid:
-              description: marketplace offering uuid
+              description: Marketplace offering uuid
               type: str
               returned: always
-              sample: string_value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             marketplace_offering_name:
-              description: marketplace offering name
+              description: Marketplace offering name
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             marketplace_offering_plugin_options:
-              description: marketplace offering plugin options
+              description: Marketplace offering plugin options
               type: dict
               returned: always
-              sample: null
+              sample: {}
             marketplace_category_uuid:
-              description: marketplace category uuid
+              description: Marketplace category uuid
               type: str
               returned: always
-              sample: string_value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             marketplace_category_name:
-              description: marketplace category name
+              description: Marketplace category name
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             marketplace_resource_uuid:
-              description: marketplace resource uuid
+              description: Marketplace resource uuid
               type: str
               returned: always
-              sample: string_value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             marketplace_plan_uuid:
-              description: marketplace plan uuid
+              description: Marketplace plan uuid
               type: str
               returned: always
-              sample: string_value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             marketplace_resource_state:
-              description: marketplace resource state
+              description: Marketplace resource state
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             is_usage_based:
-              description: is usage based
+              description: Is usage based
               type: bool
               returned: always
               sample: true
             is_limit_based:
-              description: is limit based
+              description: Is limit based
               type: bool
               returned: always
               sample: true
     availability_zone:
-      description: availability zone
+      description: Availability zone
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     availability_zone_name:
-      description: availability zone name
+      description: Availability zone name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     connect_directly_to_external_network:
-      description: connect directly to external network
+      description: Connect directly to external network
       type: bool
       returned: always
       sample: true
     runtime_state:
-      description: runtime state
+      description: Runtime state
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     action:
-      description: action
+      description: Action
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     action_details:
-      description: action details
+      description: Action details
       type: str
       returned: always
       sample: null
     tenant_uuid:
-      description: tenant uuid
+      description: Tenant uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     hypervisor_hostname:
-      description: hypervisor hostname
+      description: Hypervisor hostname
       type: str
       returned: always
-      sample: string_value
+      sample: server-01.example.com
     tenant:
-      description: tenant
+      description: Tenant
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     external_address:
-      description: external address
+      description: External address
       type: list
       returned: always
-      sample: null
+      sample: []
     rancher_cluster:
       description: ''
       type: dict
       returned: always
-      sample: null
+      sample: {}
       contains:
         uuid:
-          description: uuid
+          description: Uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         name:
-          description: name
+          description: Name
           type: str
           returned: always
-          sample: string_value
+          sample: My Awesome Resource
         marketplace_uuid:
-          description: marketplace uuid
+          description: Marketplace uuid
           type: str
           returned: always
-          sample: string_value
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_offering_uuid:
-      description: marketplace offering uuid
+      description: Marketplace offering uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_offering_name:
-      description: marketplace offering name
+      description: Marketplace offering name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     marketplace_offering_plugin_options:
-      description: marketplace offering plugin options
+      description: Marketplace offering plugin options
       type: dict
       returned: always
-      sample: null
+      sample: {}
     marketplace_category_uuid:
-      description: marketplace category uuid
+      description: Marketplace category uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_category_name:
-      description: marketplace category name
+      description: Marketplace category name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     marketplace_resource_uuid:
-      description: marketplace resource uuid
+      description: Marketplace resource uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_plan_uuid:
-      description: marketplace plan uuid
+      description: Marketplace plan uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_resource_state:
-      description: marketplace resource state
+      description: Marketplace resource state
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     is_usage_based:
-      description: is usage based
+      description: Is usage based
       type: bool
       returned: always
       sample: true
     is_limit_based:
-      description: is limit based
+      description: Is limit based
       type: bool
       returned: always
       sample: true
@@ -1100,17 +1100,17 @@ RUNNER_CONTEXT = {
     "order_model_class": OrderCreateRequest,
     "terminate_model_class": ResourceTerminateRequest,
     "attribute_param_names": [
-        "flavor",
-        "description",
-        "user_data",
         "data_volume_size",
+        "description",
+        "networks",
         "system_volume_type",
-        "data_volume_type",
         "system_volume_size",
+        "data_volume_type",
         "security_groups",
         "image",
-        "networks",
+        "user_data",
         "ssh_key",
+        "flavor",
     ],
     "resolvers": {
         "project": {

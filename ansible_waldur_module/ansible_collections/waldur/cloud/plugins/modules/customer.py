@@ -54,35 +54,35 @@ options:
   image:
     type: str
     required: false
-    description: ''
+    description: Image
   native_name:
     type: str
     required: false
-    description: ''
+    description: Native name
   abbreviation:
     type: str
     required: false
-    description: ''
+    description: Abbreviation
   contact_details:
     type: str
     required: false
-    description: ''
+    description: Contact details
   email:
     type: str
     required: false
-    description: ''
+    description: Email
   phone_number:
     type: str
     required: false
-    description: ''
+    description: Phone number
   registration_code:
     type: str
     required: false
-    description: ''
+    description: Registration code
   homepage:
     type: str
     required: false
-    description: ''
+    description: Homepage
   vat_code:
     type: str
     required: false
@@ -90,31 +90,31 @@ options:
   postal:
     type: str
     required: false
-    description: ''
+    description: Postal
   address:
     type: str
     required: false
-    description: ''
+    description: Address
   bank_name:
     type: str
     required: false
-    description: ''
+    description: Bank name
   latitude:
     type: float
     required: false
-    description: ''
+    description: Latitude
   longitude:
     type: float
     required: false
-    description: ''
+    description: Longitude
   bank_account:
     type: str
     required: false
-    description: ''
+    description: Bank account
   country:
     type: str
     required: false
-    description: ''
+    description: Country
     choices:
     - AL
     - AT
@@ -188,103 +188,103 @@ resource:
   returned: on success
   contains:
     url:
-      description: url
+      description: Url
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: uuid
+      description: Uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     created:
-      description: created
+      description: Created
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     organization_groups:
-      description: organization groups
+      description: Organization groups
       type: list
       returned: always
-      sample: null
+      sample: []
       contains:
         uuid:
-          description: uuid
+          description: Uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         name:
-          description: name
+          description: Name
           type: str
           returned: always
-          sample: string_value
+          sample: My Awesome Resource
         parent_uuid:
-          description: parent uuid
+          description: Parent uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         parent_name:
-          description: parent name
+          description: Parent name
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         parent:
-          description: parent
+          description: Parent
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/parent/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         customers_count:
-          description: customers count
+          description: Customers count
           type: int
           returned: always
           sample: 123
     display_name:
-      description: display name
+      description: Display name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     backend_id:
       description: Organization identifier in another application.
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     image:
-      description: image
+      description: Image
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     blocked:
-      description: blocked
+      description: Blocked
       type: bool
       returned: always
       sample: true
     archived:
-      description: archived
+      description: Archived
       type: bool
       returned: always
       sample: true
     default_tax_percent:
-      description: default tax percent
+      description: Default tax percent
       type: str
       returned: always
-      sample: '123.45'
+      sample: '12.34'
     accounting_start_date:
-      description: accounting start date
+      description: Accounting start date
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     projects_count:
-      description: projects count
+      description: Projects count
       type: int
       returned: always
       sample: 123
     users_count:
-      description: users count
+      description: Users count
       type: int
       returned: always
       sample: 123
@@ -294,164 +294,164 @@ resource:
       returned: always
       sample: 123
     country_name:
-      description: country name
+      description: Country name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     max_service_accounts:
       description: Maximum number of service accounts allowed
       type: int
       returned: always
       sample: 123
     name:
-      description: name
+      description: Name
       type: str
       returned: always
-      sample: string_value
+      sample: My Awesome Resource
     slug:
-      description: slug
+      description: Slug
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     native_name:
-      description: native name
+      description: Native name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     abbreviation:
-      description: abbreviation
+      description: Abbreviation
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     contact_details:
-      description: contact details
+      description: Contact details
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     agreement_number:
-      description: agreement number
+      description: Agreement number
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     email:
-      description: email
+      description: Email
       type: str
       returned: always
-      sample: alice@gmail.com
+      sample: alice@example.com
     phone_number:
-      description: phone number
+      description: Phone number
       type: str
       returned: always
-      sample: string_value
+      sample: +1-202-555-0104
     access_subnets:
       description: Enter a comma separated list of IPv4 or IPv6 CIDR addresses from where connection to self-service is allowed.
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     registration_code:
-      description: registration code
+      description: Registration code
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     homepage:
-      description: homepage
+      description: Homepage
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     domain:
-      description: domain
+      description: Domain
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     vat_code:
       description: VAT number
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     postal:
-      description: postal
+      description: Postal
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     address:
-      description: address
+      description: Address
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     bank_name:
-      description: bank name
+      description: Bank name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     latitude:
-      description: latitude
+      description: Latitude
       type: float
       returned: always
       sample: 123.45
     longitude:
-      description: longitude
+      description: Longitude
       type: float
       returned: always
       sample: 123.45
     bank_account:
-      description: bank account
+      description: Bank account
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     country:
-      description: country
+      description: Country
       type: str
       returned: always
       sample: null
     payment_profiles:
-      description: payment profiles
+      description: Payment profiles
       type: list
       returned: always
-      sample: null
+      sample: []
       contains:
         uuid:
-          description: uuid
+          description: Uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         url:
-          description: url
+          description: Url
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         name:
-          description: name
+          description: Name
           type: str
           returned: always
-          sample: string_value
+          sample: My Awesome Resource
         organization_uuid:
-          description: organization uuid
+          description: Organization uuid
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         organization:
-          description: organization
+          description: Organization
           type: str
           returned: always
-          sample: https://api.example.com/api/resource/...
+          sample: https://api.example.com/api/organization/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         attributes:
           description: ''
           type: dict
           returned: always
-          sample: null
+          sample: {}
           contains:
             end_date:
-              description: end date
+              description: End date
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             agreement_number:
-              description: agreement number
+              description: Agreement number
               type: str
               returned: always
-              sample: string_value
+              sample: string-value
             contract_sum:
-              description: contract sum
+              description: Contract sum
               type: int
               returned: always
               sample: 123
@@ -459,73 +459,73 @@ resource:
           description: ''
           type: str
           returned: always
-          sample: string_value
+          sample: fixed_price
         payment_type_display:
-          description: payment type display
+          description: Payment type display
           type: str
           returned: always
-          sample: string_value
+          sample: string-value
         is_active:
-          description: is active
+          description: Is active
           type: bool
           returned: always
           sample: true
     customer_credit:
-      description: customer credit
+      description: Customer credit
       type: float
       returned: always
       sample: 123.45
     customer_unallocated_credit:
-      description: customer unallocated credit
+      description: Customer unallocated credit
       type: float
       returned: always
       sample: 123.45
     is_service_provider:
-      description: is service provider
+      description: Is service provider
       type: bool
       returned: always
       sample: true
     service_provider:
-      description: service provider
+      description: Service provider
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/service-provider/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     service_provider_uuid:
-      description: service provider uuid
+      description: Service provider uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     call_managing_organization_uuid:
-      description: call managing organization uuid
+      description: Call managing organization uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     billing_price_estimate:
       description: ''
       type: dict
       returned: always
-      sample: null
+      sample: {}
       contains:
         total:
-          description: total
+          description: Total
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
         current:
-          description: current
+          description: Current
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
         tax:
-          description: tax
+          description: Tax
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
         tax_current:
-          description: tax current
+          description: Tax current
           type: str
           returned: always
-          sample: '123.45'
+          sample: '12.34'
 
 """
 

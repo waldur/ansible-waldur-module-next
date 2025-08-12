@@ -138,277 +138,277 @@ resource:
   returned: on success when state is 'present'
   contains:
     url:
-      description: url
+      description: Url
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: uuid
+      description: Uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     name:
-      description: name
+      description: Name
       type: str
       returned: always
-      sample: string_value
+      sample: My Awesome Resource
     description:
-      description: description
+      description: Description
       type: str
       returned: always
-      sample: string_value
+      sample: This is a sample description for the resource.
     service_name:
-      description: service name
+      description: Service name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     service_settings:
-      description: service settings
+      description: Service settings
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     service_settings_uuid:
-      description: service settings uuid
+      description: Service settings uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     service_settings_state:
-      description: service settings state
+      description: Service settings state
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     service_settings_error_message:
-      description: service settings error message
+      description: Service settings error message
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     project:
-      description: project
+      description: Project
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     project_name:
-      description: project name
+      description: Project name
       type: str
       returned: always
-      sample: string_value
+      sample: Internal Research Project
     project_uuid:
-      description: project uuid
+      description: Project uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer:
-      description: customer
+      description: Customer
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     customer_name:
-      description: customer name
+      description: Customer name
       type: str
       returned: always
-      sample: string_value
+      sample: Big Corp Inc.
     customer_native_name:
-      description: customer native name
+      description: Customer native name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     customer_abbreviation:
-      description: customer abbreviation
+      description: Customer abbreviation
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     error_message:
-      description: error message
+      description: Error message
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     error_traceback:
-      description: error traceback
+      description: Error traceback
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     resource_type:
-      description: resource type
+      description: Resource type
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     state:
       description: ''
       type: str
       returned: always
-      sample: string_value
+      sample: CREATION_SCHEDULED
     created:
-      description: created
+      description: Created
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     modified:
-      description: modified
+      description: Modified
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: backend id
+      description: Backend id
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     access_url:
-      description: access url
+      description: Access url
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     source_snapshot:
-      description: source snapshot
+      description: Source snapshot
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/source-snapshot/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     size:
       description: Size in MiB
       type: int
       returned: always
-      sample: 123
+      sample: 100
     bootable:
-      description: bootable
+      description: Bootable
       type: bool
       returned: always
       sample: true
     metadata:
-      description: metadata
+      description: Metadata
       type: str
       returned: always
       sample: null
     image:
-      description: image
+      description: Image
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     image_metadata:
-      description: image metadata
+      description: Image metadata
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     image_name:
-      description: image name
+      description: Image name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     type:
-      description: type
+      description: Type
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     type_name:
-      description: type name
+      description: Type name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     runtime_state:
-      description: runtime state
+      description: Runtime state
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     availability_zone:
-      description: availability zone
+      description: Availability zone
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     availability_zone_name:
-      description: availability zone name
+      description: Availability zone name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     device:
       description: Name of volume as instance device e.g. /dev/vdb.
       type: str
       returned: always
-      sample: My Resource Name
+      sample: string-value
     action:
-      description: action
+      description: Action
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     action_details:
-      description: action details
+      description: Action details
       type: str
       returned: always
       sample: null
     instance:
-      description: instance
+      description: Instance
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/instance/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     instance_name:
-      description: instance name
+      description: Instance name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     instance_marketplace_uuid:
-      description: instance marketplace uuid
+      description: Instance marketplace uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     tenant:
-      description: tenant
+      description: Tenant
       type: str
       returned: always
-      sample: https://api.example.com/api/resource/...
+      sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     tenant_uuid:
-      description: tenant uuid
+      description: Tenant uuid
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     extend_enabled:
-      description: extend enabled
+      description: Extend enabled
       type: bool
       returned: always
       sample: true
     marketplace_offering_uuid:
-      description: marketplace offering uuid
+      description: Marketplace offering uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_offering_name:
-      description: marketplace offering name
+      description: Marketplace offering name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     marketplace_offering_plugin_options:
-      description: marketplace offering plugin options
+      description: Marketplace offering plugin options
       type: dict
       returned: always
-      sample: null
+      sample: {}
     marketplace_category_uuid:
-      description: marketplace category uuid
+      description: Marketplace category uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_category_name:
-      description: marketplace category name
+      description: Marketplace category name
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     marketplace_resource_uuid:
-      description: marketplace resource uuid
+      description: Marketplace resource uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_plan_uuid:
-      description: marketplace plan uuid
+      description: Marketplace plan uuid
       type: str
       returned: always
-      sample: string_value
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_resource_state:
-      description: marketplace resource state
+      description: Marketplace resource state
       type: str
       returned: always
-      sample: string_value
+      sample: string-value
     is_usage_based:
-      description: is usage based
+      description: Is usage based
       type: bool
       returned: always
       sample: true
     is_limit_based:
-      description: is limit based
+      description: Is limit based
       type: bool
       returned: always
       sample: true
@@ -447,9 +447,9 @@ RUNNER_CONTEXT = {
     "order_model_class": OrderCreateRequest,
     "terminate_model_class": ResourceTerminateRequest,
     "attribute_param_names": [
-        "description",
         "size",
         "type",
+        "description",
     ],
     "resolvers": {
         "offering": {
