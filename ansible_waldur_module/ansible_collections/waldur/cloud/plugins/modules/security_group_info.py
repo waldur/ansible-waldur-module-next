@@ -6,16 +6,6 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.waldur.cloud.plugins.module_utils.waldur.facts_runner import (
     FactsRunner,
 )
-from waldur_api_client.api.openstack_security_groups import (
-    openstack_security_groups_list,
-)
-from waldur_api_client.api.openstack_security_groups import (
-    openstack_security_groups_retrieve,
-)
-from waldur_api_client.api.openstack_tenants import openstack_tenants_list
-from waldur_api_client.api.openstack_tenants import openstack_tenants_retrieve
-from waldur_api_client.api.projects import projects_list
-from waldur_api_client.api.projects import projects_retrieve
 
 ANSIBLE_METADATA = {
     "metadata_version": "1.1",
@@ -25,14 +15,11 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: waldur.cloud.openstack_security_group
-short_description: Get an existing security group.
-version_added: '0.1'
+module: security_group_info
+short_description: Manage security_group_info
 description:
-- Get an existing security group.
-requirements:
-- python = 3.11
-- waldur-api-client
+- Manage security_group_info
+author: Waldur Team
 options:
   access_token:
     description: An access token.
@@ -44,16 +31,18 @@ options:
     required: true
     type: str
   name:
+    name: name
     type: str
     required: false
     description: The name or UUID of the security group.
-  project:
-    type: str
-    required: false
-    description: The name or UUID of the project.
   tenant:
+    name: tenant
     type: str
     required: false
+    description: ''
+requirements:
+- python >= 3.11
+- requests
 
 """
 
@@ -62,11 +51,10 @@ EXAMPLES = """
   hosts: localhost
   tasks:
   - name: Get a security group
-    waldur.cloud.openstack_security_group:
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com:8000/api
+    waldur.cloud.security_group_info:
+      access_token: some_value
+      api_url: some_value
       name: Security_group Name or UUID
-      project: Project Name or UUID
       tenant: some_value
 
 """
@@ -332,41 +320,24 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {
-        "description": "An access token.",
-        "required": True,
-        "type": "str",
-        "no_log": True,
-    },
-    "api_url": {
-        "description": "Fully qualified URL to the API.",
-        "required": True,
-        "type": "str",
-    },
+    "access_token": {"type": "str", "required": True},
+    "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": False},
-    "project": {"type": "str", "required": False},
     "tenant": {"type": "str", "required": False},
 }
 
 RUNNER_CONTEXT = {
     "module_type": "facts",
     "resource_type": "security_group",
-    "list_func": openstack_security_groups_list,
-    "retrieve_func": openstack_security_groups_retrieve,
+    "list_url": "/api/openstack-security-groups/",
+    "retrieve_url": "/api/openstack-security-groups/{uuid}/",
     "identifier_param": "name",
     "context_resolvers": {
-        "project": {
-            "list_func": projects_list,
-            "retrieve_func": projects_retrieve,
-            "error_message": "Project '{value}' not found.",
-            "filter_key": "project_uuid",
-        },
         "tenant": {
-            "list_func": openstack_tenants_list,
-            "retrieve_func": openstack_tenants_retrieve,
+            "url": "/api/openstack-tenants/",
             "error_message": "Tenant '{value}' not found.",
             "filter_key": "tenant_uuid",
-        },
+        }
     },
 }
 

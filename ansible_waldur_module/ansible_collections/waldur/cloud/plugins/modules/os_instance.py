@@ -6,28 +6,6 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.waldur.cloud.plugins.module_utils.waldur.order_runner import (
     OrderRunner,
 )
-from waldur_api_client.api.keys import keys_list
-from waldur_api_client.api.keys import keys_retrieve
-from waldur_api_client.api.marketplace_orders import marketplace_orders_create
-from waldur_api_client.api.marketplace_orders import marketplace_orders_retrieve
-from waldur_api_client.api.marketplace_public_offerings import (
-    marketplace_public_offerings_list,
-)
-from waldur_api_client.api.marketplace_public_offerings import (
-    marketplace_public_offerings_retrieve,
-)
-from waldur_api_client.api.marketplace_resources import marketplace_resources_terminate
-from waldur_api_client.api.openstack_flavors import openstack_flavors_list
-from waldur_api_client.api.openstack_flavors import openstack_flavors_retrieve
-from waldur_api_client.api.openstack_images import openstack_images_list
-from waldur_api_client.api.openstack_images import openstack_images_retrieve
-from waldur_api_client.api.openstack_instances import openstack_instances_list
-from waldur_api_client.api.openstack_volume_types import openstack_volume_types_list
-from waldur_api_client.api.openstack_volume_types import openstack_volume_types_retrieve
-from waldur_api_client.api.projects import projects_list
-from waldur_api_client.api.projects import projects_retrieve
-from waldur_api_client.models import OrderCreateRequest
-from waldur_api_client.models import ResourceTerminateRequest
 
 ANSIBLE_METADATA = {
     "metadata_version": "1.1",
@@ -37,19 +15,17 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: waldur.cloud.os_instance
+module: os_instance
 short_description: Create or delete an OpenStack Instance.
-version_added: '0.1'
 description:
 - Create or delete an OpenStack Instance.
-requirements:
-- python = 3.11
-- waldur-api-client
+author: Waldur Team
 options:
   access_token:
     description: An access token.
     required: true
     type: str
+    no_log: true
   api_url:
     description: Fully qualified URL to the API.
     required: true
@@ -59,20 +35,20 @@ options:
     choices:
     - present
     - absent
+    default: present
     type: str
-    required: false
   wait:
     description: A boolean value that defines whether to wait for the order to complete.
+    default: true
     type: bool
-    required: false
   timeout:
     description: The maximum number of seconds to wait for the order to complete.
+    default: 600
     type: int
-    required: false
   interval:
     description: The interval in seconds for polling the order status.
+    default: 20
     type: int
-    required: false
   name:
     type: str
     required: true
@@ -129,6 +105,9 @@ options:
     type: str
     required: false
     description: Cloud-init user data script.
+requirements:
+- python >= 3.11
+- requests
 
 """
 
@@ -146,7 +125,7 @@ EXAMPLES = """
       offering: Standard Volume Offering
       flavor: some_value
       image: some_value
-      system_volume_size: 10
+      system_volume_size: '10'
       networks: some_value
 - name: Remove an existing OpenStack instance
   hosts: localhost
@@ -1087,67 +1066,43 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack instance",
-    "existence_check_func": openstack_instances_list,
-    "existence_check_filter_keys": {
-        "project": "project_uuid",
-    },
-    "update_func": None,
-    "update_model_class": None,
+    "existence_check_url": "/api/openstack-instances/",
+    "existence_check_filter_keys": {"project": "project_uuid"},
+    "update_url": None,
     "update_check_fields": [],
-    "order_create_func": marketplace_orders_create,
-    "order_poll_func": marketplace_orders_retrieve,
-    "terminate_func": marketplace_resources_terminate,
-    "order_model_class": OrderCreateRequest,
-    "terminate_model_class": ResourceTerminateRequest,
+    "order_create_url": "/api/marketplace-orders/",
+    "order_poll_url": "/api/marketplace-orders/",
+    "terminate_url": "/api/marketplace-resources/",
     "attribute_param_names": [
-        "data_volume_type",
-        "ssh_key",
-        "networks",
-        "flavor",
-        "image",
-        "security_groups",
         "system_volume_type",
+        "flavor",
         "description",
         "data_volume_size",
         "system_volume_size",
+        "ssh_key",
+        "security_groups",
+        "image",
+        "data_volume_type",
+        "networks",
         "user_data",
     ],
     "resolvers": {
-        "project": {
-            "list_func": projects_list,
-            "retrieve_func": projects_retrieve,
-            "error_message": "Project '{value}' not found.",
-        },
+        "project": {"url": "/api/projects/", "error_message": None},
         "offering": {
-            "list_func": marketplace_public_offerings_list,
-            "retrieve_func": marketplace_public_offerings_retrieve,
-            "error_message": "Offering '{value}' not found.",
+            "url": "/api/marketplace-public-offerings/",
+            "error_message": None,
         },
-        "flavor": {
-            "list_func": openstack_flavors_list,
-            "retrieve_func": openstack_flavors_retrieve,
-            "error_message": "Flavor '{value}' not found.",
-        },
-        "image": {
-            "list_func": openstack_images_list,
-            "retrieve_func": openstack_images_retrieve,
-            "error_message": "Image '{value}' not found.",
-        },
+        "flavor": {"url": "/api/openstack-flavors/", "error_message": None},
+        "image": {"url": "/api/openstack-images/", "error_message": None},
         "system_volume_type": {
-            "list_func": openstack_volume_types_list,
-            "retrieve_func": openstack_volume_types_retrieve,
-            "error_message": "System_volume_type '{value}' not found.",
+            "url": "/api/openstack-volume-types/",
+            "error_message": None,
         },
         "data_volume_type": {
-            "list_func": openstack_volume_types_list,
-            "retrieve_func": openstack_volume_types_retrieve,
-            "error_message": "Data_volume_type '{value}' not found.",
+            "url": "/api/openstack-volume-types/",
+            "error_message": None,
         },
-        "ssh_key": {
-            "list_func": keys_list,
-            "retrieve_func": keys_retrieve,
-            "error_message": "Ssh_key '{value}' not found.",
-        },
+        "ssh_key": {"url": "/api/keys/", "error_message": None},
     },
 }
 

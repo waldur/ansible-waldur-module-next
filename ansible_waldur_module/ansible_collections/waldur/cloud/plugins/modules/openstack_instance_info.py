@@ -6,10 +6,6 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.waldur.cloud.plugins.module_utils.waldur.facts_runner import (
     FactsRunner,
 )
-from waldur_api_client.api.openstack_instances import openstack_instances_list
-from waldur_api_client.api.openstack_instances import openstack_instances_retrieve
-from waldur_api_client.api.projects import projects_list
-from waldur_api_client.api.projects import projects_retrieve
 
 ANSIBLE_METADATA = {
     "metadata_version": "1.1",
@@ -19,14 +15,11 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: waldur.cloud.openstack_instance_facts
-short_description: Get an existing openstack instance.
-version_added: '0.1'
+module: openstack_instance_info
+short_description: Manage openstack_instance_info
 description:
-- Get an existing openstack instance.
-requirements:
-- python = 3.11
-- waldur-api-client
+- Manage openstack_instance_info
+author: Waldur Team
 options:
   access_token:
     description: An access token.
@@ -38,13 +31,13 @@ options:
     required: true
     type: str
   name:
+    name: name
     type: str
     required: true
     description: The name or UUID of the openstack instance.
-  project:
-    type: str
-    required: true
-    description: The name or UUID of the project.
+requirements:
+- python >= 3.11
+- requests
 
 """
 
@@ -53,11 +46,10 @@ EXAMPLES = """
   hosts: localhost
   tasks:
   - name: Get a openstack instance
-    waldur.cloud.openstack_instance_facts:
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com:8000/api
+    waldur.cloud.openstack_instance_info:
+      access_token: some_value
+      api_url: some_value
       name: Openstack_instance Name or UUID
-      project: Project Name or UUID
 
 """
 
@@ -963,35 +955,18 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {
-        "description": "An access token.",
-        "required": True,
-        "type": "str",
-        "no_log": True,
-    },
-    "api_url": {
-        "description": "Fully qualified URL to the API.",
-        "required": True,
-        "type": "str",
-    },
+    "access_token": {"type": "str", "required": True},
+    "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
 }
 
 RUNNER_CONTEXT = {
     "module_type": "facts",
     "resource_type": "openstack_instance",
-    "list_func": openstack_instances_list,
-    "retrieve_func": openstack_instances_retrieve,
+    "list_url": "/api/openstack-instances/",
+    "retrieve_url": "/api/openstack-instances/{uuid}/",
     "identifier_param": "name",
-    "context_resolvers": {
-        "project": {
-            "list_func": projects_list,
-            "retrieve_func": projects_retrieve,
-            "error_message": "Project '{value}' not found.",
-            "filter_key": "project_uuid",
-        },
-    },
+    "context_resolvers": {},
 }
 
 

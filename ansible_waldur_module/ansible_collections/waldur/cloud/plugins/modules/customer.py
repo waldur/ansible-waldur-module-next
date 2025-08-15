@@ -4,12 +4,8 @@
 #
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.waldur.cloud.plugins.module_utils.waldur.crud_runner import (
-    CrudResourceRunner,
+    CrudRunner,
 )
-from waldur_api_client.api.customers import customers_create
-from waldur_api_client.api.customers import customers_destroy
-from waldur_api_client.api.customers import customers_list
-from waldur_api_client.models.customer_request import CustomerRequest
 
 ANSIBLE_METADATA = {
     "metadata_version": "1.1",
@@ -19,19 +15,17 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: waldur.cloud.customer
-short_description: Manage Customers in Waldur.
-version_added: '0.1'
+module: customer
+short_description: Manage customer
 description:
-- Manage Customers in Waldur.
-requirements:
-- python = 3.11
-- waldur-api-client
+- Manage customer
+author: Waldur Team
 options:
   access_token:
     description: An access token.
     required: true
     type: str
+    no_log: true
   api_url:
     description: Fully qualified URL to the API.
     required: true
@@ -41,80 +35,133 @@ options:
     choices:
     - present
     - absent
+    default: present
     type: str
-    required: false
-  name:
-    type: str
-    required: true
-    description: The name of the customer to check/create/delete.
   backend_id:
+    name: backend_id
     type: str
     required: false
     description: Organization identifier in another application.
+    is_resolved: false
+    choices: null
   image:
+    name: image
     type: str
     required: false
     description: Image
+    is_resolved: false
+    choices: null
+  name:
+    name: name
+    type: str
+    required: true
+    description: Name
+    is_resolved: false
+    choices: null
   native_name:
+    name: native_name
     type: str
     required: false
     description: Native name
+    is_resolved: false
+    choices: null
   abbreviation:
+    name: abbreviation
     type: str
     required: false
     description: Abbreviation
+    is_resolved: false
+    choices: null
   contact_details:
+    name: contact_details
     type: str
     required: false
     description: Contact details
+    is_resolved: false
+    choices: null
   email:
+    name: email
     type: str
     required: false
     description: Email
+    is_resolved: false
+    choices: null
   phone_number:
+    name: phone_number
     type: str
     required: false
     description: Phone number
+    is_resolved: false
+    choices: null
   registration_code:
+    name: registration_code
     type: str
     required: false
     description: Registration code
+    is_resolved: false
+    choices: null
   homepage:
+    name: homepage
     type: str
     required: false
     description: Homepage
+    is_resolved: false
+    choices: null
   vat_code:
+    name: vat_code
     type: str
     required: false
     description: VAT number
+    is_resolved: false
+    choices: null
   postal:
+    name: postal
     type: str
     required: false
     description: Postal
+    is_resolved: false
+    choices: null
   address:
+    name: address
     type: str
     required: false
     description: Address
+    is_resolved: false
+    choices: null
   bank_name:
+    name: bank_name
     type: str
     required: false
     description: Bank name
+    is_resolved: false
+    choices: null
   latitude:
+    name: latitude
     type: float
     required: false
     description: Latitude
+    is_resolved: false
+    choices: null
   longitude:
+    name: longitude
     type: float
     required: false
     description: Longitude
+    is_resolved: false
+    choices: null
   bank_account:
+    name: bank_account
     type: str
     required: false
     description: Bank account
+    is_resolved: false
+    choices: null
   country:
+    name: country
     type: str
     required: false
     description: Country
+    is_resolved: false
     choices:
     - AL
     - AT
@@ -156,6 +203,9 @@ options:
     - UA
     - EU
     - ''
+requirements:
+- python >= 3.11
+- requests
 
 """
 
@@ -177,7 +227,6 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com:8000/api
       state: absent
-      name: My Awesome Customer
 
 """
 
@@ -533,9 +582,9 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "required": True},
     "api_url": {"type": "str", "required": True},
     "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "name": {"type": "str", "required": True},
     "backend_id": {"type": "str", "required": False},
     "image": {"type": "str", "required": False},
+    "name": {"type": "str", "required": True},
     "native_name": {"type": "str", "required": False},
     "abbreviation": {"type": "str", "required": False},
     "contact_details": {"type": "str", "required": False},
@@ -600,11 +649,7 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "customer",
-    "existence_check_func": customers_list,
-    "present_create_func": customers_create,
-    "present_create_model_class": CustomerRequest,
-    "absent_destroy_func": customers_destroy,
-    "absent_destroy_path_param": "uuid",
+    "api_path": "/api/customers/",
     "model_param_names": [
         "backend_id",
         "image",
@@ -635,7 +680,7 @@ def main():
         argument_spec=ARGUMENT_SPEC,
         supports_check_mode=True,
     )
-    runner = CrudResourceRunner(module, RUNNER_CONTEXT)
+    runner = CrudRunner(module, RUNNER_CONTEXT)
     runner.run()
 
 

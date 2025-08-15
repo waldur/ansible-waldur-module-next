@@ -4,16 +4,8 @@
 #
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.waldur.cloud.plugins.module_utils.waldur.crud_runner import (
-    CrudResourceRunner,
+    CrudRunner,
 )
-from waldur_api_client.api.customers import customers_list
-from waldur_api_client.api.customers import customers_retrieve
-from waldur_api_client.api.project_types import project_types_list
-from waldur_api_client.api.project_types import project_types_retrieve
-from waldur_api_client.api.projects import projects_create
-from waldur_api_client.api.projects import projects_destroy
-from waldur_api_client.api.projects import projects_list
-from waldur_api_client.models.project_request import ProjectRequest
 
 ANSIBLE_METADATA = {
     "metadata_version": "1.1",
@@ -23,19 +15,17 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: waldur.cloud.project
-short_description: Manage Projects in Waldur.
-version_added: '0.1'
+module: project
+short_description: Manage project
 description:
-- Manage Projects in Waldur.
-requirements:
-- python = 3.11
-- waldur-api-client
+- Manage project
+author: Waldur Team
 options:
   access_token:
     description: An access token.
     required: true
     type: str
+    no_log: true
   api_url:
     description: Fully qualified URL to the API.
     required: true
@@ -45,40 +35,63 @@ options:
     choices:
     - present
     - absent
+    default: present
     type: str
-    required: false
   name:
+    name: name
     type: str
     required: true
-    description: The name of the project to check/create/delete.
+    description: Name
+    is_resolved: false
+    choices: null
   customer:
+    name: customer
     type: str
     required: true
     description: The name or UUID of the customer. Customer
+    is_resolved: true
+    choices: null
   description:
+    name: description
     type: str
     required: false
     description: Description
+    is_resolved: false
+    choices: null
   type:
+    name: type
     type: str
     required: false
     description: The name or UUID of the type. Type
+    is_resolved: true
+    choices: null
   backend_id:
+    name: backend_id
     type: str
     required: false
     description: Backend id
+    is_resolved: false
+    choices: null
   start_date:
+    name: start_date
     type: str
     required: false
     description: Start date
+    is_resolved: false
+    choices: null
   end_date:
+    name: end_date
     type: str
     required: false
     description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
+    is_resolved: false
+    choices: null
   oecd_fos_2007_code:
+    name: oecd_fos_2007_code
     type: str
     required: false
     description: Oecd fos 2007 code
+    is_resolved: false
     choices:
     - '1.1'
     - '1.2'
@@ -125,13 +138,22 @@ options:
     - '6.5'
     - ''
   is_industry:
+    name: is_industry
     type: bool
     required: false
     description: Is industry
+    is_resolved: false
+    choices: null
   image:
+    name: image
     type: str
     required: false
     description: Image
+    is_resolved: false
+    choices: null
+requirements:
+- python >= 3.11
+- requests
 
 """
 
@@ -154,7 +176,6 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com:8000/api
       state: absent
-      name: My Awesome Project
 
 """
 
@@ -395,11 +416,7 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "project",
-    "existence_check_func": projects_list,
-    "present_create_func": projects_create,
-    "present_create_model_class": ProjectRequest,
-    "absent_destroy_func": projects_destroy,
-    "absent_destroy_path_param": "uuid",
+    "api_path": "/api/projects/",
     "model_param_names": [
         "name",
         "customer",
@@ -413,16 +430,8 @@ RUNNER_CONTEXT = {
         "image",
     ],
     "resolvers": {
-        "customer": {
-            "list_func": customers_list,
-            "retrieve_func": customers_retrieve,
-            "error_message": "Customer '{value}' not found.",
-        },
-        "type": {
-            "list_func": project_types_list,
-            "retrieve_func": project_types_retrieve,
-            "error_message": "Type '{value}' not found.",
-        },
+        "customer": {"url": "/api/customers/", "error_message": None},
+        "type": {"url": "/api/project-types/", "error_message": None},
     },
 }
 
@@ -433,7 +442,7 @@ def main():
         argument_spec=ARGUMENT_SPEC,
         supports_check_mode=True,
     )
-    runner = CrudResourceRunner(module, RUNNER_CONTEXT)
+    runner = CrudRunner(module, RUNNER_CONTEXT)
     runner.run()
 
 
