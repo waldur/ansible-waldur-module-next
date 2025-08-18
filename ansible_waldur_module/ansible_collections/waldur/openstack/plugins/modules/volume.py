@@ -433,12 +433,12 @@ RUNNER_CONTEXT = {
     "order_poll_url": "/api/marketplace-orders/",
     "terminate_url": "/api/marketplace-resources/",
     "attribute_param_names": [
-        "name",
-        "type",
         "description",
-        "size",
         "image",
+        "type",
         "availability_zone",
+        "size",
+        "name",
     ],
     "resolvers": {
         "offering": {
