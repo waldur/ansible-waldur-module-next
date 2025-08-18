@@ -1,6 +1,6 @@
 import time
 
-from ansible_collections.waldur.cloud.plugins.module_utils.waldur.base_runner import (
+from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runner import (
     BaseRunner,
 )
 
