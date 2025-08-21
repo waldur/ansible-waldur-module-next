@@ -441,25 +441,35 @@ RUNNER_CONTEXT = {
     "update_url": "/api/openstack-volumes/{uuid}/",
     "update_check_fields": ["description"],
     "attribute_param_names": [
-        "type",
-        "size",
         "availability_zone",
+        "type",
         "description",
-        "name",
+        "size",
         "image",
+        "name",
     ],
     "resolvers": {
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
+            "filter_by": [],
         },
-        "type": {"url": "/api/openstack-volume-types/", "error_message": None},
-        "image": {"url": "/api/openstack-images/", "error_message": None},
+        "type": {
+            "url": "/api/openstack-volume-types/",
+            "error_message": None,
+            "filter_by": [],
+        },
+        "image": {
+            "url": "/api/openstack-images/",
+            "error_message": None,
+            "filter_by": [],
+        },
         "availability_zone": {
             "url": "/api/openstack-volume-availability-zones/",
             "error_message": None,
+            "filter_by": [],
         },
-        "project": {"url": "/api/projects/", "error_message": None},
+        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
     },
 }
 
