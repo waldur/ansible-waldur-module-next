@@ -15,10 +15,10 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: volume
-short_description: Create, update, or delete an OpenStack Volume via the marketplace.
+module: vpc
+short_description: Create, update, or delete an OpenStack Tenant via the marketplace.
 description:
-- Create, update, or delete an OpenStack Volume via the marketplace.
+- Create, update, or delete an OpenStack Tenant via the marketplace.
 author: Waldur Team
 options:
   access_token:
@@ -65,66 +65,59 @@ options:
     type: str
     required: false
     description: URL of the marketplace plan.
+  limits:
+    type: object
+    required: false
+    description: Marketplace resource limits for limit-based billing.
   description:
     type: str
     required: false
     description: Description
-  image:
+  subnet_cidr:
     type: str
     required: false
-    description: The name or UUID of the image.
-  size:
-    type: int
+    description: Subnet CIDR
+  skip_connection_extnet:
+    type: bool
     required: false
-    description: Size in MiB
+    description: Skip connection extnet
+  skip_creation_of_default_router:
+    type: bool
+    required: false
+    description: Skip creation of default router
   availability_zone:
     type: str
     required: false
-    description: The name or UUID of the availability zone.
-  type:
-    type: str
-    required: false
-    description: The name or UUID of the type.
+    description: Optional availability group. Will be used for all instances provisioned in this tenant
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Create a new OpenStack volume
+- name: Create a new OpenStack tenant
   hosts: localhost
   tasks:
-  - name: Add OpenStack volume
-    waldur.openstack.volume:
+  - name: Add OpenStack tenant
+    waldur.openstack.vpc:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com/api
       project: Project Name or UUID
       offering: Offering Name or UUID
-      name: My-Awesome-OpenStack-volume
+      name: My-Awesome-OpenStack-tenant
       description: A sample description created by Ansible.
-      image: Image Name or UUID
-      size: 100
-      availability_zone: Availability_zone Name or UUID
-      type: Type Name or UUID
-- name: Update an existing OpenStack volume
+      subnet_cidr: 192.168.1.0/24
+      skip_connection_extnet: true
+      skip_creation_of_default_router: true
+      availability_zone: string-value
+- name: Remove an existing OpenStack tenant
   hosts: localhost
   tasks:
-  - name: Update the description of a OpenStack volume
-    waldur.openstack.volume:
-      state: present
-      name: My-Awesome-OpenStack-volume
-      project: Project Name or UUID
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com
-      description: An updated description
-- name: Remove an existing OpenStack volume
-  hosts: localhost
-  tasks:
-  - name: Remove OpenStack volume
-    waldur.openstack.volume:
+  - name: Remove OpenStack tenant
+    waldur.openstack.vpc:
       state: absent
-      name: My-Awesome-OpenStack-volume
+      name: My-Awesome-OpenStack-tenant
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com/api
       project: Project Name or UUID
@@ -134,7 +127,7 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A dictionary describing the OpenStack volume after a successful 'present' state.
+  description: A dictionary describing the OpenStack tenant after a successful 'present' state.
   type: dict
   returned: on success when state is 'present'
   contains:
@@ -253,116 +246,47 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    access_url:
-      description: Access URL
-      type: str
-      returned: always
-      sample: string-value
-    source_snapshot:
-      description: Source snapshot URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/source-snapshot/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    size:
-      description: Size in MiB
-      type: int
-      returned: always
-      sample: 100
-    bootable:
-      description: Bootable
-      type: bool
-      returned: always
-      sample: true
-    metadata:
-      description: Metadata
-      type: str
-      returned: always
-      sample: null
-    image:
-      description: Image URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    image_metadata:
-      description: Image metadata
-      type: str
-      returned: always
-      sample: string-value
-    image_name:
-      description: Image name
-      type: str
-      returned: always
-      sample: string-value
-    type:
-      description: Type URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    type_name:
-      description: Type name
-      type: str
-      returned: always
-      sample: string-value
-    runtime_state:
-      description: Runtime state
-      type: str
-      returned: always
-      sample: string-value
     availability_zone:
-      description: Availability zone URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    availability_zone_name:
-      description: Availability zone name
+      description: Optional availability group. Will be used for all instances provisioned in this tenant
       type: str
       returned: always
       sample: string-value
-    device:
-      description: Name of volume as instance device e.g. /dev/vdb.
+    internal_network_id:
+      description: Internal network ID
       type: str
       returned: always
       sample: string-value
-    action:
-      description: Action
+    external_network_id:
+      description: External network ID
       type: str
       returned: always
       sample: string-value
-    action_details:
-      description: Action details
-      type: str
+    quotas:
+      description: A list of quotas items.
+      type: list
       returned: always
-      sample: null
-    instance:
-      description: Instance URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/instance/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    instance_name:
-      description: Instance name
+      sample: []
+      contains:
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        usage:
+          description: Usage
+          type: int
+          returned: always
+          sample: 123
+        limit:
+          description: Limit
+          type: int
+          returned: always
+          sample: 123
+    default_volume_type_name:
+      description: Volume type name to use when creating volumes.
       type: str
       returned: always
       sample: string-value
-    instance_marketplace_uuid:
-      description: Instance marketplace UUID
-      type: str
-      returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    tenant:
-      description: Tenant URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    tenant_uuid:
-      description: Tenant UUID
-      type: str
-      returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    extend_enabled:
-      description: Extend enabled
-      type: bool
-      returned: always
-      sample: true
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
@@ -427,36 +351,31 @@ ARGUMENT_SPEC = {
     "project": {"type": "str", "required": True},
     "offering": {"type": "str", "required": True},
     "plan": {"type": "str", "required": False},
+    "limits": {"type": "object", "required": False},
     "description": {"type": "str", "required": False},
-    "image": {"type": "str", "required": False},
-    "size": {"type": "int", "required": False},
+    "subnet_cidr": {"type": "str", "required": False},
+    "skip_connection_extnet": {"type": "bool", "required": False},
+    "skip_creation_of_default_router": {"type": "bool", "required": False},
     "availability_zone": {"type": "str", "required": False},
-    "type": {"type": "str", "required": False},
 }
 
 RUNNER_CONTEXT = {
-    "resource_type": "OpenStack volume",
-    "existence_check_url": "/api/openstack-volumes/",
+    "resource_type": "OpenStack tenant",
+    "existence_check_url": "/api/openstack-tenants/",
     "existence_check_filter_keys": {"project": "project_uuid"},
-    "update_url": "/api/openstack-volumes/{uuid}/",
-    "update_check_fields": ["description"],
+    "update_url": None,
+    "update_check_fields": [],
     "attribute_param_names": [
-        "type",
-        "size",
+        "skip_creation_of_default_router",
         "availability_zone",
-        "description",
+        "subnet_cidr",
         "name",
-        "image",
+        "skip_connection_extnet",
+        "description",
     ],
     "resolvers": {
         "offering": {
             "url": "/api/marketplace-public-offerings/",
-            "error_message": None,
-        },
-        "type": {"url": "/api/openstack-volume-types/", "error_message": None},
-        "image": {"url": "/api/openstack-images/", "error_message": None},
-        "availability_zone": {
-            "url": "/api/openstack-volume-availability-zones/",
             "error_message": None,
         },
         "project": {"url": "/api/projects/", "error_message": None},

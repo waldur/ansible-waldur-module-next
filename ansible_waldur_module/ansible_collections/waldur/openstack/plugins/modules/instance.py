@@ -52,7 +52,7 @@ options:
   name:
     type: str
     required: true
-    description: ''
+    description: Name
   project:
     type: str
     required: true
@@ -61,10 +61,14 @@ options:
     type: str
     required: true
     description: The name or UUID of the marketplace offering.
+  plan:
+    type: str
+    required: false
+    description: URL of the marketplace plan.
   description:
     type: str
     required: false
-    description: ''
+    description: Description
   flavor:
     type: str
     required: true
@@ -73,34 +77,69 @@ options:
     type: str
     required: true
     description: The name or UUID of the image.
+  security_groups:
+    type: list
+    required: false
+    description: A list of security groups items.
+    elements: list
   ports:
     type: list
     required: true
-    description: ''
+    description: A list of ports items.
+    elements: dict
+    suboptions:
+      fixed_ips:
+        type: list
+        required: false
+        description: A list of fixed ips items.
+        elements: dict
+        suboptions:
+          ip_address:
+            type: str
+            required: true
+            description: IP address
+          subnet_id:
+            type: str
+            required: true
+            description: Subnet ID
+      subnet:
+        type: str
+        required: false
+        description: Subnet URL
+      port:
+        type: str
+        required: false
+        description: Port URL
   floating_ips:
     type: list
     required: false
-    description: ''
+    description: A list of floating ips items.
+    elements: dict
+    suboptions:
+      subnet:
+        type: str
+        required: true
+        description: Subnet URL
   system_volume_size:
     type: int
     required: true
-    description: ''
+    description: System volume size
   system_volume_type:
     type: str
     required: false
-    description: The name or UUID of the system_volume_type.
+    description: The name or UUID of the system volume type.
   data_volume_size:
     type: int
     required: false
-    description: ''
+    description: Data volume size
   data_volume_type:
     type: str
     required: false
-    description: The name or UUID of the data_volume_type.
+    description: The name or UUID of the data volume type.
   ssh_public_key:
     type: str
     required: false
-    description: ''
+    description: SSH public key URL
   user_data:
     type: str
     required: false
@@ -108,11 +147,11 @@ options:
   availability_zone:
     type: str
     required: false
-    description: ''
+    description: Availability zone URL
   connect_directly_to_external_network:
     type: bool
     required: false
-    description: ''
+    description: Connect directly to external network
 requirements:
 - python >= 3.11
 
@@ -124,26 +163,44 @@ EXAMPLES = """
   tasks:
   - name: Add OpenStack instance
     waldur.openstack.instance:
-      access_token: some_value
-      api_url: some_value
       state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
+      project: Project Name or UUID
+      offering: Offering Name or UUID
       name: My-Awesome-OpenStack-instance
-      project: Cloud Project
-      offering: Standard Volume Offering
-      flavor: some_value
-      image: some_value
-      ports: some_value
-      system_volume_size: 10
+      description: A sample description created by Ansible.
+      flavor: Flavor Name or UUID
+      image: Image Name or UUID
+      security_groups:
+      - - web-server-sg
+      ports:
+      - fixed_ips:
+        - ip_address: 8.8.8.8
+          subnet_id: string-value
+        subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        port: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      floating_ips:
+      - subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      system_volume_size: 123
+      system_volume_type: System_volume_type Name or UUID
+      data_volume_size: 123
+      data_volume_type: Data_volume_type Name or UUID
+      ssh_public_key: string-value
+      user_data: "#cloud-config\npackages:\n  - nginx"
+      availability_zone: string-value
+      connect_directly_to_external_network: true
 - name: Remove an existing OpenStack instance
   hosts: localhost
   tasks:
   - name: Remove OpenStack instance
     waldur.openstack.instance:
-      name: My-Awesome-OpenStack-instance
-      project: Cloud Project
       state: absent
+      name: My-Awesome-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com/api
+      project: Project Name or UUID
+      offering: Offering Name or UUID
 
 """
 
@@ -154,12 +211,12 @@ resource:
   returned: on success when state is 'present'
   contains:
     url:
-      description: Url
+      description: URL URL
       type: str
       returned: always
       sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: Uuid
+      description: UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -167,24 +224,24 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My Awesome Resource
+      sample: My-Awesome-Resource
     description:
       description: Description
       type: str
       returned: always
-      sample: This is a sample description for the resource.
+      sample: A sample description created by Ansible.
     service_name:
       description: Service name
       type: str
       returned: always
       sample: string-value
     service_settings:
-      description: Service settings
+      description: Service settings URL
       type: str
       returned: always
       sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     service_settings_uuid:
-      description: Service settings uuid
+      description: Service settings UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -199,7 +256,7 @@ resource:
       returned: always
       sample: string-value
     project:
-      description: Project
+      description: Project URL
       type: str
       returned: always
       sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -209,12 +266,12 @@ resource:
       returned: always
       sample: Internal Research Project
     project_uuid:
-      description: Project uuid
+      description: Project UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer:
-      description: Customer
+      description: Customer URL
       type: str
       returned: always
       sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -249,10 +306,10 @@ resource:
       returned: always
       sample: string-value
     state:
-      description: ''
+      description: State
       type: str
       returned: always
-      sample: CREATION_SCHEDULED
+      sample: OK
     created:
       description: Created
       type: str
@@ -264,12 +321,12 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: Backend id
+      description: Backend ID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     access_url:
-      description: Access url
+      description: Access URL
       type: str
       returned: always
       sample: string-value
@@ -309,12 +366,12 @@ resource:
       returned: always
       sample: "#cloud-config\npackages:\n  - nginx"
     external_ips:
-      description: External ips
+      description: A list of external ips items.
       type: list
       returned: always
       sample: []
     internal_ips:
-      description: Internal ips
+      description: A list of internal ips items.
       type: list
       returned: always
       sample: []
@@ -354,18 +411,18 @@ resource:
       returned: always
       sample: string-value
     volumes:
-      description: Volumes
+      description: A list of volumes items.
       type: list
       returned: always
       sample: []
       contains:
         url:
-          description: Url
+          description: URL URL
           type: str
           returned: always
           sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         uuid:
-          description: Uuid
+          description: UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -373,7 +430,7 @@ resource:
           description: Name
           type: str
           returned: always
-          sample: My Awesome Resource
+          sample: My-Awesome-Resource
         image_name:
           description: Image name
           type: str
@@ -405,7 +462,7 @@ resource:
           returned: always
           sample: string-value
         type:
-          description: Type
+          description: Type URL
           type: str
           returned: always
           sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -415,131 +472,35 @@ resource:
           returned: always
           sample: string-value
         marketplace_resource_uuid:
-          description: Marketplace resource uuid
+          description: Marketplace resource UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     security_groups:
-      description: Security groups
+      description: A list of security groups items.
       type: list
       returned: always
-      sample: []
-      contains:
-        url:
-          description: Url
-          type: str
-          returned: always
-          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-        name:
-          description: Name
-          type: str
-          returned: always
-          sample: My Awesome Resource
-        rules:
-          description: Rules
-          type: list
-          returned: always
-          sample: []
-          contains:
-            ethertype:
-              description: ''
-              type: str
-              returned: always
-              sample: IPv4
-            direction:
-              description: ''
-              type: str
-              returned: always
-              sample: ingress
-            protocol:
-              description: Protocol
-              type: str
-              returned: always
-              sample: null
-            from_port:
-              description: From port
-              type: int
-              returned: always
-              sample: 8080
-            to_port:
-              description: To port
-              type: int
-              returned: always
-              sample: 8080
-            cidr:
-              description: Cidr
-              type: str
-              returned: always
-              sample: 192.168.1.0/24
-            description:
-              description: Description
-              type: str
-              returned: always
-              sample: This is a sample description for the resource.
-            remote_group_name:
-              description: Remote group name
-              type: str
-              returned: always
-              sample: string-value
-            remote_group_uuid:
-              description: Remote group uuid
-              type: str
-              returned: always
-              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-            id:
-              description: Id
-              type: int
-              returned: always
-              sample: 123
-        description:
-          description: Description
-          type: str
-          returned: always
-          sample: This is a sample description for the resource.
-        state:
-          description: State
-          type: str
-          returned: always
-          sample: OK
+      sample:
+      - web-server-sg
     server_group:
-      description: ''
-      type: dict
+      description: Server group
+      type: str
       returned: always
-      sample: {}
-      contains:
-        url:
-          description: Url
-          type: str
-          returned: always
-          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-        name:
-          description: Name
-          type: str
-          returned: always
-          sample: My Awesome Resource
-        policy:
-          description: ''
-          type: str
-          returned: always
-          sample: affinity
-        state:
-          description: State
-          type: str
-          returned: always
-          sample: OK
+      sample: null
     floating_ips:
-      description: Floating ips
+      description: A list of floating ips items.
       type: list
       returned: always
-      sample: 8.8.8.8
+      sample:
+      - 8.8.8.8
       contains:
         url:
-          description: Url
+          description: URL URL
           type: str
           returned: always
           sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         uuid:
-          description: Uuid
+          description: UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -549,18 +510,18 @@ resource:
           returned: always
           sample: string-value
         port_fixed_ips:
-          description: Port fixed ips
+          description: A list of port fixed ips items.
           type: list
           returned: always
           sample: []
           contains:
             ip_address:
-              description: Ip address
+              description: IP address
               type: str
               returned: always
               sample: 8.8.8.8
             subnet_id:
-              description: Subnet id
+              description: Subnet ID
               type: str
               returned: always
               sample: string-value
@@ -570,12 +531,12 @@ resource:
           returned: always
           sample: 00:1B:44:11:3A:B7
         subnet:
-          description: Subnet
+          description: Subnet URL
           type: str
           returned: always
           sample: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         subnet_uuid:
-          description: Subnet uuid
+          description: Subnet UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -590,34 +551,35 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: Subnet cidr
+          description: Subnet CIDR
           type: str
           returned: always
           sample: 192.168.1.0/24
     ports:
-      description: Ports
+      description: A list of ports items.
       type: list
       returned: always
-      sample: []
+      sample:
+      - private-vlan-port
       contains:
         url:
-          description: Url
+          description: URL URL
           type: str
           returned: always
           sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         fixed_ips:
-          description: Fixed ips
+          description: A list of fixed ips items.
           type: list
           returned: always
           sample: []
           contains:
             ip_address:
-              description: Ip address
+              description: IP address
               type: str
               returned: always
               sample: 8.8.8.8
             subnet_id:
-              description: Subnet id
+              description: Subnet ID
               type: str
               returned: always
               sample: string-value
@@ -627,12 +589,12 @@ resource:
           returned: always
           sample: 00:1B:44:11:3A:B7
         subnet:
-          description: Subnet
+          description: Subnet URL
           type: str
           returned: always
           sample: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         subnet_uuid:
-          description: Subnet uuid
+          description: Subnet UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -647,12 +609,12 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: Subnet cidr
+          description: Subnet CIDR
           type: str
           returned: always
           sample: 192.168.1.0/24
         allowed_address_pairs:
-          description: Allowed address pairs
+          description: A list of allowed address pairs items.
           type: list
           returned: always
           sample: []
@@ -663,7 +625,7 @@ resource:
               returned: always
               sample: 00:1B:44:11:3A:B7
         device_id:
-          description: Device id
+          description: Device ID
           type: str
           returned: always
           sample: string-value
@@ -673,18 +635,19 @@ resource:
           returned: always
           sample: string-value
         security_groups:
-          description: Security groups
+          description: A list of security groups items.
           type: list
           returned: always
-          sample: []
+          sample:
+          - web-server-sg
           contains:
             url:
-              description: Url
+              description: URL URL
               type: str
               returned: always
               sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             uuid:
-              description: Uuid
+              description: UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -692,24 +655,24 @@ resource:
               description: Name
               type: str
               returned: always
-              sample: My Awesome Resource
+              sample: My-Awesome-Resource
             description:
               description: Description
               type: str
               returned: always
-              sample: This is a sample description for the resource.
+              sample: A sample description created by Ansible.
             service_name:
               description: Service name
               type: str
               returned: always
               sample: string-value
             service_settings:
-              description: Service settings
+              description: Service settings URL
               type: str
               returned: always
               sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             service_settings_uuid:
-              description: Service settings uuid
+              description: Service settings UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -724,7 +687,7 @@ resource:
               returned: always
               sample: string-value
             project:
-              description: Project
+              description: Project URL
               type: str
               returned: always
               sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -734,12 +697,12 @@ resource:
               returned: always
               sample: Internal Research Project
             project_uuid:
-              description: Project uuid
+              description: Project UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             customer:
-              description: Customer
+              description: Customer URL
               type: str
               returned: always
               sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -774,10 +737,10 @@ resource:
               returned: always
               sample: string-value
             state:
-              description: ''
+              description: State
               type: str
               returned: always
-              sample: CREATION_SCHEDULED
+              sample: OK
             created:
               description: Created
               type: str
@@ -789,17 +752,17 @@ resource:
               returned: always
               sample: '2023-10-01T12:00:00Z'
             backend_id:
-              description: Backend id
+              description: Backend ID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             access_url:
-              description: Access url
+              description: Access URL
               type: str
               returned: always
               sample: string-value
             tenant:
-              description: Tenant
+              description: Tenant URL
               type: str
               returned: always
               sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -809,23 +772,23 @@ resource:
               returned: always
               sample: string-value
             tenant_uuid:
-              description: Tenant uuid
+              description: Tenant UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             rules:
-              description: Rules
+              description: A list of rules items.
               type: list
               returned: always
               sample: []
               contains:
                 ethertype:
-                  description: ''
+                  description: Ethertype
                   type: str
                   returned: always
                   sample: IPv4
                 direction:
-                  description: ''
+                  description: Direction
                   type: str
                   returned: always
                   sample: ingress
@@ -845,7 +808,7 @@ resource:
                   returned: always
                   sample: 8080
                 cidr:
-                  description: Cidr
+                  description: CIDR
                   type: str
                   returned: always
                   sample: 192.168.1.0/24
@@ -853,29 +816,29 @@ resource:
                   description: Description
                   type: str
                   returned: always
-                  sample: This is a sample description for the resource.
+                  sample: A sample description created by Ansible.
                 remote_group_name:
                   description: Remote group name
                   type: str
                   returned: always
                   sample: string-value
                 remote_group_uuid:
-                  description: Remote group uuid
+                  description: Remote group UUID
                   type: str
                   returned: always
                   sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
                 id:
-                  description: Id
+                  description: ID
                   type: int
                   returned: always
                   sample: 123
                 remote_group:
-                  description: Remote group
+                  description: Remote group URL
                   type: str
                   returned: always
                   sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             marketplace_offering_uuid:
-              description: Marketplace offering uuid
+              description: Marketplace offering UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -890,7 +853,7 @@ resource:
               returned: always
               sample: {}
             marketplace_category_uuid:
-              description: Marketplace category uuid
+              description: Marketplace category UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -900,12 +863,12 @@ resource:
               returned: always
               sample: string-value
             marketplace_resource_uuid:
-              description: Marketplace resource uuid
+              description: Marketplace resource UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             marketplace_plan_uuid:
-              description: Marketplace plan uuid
+              description: Marketplace plan UUID
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -925,7 +888,7 @@ resource:
               returned: always
               sample: true
     availability_zone:
-      description: Availability zone
+      description: Availability zone URL
       type: str
       returned: always
       sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -955,7 +918,7 @@ resource:
       returned: always
       sample: null
     tenant_uuid:
-      description: Tenant uuid
+      description: Tenant UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -965,38 +928,22 @@ resource:
       returned: always
       sample: server-01.example.com
     tenant:
-      description: Tenant
+      description: Tenant URL
       type: str
       returned: always
       sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     external_address:
-      description: External address
+      description: A list of external address items.
       type: list
       returned: always
       sample: []
     rancher_cluster:
-      description: ''
-      type: dict
+      description: Rancher cluster
+      type: str
       returned: always
-      sample: {}
-      contains:
-        uuid:
-          description: Uuid
-          type: str
-          returned: always
-          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          description: Name
-          type: str
-          returned: always
-          sample: My Awesome Resource
-        marketplace_uuid:
-          description: Marketplace uuid
-          type: str
-          returned: always
-          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      sample: null
     marketplace_offering_uuid:
-      description: Marketplace offering uuid
+      description: Marketplace offering UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -1011,7 +958,7 @@ resource:
       returned: always
       sample: {}
     marketplace_category_uuid:
-      description: Marketplace category uuid
+      description: Marketplace category UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -1021,12 +968,12 @@ resource:
       returned: always
       sample: string-value
     marketplace_resource_uuid:
-      description: Marketplace resource uuid
+      description: Marketplace resource UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_plan_uuid:
-      description: Marketplace plan uuid
+      description: Marketplace plan UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -1058,9 +1005,11 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "offering": {"type": "str", "required": True},
+    "plan": {"type": "str", "required": False},
     "description": {"type": "str", "required": False},
     "flavor": {"type": "str", "required": True},
     "image": {"type": "str", "required": True},
+    "security_groups": {"type": "list", "required": False},
     "ports": {"type": "list", "required": True},
     "floating_ips": {"type": "list", "required": False},
     "system_volume_size": {"type": "int", "required": True},
@@ -1079,31 +1028,24 @@ RUNNER_CONTEXT = {
     "existence_check_filter_keys": {"project": "project_uuid"},
     "update_url": None,
     "update_check_fields": [],
-    "order_create_url": "/api/marketplace-orders/",
-    "order_poll_url": "/api/marketplace-orders/",
-    "terminate_url": "/api/marketplace-resources/",
     "attribute_param_names": [
-        "image",
-        "ssh_public_key",
-        "system_volume_size",
         "user_data",
-        "system_volume_type",
-        "floating_ips",
-        "connect_directly_to_external_network",
-        "flavor",
-        "description",
         "data_volume_type",
-        "name",
-        "availability_zone",
+        "ssh_public_key",
         "ports",
+        "availability_zone",
+        "flavor",
         "data_volume_size",
+        "system_volume_type",
+        "security_groups",
+        "connect_directly_to_external_network",
+        "system_volume_size",
+        "description",
+        "name",
+        "floating_ips",
+        "image",
     ],
     "resolvers": {
-        "project": {"url": "/api/projects/", "error_message": None},
-        "offering": {
-            "url": "/api/marketplace-public-offerings/",
-            "error_message": None,
-        },
         "flavor": {"url": "/api/openstack-flavors/", "error_message": None},
         "image": {"url": "/api/openstack-images/", "error_message": None},
         "system_volume_type": {
@@ -1115,6 +1057,11 @@ RUNNER_CONTEXT = {
             "error_message": None,
         },
         "ssh_key": {"url": "/api/keys/", "error_message": None},
+        "offering": {
+            "url": "/api/marketplace-public-offerings/",
+            "error_message": None,
+        },
+        "project": {"url": "/api/projects/", "error_message": None},
     },
 }
 

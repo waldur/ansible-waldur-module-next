@@ -1,4 +1,4 @@
-from ansible_collections.waldur.structure.plugins.module_utils.waldur.base_runner import (
+from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runner import (
     BaseRunner,
 )
 

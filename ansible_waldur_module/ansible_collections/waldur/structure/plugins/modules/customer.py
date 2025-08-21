@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: customer
-short_description: Manage customer
+short_description: Manage customer resources.
 description:
-- Manage customer
+- Manage customer resources.
 author: Waldur Team
 options:
   access_token:
@@ -41,9 +41,8 @@ options:
     name: name
     type: str
     required: true
-    description: Name
-    is_resolved: false
-    choices: null
+    description: The name of the customer to check/create/delete.
+    maps_to: name_exact
   backend_id:
     name: backend_id
     type: str
@@ -209,24 +208,41 @@ requirements:
 """
 
 EXAMPLES = """
-- name: Create a new customer.
+- name: Create a new customer
   hosts: localhost
   tasks:
   - name: Add customer
     waldur.structure.customer:
-      access_token: some_value
-      api_url: some_value
       state: present
-      name: My Awesome Customer
-- name: Remove an existing customer.
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
+      backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      image: string-value
+      name: My-Awesome-customer
+      native_name: string-value
+      abbreviation: string-value
+      contact_details: string-value
+      email: alice@example.com
+      phone_number: +1-202-555-0104
+      registration_code: string-value
+      homepage: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      vat_code: string-value
+      postal: string-value
+      address: string-value
+      bank_name: string-value
+      latitude: 123.45
+      longitude: 123.45
+      bank_account: string-value
+      country: null
+- name: Remove an existing customer
   hosts: localhost
   tasks:
   - name: Remove customer
     waldur.structure.customer:
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com:8000/api
       state: absent
-      name: My Awesome Customer
+      name: My-Awesome-customer
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
 
 """
 
@@ -237,12 +253,12 @@ resource:
   returned: on success
   contains:
     url:
-      description: Url
+      description: URL URL
       type: str
       returned: always
       sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: Uuid
+      description: UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -262,7 +278,7 @@ resource:
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     image:
-      description: Image
+      description: Image URL
       type: str
       returned: always
       sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -310,7 +326,7 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My Awesome Resource
+      sample: My-Awesome-Resource
     slug:
       description: Slug
       type: str
@@ -357,7 +373,7 @@ resource:
       returned: always
       sample: string-value
     homepage:
-      description: Homepage
+      description: Homepage URL
       type: str
       returned: always
       sample: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -407,18 +423,18 @@ resource:
       returned: always
       sample: null
     payment_profiles:
-      description: Payment profiles
+      description: A list of payment profiles items.
       type: list
       returned: always
       sample: []
       contains:
         uuid:
-          description: Uuid
+          description: UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         url:
-          description: Url
+          description: URL URL
           type: str
           returned: always
           sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -426,19 +442,19 @@ resource:
           description: Name
           type: str
           returned: always
-          sample: My Awesome Resource
+          sample: My-Awesome-Resource
         organization_uuid:
-          description: Organization uuid
+          description: Organization UUID
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         organization:
-          description: Organization
+          description: Organization URL
           type: str
           returned: always
           sample: https://api.example.com/api/organization/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         attributes:
-          description: ''
+          description: Attributes
           type: dict
           returned: always
           sample: {}
@@ -459,7 +475,7 @@ resource:
               returned: always
               sample: 123
         payment_type:
-          description: ''
+          description: Payment type
           type: str
           returned: always
           sample: fixed_price
@@ -489,46 +505,25 @@ resource:
       returned: always
       sample: true
     service_provider:
-      description: Service provider
+      description: Service provider URL
       type: str
       returned: always
       sample: https://api.example.com/api/service-provider/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     service_provider_uuid:
-      description: Service provider uuid
+      description: Service provider UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     call_managing_organization_uuid:
-      description: Call managing organization uuid
+      description: Call managing organization UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     billing_price_estimate:
-      description: ''
-      type: dict
+      description: Billing price estimate
+      type: str
       returned: always
-      sample: {}
-      contains:
-        total:
-          description: Total
-          type: str
-          returned: always
-          sample: '12.34'
-        current:
-          description: Current
-          type: str
-          returned: always
-          sample: '12.34'
-        tax:
-          description: Tax
-          type: str
-          returned: always
-          sample: '12.34'
-        tax_current:
-          description: Tax current
-          type: str
-          returned: always
-          sample: '12.34'
+      sample: null
 
 """
 
@@ -603,7 +598,10 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "customer",
-    "api_path": "/api/customers/",
+    "list_path": "/api/customers/",
+    "create_path": "/api/customers/",
+    "destroy_path": "/api/customers/{uuid}/",
+    "update_path": None,
     "model_param_names": [
         "backend_id",
         "image",
@@ -624,6 +622,9 @@ RUNNER_CONTEXT = {
         "bank_account",
         "country",
     ],
+    "path_param_maps": {},
+    "update_fields": [],
+    "update_actions": {},
     "resolvers": {},
 }
 

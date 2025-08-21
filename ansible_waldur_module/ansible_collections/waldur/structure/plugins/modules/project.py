@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: project
-short_description: Manage project
+short_description: Manage project resources.
 description:
-- Manage project
+- Manage project resources.
 author: Waldur Team
 options:
   access_token:
@@ -41,9 +41,8 @@ options:
     name: name
     type: str
     required: true
-    description: Name
-    is_resolved: false
-    choices: null
+    description: The name of the project to check/create/delete.
+    maps_to: name_exact
   customer:
     name: customer
     type: str
@@ -157,25 +156,33 @@ requirements:
 """
 
 EXAMPLES = """
-- name: Create a new project.
+- name: Create a new project
   hosts: localhost
   tasks:
   - name: Add project
     waldur.structure.project:
-      access_token: some_value
-      api_url: some_value
       state: present
-      name: My Awesome Project
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
+      name: My-Awesome-project
       customer: Customer Name or UUID
-- name: Remove an existing project.
+      description: A sample description created by Ansible.
+      type: Type Name or UUID
+      backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      start_date: '2023-10-01'
+      end_date: '2023-10-01'
+      oecd_fos_2007_code: null
+      is_industry: true
+      image: string-value
+- name: Remove an existing project
   hosts: localhost
   tasks:
   - name: Remove project
     waldur.structure.project:
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com:8000/api
       state: absent
-      name: My Awesome Project
+      name: My-Awesome-project
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
 
 """
 
@@ -186,12 +193,12 @@ resource:
   returned: on success
   contains:
     url:
-      description: Url
+      description: URL URL
       type: str
       returned: always
       sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     uuid:
-      description: Uuid
+      description: UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -199,19 +206,19 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My Awesome Resource
+      sample: My-Awesome-Resource
     slug:
       description: Slug
       type: str
       returned: always
       sample: string-value
     customer:
-      description: Customer
+      description: Customer URL
       type: str
       returned: always
       sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     customer_uuid:
-      description: Customer uuid
+      description: Customer UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -239,14 +246,14 @@ resource:
       description: Description
       type: str
       returned: always
-      sample: This is a sample description for the resource.
+      sample: A sample description created by Ansible.
     created:
       description: Created
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
     type:
-      description: Type
+      description: Type URL
       type: str
       returned: always
       sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -256,12 +263,12 @@ resource:
       returned: always
       sample: string-value
     type_uuid:
-      description: Type uuid
+      description: Type UUID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     backend_id:
-      description: Backend id
+      description: Backend ID
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -276,7 +283,7 @@ resource:
       returned: always
       sample: '2023-10-01'
     end_date_requested_by:
-      description: End date requested by
+      description: End date requested by URL
       type: str
       returned: always
       sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -296,7 +303,7 @@ resource:
       returned: always
       sample: true
     image:
-      description: Image
+      description: Image URL
       type: str
       returned: always
       sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -321,31 +328,10 @@ resource:
       returned: always
       sample: {}
     billing_price_estimate:
-      description: ''
-      type: dict
+      description: Billing price estimate
+      type: str
       returned: always
-      sample: {}
-      contains:
-        total:
-          description: Total
-          type: str
-          returned: always
-          sample: '12.34'
-        current:
-          description: Current
-          type: str
-          returned: always
-          sample: '12.34'
-        tax:
-          description: Tax
-          type: str
-          returned: always
-          sample: '12.34'
-        tax_current:
-          description: Tax current
-          type: str
-          returned: always
-          sample: '12.34'
+      sample: null
 
 """
 
@@ -416,7 +402,10 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "project",
-    "api_path": "/api/projects/",
+    "list_path": "/api/projects/",
+    "create_path": "/api/projects/",
+    "destroy_path": "/api/projects/{uuid}/",
+    "update_path": None,
     "model_param_names": [
         "name",
         "customer",
@@ -429,6 +418,9 @@ RUNNER_CONTEXT = {
         "is_industry",
         "image",
     ],
+    "path_param_maps": {},
+    "update_fields": [],
+    "update_actions": {},
     "resolvers": {
         "customer": {"url": "/api/customers/", "error_message": None},
         "type": {"url": "/api/project-types/", "error_message": None},

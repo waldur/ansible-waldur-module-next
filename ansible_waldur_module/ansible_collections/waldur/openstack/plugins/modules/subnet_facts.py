@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: subnet_facts
-short_description: Manage subnet_facts
+short_description: Manage subnet facts resources.
 description:
-- Manage subnet_facts
+- Manage subnet facts resources.
 author: Waldur Team
 options:
   access_token:
@@ -46,15 +46,19 @@ requirements:
 """
 
 EXAMPLES = """
-- name: Get a subnet facts
+- name: Retrieve and print facts about subnet
   hosts: localhost
   tasks:
-  - name: Get a subnet
+  - name: Get facts about a specific subnet
     waldur.openstack.subnet_facts:
-      access_token: some_value
-      api_url: some_value
       name: Subnet Name or UUID
-      tenant: some_value
+      tenant: Tenant Name or UUID
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
+    register: subnet_info
+  - name: Print the retrieved resource facts
+    ansible.builtin.debug:
+      var: subnet_info.subnets
 
 """
 
@@ -64,18 +68,18 @@ resource:
   type: list
   returned: on success
   elements: dict
-  contains:
+  suboptions:
     description: A dictionary describing a single subnet.
     type: dict
     returned: always
-    contains:
+    suboptions:
       url:
-        description: Url
+        description: URL URL
         type: str
         returned: always
         sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       uuid:
-        description: Uuid
+        description: UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -83,24 +87,24 @@ resource:
         description: Name
         type: str
         returned: always
-        sample: My Awesome Resource
+        sample: My-Awesome-Resource
       description:
         description: Description
         type: str
         returned: always
-        sample: This is a sample description for the resource.
+        sample: A sample description created by Ansible.
       service_name:
         description: Service name
         type: str
         returned: always
         sample: string-value
       service_settings:
-        description: Service settings
+        description: Service settings URL
         type: str
         returned: always
         sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       service_settings_uuid:
-        description: Service settings uuid
+        description: Service settings UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -115,7 +119,7 @@ resource:
         returned: always
         sample: string-value
       project:
-        description: Project
+        description: Project URL
         type: str
         returned: always
         sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -125,12 +129,12 @@ resource:
         returned: always
         sample: Internal Research Project
       project_uuid:
-        description: Project uuid
+        description: Project UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       customer:
-        description: Customer
+        description: Customer URL
         type: str
         returned: always
         sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -165,10 +169,10 @@ resource:
         returned: always
         sample: string-value
       state:
-        description: ''
+        description: State
         type: str
         returned: always
-        sample: CREATION_SCHEDULED
+        sample: OK
       created:
         description: Created
         type: str
@@ -180,17 +184,17 @@ resource:
         returned: always
         sample: '2023-10-01T12:00:00Z'
       backend_id:
-        description: Backend id
+        description: Backend ID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       access_url:
-        description: Access url
+        description: Access URL
         type: str
         returned: always
         sample: string-value
       tenant:
-        description: Tenant
+        description: Tenant URL
         type: str
         returned: always
         sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -200,7 +204,7 @@ resource:
         returned: always
         sample: string-value
       network:
-        description: Network
+        description: Network URL
         type: str
         returned: always
         sample: https://api.example.com/api/network/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -210,12 +214,12 @@ resource:
         returned: always
         sample: string-value
       cidr:
-        description: Cidr
+        description: CIDR
         type: str
         returned: always
         sample: 192.168.1.0/24
       gateway_ip:
-        description: Gateway ip
+        description: Gateway IP
         type: str
         returned: always
         sample: 192.168.1.1
@@ -225,7 +229,7 @@ resource:
         returned: always
         sample: 192.168.1.1
       allocation_pools:
-        description: Allocation pools
+        description: A list of allocation pools items.
         type: list
         returned: always
         sample: []
@@ -241,7 +245,7 @@ resource:
             returned: always
             sample: string-value
       ip_version:
-        description: Ip version
+        description: IP version
         type: int
         returned: always
         sample: 123
@@ -251,12 +255,12 @@ resource:
         returned: always
         sample: true
       dns_nameservers:
-        description: Dns nameservers
+        description: A list of DNS nameservers items.
         type: list
         returned: always
         sample: []
       host_routes:
-        description: Host routes
+        description: A list of host routes items.
         type: list
         returned: always
         sample: []
@@ -277,7 +281,7 @@ resource:
         returned: always
         sample: true
       marketplace_offering_uuid:
-        description: Marketplace offering uuid
+        description: Marketplace offering UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -292,7 +296,7 @@ resource:
         returned: always
         sample: {}
       marketplace_category_uuid:
-        description: Marketplace category uuid
+        description: Marketplace category UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -302,12 +306,12 @@ resource:
         returned: always
         sample: string-value
       marketplace_resource_uuid:
-        description: Marketplace resource uuid
+        description: Marketplace resource UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       marketplace_plan_uuid:
-        description: Marketplace plan uuid
+        description: Marketplace plan UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890

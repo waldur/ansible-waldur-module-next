@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: security_group_facts
-short_description: Manage security_group_facts
+short_description: Manage security group facts resources.
 description:
-- Manage security_group_facts
+- Manage security group facts resources.
 author: Waldur Team
 options:
   access_token:
@@ -46,15 +46,19 @@ requirements:
 """
 
 EXAMPLES = """
-- name: Get a security group facts
+- name: Retrieve and print facts about security group
   hosts: localhost
   tasks:
-  - name: Get a security group
+  - name: Get facts about a specific security group
     waldur.openstack.security_group_facts:
-      access_token: some_value
-      api_url: some_value
-      name: Security_group Name or UUID
-      tenant: some_value
+      name: Security group Name or UUID
+      tenant: Tenant Name or UUID
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com/api
+    register: security_group_info
+  - name: Print the retrieved resource facts
+    ansible.builtin.debug:
+      var: security_group_info.security_groups
 
 """
 
@@ -64,18 +68,18 @@ resource:
   type: list
   returned: on success
   elements: dict
-  contains:
+  suboptions:
     description: A dictionary describing a single security_group.
     type: dict
     returned: always
-    contains:
+    suboptions:
       url:
-        description: Url
+        description: URL URL
         type: str
         returned: always
         sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       uuid:
-        description: Uuid
+        description: UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -83,24 +87,24 @@ resource:
         description: Name
         type: str
         returned: always
-        sample: My Awesome Resource
+        sample: My-Awesome-Resource
       description:
         description: Description
         type: str
         returned: always
-        sample: This is a sample description for the resource.
+        sample: A sample description created by Ansible.
       service_name:
         description: Service name
         type: str
         returned: always
         sample: string-value
       service_settings:
-        description: Service settings
+        description: Service settings URL
         type: str
         returned: always
         sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       service_settings_uuid:
-        description: Service settings uuid
+        description: Service settings UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -115,7 +119,7 @@ resource:
         returned: always
         sample: string-value
       project:
-        description: Project
+        description: Project URL
         type: str
         returned: always
         sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -125,12 +129,12 @@ resource:
         returned: always
         sample: Internal Research Project
       project_uuid:
-        description: Project uuid
+        description: Project UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       customer:
-        description: Customer
+        description: Customer URL
         type: str
         returned: always
         sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -165,10 +169,10 @@ resource:
         returned: always
         sample: string-value
       state:
-        description: ''
+        description: State
         type: str
         returned: always
-        sample: CREATION_SCHEDULED
+        sample: OK
       created:
         description: Created
         type: str
@@ -180,17 +184,17 @@ resource:
         returned: always
         sample: '2023-10-01T12:00:00Z'
       backend_id:
-        description: Backend id
+        description: Backend ID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       access_url:
-        description: Access url
+        description: Access URL
         type: str
         returned: always
         sample: string-value
       tenant:
-        description: Tenant
+        description: Tenant URL
         type: str
         returned: always
         sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -200,23 +204,23 @@ resource:
         returned: always
         sample: string-value
       tenant_uuid:
-        description: Tenant uuid
+        description: Tenant UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       rules:
-        description: Rules
+        description: A list of rules items.
         type: list
         returned: always
         sample: []
         contains:
           ethertype:
-            description: ''
+            description: Ethertype
             type: str
             returned: always
             sample: IPv4
           direction:
-            description: ''
+            description: Direction
             type: str
             returned: always
             sample: ingress
@@ -236,7 +240,7 @@ resource:
             returned: always
             sample: 8080
           cidr:
-            description: Cidr
+            description: CIDR
             type: str
             returned: always
             sample: 192.168.1.0/24
@@ -244,29 +248,29 @@ resource:
             description: Description
             type: str
             returned: always
-            sample: This is a sample description for the resource.
+            sample: A sample description created by Ansible.
           remote_group_name:
             description: Remote group name
             type: str
             returned: always
             sample: string-value
           remote_group_uuid:
-            description: Remote group uuid
+            description: Remote group UUID
             type: str
             returned: always
             sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
           id:
-            description: Id
+            description: ID
             type: int
             returned: always
             sample: 123
           remote_group:
-            description: Remote group
+            description: Remote group URL
             type: str
             returned: always
             sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       marketplace_offering_uuid:
-        description: Marketplace offering uuid
+        description: Marketplace offering UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -281,7 +285,7 @@ resource:
         returned: always
         sample: {}
       marketplace_category_uuid:
-        description: Marketplace category uuid
+        description: Marketplace category UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -291,12 +295,12 @@ resource:
         returned: always
         sample: string-value
       marketplace_resource_uuid:
-        description: Marketplace resource uuid
+        description: Marketplace resource UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       marketplace_plan_uuid:
-        description: Marketplace plan uuid
+        description: Marketplace plan UUID
         type: str
         returned: always
         sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
