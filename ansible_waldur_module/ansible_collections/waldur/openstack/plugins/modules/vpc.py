@@ -366,12 +366,12 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_check_fields": [],
     "attribute_param_names": [
-        "subnet_cidr",
         "skip_connection_extnet",
+        "skip_creation_of_default_router",
         "availability_zone",
         "description",
+        "subnet_cidr",
         "name",
-        "skip_creation_of_default_router",
     ],
     "resolvers": {
         "offering": {

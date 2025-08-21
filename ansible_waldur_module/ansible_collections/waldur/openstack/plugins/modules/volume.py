@@ -441,12 +441,12 @@ RUNNER_CONTEXT = {
     "update_url": "/api/openstack-volumes/{uuid}/",
     "update_check_fields": ["description"],
     "attribute_param_names": [
-        "availability_zone",
-        "type",
-        "description",
         "size",
         "image",
+        "availability_zone",
+        "description",
         "name",
+        "type",
     ],
     "resolvers": {
         "offering": {
