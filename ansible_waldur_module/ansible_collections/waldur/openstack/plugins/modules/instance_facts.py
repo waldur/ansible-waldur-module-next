@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: instance_facts
-short_description: Manage instance facts resources.
+short_description: Get facts about a specific instance
 description:
-- Manage instance facts resources.
+- Get facts about a specific instance
 author: Waldur Team
 options:
   access_token:
@@ -46,9 +46,9 @@ EXAMPLES = """
   tasks:
   - name: Get facts about a specific openstack instance
     waldur.openstack.instance_facts:
-      name: Openstack instance Name or UUID
+      name: Openstack instance name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
     register: openstack_instance_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
@@ -58,7 +58,7 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A dictionary describing the found openstack_instance.
+  description: A dictionary describing the found openstack instance.
   type: dict
   returned: on success
   suboptions:

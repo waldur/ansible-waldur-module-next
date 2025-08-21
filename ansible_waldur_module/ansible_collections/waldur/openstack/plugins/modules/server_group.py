@@ -77,7 +77,7 @@ EXAMPLES = """
     waldur.openstack.server_group:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       tenant: Tenant Name or UUID
       name: My-Awesome-OpenStack-server-group
       description: A sample description created by Ansible.
@@ -90,7 +90,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-OpenStack-server-group
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       tenant: Tenant name or UUID
 
 """
@@ -336,9 +336,9 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_server_group/",
     "destroy_path": "/api/openstack-server-groups/{uuid}/",
     "update_path": "/api/openstack-server-groups/{uuid}/",
-    "model_param_names": ["name", "description", "policy"],
+    "model_param_names": ["description", "name", "policy"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": ["name", "description"],
+    "update_fields": ["description", "name"],
     "update_actions": {},
     "resolvers": {
         "tenant": {

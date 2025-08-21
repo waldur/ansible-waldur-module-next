@@ -102,7 +102,7 @@ EXAMPLES = """
     waldur.openstack.vpc:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
       name: My-Awesome-OpenStack-tenant
@@ -119,7 +119,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-OpenStack-tenant
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
 
@@ -366,12 +366,12 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_check_fields": [],
     "attribute_param_names": [
-        "description",
         "availability_zone",
-        "skip_connection_extnet",
+        "description",
         "name",
-        "subnet_cidr",
+        "skip_connection_extnet",
         "skip_creation_of_default_router",
+        "subnet_cidr",
     ],
     "resolvers": {
         "offering": {

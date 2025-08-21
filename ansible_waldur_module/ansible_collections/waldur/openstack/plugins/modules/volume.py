@@ -98,7 +98,7 @@ EXAMPLES = """
     waldur.openstack.volume:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
       name: My-Awesome-OpenStack-volume
@@ -126,7 +126,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-OpenStack-volume
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
 
@@ -441,11 +441,11 @@ RUNNER_CONTEXT = {
     "update_url": "/api/openstack-volumes/{uuid}/",
     "update_check_fields": ["description"],
     "attribute_param_names": [
-        "description",
         "availability_zone",
+        "description",
         "image",
-        "size",
         "name",
+        "size",
         "type",
     ],
     "resolvers": {

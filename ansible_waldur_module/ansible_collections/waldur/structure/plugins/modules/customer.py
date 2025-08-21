@@ -215,7 +215,7 @@ EXAMPLES = """
     waldur.structure.customer:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       image: string-value
       name: My-Awesome-customer
@@ -242,7 +242,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-customer
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
 
 """
 
@@ -603,24 +603,24 @@ RUNNER_CONTEXT = {
     "destroy_path": "/api/customers/{uuid}/",
     "update_path": None,
     "model_param_names": [
-        "backend_id",
-        "image",
-        "name",
-        "native_name",
         "abbreviation",
-        "contact_details",
-        "email",
-        "phone_number",
-        "registration_code",
-        "homepage",
-        "vat_code",
-        "postal",
         "address",
+        "backend_id",
+        "bank_account",
         "bank_name",
+        "contact_details",
+        "country",
+        "email",
+        "homepage",
+        "image",
         "latitude",
         "longitude",
-        "bank_account",
-        "country",
+        "name",
+        "native_name",
+        "phone_number",
+        "postal",
+        "registration_code",
+        "vat_code",
     ],
     "path_param_maps": {},
     "update_fields": [],

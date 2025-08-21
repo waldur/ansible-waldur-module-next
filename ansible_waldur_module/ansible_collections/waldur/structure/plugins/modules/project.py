@@ -163,7 +163,7 @@ EXAMPLES = """
     waldur.structure.project:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       name: My-Awesome-project
       customer: Customer Name or UUID
       description: A sample description created by Ansible.
@@ -182,7 +182,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-project
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
 
 """
 
@@ -407,16 +407,16 @@ RUNNER_CONTEXT = {
     "destroy_path": "/api/projects/{uuid}/",
     "update_path": None,
     "model_param_names": [
-        "name",
+        "backend_id",
         "customer",
         "description",
-        "type",
-        "backend_id",
-        "start_date",
         "end_date",
-        "oecd_fos_2007_code",
-        "is_industry",
         "image",
+        "is_industry",
+        "name",
+        "oecd_fos_2007_code",
+        "start_date",
+        "type",
     ],
     "path_param_maps": {},
     "update_fields": [],

@@ -165,7 +165,7 @@ EXAMPLES = """
     waldur.openstack.instance:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
       name: My-Awesome-OpenStack-instance
@@ -198,7 +198,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
 
@@ -1029,21 +1029,21 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_check_fields": [],
     "attribute_param_names": [
-        "description",
-        "security_groups",
-        "system_volume_size",
-        "data_volume_size",
-        "flavor",
         "availability_zone",
-        "system_volume_type",
-        "image",
-        "data_volume_type",
-        "user_data",
-        "floating_ips",
-        "name",
         "connect_directly_to_external_network",
-        "ssh_public_key",
+        "data_volume_size",
+        "data_volume_type",
+        "description",
+        "flavor",
+        "floating_ips",
+        "image",
+        "name",
         "ports",
+        "security_groups",
+        "ssh_public_key",
+        "system_volume_size",
+        "system_volume_type",
+        "user_data",
     ],
     "resolvers": {
         "flavor": {

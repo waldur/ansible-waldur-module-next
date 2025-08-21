@@ -68,7 +68,7 @@ EXAMPLES = """
     waldur.openstack.network:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       tenant: Tenant Name or UUID
       name: My-Awesome-OpenStack-network
       description: A sample description created by Ansible.
@@ -80,7 +80,7 @@ EXAMPLES = """
       state: absent
       name: My-Awesome-OpenStack-network
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
       tenant: Tenant name or UUID
 
 """
@@ -417,9 +417,9 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_network/",
     "destroy_path": "/api/openstack-networks/{uuid}/",
     "update_path": "/api/openstack-networks/{uuid}/",
-    "model_param_names": ["name", "description"],
+    "model_param_names": ["description", "name"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": ["name", "description"],
+    "update_fields": ["description", "name"],
     "update_actions": {},
     "resolvers": {
         "tenant": {

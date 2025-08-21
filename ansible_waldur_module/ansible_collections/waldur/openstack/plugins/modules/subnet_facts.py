@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: subnet_facts
-short_description: Manage subnet facts resources.
+short_description: Get facts about a specific subnet
 description:
-- Manage subnet facts resources.
+- Get facts about a specific subnet
 author: Waldur Team
 options:
   access_token:
@@ -51,10 +51,10 @@ EXAMPLES = """
   tasks:
   - name: Get facts about a specific subnet
     waldur.openstack.subnet_facts:
-      name: Subnet Name or UUID
-      tenant: Tenant Name or UUID
+      name: Subnet name or UUID
+      tenant: Tenant name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com/api
+      api_url: https://waldur.example.com
     register: subnet_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
@@ -64,272 +64,267 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries describing the found subnets.
-  type: list
+  description: A dictionary describing the found subnet.
+  type: dict
   returned: on success
-  elements: dict
   suboptions:
-    description: A dictionary describing a single subnet.
-    type: dict
-    returned: always
-    suboptions:
-      url:
-        description: URL URL
-        type: str
-        returned: always
-        sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      uuid:
-        description: UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      name:
-        description: Name
-        type: str
-        returned: always
-        sample: My-Awesome-Resource
-      description:
-        description: Description
-        type: str
-        returned: always
-        sample: A sample description created by Ansible.
-      service_name:
-        description: Service name
-        type: str
-        returned: always
-        sample: string-value
-      service_settings:
-        description: Service settings URL
-        type: str
-        returned: always
-        sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      service_settings_uuid:
-        description: Service settings UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      service_settings_state:
-        description: Service settings state
-        type: str
-        returned: always
-        sample: string-value
-      service_settings_error_message:
-        description: Service settings error message
-        type: str
-        returned: always
-        sample: string-value
-      project:
-        description: Project URL
-        type: str
-        returned: always
-        sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      project_name:
-        description: Project name
-        type: str
-        returned: always
-        sample: Internal Research Project
-      project_uuid:
-        description: Project UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      customer:
-        description: Customer URL
-        type: str
-        returned: always
-        sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      customer_name:
-        description: Customer name
-        type: str
-        returned: always
-        sample: Big Corp Inc.
-      customer_native_name:
-        description: Customer native name
-        type: str
-        returned: always
-        sample: string-value
-      customer_abbreviation:
-        description: Customer abbreviation
-        type: str
-        returned: always
-        sample: string-value
-      error_message:
-        description: Error message
-        type: str
-        returned: always
-        sample: string-value
-      error_traceback:
-        description: Error traceback
-        type: str
-        returned: always
-        sample: string-value
-      resource_type:
-        description: Resource type
-        type: str
-        returned: always
-        sample: string-value
-      state:
-        description: State
-        type: str
-        returned: always
-        sample: OK
-      created:
-        description: Created
-        type: str
-        returned: always
-        sample: '2023-10-01T12:00:00Z'
-      modified:
-        description: Modified
-        type: str
-        returned: always
-        sample: '2023-10-01T12:00:00Z'
-      backend_id:
-        description: Backend ID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      access_url:
-        description: Access URL
-        type: str
-        returned: always
-        sample: string-value
-      tenant:
-        description: Tenant URL
-        type: str
-        returned: always
-        sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      tenant_name:
-        description: Tenant name
-        type: str
-        returned: always
-        sample: string-value
-      network:
-        description: Network URL
-        type: str
-        returned: always
-        sample: https://api.example.com/api/network/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      network_name:
-        description: Network name
-        type: str
-        returned: always
-        sample: string-value
-      cidr:
-        description: CIDR
-        type: str
-        returned: always
-        sample: 192.168.1.0/24
-      gateway_ip:
-        description: Gateway IP
-        type: str
-        returned: always
-        sample: 192.168.1.1
-      disable_gateway:
-        description: Disable gateway
-        type: bool
-        returned: always
-        sample: 192.168.1.1
-      allocation_pools:
-        description: A list of allocation pools items.
-        type: list
-        returned: always
-        sample: []
-        contains:
-          start:
-            description: Start
-            type: str
-            returned: always
-            sample: string-value
-          end:
-            description: End
-            type: str
-            returned: always
-            sample: string-value
-      ip_version:
-        description: IP version
-        type: int
-        returned: always
-        sample: 123
-      enable_dhcp:
-        description: Enable dhcp
-        type: bool
-        returned: always
-        sample: true
-      dns_nameservers:
-        description: A list of DNS nameservers items.
-        type: list
-        returned: always
-        sample: []
-      host_routes:
-        description: A list of host routes items.
-        type: list
-        returned: always
-        sample: []
-        contains:
-          destination:
-            description: Destination
-            type: str
-            returned: always
-            sample: string-value
-          nexthop:
-            description: Nexthop
-            type: str
-            returned: always
-            sample: string-value
-      is_connected:
-        description: Is subnet connected to the default tenant router.
-        type: bool
-        returned: always
-        sample: true
-      marketplace_offering_uuid:
-        description: Marketplace offering UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      marketplace_offering_name:
-        description: Marketplace offering name
-        type: str
-        returned: always
-        sample: string-value
-      marketplace_offering_plugin_options:
-        description: Marketplace offering plugin options
-        type: dict
-        returned: always
-        sample: {}
-      marketplace_category_uuid:
-        description: Marketplace category UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      marketplace_category_name:
-        description: Marketplace category name
-        type: str
-        returned: always
-        sample: string-value
-      marketplace_resource_uuid:
-        description: Marketplace resource UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      marketplace_plan_uuid:
-        description: Marketplace plan UUID
-        type: str
-        returned: always
-        sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      marketplace_resource_state:
-        description: Marketplace resource state
-        type: str
-        returned: always
-        sample: string-value
-      is_usage_based:
-        description: Is usage based
-        type: bool
-        returned: always
-        sample: true
-      is_limit_based:
-        description: Is limit based
-        type: bool
-        returned: always
-        sample: true
+    url:
+      description: URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    uuid:
+      description: UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    name:
+      description: Name
+      type: str
+      returned: always
+      sample: My-Awesome-Resource
+    description:
+      description: Description
+      type: str
+      returned: always
+      sample: A sample description created by Ansible.
+    service_name:
+      description: Service name
+      type: str
+      returned: always
+      sample: string-value
+    service_settings:
+      description: Service settings URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    service_settings_uuid:
+      description: Service settings UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    service_settings_state:
+      description: Service settings state
+      type: str
+      returned: always
+      sample: string-value
+    service_settings_error_message:
+      description: Service settings error message
+      type: str
+      returned: always
+      sample: string-value
+    project:
+      description: Project URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    project_name:
+      description: Project name
+      type: str
+      returned: always
+      sample: Internal Research Project
+    project_uuid:
+      description: Project UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    customer:
+      description: Customer URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    customer_name:
+      description: Customer name
+      type: str
+      returned: always
+      sample: Big Corp Inc.
+    customer_native_name:
+      description: Customer native name
+      type: str
+      returned: always
+      sample: string-value
+    customer_abbreviation:
+      description: Customer abbreviation
+      type: str
+      returned: always
+      sample: string-value
+    error_message:
+      description: Error message
+      type: str
+      returned: always
+      sample: string-value
+    error_traceback:
+      description: Error traceback
+      type: str
+      returned: always
+      sample: string-value
+    resource_type:
+      description: Resource type
+      type: str
+      returned: always
+      sample: string-value
+    state:
+      description: State
+      type: str
+      returned: always
+      sample: OK
+    created:
+      description: Created
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
+    modified:
+      description: Modified
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
+    backend_id:
+      description: Backend ID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    access_url:
+      description: Access URL
+      type: str
+      returned: always
+      sample: string-value
+    tenant:
+      description: Tenant URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    tenant_name:
+      description: Tenant name
+      type: str
+      returned: always
+      sample: string-value
+    network:
+      description: Network URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/network/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    network_name:
+      description: Network name
+      type: str
+      returned: always
+      sample: string-value
+    cidr:
+      description: CIDR
+      type: str
+      returned: always
+      sample: 192.168.1.0/24
+    gateway_ip:
+      description: Gateway IP
+      type: str
+      returned: always
+      sample: 192.168.1.1
+    disable_gateway:
+      description: Disable gateway
+      type: bool
+      returned: always
+      sample: 192.168.1.1
+    allocation_pools:
+      description: A list of allocation pools items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        start:
+          description: Start
+          type: str
+          returned: always
+          sample: string-value
+        end:
+          description: End
+          type: str
+          returned: always
+          sample: string-value
+    ip_version:
+      description: IP version
+      type: int
+      returned: always
+      sample: 123
+    enable_dhcp:
+      description: Enable dhcp
+      type: bool
+      returned: always
+      sample: true
+    dns_nameservers:
+      description: A list of DNS nameservers items.
+      type: list
+      returned: always
+      sample: []
+    host_routes:
+      description: A list of host routes items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        destination:
+          description: Destination
+          type: str
+          returned: always
+          sample: string-value
+        nexthop:
+          description: Nexthop
+          type: str
+          returned: always
+          sample: string-value
+    is_connected:
+      description: Is subnet connected to the default tenant router.
+      type: bool
+      returned: always
+      sample: true
+    marketplace_offering_uuid:
+      description: Marketplace offering UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    marketplace_offering_name:
+      description: Marketplace offering name
+      type: str
+      returned: always
+      sample: string-value
+    marketplace_offering_plugin_options:
+      description: Marketplace offering plugin options
+      type: dict
+      returned: always
+      sample: {}
+    marketplace_category_uuid:
+      description: Marketplace category UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    marketplace_category_name:
+      description: Marketplace category name
+      type: str
+      returned: always
+      sample: string-value
+    marketplace_resource_uuid:
+      description: Marketplace resource UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    marketplace_plan_uuid:
+      description: Marketplace plan UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    marketplace_resource_state:
+      description: Marketplace resource state
+      type: str
+      returned: always
+      sample: string-value
+    is_usage_based:
+      description: Is usage based
+      type: bool
+      returned: always
+      sample: true
+    is_limit_based:
+      description: Is limit based
+      type: bool
+      returned: always
+      sample: true
 
 """
 
