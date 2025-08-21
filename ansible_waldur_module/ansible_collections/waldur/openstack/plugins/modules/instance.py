@@ -1029,42 +1029,66 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_check_fields": [],
     "attribute_param_names": [
-        "connect_directly_to_external_network",
-        "data_volume_type",
-        "system_volume_size",
-        "ssh_public_key",
-        "data_volume_size",
-        "image",
-        "availability_zone",
-        "ports",
         "description",
-        "flavor",
-        "floating_ips",
-        "user_data",
-        "name",
-        "system_volume_type",
         "security_groups",
+        "system_volume_size",
+        "data_volume_size",
+        "flavor",
+        "availability_zone",
+        "system_volume_type",
+        "image",
+        "data_volume_type",
+        "user_data",
+        "floating_ips",
+        "name",
+        "connect_directly_to_external_network",
+        "ssh_public_key",
+        "ports",
     ],
     "resolvers": {
         "flavor": {
             "url": "/api/openstack-flavors/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
         "image": {
             "url": "/api/openstack-images/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
         "system_volume_type": {
             "url": "/api/openstack-volume-types/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
         "data_volume_type": {
             "url": "/api/openstack-volume-types/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
         "ssh_key": {"url": "/api/keys/", "error_message": None, "filter_by": []},
         "offering": {

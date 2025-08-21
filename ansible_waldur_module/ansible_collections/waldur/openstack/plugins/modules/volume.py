@@ -441,31 +441,49 @@ RUNNER_CONTEXT = {
     "update_url": "/api/openstack-volumes/{uuid}/",
     "update_check_fields": ["description"],
     "attribute_param_names": [
-        "size",
-        "image",
-        "availability_zone",
         "description",
+        "availability_zone",
+        "image",
+        "size",
         "name",
         "type",
     ],
     "resolvers": {
-        "offering": {
-            "url": "/api/marketplace-public-offerings/",
-            "error_message": None,
-            "filter_by": [],
-        },
         "type": {
             "url": "/api/openstack-volume-types/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
         "image": {
             "url": "/api/openstack-images/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
         "availability_zone": {
             "url": "/api/openstack-volume-availability-zones/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
+        },
+        "offering": {
+            "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
         },
