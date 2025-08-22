@@ -326,7 +326,7 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "module_type": "facts",
-    "resource_type": "security_group",
+    "resource_type": "security group",
     "list_url": "/api/openstack-security-groups/",
     "retrieve_url": "/api/openstack-security-groups/{uuid}/",
     "identifier_param": "name",

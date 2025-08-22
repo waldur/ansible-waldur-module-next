@@ -80,18 +80,18 @@ options:
   security_groups:
     type: list
     required: false
-    description: A list of security groups items.
-    elements: list
+    description: The name or UUID of the security groups.
+    elements: str
   ports:
     type: list
     required: true
-    description: A list of ports items.
+    description: A list of ports names or UUIDs.
     elements: dict
     suboptions:
       fixed_ips:
         type: list
         required: false
-        description: A list of fixed ips items.
+        description: A list of fixed ips names or UUIDs.
         elements: dict
         suboptions:
           ip_address:
@@ -105,7 +105,7 @@ options:
       subnet:
         type: str
         required: false
-        description: Subnet URL
+        description: The name or UUID of the subnet.
       port:
         type: str
         required: false
@@ -113,13 +113,13 @@ options:
   floating_ips:
     type: list
     required: false
-    description: A list of floating ips items.
+    description: A list of floating ips names or UUIDs.
     elements: dict
     suboptions:
       subnet:
         type: str
         required: true
-        description: Subnet URL
+        description: The name or UUID of the subnet.
   system_volume_size:
     type: int
     required: true
@@ -139,7 +139,7 @@ options:
   ssh_public_key:
     type: str
     required: false
-    description: SSH public key URL
+    description: The name or UUID of the SSH public key.
   user_data:
     type: str
     required: false
@@ -147,7 +147,7 @@ options:
   availability_zone:
     type: str
     required: false
-    description: Availability zone URL
+    description: The name or UUID of the availability zone.
   connect_directly_to_external_network:
     type: bool
     required: false
@@ -172,8 +172,7 @@ EXAMPLES = """
       description: A sample description created by Ansible.
       flavor: Flavor Name or UUID
       image: Image Name or UUID
-      security_groups:
-      - - web-server-sg
+      security_groups: Security_groups Name or UUID
       ports:
       - fixed_ips:
         - ip_address: 8.8.8.8
@@ -186,10 +185,20 @@ EXAMPLES = """
       system_volume_type: System_volume_type Name or UUID
       data_volume_size: 123
       data_volume_type: Data_volume_type Name or UUID
-      ssh_public_key: string-value
+      ssh_public_key: Ssh_public_key Name or UUID
       user_data: "#cloud-config\npackages:\n  - nginx"
-      availability_zone: string-value
+      availability_zone: Availability_zone Name or UUID
       connect_directly_to_external_network: true
+- name: Update an existing OpenStack instance
+  hosts: localhost
+  tasks:
+  - name: Update the name of a OpenStack instance
+    waldur.openstack.instance:
+      state: present
+      name: An updated name
+      project: Project Name or UUID
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
 - name: Remove an existing OpenStack instance
   hosts: localhost
   tasks:
@@ -482,6 +491,12 @@ resource:
       returned: always
       sample:
       - web-server-sg
+      contains:
+        url:
+          description: URL
+          type: str
+          returned: always
+          sample: string-value
     server_group:
       description: Server group
       type: str
@@ -1026,8 +1041,8 @@ RUNNER_CONTEXT = {
     "resource_type": "OpenStack instance",
     "existence_check_url": "/api/openstack-instances/",
     "existence_check_filter_keys": {"project": "project_uuid"},
-    "update_url": None,
-    "update_check_fields": [],
+    "update_url": "/api/openstack-instances/{uuid}/",
+    "update_check_fields": ["description", "name"],
     "attribute_param_names": [
         "availability_zone",
         "connect_directly_to_external_network",
@@ -1056,6 +1071,8 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
         "image": {
             "url": "/api/openstack-images/",
@@ -1067,6 +1084,8 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
         "system_volume_type": {
             "url": "/api/openstack-volume-types/",
@@ -1078,6 +1097,8 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
         "data_volume_type": {
             "url": "/api/openstack-volume-types/",
@@ -1089,14 +1110,69 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
-        "ssh_key": {"url": "/api/keys/", "error_message": None, "filter_by": []},
+        "security_groups": {
+            "url": "/api/openstack-security-groups/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
+            "is_list": True,
+            "list_item_key": None,
+        },
+        "availability_zone": {
+            "url": "/api/openstack-instance-availability-zones/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
+            "is_list": False,
+            "list_item_key": None,
+        },
+        "subnet": {
+            "url": "/api/openstack-subnets/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
+            "is_list": None,
+            "list_item_key": None,
+        },
+        "ssh_public_key": {
+            "url": "/api/keys/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": False,
+            "list_item_key": None,
+        },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
+            "is_list": None,
+            "list_item_key": None,
         },
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": None,
+            "list_item_key": None,
+        },
     },
 }
 

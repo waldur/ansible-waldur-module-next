@@ -34,31 +34,31 @@ options:
     name: name
     type: str
     required: true
-    description: The name or UUID of the openstack instance.
+    description: The name or UUID of the instance.
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Retrieve and print facts about openstack instance
+- name: Retrieve and print facts about instance
   hosts: localhost
   tasks:
-  - name: Get facts about a specific openstack instance
+  - name: Get facts about a specific instance
     waldur.openstack.instance_facts:
-      name: Openstack instance name or UUID
+      name: Instance name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-    register: openstack_instance_info
+    register: instance_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: openstack_instance_info.openstack_instances
+      var: instance_info.instances
 
 """
 
 RETURN = """
 resource:
-  description: A dictionary describing the found openstack instance.
+  description: A dictionary describing the found instance.
   type: dict
   returned: on success
   suboptions:
@@ -334,6 +334,12 @@ resource:
       returned: always
       sample:
       - web-server-sg
+      contains:
+        url:
+          description: URL
+          type: str
+          returned: always
+          sample: string-value
     server_group:
       description: Server group
       type: str
@@ -855,7 +861,7 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "module_type": "facts",
-    "resource_type": "openstack_instance",
+    "resource_type": "instance",
     "list_url": "/api/openstack-instances/",
     "retrieve_url": "/api/openstack-instances/{uuid}/",
     "identifier_param": "name",

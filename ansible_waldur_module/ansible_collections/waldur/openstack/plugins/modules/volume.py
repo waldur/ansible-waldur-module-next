@@ -459,6 +459,8 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
         "image": {
             "url": "/api/openstack-images/",
@@ -470,6 +472,8 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
         "availability_zone": {
             "url": "/api/openstack-volume-availability-zones/",
@@ -481,13 +485,23 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "is_list": False,
+            "list_item_key": None,
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
+            "is_list": None,
+            "list_item_key": None,
         },
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": None,
+            "list_item_key": None,
+        },
     },
 }
 

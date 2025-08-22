@@ -66,7 +66,7 @@ options:
     required: false
     description: URL of the marketplace plan.
   limits:
-    type: object
+    type: dict
     required: false
     description: Marketplace resource limits for limit-based billing.
   description:
@@ -351,7 +351,7 @@ ARGUMENT_SPEC = {
     "project": {"type": "str", "required": True},
     "offering": {"type": "str", "required": True},
     "plan": {"type": "str", "required": False},
-    "limits": {"type": "object", "required": False},
+    "limits": {"type": "dict", "required": False},
     "description": {"type": "str", "required": False},
     "subnet_cidr": {"type": "str", "required": False},
     "skip_connection_extnet": {"type": "bool", "required": False},
@@ -378,8 +378,16 @@ RUNNER_CONTEXT = {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
+            "is_list": None,
+            "list_item_key": None,
         },
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": None,
+            "list_item_key": None,
+        },
     },
 }
 
