@@ -37,6 +37,18 @@ options:
     - absent
     default: present
     type: str
+  wait:
+    description: A boolean value that defines whether to wait for the async action to complete.
+    default: true
+    type: bool
+  timeout:
+    description: The maximum number of seconds to wait for the async action to complete.
+    default: 600
+    type: int
+  interval:
+    description: The interval in seconds for polling the async action status.
+    default: 20
+    type: int
   name:
     type: str
     required: true
@@ -311,6 +323,9 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "required": True},
     "api_url": {"type": "str", "required": True},
     "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
+    "wait": {"type": "bool", "required": False},
+    "timeout": {"type": "int", "required": False},
+    "interval": {"type": "int", "required": False},
     "name": {"type": "str", "required": True},
     "customer": {"type": "str", "required": True},
     "description": {"type": "str", "required": False},
@@ -397,6 +412,7 @@ RUNNER_CONTEXT = {
         "customer": {"url": "/api/customers/", "error_message": None},
         "type": {"url": "/api/project-types/", "error_message": None},
     },
+    "resource_detail_path": "/api/projects/{uuid}/",
 }
 
 

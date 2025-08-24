@@ -38,15 +38,15 @@ options:
     default: present
     type: str
   wait:
-    description: A boolean value that defines whether to wait for the order to complete.
+    description: A boolean value that defines whether to wait for the async action to complete.
     default: true
     type: bool
   timeout:
-    description: The maximum number of seconds to wait for the order to complete.
+    description: The maximum number of seconds to wait for the async action to complete.
     default: 600
     type: int
   interval:
-    description: The interval in seconds for polling the order status.
+    description: The interval in seconds for polling the async action status.
     default: 20
     type: int
   name:
@@ -152,6 +152,35 @@ options:
     type: bool
     required: false
     description: If True, instance will be connected directly to external network
+  data_volumes:
+    type: list
+    required: false
+    description: Additional data volumes to attach to the instance
+    elements: dict
+    suboptions:
+      size:
+        type: int
+        required: true
+        description: Size
+      volume_type:
+        type: str
+        required: false
+        description: Volume type URL
+  termination_action:
+    type: str
+    required: false
+    choices:
+    - destroy
+    - force_destroy
+    description: Termination action
+  delete_volumes:
+    type: str
+    required: false
+    description: If true, delete attached volumes on termination.
+  release_floating_ips:
+    type: str
+    required: false
+    description: If true, release associated floating IPs on termination.
 requirements:
 - python >= 3.11
 
@@ -190,6 +219,9 @@ EXAMPLES = """
       user_data: "#cloud-config\npackages:\n  - nginx"
       availability_zone: Availability zone name or UUID
       connect_directly_to_external_network: true
+      data_volumes:
+      - size: 100
+        volume_type: https://api.example.com/api/volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
 - name: Update an existing instance
   hosts: localhost
   tasks:
@@ -211,6 +243,9 @@ EXAMPLES = """
       api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
+      termination_action: destroy
+      delete_volumes: null
+      release_floating_ips: 8.8.8.8
 
 """
 
@@ -1036,6 +1071,14 @@ ARGUMENT_SPEC = {
     "user_data": {"type": "str", "required": False},
     "availability_zone": {"type": "str", "required": False},
     "connect_directly_to_external_network": {"type": "bool", "required": False},
+    "data_volumes": {"type": "list", "required": False},
+    "termination_action": {
+        "type": "str",
+        "required": False,
+        "choices": ["destroy", "force_destroy"],
+    },
+    "delete_volumes": {"type": "str", "required": False},
+    "release_floating_ips": {"type": "str", "required": False},
 }
 
 RUNNER_CONTEXT = {
@@ -1049,6 +1092,7 @@ RUNNER_CONTEXT = {
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volume_type",
+        "data_volumes",
         "description",
         "flavor",
         "floating_ips",
@@ -1061,6 +1105,11 @@ RUNNER_CONTEXT = {
         "system_volume_type",
         "user_data",
     ],
+    "termination_attributes_map": {
+        "termination_action": "action",
+        "delete_volumes": "delete_volumes",
+        "release_floating_ips": "release_floating_ips",
+    },
     "resolvers": {
         "flavor": {
             "url": "/api/openstack-flavors/",
@@ -1191,6 +1240,12 @@ RUNNER_CONTEXT = {
             "param": "floating_ips",
             "compare_key": "floating_ips",
         },
+    },
+    "resource_detail_path": "/api/openstack-instances/{uuid}/",
+    "wait_config": {
+        "ok_states": ["OK"],
+        "erred_states": ["ERRED"],
+        "state_field": "state",
     },
 }
 

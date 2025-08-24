@@ -38,15 +38,15 @@ options:
     default: present
     type: str
   wait:
-    description: A boolean value that defines whether to wait for the order to complete.
+    description: A boolean value that defines whether to wait for the async action to complete.
     default: true
     type: bool
   timeout:
-    description: The maximum number of seconds to wait for the order to complete.
+    description: The maximum number of seconds to wait for the async action to complete.
     default: 600
     type: int
   interval:
-    description: The interval in seconds for polling the order status.
+    description: The interval in seconds for polling the async action status.
     default: 20
     type: int
   name:
@@ -373,6 +373,7 @@ RUNNER_CONTEXT = {
         "skip_creation_of_default_router",
         "subnet_cidr",
     ],
+    "termination_attributes_map": {},
     "resolvers": {
         "offering": {
             "url": "/api/marketplace-public-offerings/",
@@ -390,6 +391,7 @@ RUNNER_CONTEXT = {
         },
     },
     "update_actions": {},
+    "resource_detail_path": None,
 }
 
 

@@ -95,7 +95,7 @@ class OrderRunner(BaseRunner):
                     params[filter_key] = resolved_url.strip("/").split("/")[-1]
 
         # Send the API request to check for the resource.
-        data = self._send_request(
+        data, _ = self._send_request(
             "GET",
             self.context["existence_check_url"],
             query_params=params,
@@ -146,7 +146,7 @@ class OrderRunner(BaseRunner):
             order_payload.update({"limits": limits})
 
         # Send the request to create the order.
-        order = self._send_request(
+        order, _ = self._send_request(
             "POST", "/api/marketplace-orders/", data=order_payload
         )
 
@@ -200,7 +200,7 @@ class OrderRunner(BaseRunner):
         # If there are changes to apply, send the PATCH request.
         if update_payload and self.resource:
             path = self.context["update_url"]
-            self.resource = self._send_request(
+            self.resource, _ = self._send_request(
                 "PATCH",
                 path,
                 data=update_payload,
@@ -228,14 +228,25 @@ class OrderRunner(BaseRunner):
                 if resolved_payload_for_comparison != self.resource.get(compare_key):
                     # The payload for the API must be wrapped in a dictionary
                     final_api_payload = {param_name: resolved_payload_for_comparison}
-                    self._send_request(
+                    _, status_code = self._send_request(
                         "POST",
                         action_info["path"],
                         data=final_api_payload,
                         path_params={"uuid": self.resource["uuid"]},
                     )
                     self.has_changed = True
-                    needs_refetch = True
+
+                    # If the API accepted the task for async processing, wait for it.
+                    if (
+                        status_code == 202
+                        and self.module.params.get("wait", True)
+                        and self.context.get("wait_config")
+                    ):
+                        self._wait_for_resource_state(self.resource["uuid"])
+                        # After waiting, self.resource is updated, so no re-fetch is needed for this action.
+                    else:
+                        # For synchronous actions or wait=False, mark for a single re-fetch at the end.
+                        needs_refetch = True
 
         # After all actions are processed, re-fetch the state if necessary.
         if needs_refetch:
@@ -250,10 +261,24 @@ class OrderRunner(BaseRunner):
             # for termination actions.
             uuid_to_terminate = self.resource["marketplace_resource_uuid"]
             path = f"/api/marketplace-resources/{uuid_to_terminate}/terminate/"
-            self._send_request("POST", path, data={})
+
+            # Build the termination payload from configured attributes.
+            termination_payload = {}
+            attributes = {}
+            term_attr_map = self.context.get("termination_attributes_map", {})
+
+            for ansible_name, api_name in term_attr_map.items():
+                if self.module.params.get(ansible_name) is not None:
+                    attributes[api_name] = self.module.params[ansible_name]
+
+            if attributes:
+                termination_payload["attributes"] = attributes
+
+            order, _ = self._send_request("POST", path, data=termination_payload)
             self.has_changed = True
             # After termination, the resource is considered gone.
             self.resource = None
+            self.order = order
 
     def _wait_for_order(self, order_uuid):
         """
@@ -264,7 +289,9 @@ class OrderRunner(BaseRunner):
         start_time = time.time()
 
         while time.time() - start_time < timeout:
-            order = self._send_request("GET", f"/api/marketplace-orders/{order_uuid}/")
+            order, _ = self._send_request(
+                "GET", f"/api/marketplace-orders/{order_uuid}/"
+            )
 
             if order and order["state"] == "done":
                 # CRITICAL: After the order completes, the resource has been created.
