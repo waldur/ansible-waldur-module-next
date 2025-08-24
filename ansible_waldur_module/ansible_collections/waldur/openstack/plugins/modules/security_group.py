@@ -38,30 +38,21 @@ options:
     default: present
     type: str
   name:
-    name: name
     type: str
     required: true
     description: The name of the security_group to check/create/delete.
-    maps_to: name_exact
   tenant:
-    name: tenant
     type: str
     required: true
     description: The parent tenant name or UUID for creating the resource.
   description:
-    name: description
     type: str
     required: false
     description: Description
-    is_resolved: false
-    choices: null
   rules:
-    name: rules
     type: list
     required: true
     description: Rules
-    is_resolved: false
-    choices: null
 requirements:
 - python >= 3.11
 
@@ -76,12 +67,12 @@ EXAMPLES = """
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: Tenant Name or UUID
+      tenant: Tenant name or UUID
       name: My-Awesome-OpenStack-security-group
       description: A sample description created by Ansible.
       rules:
-      - ethertype: IPv4
-        direction: ingress
+      - ethertype: null
+        direction: null
         protocol: null
         from_port: 8080
         to_port: 8080
@@ -249,32 +240,32 @@ resource:
       sample: []
       contains:
         ethertype:
-          description: Ethertype
+          description: IP protocol version - either 'IPv4' or 'IPv6'
           type: str
           returned: always
-          sample: IPv4
+          sample: null
         direction:
-          description: Direction
+          description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
           type: str
           returned: always
-          sample: ingress
+          sample: null
         protocol:
-          description: Protocol
+          description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
           type: str
           returned: always
           sample: null
         from_port:
-          description: From port
+          description: Starting port number in the range (1-65535)
           type: int
           returned: always
           sample: 8080
         to_port:
-          description: To port
+          description: Ending port number in the range (1-65535)
           type: int
           returned: always
           sample: 8080
         cidr:
-          description: CIDR
+          description: CIDR notation for the source/destination network address range
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -299,7 +290,7 @@ resource:
           returned: always
           sample: 123
         remote_group:
-          description: Remote group URL
+          description: Remote security group that this rule references, if any
           type: str
           returned: always
           sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -371,7 +362,7 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-security-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_security_group/",
     "destroy_path": "/api/openstack-security-groups/{uuid}/",
-    "update_path": "/api/openstack-security-groups/{uuid}/",
+    "update_path": None,
     "model_param_names": ["description", "name", "rules"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": ["description", "name"],
@@ -379,14 +370,11 @@ RUNNER_CONTEXT = {
         "set_rules": {
             "path": "/api/openstack-security-groups/{uuid}/set_rules/",
             "param": "rules",
+            "check_field": "rules",
+            "wrap_in_object": False,
         }
     },
-    "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
-        }
-    },
+    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
 }
 
 

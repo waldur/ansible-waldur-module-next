@@ -31,42 +31,41 @@ options:
     required: true
     type: str
   name:
-    name: name
-    type: str
-    required: false
     description: The name or UUID of the subnet.
-  tenant:
-    name: tenant
     type: str
     required: false
-    description: ''
+  tenant:
+    description: The name or UUID of the parent tenant.
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Retrieve and print facts about subnet
+- name: Retrieve and print facts about subnets
   hosts: localhost
   tasks:
   - name: Get facts about a specific subnet
     waldur.openstack.subnet_facts:
-      name: Subnet name or UUID
+      name: My Resource Name
       tenant: Tenant name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-    register: subnet_info
+    register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: subnet_info.subnets
+      var: resource_info.subnets
 
 """
 
 RETURN = """
-resource:
-  description: A dictionary describing the found subnet.
-  type: dict
+subnets:
+  description: A list of dictionaries, where each dictionary represents a subnet.
+  type: list
   returned: on success
+  elements: dict
   suboptions:
     url:
       description: URL URL
@@ -82,7 +81,7 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My-Awesome-Resource
+      sample: My-Awesome-subnet
     description:
       description: Description
       type: str
@@ -199,7 +198,7 @@ resource:
       returned: always
       sample: string-value
     network:
-      description: Network URL
+      description: Network to which this subnet belongs
       type: str
       returned: always
       sample: https://api.example.com/api/network/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -214,12 +213,12 @@ resource:
       returned: always
       sample: 192.168.1.0/24
     gateway_ip:
-      description: Gateway IP
+      description: IP address of the gateway for this subnet
       type: str
       returned: always
       sample: 192.168.1.1
     disable_gateway:
-      description: Disable gateway
+      description: If True, no gateway IP address will be allocated
       type: bool
       returned: always
       sample: 192.168.1.1
@@ -240,12 +239,12 @@ resource:
           returned: always
           sample: string-value
     ip_version:
-      description: IP version
+      description: IP protocol version (4 or 6)
       type: int
       returned: always
       sample: 123
     enable_dhcp:
-      description: Enable dhcp
+      description: If True, DHCP service will be enabled on this subnet
       type: bool
       returned: always
       sample: true
@@ -336,18 +335,18 @@ ARGUMENT_SPEC = {
 }
 
 RUNNER_CONTEXT = {
-    "module_type": "facts",
     "resource_type": "subnet",
     "list_url": "/api/openstack-subnets/",
     "retrieve_url": "/api/openstack-subnets/{uuid}/",
     "identifier_param": "name",
-    "context_resolvers": {
+    "resolvers": {
         "tenant": {
             "url": "/api/openstack-tenants/",
             "error_message": "Tenant '{value}' not found.",
             "filter_key": "tenant_uuid",
         }
     },
+    "many": True,
 }
 
 

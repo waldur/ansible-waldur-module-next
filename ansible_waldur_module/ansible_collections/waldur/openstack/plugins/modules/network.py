@@ -38,23 +38,21 @@ options:
     default: present
     type: str
   name:
-    name: name
     type: str
     required: true
     description: The name of the network to check/create/delete.
-    maps_to: name_exact
   tenant:
-    name: tenant
     type: str
     required: true
     description: The parent tenant name or UUID for creating the resource.
   description:
-    name: description
     type: str
     required: false
     description: Description
-    is_resolved: false
-    choices: null
+  mtu:
+    type: dict
+    required: false
+    description: ''
 requirements:
 - python >= 3.11
 
@@ -69,7 +67,7 @@ EXAMPLES = """
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: Tenant Name or UUID
+      tenant: Tenant name or UUID
       name: My-Awesome-OpenStack-network
       description: A sample description created by Ansible.
 - name: Remove an existing OpenStack network
@@ -212,7 +210,7 @@ resource:
       returned: always
       sample: string-value
     tenant:
-      description: Tenant URL
+      description: OpenStack tenant this network belongs to
       type: str
       returned: always
       sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -227,12 +225,12 @@ resource:
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     is_external:
-      description: Is external
+      description: Defines whether this network is external (public) or internal (private)
       type: bool
       returned: always
       sample: true
     type:
-      description: Type
+      description: Network type, such as local, flat, vlan, vxlan, or gre
       type: str
       returned: always
       sample: string-value
@@ -258,12 +256,12 @@ resource:
           returned: always
           sample: A sample description created by Ansible.
         cidr:
-          description: CIDR
+          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
           type: str
           returned: always
           sample: 192.168.1.0/24
         gateway_ip:
-          description: Gateway IP
+          description: IP address of the gateway for this subnet
           type: str
           returned: always
           sample: 192.168.1.1
@@ -284,12 +282,12 @@ resource:
               returned: always
               sample: string-value
         ip_version:
-          description: IP version
+          description: IP protocol version (4 or 6)
           type: int
           returned: always
           sample: 123
         enable_dhcp:
-          description: Enable dhcp
+          description: If True, DHCP service will be enabled on this subnet
           type: bool
           returned: always
           sample: true
@@ -340,7 +338,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         policy_type:
-          description: Policy type
+          description: Type of access granted - either shared access or external network access
           type: str
           returned: always
           sample: null
@@ -409,6 +407,7 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
     "description": {"type": "str", "required": False},
+    "mtu": {"type": "dict", "required": False},
 }
 
 RUNNER_CONTEXT = {
@@ -416,17 +415,19 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-networks/",
     "create_path": "/api/openstack-tenants/{uuid}/create_network/",
     "destroy_path": "/api/openstack-networks/{uuid}/",
-    "update_path": "/api/openstack-networks/{uuid}/",
+    "update_path": None,
     "model_param_names": ["description", "name"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": ["description", "name"],
-    "update_actions": {},
-    "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
+    "update_actions": {
+        "set_mtu": {
+            "path": "/api/openstack-networks/{uuid}/set_mtu/",
+            "param": "mtu",
+            "check_field": "mtu",
+            "wrap_in_object": True,
         }
     },
+    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
 }
 
 

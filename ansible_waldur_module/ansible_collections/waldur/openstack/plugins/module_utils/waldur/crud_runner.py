@@ -1,3 +1,6 @@
+from ansible_collections.waldur.openstack.plugins.module_utils.waldur.resolver import (
+    ParameterResolver,
+)
 from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runner import (
     BaseRunner,
 )
@@ -17,6 +20,15 @@ class CrudRunner(BaseRunner):
           handle both simple field changes (PATCH) and special actions (POST)
           within a single `state: present` task.
     """
+
+    def __init__(self, module, context):
+        """
+        Initializes the runner and its composed ParameterResolver.
+        """
+        super().__init__(module, context)
+        # An instance of the resolver is created, giving this runner access to
+        # all the centralized resolution logic.
+        self.resolver = ParameterResolver(self)
 
     def run(self):
         """
@@ -71,13 +83,10 @@ class CrudRunner(BaseRunner):
             for key in self.context["model_param_names"]
             if key in self.module.params and self.module.params[key] is not None
         }
-        # Resolve any foreign key parameters (e.g., 'customer' name) to their full API URLs.
-        for name, resolver in self.context.get("resolvers", {}).items():
+        for name in self.context.get("resolvers", {}).keys():
             if self.module.params.get(name) and name in payload:
-                payload[name] = self._resolve_to_url(
-                    path=resolver["url"],
-                    value=self.module.params[name],
-                    error_message=resolver["error_message"],
+                payload[name] = self.resolver.resolve_to_url(
+                    name, self.module.params[name]
                 )
 
         # 2. Prepare the API path and any required path parameters for nested endpoints.
@@ -94,16 +103,10 @@ class CrudRunner(BaseRunner):
                 )
 
             # Resolve the parent resource's name/UUID to its UUID for the path.
-            resolver = self.context.get("resolvers", {}).get(ansible_param_name)
-            if not resolver:
-                self.module.fail_json(
-                    msg=f"No resolver found for path parameter '{ansible_param_name}'."
-                )
-            resolved_url = self._resolve_to_url(
-                path=resolver["url"],
-                value=ansible_param_value,
-                error_message=resolver["error_message"],
+            resolved_url = self.resolver.resolve_to_url(
+                ansible_param_name, ansible_param_value
             )
+
             # Extract the UUID from the resolved URL.
             path_params[path_param_key] = resolved_url.strip("/").split("/")[-1]
 
@@ -148,14 +151,27 @@ class CrudRunner(BaseRunner):
         for _, action_info in update_actions.items():
             param_name = action_info["param"]
             param_value = self.module.params.get(param_name)
-            # If the user provided the parameter for this action, execute it.
-            if param_value is not None:
+
+            # Perform idempotency check before executing the action.
+            # Compare the user-provided value with the corresponding field on the resource.
+            check_field = action_info["check_field"]
+            if param_value is not None and param_value != self.resource.get(
+                check_field
+            ):
+                # Construct the request body based on the schema analysis
+                # done by the plugin.
+                if action_info.get("wrap_in_object"):
+                    data_to_send = {param_name: param_value}
+                else:
+                    data_to_send = param_value
+
                 self._send_request(
                     "POST",
                     action_info["path"],
-                    data=param_value,
+                    data=data_to_send,
                     path_params={"uuid": self.resource["uuid"]},
                 )
+
                 # After an action, the resource state might have changed significantly,
                 # so we re-fetch it to ensure our local state is accurate.
                 self.check_existence()
@@ -192,9 +208,15 @@ class CrudRunner(BaseRunner):
             # Predicts action-based updates.
             if not self.has_changed:
                 for action_info in self.context.get("update_actions", {}).values():
-                    if self.module.params.get(action_info["param"]) is not None:
+                    param_value = self.module.params.get(action_info["param"])
+                    # Add idempotency check for actions in check mode.
+                    check_field = action_info["check_field"]
+                    if param_value is not None and param_value != self.resource.get(
+                        check_field
+                    ):
                         self.has_changed = True
                         break
+
         self.exit()
 
     def exit(self):

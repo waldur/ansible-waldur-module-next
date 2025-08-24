@@ -38,59 +38,37 @@ options:
     default: present
     type: str
   name:
-    name: name
     type: str
     required: true
     description: The name of the project to check/create/delete.
-    maps_to: name_exact
   customer:
-    name: customer
     type: str
     required: true
     description: The name or UUID of the customer. Customer
-    is_resolved: true
-    choices: null
   description:
-    name: description
     type: str
     required: false
     description: Description
-    is_resolved: false
-    choices: null
   type:
-    name: type
     type: str
     required: false
     description: The name or UUID of the type. Type
-    is_resolved: true
-    choices: null
   backend_id:
-    name: backend_id
     type: str
     required: false
     description: Backend id
-    is_resolved: false
-    choices: null
   start_date:
-    name: start_date
     type: str
     required: false
     description: Start date
-    is_resolved: false
-    choices: null
   end_date:
-    name: end_date
     type: str
     required: false
     description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
-    is_resolved: false
-    choices: null
   oecd_fos_2007_code:
-    name: oecd_fos_2007_code
     type: str
     required: false
     description: Oecd fos 2007 code
-    is_resolved: false
     choices:
     - '1.1'
     - '1.2'
@@ -137,19 +115,13 @@ options:
     - '6.5'
     - ''
   is_industry:
-    name: is_industry
     type: bool
     required: false
     description: Is industry
-    is_resolved: false
-    choices: null
   image:
-    name: image
     type: str
     required: false
     description: Image
-    is_resolved: false
-    choices: null
 requirements:
 - python >= 3.11
 
@@ -165,9 +137,9 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       name: My-Awesome-project
-      customer: Customer Name or UUID
+      customer: Customer name or UUID
       description: A sample description created by Ansible.
-      type: Type Name or UUID
+      type: Type name or UUID
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       start_date: '2023-10-01'
       end_date: '2023-10-01'
@@ -405,7 +377,7 @@ RUNNER_CONTEXT = {
     "list_path": "/api/projects/",
     "create_path": "/api/projects/",
     "destroy_path": "/api/projects/{uuid}/",
-    "update_path": None,
+    "update_path": "/api/projects/{uuid}/",
     "model_param_names": [
         "backend_id",
         "customer",

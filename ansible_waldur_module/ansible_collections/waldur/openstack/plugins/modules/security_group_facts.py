@@ -31,42 +31,41 @@ options:
     required: true
     type: str
   name:
-    name: name
-    type: str
-    required: false
     description: The name or UUID of the security group.
-  tenant:
-    name: tenant
     type: str
     required: false
-    description: ''
+  tenant:
+    description: The name or UUID of the parent tenant.
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Retrieve and print facts about security group
+- name: Retrieve and print facts about security groups
   hosts: localhost
   tasks:
   - name: Get facts about a specific security group
     waldur.openstack.security_group_facts:
-      name: Security group name or UUID
+      name: My Resource Name
       tenant: Tenant name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-    register: security_group_info
+    register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: security_group_info.security_groups
+      var: resource_info.security_groups
 
 """
 
 RETURN = """
-resource:
-  description: A dictionary describing the found security group.
-  type: dict
+security_groups:
+  description: A list of dictionaries, where each dictionary represents a security group.
+  type: list
   returned: on success
+  elements: dict
   suboptions:
     url:
       description: URL URL
@@ -82,7 +81,7 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My-Awesome-Resource
+      sample: My-Awesome-security-group
     description:
       description: Description
       type: str
@@ -210,32 +209,32 @@ resource:
       sample: []
       contains:
         ethertype:
-          description: Ethertype
+          description: IP protocol version - either 'IPv4' or 'IPv6'
           type: str
           returned: always
-          sample: IPv4
+          sample: null
         direction:
-          description: Direction
+          description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
           type: str
           returned: always
-          sample: ingress
+          sample: null
         protocol:
-          description: Protocol
+          description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
           type: str
           returned: always
           sample: null
         from_port:
-          description: From port
+          description: Starting port number in the range (1-65535)
           type: int
           returned: always
           sample: 8080
         to_port:
-          description: To port
+          description: Ending port number in the range (1-65535)
           type: int
           returned: always
           sample: 8080
         cidr:
-          description: CIDR
+          description: CIDR notation for the source/destination network address range
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -260,7 +259,7 @@ resource:
           returned: always
           sample: 123
         remote_group:
-          description: Remote group URL
+          description: Remote security group that this rule references, if any
           type: str
           returned: always
           sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -325,18 +324,18 @@ ARGUMENT_SPEC = {
 }
 
 RUNNER_CONTEXT = {
-    "module_type": "facts",
     "resource_type": "security group",
     "list_url": "/api/openstack-security-groups/",
     "retrieve_url": "/api/openstack-security-groups/{uuid}/",
     "identifier_param": "name",
-    "context_resolvers": {
+    "resolvers": {
         "tenant": {
             "url": "/api/openstack-tenants/",
             "error_message": "Tenant '{value}' not found.",
             "filter_key": "tenant_uuid",
         }
     },
+    "many": True,
 }
 
 

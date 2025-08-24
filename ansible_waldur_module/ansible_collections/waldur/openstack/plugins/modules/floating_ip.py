@@ -38,13 +38,10 @@ options:
     default: present
     type: str
   name:
-    name: name
     type: str
     required: true
     description: The name of the floating_ip to check/create/delete.
-    maps_to: name_exact
   tenant:
-    name: tenant
     type: str
     required: true
     description: The parent tenant name or UUID for creating the resource.
@@ -62,7 +59,7 @@ EXAMPLES = """
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: Tenant Name or UUID
+      tenant: Tenant name or UUID
 - name: Remove an existing OpenStack floating IP
   hosts: localhost
   tasks:
@@ -208,17 +205,17 @@ resource:
       returned: always
       sample: string-value
     address:
-      description: Address
+      description: The public IPv4 address of the floating IP
       type: str
       returned: always
       sample: string-value
     backend_network_id:
-      description: Backend network ID
+      description: ID of network in OpenStack where this floating IP is allocated
       type: str
       returned: always
       sample: string-value
     tenant:
-      description: Tenant URL
+      description: OpenStack tenant this floating IP belongs to
       type: str
       returned: always
       sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -238,7 +235,7 @@ resource:
       returned: always
       sample: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     external_address:
-      description: An optional address that maps to floating IP's address
+      description: Optional address that maps to floating IP's address in external networks
       type: str
       returned: always
       sample: string-value
@@ -249,12 +246,12 @@ resource:
       sample: []
       contains:
         ip_address:
-          description: IP address
+          description: IP address to assign to the port
           type: str
           returned: always
           sample: 8.8.8.8
         subnet_id:
-          description: Subnet ID
+          description: ID of the subnet in which to assign the IP address
           type: str
           returned: always
           sample: string-value
@@ -344,12 +341,7 @@ RUNNER_CONTEXT = {
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": ["description"],
     "update_actions": {},
-    "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
-        }
-    },
+    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
 }
 
 

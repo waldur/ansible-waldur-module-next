@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: volume
-short_description: Create, update, or delete an OpenStack Volume via the marketplace.
+short_description: Create, update or delete a volume via the marketplace.
 description:
-- Create, update, or delete an OpenStack Volume via the marketplace.
+- Create, update or delete a volume via the marketplace.
 author: Waldur Team
 options:
   access_token:
@@ -72,7 +72,7 @@ options:
   image:
     type: str
     required: false
-    description: The name or UUID of the image.
+    description: Image that this volume was created from, if any
   size:
     type: int
     required: false
@@ -80,51 +80,51 @@ options:
   availability_zone:
     type: str
     required: false
-    description: The name or UUID of the availability zone.
+    description: Availability zone where this volume is located
   type:
     type: str
     required: false
-    description: The name or UUID of the type.
+    description: Type of the volume (e.g. SSD, HDD)
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Create a new OpenStack volume
+- name: Create a new volume
   hosts: localhost
   tasks:
-  - name: Add OpenStack volume
+  - name: Add volume
     waldur.openstack.volume:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
-      name: My-Awesome-OpenStack-volume
+      name: My-Awesome-volume
       description: A sample description created by Ansible.
-      image: Image Name or UUID
+      image: Image name or UUID
       size: 100
-      availability_zone: Availability_zone Name or UUID
-      type: Type Name or UUID
-- name: Update an existing OpenStack volume
+      availability_zone: Availability zone name or UUID
+      type: Type name or UUID
+- name: Update an existing volume
   hosts: localhost
   tasks:
-  - name: Update the description of a OpenStack volume
+  - name: Update the description of a volume
     waldur.openstack.volume:
       state: present
-      name: My-Awesome-OpenStack-volume
+      name: My-Awesome-volume
       project: Project Name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       description: An updated description
-- name: Remove an existing OpenStack volume
+- name: Remove an existing volume
   hosts: localhost
   tasks:
-  - name: Remove OpenStack volume
+  - name: Remove volume
     waldur.openstack.volume:
       state: absent
-      name: My-Awesome-OpenStack-volume
+      name: My-Awesome-volume
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       project: Project Name or UUID
@@ -134,7 +134,7 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A dictionary describing the OpenStack volume after a successful 'present' state.
+  description: A dictionary describing the volume after a successful 'present' state.
   type: dict
   returned: on success when state is 'present'
   contains:
@@ -249,7 +249,7 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: Backend ID
+      description: Volume ID in the OpenStack backend
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -259,7 +259,7 @@ resource:
       returned: always
       sample: string-value
     source_snapshot:
-      description: Source snapshot URL
+      description: Snapshot that this volume was created from, if any
       type: str
       returned: always
       sample: https://api.example.com/api/source-snapshot/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -269,7 +269,7 @@ resource:
       returned: always
       sample: 100
     bootable:
-      description: Bootable
+      description: Indicates if this volume can be used to boot an instance
       type: bool
       returned: always
       sample: true
@@ -279,22 +279,22 @@ resource:
       returned: always
       sample: null
     image:
-      description: Image URL
+      description: Image that this volume was created from, if any
       type: str
       returned: always
       sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     image_metadata:
-      description: Image metadata
+      description: Metadata of the image this volume was created from
       type: str
       returned: always
       sample: string-value
     image_name:
-      description: Image name
+      description: Name of the image this volume was created from
       type: str
       returned: always
       sample: string-value
     type:
-      description: Type URL
+      description: Type of the volume (e.g. SSD, HDD)
       type: str
       returned: always
       sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -309,7 +309,7 @@ resource:
       returned: always
       sample: string-value
     availability_zone:
-      description: Availability zone URL
+      description: Availability zone where this volume is located
       type: str
       returned: always
       sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -334,7 +334,7 @@ resource:
       returned: always
       sample: null
     instance:
-      description: Instance URL
+      description: Instance that this volume is attached to, if any
       type: str
       returned: always
       sample: https://api.example.com/api/instance/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -435,7 +435,7 @@ ARGUMENT_SPEC = {
 }
 
 RUNNER_CONTEXT = {
-    "resource_type": "OpenStack volume",
+    "resource_type": "volume",
     "existence_check_url": "/api/openstack-volumes/",
     "existence_check_filter_keys": {"project": "project_uuid"},
     "update_url": "/api/openstack-volumes/{uuid}/",
@@ -503,6 +503,7 @@ RUNNER_CONTEXT = {
             "list_item_key": None,
         },
     },
+    "update_actions": {},
 }
 
 

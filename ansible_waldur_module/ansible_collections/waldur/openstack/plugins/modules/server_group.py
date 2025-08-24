@@ -38,29 +38,21 @@ options:
     default: present
     type: str
   name:
-    name: name
     type: str
     required: true
     description: The name of the server_group to check/create/delete.
-    maps_to: name_exact
   tenant:
-    name: tenant
     type: str
     required: true
     description: The parent tenant name or UUID for creating the resource.
   description:
-    name: description
     type: str
     required: false
     description: Description
-    is_resolved: false
-    choices: null
   policy:
-    name: policy
     type: str
     required: false
-    description: Policy
-    is_resolved: false
+    description: Server group policy determining the rules for scheduling servers in this group
     choices:
     - affinity
     - ''
@@ -78,7 +70,7 @@ EXAMPLES = """
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: Tenant Name or UUID
+      tenant: Tenant name or UUID
       name: My-Awesome-OpenStack-server-group
       description: A sample description created by Ansible.
       policy: null
@@ -237,7 +229,7 @@ resource:
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     policy:
-      description: Policy
+      description: Server group policy determining the rules for scheduling servers in this group
       type: str
       returned: always
       sample: null
@@ -253,7 +245,7 @@ resource:
       sample: []
       contains:
         backend_id:
-          description: Backend ID
+          description: Instance ID in the OpenStack backend
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -335,17 +327,12 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-server-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_server_group/",
     "destroy_path": "/api/openstack-server-groups/{uuid}/",
-    "update_path": "/api/openstack-server-groups/{uuid}/",
+    "update_path": None,
     "model_param_names": ["description", "name", "policy"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": ["description", "name"],
     "update_actions": {},
-    "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
-        }
-    },
+    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
 }
 
 

@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: vpc
-short_description: Create, update, or delete an OpenStack Tenant via the marketplace.
+short_description: Create, update or delete a vpc via the marketplace.
 description:
-- Create, update, or delete an OpenStack Tenant via the marketplace.
+- Create, update or delete a vpc via the marketplace.
 author: Waldur Team
 options:
   access_token:
@@ -95,29 +95,29 @@ requirements:
 """
 
 EXAMPLES = """
-- name: Create a new OpenStack tenant
+- name: Create a new vpc
   hosts: localhost
   tasks:
-  - name: Add OpenStack tenant
+  - name: Add vpc
     waldur.openstack.vpc:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
-      name: My-Awesome-OpenStack-tenant
+      name: My-Awesome-vpc
       description: A sample description created by Ansible.
       subnet_cidr: 192.168.1.0/24
       skip_connection_extnet: true
       skip_creation_of_default_router: true
       availability_zone: string-value
-- name: Remove an existing OpenStack tenant
+- name: Remove an existing vpc
   hosts: localhost
   tasks:
-  - name: Remove OpenStack tenant
+  - name: Remove vpc
     waldur.openstack.vpc:
       state: absent
-      name: My-Awesome-OpenStack-tenant
+      name: My-Awesome-vpc
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       project: Project Name or UUID
@@ -127,7 +127,7 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A dictionary describing the OpenStack tenant after a successful 'present' state.
+  description: A dictionary describing the vpc after a successful 'present' state.
   type: dict
   returned: on success when state is 'present'
   contains:
@@ -242,7 +242,7 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: Backend ID
+      description: ID of tenant in the OpenStack backend
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -252,12 +252,12 @@ resource:
       returned: always
       sample: string-value
     internal_network_id:
-      description: Internal network ID
+      description: ID of internal network in OpenStack tenant
       type: str
       returned: always
       sample: string-value
     external_network_id:
-      description: External network ID
+      description: ID of external network connected to OpenStack tenant
       type: str
       returned: always
       sample: string-value
@@ -360,7 +360,7 @@ ARGUMENT_SPEC = {
 }
 
 RUNNER_CONTEXT = {
-    "resource_type": "OpenStack tenant",
+    "resource_type": "vpc",
     "existence_check_url": "/api/openstack-tenants/",
     "existence_check_filter_keys": {"project": "project_uuid"},
     "update_url": None,
@@ -389,6 +389,7 @@ RUNNER_CONTEXT = {
             "list_item_key": None,
         },
     },
+    "update_actions": {},
 }
 
 

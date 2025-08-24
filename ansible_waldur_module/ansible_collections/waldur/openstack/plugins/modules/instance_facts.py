@@ -31,36 +31,36 @@ options:
     required: true
     type: str
   name:
-    name: name
+    description: The name or UUID of the instance.
     type: str
     required: true
-    description: The name or UUID of the instance.
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Retrieve and print facts about instance
+- name: Retrieve and print facts about instances
   hosts: localhost
   tasks:
   - name: Get facts about a specific instance
     waldur.openstack.instance_facts:
-      name: Instance name or UUID
+      name: My Resource Name
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-    register: instance_info
+    register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: instance_info.instances
+      var: resource_info.instances
 
 """
 
 RETURN = """
-resource:
-  description: A dictionary describing the found instance.
-  type: dict
+instances:
+  description: A list of dictionaries, where each dictionary represents a instance.
+  type: list
   returned: on success
+  elements: dict
   suboptions:
     url:
       description: URL URL
@@ -76,7 +76,7 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My-Awesome-Resource
+      sample: My-Awesome-instance
     description:
       description: Description
       type: str
@@ -88,7 +88,7 @@ resource:
       returned: always
       sample: string-value
     service_settings:
-      description: Service settings URL
+      description: OpenStack provider settings
       type: str
       returned: always
       sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -173,7 +173,7 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: Backend ID
+      description: Instance ID in the OpenStack backend
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -258,12 +258,12 @@ resource:
       returned: always
       sample: 20480
     flavor_name:
-      description: Flavor name
+      description: Name of the flavor used by this instance
       type: str
       returned: always
       sample: string-value
     volumes:
-      description: A list of volumes items.
+      description: List of volumes attached to the instance
       type: list
       returned: always
       sample: []
@@ -282,9 +282,9 @@ resource:
           description: Name
           type: str
           returned: always
-          sample: My-Awesome-Resource
+          sample: My-Awesome-instance
         image_name:
-          description: Image name
+          description: Name of the image this volume was created from
           type: str
           returned: always
           sample: string-value
@@ -294,7 +294,7 @@ resource:
           returned: always
           sample: OK
         bootable:
-          description: Bootable
+          description: Indicates if this volume can be used to boot an instance
           type: bool
           returned: always
           sample: true
@@ -314,7 +314,7 @@ resource:
           returned: always
           sample: string-value
         type:
-          description: Type URL
+          description: Type of the volume (e.g. SSD, HDD)
           type: str
           returned: always
           sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -329,7 +329,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     security_groups:
-      description: A list of security groups items.
+      description: List of security groups to apply to the instance
       type: list
       returned: always
       sample:
@@ -341,12 +341,12 @@ resource:
           returned: always
           sample: string-value
     server_group:
-      description: Server group
+      description: Server group for instance scheduling policy
       type: str
       returned: always
       sample: null
     floating_ips:
-      description: A list of floating ips items.
+      description: Floating IPs to assign to the instance
       type: list
       returned: always
       sample:
@@ -363,7 +363,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         address:
-          description: Address
+          description: The public IPv4 address of the floating IP
           type: str
           returned: always
           sample: string-value
@@ -374,17 +374,17 @@ resource:
           sample: []
           contains:
             ip_address:
-              description: IP address
+              description: IP address to assign to the port
               type: str
               returned: always
               sample: 8.8.8.8
             subnet_id:
-              description: Subnet ID
+              description: ID of the subnet in which to assign the IP address
               type: str
               returned: always
               sample: string-value
         port_mac_address:
-          description: Port mac address
+          description: MAC address of the port
           type: str
           returned: always
           sample: 00:1B:44:11:3A:B7
@@ -409,12 +409,12 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: Subnet CIDR
+          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
           type: str
           returned: always
           sample: 192.168.1.0/24
     ports:
-      description: A list of ports items.
+      description: Network ports to attach to the instance
       type: list
       returned: always
       sample:
@@ -432,22 +432,22 @@ resource:
           sample: []
           contains:
             ip_address:
-              description: IP address
+              description: IP address to assign to the port
               type: str
               returned: always
               sample: 8.8.8.8
             subnet_id:
-              description: Subnet ID
+              description: ID of the subnet in which to assign the IP address
               type: str
               returned: always
               sample: string-value
         mac_address:
-          description: Mac address
+          description: MAC address of the port
           type: str
           returned: always
           sample: 00:1B:44:11:3A:B7
         subnet:
-          description: Subnet URL
+          description: Subnet to which this port belongs
           type: str
           returned: always
           sample: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -467,7 +467,7 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: Subnet CIDR
+          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -483,12 +483,12 @@ resource:
               returned: always
               sample: 00:1B:44:11:3A:B7
         device_id:
-          description: Device ID
+          description: ID of device (instance, router etc) to which this port is connected
           type: str
           returned: always
           sample: string-value
         device_owner:
-          description: Device owner
+          description: Entity that uses this port (e.g. network:router_interface)
           type: str
           returned: always
           sample: string-value
@@ -513,7 +513,7 @@ resource:
               description: Name
               type: str
               returned: always
-              sample: My-Awesome-Resource
+              sample: My-Awesome-instance
             description:
               description: Description
               type: str
@@ -641,32 +641,32 @@ resource:
               sample: []
               contains:
                 ethertype:
-                  description: Ethertype
+                  description: IP protocol version - either 'IPv4' or 'IPv6'
                   type: str
                   returned: always
-                  sample: IPv4
+                  sample: null
                 direction:
-                  description: Direction
+                  description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
                   type: str
                   returned: always
-                  sample: ingress
+                  sample: null
                 protocol:
-                  description: Protocol
+                  description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
                   type: str
                   returned: always
                   sample: null
                 from_port:
-                  description: From port
+                  description: Starting port number in the range (1-65535)
                   type: int
                   returned: always
                   sample: 8080
                 to_port:
-                  description: To port
+                  description: Ending port number in the range (1-65535)
                   type: int
                   returned: always
                   sample: 8080
                 cidr:
-                  description: CIDR
+                  description: CIDR notation for the source/destination network address range
                   type: str
                   returned: always
                   sample: 192.168.1.0/24
@@ -691,7 +691,7 @@ resource:
                   returned: always
                   sample: 123
                 remote_group:
-                  description: Remote group URL
+                  description: Remote security group that this rule references, if any
                   type: str
                   returned: always
                   sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -746,17 +746,17 @@ resource:
               returned: always
               sample: true
     availability_zone:
-      description: Availability zone URL
+      description: Availability zone where this instance is located
       type: str
       returned: always
       sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     availability_zone_name:
-      description: Availability zone name
+      description: Name of the availability zone where instance is located
       type: str
       returned: always
       sample: string-value
     connect_directly_to_external_network:
-      description: Connect directly to external network
+      description: If True, instance will be connected directly to external network
       type: bool
       returned: always
       sample: true
@@ -771,22 +771,22 @@ resource:
       returned: always
       sample: string-value
     action_details:
-      description: Action details
+      description: Details about ongoing or completed actions
       type: str
       returned: always
       sample: null
     tenant_uuid:
-      description: Tenant UUID
+      description: UUID of the OpenStack tenant
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     hypervisor_hostname:
-      description: Hypervisor hostname
+      description: Name of the hypervisor hosting this instance
       type: str
       returned: always
       sample: server-01.example.com
     tenant:
-      description: Tenant URL
+      description: The OpenStack tenant to create the instance in
       type: str
       returned: always
       sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -860,12 +860,12 @@ ARGUMENT_SPEC = {
 }
 
 RUNNER_CONTEXT = {
-    "module_type": "facts",
     "resource_type": "instance",
     "list_url": "/api/openstack-instances/",
     "retrieve_url": "/api/openstack-instances/{uuid}/",
     "identifier_param": "name",
-    "context_resolvers": {},
+    "resolvers": {},
+    "many": False,
 }
 
 

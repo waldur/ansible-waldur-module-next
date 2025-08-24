@@ -1,6 +1,8 @@
-from copy import deepcopy
 import time
 
+from ansible_collections.waldur.openstack.plugins.module_utils.waldur.resolver import (
+    ParameterResolver,
+)
 from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runner import (
     BaseRunner,
 )
@@ -17,7 +19,6 @@ class OrderRunner(BaseRunner):
     - Updating a resource's simple attributes if it's present and has changed.
     - Terminating a resource via the marketplace if it's marked as absent.
     - Polling for order completion.
-    - Handling complex parameter resolution, including dependent filters and lists.
     """
 
     def __init__(self, module, context):
@@ -28,8 +29,12 @@ class OrderRunner(BaseRunner):
         # self.resource will store the current state of the Waldur resource,
         # or None if it does not exist. It is populated by check_existence().
         self.resource = None
-        # This will cache resolved API responses to avoid redundant lookups.
-        self.resolved_api_responses = {}
+        self.order = None
+
+        # An instance of the ParameterResolver is created, passing this runner instance to it.
+        # This gives the resolver access to _send_request, the module, and the context.
+        # The resolver will now manage its own internal cache, replacing `self.resolved_api_responses`.
+        self.resolver = ParameterResolver(self)
 
     def run(self):
         """
@@ -38,7 +43,7 @@ class OrderRunner(BaseRunner):
         desired state (present or absent).
         """
         # Step 1: Determine the current state of the resource in Waldur.
-        self.check_existence()
+        self.resource = self.check_existence()
 
         # Step 2: Handle Ansible's --check mode. If enabled, we predict changes
         # without making any modifying API calls and exit early.
@@ -82,12 +87,8 @@ class OrderRunner(BaseRunner):
             if self.module.params.get(param_name):
                 # Resolve the user-provided name/UUID (e.g., project name) to its URL
                 # to extract the UUID for the filter.
-                resolved_url = self._resolve_to_url(
-                    path=self.context["resolvers"][param_name]["url"],
-                    value=self.module.params[param_name],
-                    error_message=self.context["resolvers"][param_name][
-                        "error_message"
-                    ],
+                resolved_url = self.resolver.resolve_to_url(
+                    param_name=param_name, value=self.module.params[param_name]
                 )
                 if resolved_url:
                     # Extract the UUID from the end of the resolved URL.
@@ -105,8 +106,11 @@ class OrderRunner(BaseRunner):
                 f"Multiple resources found for '{self.module.params['name']}'. The first one will be used."
             )
 
-        # Store the first result found, or None if the list is empty.
-        self.resource = data[0] if data else None
+        # The _send_request method can return a list (from a list endpoint)
+        # or a dict (from a retrieve endpoint). This handles both cases safely.
+        if isinstance(data, list):
+            return data[0] if data else None
+        return data  # It's already a single item or None
 
     def create(self):
         """
@@ -114,27 +118,32 @@ class OrderRunner(BaseRunner):
         resolving all necessary parameters into API URLs and constructing the
         order payload.
         """
-        # Resolve top-level required parameters first to satisfy dependencies.
-        project_url = self._resolve_parameter("project", self.module.params["project"])
-        offering_url = self._resolve_parameter(
-            "offering", self.module.params["offering"]
-        )
+        # --- Resolution Logic Delegation ---
+        # First, we resolve the top-level parameters. This is crucial because it populates
+        # the resolver's internal cache with the full 'project' and 'offering' objects,
+        # making them available for dependency filtering by subsequent resolvers (e.g., for 'flavor' or 'subnet').
+        project_url = self.resolver.resolve("project", self.module.params["project"])
+        offering_url = self.resolver.resolve("offering", self.module.params["offering"])
 
         # Build the 'attributes' dictionary for the order payload.
         attributes = {"name": self.module.params["name"]}
         for key in self.context["attribute_param_names"]:
             if key in self.module.params and self.module.params[key] is not None:
                 # Recursively resolve the entire parameter structure.
-                attributes[key] = self._resolve_parameter(key, self.module.params[key])
+                attributes[key] = self.resolver.resolve(key, self.module.params[key])
 
         order_payload = {
             "project": project_url,
             "offering": offering_url,
-            "plan": self.module.params.get("plan"),
-            "limits": self.module.params.get("limits", {}),
             "attributes": attributes,
             "accepting_terms_of_service": True,
         }
+        plan = self.module.params.get("plan")
+        if plan:
+            order_payload.update({"plan": plan})
+        limits = self.module.params.get("limits")
+        if limits:
+            order_payload.update({"limits": limits})
 
         # Send the request to create the order.
         order = self._send_request(
@@ -144,6 +153,7 @@ class OrderRunner(BaseRunner):
         # If waiting is enabled, poll the order's status until completion.
         if self.module.params.get("wait", True) and order:
             self._wait_for_order(order["uuid"])
+        self.order = order
 
         self.has_changed = True
 
@@ -155,6 +165,26 @@ class OrderRunner(BaseRunner):
         # Do nothing if no update endpoint is configured for this resource.
         if not self.context.get("update_url"):
             return
+
+        # --- Dependency Cache Priming ---
+        # Instead of manually fetching dependencies, we now use a dedicated method on the
+        # resolver to "prime" its cache. It fetches the full objects for the resource's
+        # 'offering' and 'project' from their URLs, making them available for filtering.
+        if self.resource:
+            self.resolver.prime_cache_from_resource(
+                self.resource, ["offering", "project"]
+            )
+
+        # If the user provides an 'offering' or 'project' parameter, their choice
+        # should override the existing one. We explicitly resolve it here to
+        # update the cache with the user-provided value.
+        if self.module.params.get("offering"):
+            self.resolver.resolve("offering", self.module.params["offering"])
+        if self.module.params.get("project"):
+            self.resolver.resolve("project", self.module.params["project"])
+
+        # Use a flag to perform the re-fetch only once at the end.
+        needs_refetch = False
 
         update_payload = {}
         # Iterate through the fields that are configured as updatable.
@@ -177,6 +207,39 @@ class OrderRunner(BaseRunner):
                 path_params={"uuid": self.resource["uuid"]},
             )
             self.has_changed = True
+
+        # 2. Handle complex, idempotent, action-based updates (e.g., updating ports).
+        update_actions = self.context.get("update_actions", {})
+        for _, action_info in update_actions.items():
+            param_name = action_info["param"]
+            compare_key = action_info["compare_key"]
+            param_value = self.module.params.get(param_name)
+
+            # Perform the idempotency check ONLY if the user provided the parameter.
+            if param_value is not None:
+                # The idempotency check must compare like with like.
+                # We use the resolver to get the fully resolved, API-ready version
+                # of the user's input *before*
+                # comparing them to the current state of the resource.
+                resolved_payload_for_comparison = self.resolver.resolve(
+                    param_name, param_value
+                )
+
+                if resolved_payload_for_comparison != self.resource.get(compare_key):
+                    # The payload for the API must be wrapped in a dictionary
+                    final_api_payload = {param_name: resolved_payload_for_comparison}
+                    self._send_request(
+                        "POST",
+                        action_info["path"],
+                        data=final_api_payload,
+                        path_params={"uuid": self.resource["uuid"]},
+                    )
+                    self.has_changed = True
+                    needs_refetch = True
+
+        # After all actions are processed, re-fetch the state if necessary.
+        if needs_refetch:
+            self.resource = self.check_existence()
 
     def delete(self):
         """
@@ -206,12 +269,13 @@ class OrderRunner(BaseRunner):
             if order and order["state"] == "done":
                 # CRITICAL: After the order completes, the resource has been created.
                 # We must re-fetch its final state to return accurate data to the user.
-                self.check_existence()
+                self.resource = self.check_existence()
                 return
             if order and order["state"] in ["erred", "rejected", "canceled"]:
                 self.module.fail_json(
                     msg=f"Order finished with status '{order['state']}'. Error message: {order.get('error_message')}"
                 )
+                return
 
             time.sleep(interval)
 
@@ -237,102 +301,21 @@ class OrderRunner(BaseRunner):
                     if param_value is not None and param_value != resource_value:
                         self.has_changed = True
                         break
+            # Predicts if any action-based updates would trigger.
+            if not self.has_changed:
+                for action_info in self.context.get("update_actions", {}).values():
+                    param_value = self.module.params.get(action_info["param"])
+                    if self.resource:
+                        resource_value = self.resource.get(action_info["compare_key"])
+                        if param_value is not None and param_value != resource_value:
+                            self.has_changed = True
+                            break
         self.exit()
 
     def exit(self):
         """
         Formats the final response and exits the module execution.
         """
-        self.module.exit_json(changed=self.has_changed, resource=self.resource)
-
-    def _resolve_parameter(self, param_name: str, param_value: any) -> any:
-        """
-        Recursively resolves a parameter value. It handles strings, lists, and dicts,
-        looking for keys that match a configured resolver.
-        """
-        # If the value is a dictionary, traverse its keys.
-        if isinstance(param_value, dict):
-            # Make a deep copy to avoid modifying the original params.
-            resolved_dict = deepcopy(param_value)
-            for key, value in param_value.items():
-                resolved_dict[key] = self._resolve_parameter(key, value)
-            return resolved_dict
-
-        # If the value is a list, traverse its items.
-        if isinstance(param_value, list):
-            return [self._resolve_parameter(param_name, item) for item in param_value]
-
-        # Base case: The value is a primitive (string, int, etc.)
-        resolver_conf = self.context["resolvers"].get(param_name)
-        if not resolver_conf:
-            return param_value  # No resolver for this param, return as is.
-
-        # --- A resolver exists, perform the resolution ---
-        query_params = self._build_dependency_filters(
-            param_name, resolver_conf.get("filter_by", []), self.resolved_api_responses
+        self.module.exit_json(
+            changed=self.has_changed, resource=self.resource, order=self.order
         )
-        resource_list = self._resolve_to_list(
-            path=resolver_conf["url"],
-            value=param_value,
-            query_params=query_params,
-        )
-
-        if not resource_list:
-            self.module.fail_json(
-                msg=resolver_conf["error_message"].format(value=param_value)
-            )
-        if len(resource_list) > 1:
-            self.module.warn(
-                f"Multiple resources found for '{param_value}' for parameter '{param_name}'. Using the first one."
-            )
-
-        resolved_object = resource_list[0]
-        # Cache the full response for dependency lookups.
-        # Use a tuple of (name, value) as key to distinguish different resolutions
-        # for the same parameter type (e.g., two different subnets).
-        self.resolved_api_responses[(param_name, param_value)] = resolved_object
-        # Cache top-level parameter responses for dependency lookups by name only.
-        if param_name in self.module.params:
-            self.resolved_api_responses[param_name] = resolved_object
-
-        # If it's a list-based resolver, package the URL into the required structure.
-        if resolver_conf.get("is_list"):
-            item_key = resolver_conf.get("list_item_key")
-            if item_key:
-                return {item_key: resolved_object["url"]}
-        return resolved_object["url"]
-
-    def _build_dependency_filters(
-        self, name, dependencies, resolved_api_responses
-    ) -> dict:
-        """Builds a query parameter dictionary from resolver dependencies."""
-        query_params = {}
-        for dep in dependencies:
-            source_param = dep["source_param"]
-            if source_param not in resolved_api_responses:
-                self.module.fail_json(
-                    msg=f"Configuration error: Resolver for '{name}' depends on '{source_param}', which has not been resolved yet."
-                )
-            source_value = resolved_api_responses[source_param].get(dep["source_key"])
-            if source_value is None:
-                self.module.fail_json(
-                    msg=f"Could not find key '{dep['source_key']}' in the response for '{source_param}'."
-                )
-            query_params[dep["target_key"]] = source_value
-        return query_params
-
-    def _resolve_to_list(self, path, value, query_params=None) -> list:
-        """
-        A helper to resolve a name or UUID to a list of matching resources,
-        applying any provided query filters.
-        """
-        # If the value is a UUID, we can fetch it directly for efficiency.
-        if self._is_uuid(value):
-            # We ignore query_params here as direct fetch is more specific.
-            resource = self._send_request("GET", f"{path}{value}/")
-            return [resource] if resource else []
-
-        # If it's a name, we add it to the query parameters and search.
-        final_query = query_params.copy() if query_params else {}
-        final_query["name"] = value
-        return self._send_request("GET", path, query_params=final_query)

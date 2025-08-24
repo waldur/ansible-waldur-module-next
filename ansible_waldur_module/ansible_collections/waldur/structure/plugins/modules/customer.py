@@ -38,129 +38,77 @@ options:
     default: present
     type: str
   name:
-    name: name
     type: str
     required: true
     description: The name of the customer to check/create/delete.
-    maps_to: name_exact
   backend_id:
-    name: backend_id
     type: str
     required: false
     description: Organization identifier in another application.
-    is_resolved: false
-    choices: null
   image:
-    name: image
     type: str
     required: false
     description: Image
-    is_resolved: false
-    choices: null
   native_name:
-    name: native_name
     type: str
     required: false
     description: Native name
-    is_resolved: false
-    choices: null
   abbreviation:
-    name: abbreviation
     type: str
     required: false
     description: Abbreviation
-    is_resolved: false
-    choices: null
   contact_details:
-    name: contact_details
     type: str
     required: false
     description: Contact details
-    is_resolved: false
-    choices: null
   email:
-    name: email
     type: str
     required: false
     description: Email
-    is_resolved: false
-    choices: null
   phone_number:
-    name: phone_number
     type: str
     required: false
     description: Phone number
-    is_resolved: false
-    choices: null
   registration_code:
-    name: registration_code
     type: str
     required: false
     description: Registration code
-    is_resolved: false
-    choices: null
   homepage:
-    name: homepage
     type: str
     required: false
     description: Homepage
-    is_resolved: false
-    choices: null
   vat_code:
-    name: vat_code
     type: str
     required: false
     description: VAT number
-    is_resolved: false
-    choices: null
   postal:
-    name: postal
     type: str
     required: false
     description: Postal
-    is_resolved: false
-    choices: null
   address:
-    name: address
     type: str
     required: false
     description: Address
-    is_resolved: false
-    choices: null
   bank_name:
-    name: bank_name
     type: str
     required: false
     description: Bank name
-    is_resolved: false
-    choices: null
   latitude:
-    name: latitude
     type: float
     required: false
     description: Latitude
-    is_resolved: false
-    choices: null
   longitude:
-    name: longitude
     type: float
     required: false
     description: Longitude
-    is_resolved: false
-    choices: null
   bank_account:
-    name: bank_account
     type: str
     required: false
     description: Bank account
-    is_resolved: false
-    choices: null
   country:
-    name: country
     type: str
     required: false
     description: Country
-    is_resolved: false
     choices:
     - AL
     - AT
@@ -601,7 +549,7 @@ RUNNER_CONTEXT = {
     "list_path": "/api/customers/",
     "create_path": "/api/customers/",
     "destroy_path": "/api/customers/{uuid}/",
-    "update_path": None,
+    "update_path": "/api/customers/{uuid}/",
     "model_param_names": [
         "abbreviation",
         "address",

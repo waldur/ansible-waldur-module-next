@@ -16,9 +16,9 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = """
 ---
 module: instance
-short_description: Create or delete an OpenStack Instance.
+short_description: Create, update or delete a instance via the marketplace.
 description:
-- Create or delete an OpenStack Instance.
+- Create, update or delete a instance via the marketplace.
 author: Waldur Team
 options:
   access_token:
@@ -72,20 +72,20 @@ options:
   flavor:
     type: str
     required: true
-    description: The name or UUID of the flavor.
+    description: The flavor to use for the instance
   image:
     type: str
     required: true
-    description: The name or UUID of the image.
+    description: The OS image to use for the instance
   security_groups:
     type: list
     required: false
-    description: The name or UUID of the security groups.
+    description: List of security groups to apply to the instance
     elements: str
   ports:
     type: list
     required: true
-    description: A list of ports names or UUIDs.
+    description: Network ports to attach to the instance
     elements: dict
     suboptions:
       fixed_ips:
@@ -97,15 +97,15 @@ options:
           ip_address:
             type: str
             required: true
-            description: IP address
+            description: IP address to assign to the port
           subnet_id:
             type: str
             required: true
-            description: Subnet ID
+            description: ID of the subnet in which to assign the IP address
       subnet:
         type: str
         required: false
-        description: The name or UUID of the subnet.
+        description: Subnet to which this port belongs
       port:
         type: str
         required: false
@@ -113,7 +113,7 @@ options:
   floating_ips:
     type: list
     required: false
-    description: A list of floating ips names or UUIDs.
+    description: Floating IPs to assign to the instance
     elements: dict
     suboptions:
       subnet:
@@ -123,19 +123,19 @@ options:
   system_volume_size:
     type: int
     required: true
-    description: System volume size
+    description: Size of the system volume in MiB. Minimum size is 1024 MiB (1 GiB)
   system_volume_type:
     type: str
     required: false
-    description: The name or UUID of the system volume type.
+    description: Volume type for the system volume
   data_volume_size:
     type: int
     required: false
-    description: Data volume size
+    description: Size of the data volume in MiB. Minimum size is 1024 MiB (1 GiB)
   data_volume_type:
     type: str
     required: false
-    description: The name or UUID of the data volume type.
+    description: Volume type for the data volume
   ssh_public_key:
     type: str
     required: false
@@ -147,65 +147,66 @@ options:
   availability_zone:
     type: str
     required: false
-    description: The name or UUID of the availability zone.
+    description: Availability zone where this instance is located
   connect_directly_to_external_network:
     type: bool
     required: false
-    description: Connect directly to external network
+    description: If True, instance will be connected directly to external network
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Create a new OpenStack instance
+- name: Create a new instance
   hosts: localhost
   tasks:
-  - name: Add OpenStack instance
+  - name: Add instance
     waldur.openstack.instance:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
-      name: My-Awesome-OpenStack-instance
+      name: My-Awesome-instance
       description: A sample description created by Ansible.
-      flavor: Flavor Name or UUID
-      image: Image Name or UUID
-      security_groups: Security_groups Name or UUID
+      flavor: Flavor name or UUID
+      image: Image name or UUID
+      security_groups:
+      - Security groups name or UUID
       ports:
       - fixed_ips:
         - ip_address: 8.8.8.8
           subnet_id: string-value
-        subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        subnet: Subnet name or UUID
         port: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       floating_ips:
-      - subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      - subnet: Subnet name or UUID
       system_volume_size: 123
-      system_volume_type: System_volume_type Name or UUID
+      system_volume_type: System volume type name or UUID
       data_volume_size: 123
-      data_volume_type: Data_volume_type Name or UUID
-      ssh_public_key: Ssh_public_key Name or UUID
+      data_volume_type: Data volume type name or UUID
+      ssh_public_key: Ssh public key name or UUID
       user_data: "#cloud-config\npackages:\n  - nginx"
-      availability_zone: Availability_zone Name or UUID
+      availability_zone: Availability zone name or UUID
       connect_directly_to_external_network: true
-- name: Update an existing OpenStack instance
+- name: Update an existing instance
   hosts: localhost
   tasks:
-  - name: Update the name of a OpenStack instance
+  - name: Update the name of a instance
     waldur.openstack.instance:
       state: present
       name: An updated name
       project: Project Name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-- name: Remove an existing OpenStack instance
+- name: Remove an existing instance
   hosts: localhost
   tasks:
-  - name: Remove OpenStack instance
+  - name: Remove instance
     waldur.openstack.instance:
       state: absent
-      name: My-Awesome-OpenStack-instance
+      name: My-Awesome-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       project: Project Name or UUID
@@ -215,7 +216,7 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A dictionary describing the OpenStack instance after a successful 'present' state.
+  description: A dictionary describing the instance after a successful 'present' state.
   type: dict
   returned: on success when state is 'present'
   contains:
@@ -245,7 +246,7 @@ resource:
       returned: always
       sample: string-value
     service_settings:
-      description: Service settings URL
+      description: OpenStack provider settings
       type: str
       returned: always
       sample: https://api.example.com/api/service-settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -330,7 +331,7 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: Backend ID
+      description: Instance ID in the OpenStack backend
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -415,12 +416,12 @@ resource:
       returned: always
       sample: 20480
     flavor_name:
-      description: Flavor name
+      description: Name of the flavor used by this instance
       type: str
       returned: always
       sample: string-value
     volumes:
-      description: A list of volumes items.
+      description: List of volumes attached to the instance
       type: list
       returned: always
       sample: []
@@ -441,7 +442,7 @@ resource:
           returned: always
           sample: My-Awesome-Resource
         image_name:
-          description: Image name
+          description: Name of the image this volume was created from
           type: str
           returned: always
           sample: string-value
@@ -451,7 +452,7 @@ resource:
           returned: always
           sample: OK
         bootable:
-          description: Bootable
+          description: Indicates if this volume can be used to boot an instance
           type: bool
           returned: always
           sample: true
@@ -471,7 +472,7 @@ resource:
           returned: always
           sample: string-value
         type:
-          description: Type URL
+          description: Type of the volume (e.g. SSD, HDD)
           type: str
           returned: always
           sample: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -486,7 +487,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     security_groups:
-      description: A list of security groups items.
+      description: List of security groups to apply to the instance
       type: list
       returned: always
       sample:
@@ -498,12 +499,12 @@ resource:
           returned: always
           sample: string-value
     server_group:
-      description: Server group
+      description: Server group for instance scheduling policy
       type: str
       returned: always
       sample: null
     floating_ips:
-      description: A list of floating ips items.
+      description: Floating IPs to assign to the instance
       type: list
       returned: always
       sample:
@@ -520,7 +521,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         address:
-          description: Address
+          description: The public IPv4 address of the floating IP
           type: str
           returned: always
           sample: string-value
@@ -531,17 +532,17 @@ resource:
           sample: []
           contains:
             ip_address:
-              description: IP address
+              description: IP address to assign to the port
               type: str
               returned: always
               sample: 8.8.8.8
             subnet_id:
-              description: Subnet ID
+              description: ID of the subnet in which to assign the IP address
               type: str
               returned: always
               sample: string-value
         port_mac_address:
-          description: Port mac address
+          description: MAC address of the port
           type: str
           returned: always
           sample: 00:1B:44:11:3A:B7
@@ -566,12 +567,12 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: Subnet CIDR
+          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
           type: str
           returned: always
           sample: 192.168.1.0/24
     ports:
-      description: A list of ports items.
+      description: Network ports to attach to the instance
       type: list
       returned: always
       sample:
@@ -589,22 +590,22 @@ resource:
           sample: []
           contains:
             ip_address:
-              description: IP address
+              description: IP address to assign to the port
               type: str
               returned: always
               sample: 8.8.8.8
             subnet_id:
-              description: Subnet ID
+              description: ID of the subnet in which to assign the IP address
               type: str
               returned: always
               sample: string-value
         mac_address:
-          description: Mac address
+          description: MAC address of the port
           type: str
           returned: always
           sample: 00:1B:44:11:3A:B7
         subnet:
-          description: Subnet URL
+          description: Subnet to which this port belongs
           type: str
           returned: always
           sample: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -624,7 +625,7 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: Subnet CIDR
+          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -640,12 +641,12 @@ resource:
               returned: always
               sample: 00:1B:44:11:3A:B7
         device_id:
-          description: Device ID
+          description: ID of device (instance, router etc) to which this port is connected
           type: str
           returned: always
           sample: string-value
         device_owner:
-          description: Device owner
+          description: Entity that uses this port (e.g. network:router_interface)
           type: str
           returned: always
           sample: string-value
@@ -798,32 +799,32 @@ resource:
               sample: []
               contains:
                 ethertype:
-                  description: Ethertype
+                  description: IP protocol version - either 'IPv4' or 'IPv6'
                   type: str
                   returned: always
-                  sample: IPv4
+                  sample: null
                 direction:
-                  description: Direction
+                  description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
                   type: str
                   returned: always
-                  sample: ingress
+                  sample: null
                 protocol:
-                  description: Protocol
+                  description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
                   type: str
                   returned: always
                   sample: null
                 from_port:
-                  description: From port
+                  description: Starting port number in the range (1-65535)
                   type: int
                   returned: always
                   sample: 8080
                 to_port:
-                  description: To port
+                  description: Ending port number in the range (1-65535)
                   type: int
                   returned: always
                   sample: 8080
                 cidr:
-                  description: CIDR
+                  description: CIDR notation for the source/destination network address range
                   type: str
                   returned: always
                   sample: 192.168.1.0/24
@@ -848,7 +849,7 @@ resource:
                   returned: always
                   sample: 123
                 remote_group:
-                  description: Remote group URL
+                  description: Remote security group that this rule references, if any
                   type: str
                   returned: always
                   sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -903,17 +904,17 @@ resource:
               returned: always
               sample: true
     availability_zone:
-      description: Availability zone URL
+      description: Availability zone where this instance is located
       type: str
       returned: always
       sample: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     availability_zone_name:
-      description: Availability zone name
+      description: Name of the availability zone where instance is located
       type: str
       returned: always
       sample: string-value
     connect_directly_to_external_network:
-      description: Connect directly to external network
+      description: If True, instance will be connected directly to external network
       type: bool
       returned: always
       sample: true
@@ -928,22 +929,22 @@ resource:
       returned: always
       sample: string-value
     action_details:
-      description: Action details
+      description: Details about ongoing or completed actions
       type: str
       returned: always
       sample: null
     tenant_uuid:
-      description: Tenant UUID
+      description: UUID of the OpenStack tenant
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     hypervisor_hostname:
-      description: Hypervisor hostname
+      description: Name of the hypervisor hosting this instance
       type: str
       returned: always
       sample: server-01.example.com
     tenant:
-      description: Tenant URL
+      description: The OpenStack tenant to create the instance in
       type: str
       returned: always
       sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -1038,7 +1039,7 @@ ARGUMENT_SPEC = {
 }
 
 RUNNER_CONTEXT = {
-    "resource_type": "OpenStack instance",
+    "resource_type": "instance",
     "existence_check_url": "/api/openstack-instances/",
     "existence_check_filter_keys": {"project": "project_uuid"},
     "update_url": "/api/openstack-instances/{uuid}/",
@@ -1172,6 +1173,23 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_key": None,
+        },
+    },
+    "update_actions": {
+        "update_ports": {
+            "path": "/api/openstack-instances/{uuid}/update_ports/",
+            "param": "ports",
+            "compare_key": "ports",
+        },
+        "update_security_groups": {
+            "path": "/api/openstack-instances/{uuid}/update_security_groups/",
+            "param": "security_groups",
+            "compare_key": "security_groups",
+        },
+        "update_floating_ips": {
+            "path": "/api/openstack-instances/{uuid}/update_floating_ips/",
+            "param": "floating_ips",
+            "compare_key": "floating_ips",
         },
     },
 }
