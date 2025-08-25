@@ -76,7 +76,7 @@ options:
   size:
     type: int
     required: false
-    description: Size in MiB
+    description: Size in MiB. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
   availability_zone:
     type: str
     required: false
@@ -506,7 +506,7 @@ RUNNER_CONTEXT = {
     },
     "update_actions": {},
     "resource_detail_path": "/api/openstack-volumes/{uuid}/",
-    "transformations": {},
+    "transformations": {"size": "gb_to_mb"},
 }
 
 

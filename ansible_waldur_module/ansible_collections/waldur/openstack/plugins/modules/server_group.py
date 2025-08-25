@@ -349,6 +349,11 @@ RUNNER_CONTEXT = {
     "update_actions": {},
     "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
     "resource_detail_path": "/api/openstack-server-groups/{uuid}/",
+    "wait_config": {
+        "ok_states": ["OK"],
+        "erred_states": ["ERRED"],
+        "state_field": "state",
+    },
 }
 
 

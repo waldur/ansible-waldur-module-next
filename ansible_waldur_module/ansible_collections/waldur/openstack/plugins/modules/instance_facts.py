@@ -34,6 +34,18 @@ options:
     description: The name or UUID of the instance.
     type: str
     required: true
+  project:
+    description: The name or UUID of the project to filter resources by.
+    type: str
+    required: false
+  customer:
+    description: The name or UUID of the customer to filter resources by.
+    type: str
+    required: false
+  tenant:
+    description: The name or UUID of the parent tenant.
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
@@ -46,6 +58,9 @@ EXAMPLES = """
   - name: Get facts about a specific instance
     waldur.openstack.instance_facts:
       name: My Resource Name
+      project: Project name or UUID
+      customer: Customer name or UUID
+      tenant: Tenant name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
@@ -56,12 +71,12 @@ EXAMPLES = """
 """
 
 RETURN = """
-instances:
+resource:
   description: A list of dictionaries, where each dictionary represents a instance.
   type: list
-  returned: on success
+  returned: always
   elements: dict
-  suboptions:
+  contains:
     url:
       description: URL URL
       type: str
@@ -857,6 +872,9 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "project": {"type": "str"},
+    "customer": {"type": "str"},
+    "tenant": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -864,7 +882,23 @@ RUNNER_CONTEXT = {
     "list_url": "/api/openstack-instances/",
     "retrieve_url": "/api/openstack-instances/{uuid}/",
     "identifier_param": "name",
-    "resolvers": {},
+    "resolvers": {
+        "project": {
+            "url": "/api/projects/",
+            "error_message": "Project '{value}' not found.",
+            "filter_key": "project_uuid",
+        },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": "Customer '{value}' not found.",
+            "filter_key": "customer_uuid",
+        },
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": "Tenant '{value}' not found.",
+            "filter_key": "tenant_uuid",
+        },
+    },
     "many": False,
 }
 

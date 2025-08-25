@@ -282,6 +282,11 @@ resource:
       type: int
       returned: always
       sample: 123
+    project_metadata_checklist:
+      description: Project metadata checklist
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     name:
       description: Name
       type: str

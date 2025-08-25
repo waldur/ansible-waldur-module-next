@@ -161,7 +161,7 @@ options:
       size:
         type: int
         required: true
-        description: Size. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+        description: Size
       volume_type:
         type: str
         required: false
@@ -172,7 +172,7 @@ options:
     choices:
     - destroy
     - force_destroy
-    description: Termination action
+    description: Force destroy avoids to bypass standard validations and directly deletes the instance.
   delete_volumes:
     type: str
     required: false
@@ -1241,7 +1241,6 @@ RUNNER_CONTEXT = {
     "transformations": {
         "data_volume_size": "gb_to_mb",
         "system_volume_size": "gb_to_mb",
-        "size": "gb_to_mb",
     },
     "wait_config": {
         "ok_states": ["OK"],
