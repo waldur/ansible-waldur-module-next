@@ -320,22 +320,21 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "wait": {"type": "bool", "required": False},
-    "timeout": {"type": "int", "required": False},
-    "interval": {"type": "int", "required": False},
+    "state": {"type": "str", "choices": ["present", "absent"], "default": "present"},
+    "wait": {"type": "bool", "default": True},
+    "timeout": {"type": "int", "default": 600},
+    "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "customer": {"type": "str", "required": True},
-    "description": {"type": "str", "required": False},
-    "type": {"type": "str", "required": False},
-    "backend_id": {"type": "str", "required": False},
-    "start_date": {"type": "str", "required": False},
-    "end_date": {"type": "str", "required": False},
+    "description": {"type": "str"},
+    "type": {"type": "str"},
+    "backend_id": {"type": "str"},
+    "start_date": {"type": "str"},
+    "end_date": {"type": "str"},
     "oecd_fos_2007_code": {
         "type": "str",
-        "required": False,
         "choices": [
             "1.1",
             "1.2",
@@ -383,8 +382,8 @@ ARGUMENT_SPEC = {
             "",
         ],
     },
-    "is_industry": {"type": "bool", "required": False},
-    "image": {"type": "str", "required": False},
+    "is_industry": {"type": "bool"},
+    "image": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {

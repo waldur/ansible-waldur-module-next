@@ -7,6 +7,12 @@ from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runne
     BaseRunner,
 )
 
+# A map of transformation types to their corresponding functions.
+# This makes the system easily extendable with new transformations.
+TRANSFORMATION_MAP = {
+    "gb_to_mb": lambda x: int(x) * 1024,
+}
+
 
 class OrderRunner(BaseRunner):
     """
@@ -35,6 +41,38 @@ class OrderRunner(BaseRunner):
         # This gives the resolver access to _send_request, the module, and the context.
         # The resolver will now manage its own internal cache, replacing `self.resolved_api_responses`.
         self.resolver = ParameterResolver(self)
+
+    def _apply_transformations(self, payload: dict) -> dict:
+        """
+        Applies configured value transformations to a payload dictionary.
+
+        Args:
+            payload: The dictionary of parameters to transform.
+
+        Returns:
+            A new dictionary with the transformed values.
+        """
+        transformations = self.context.get("transformations", {})
+        if not transformations:
+            return payload
+
+        transformed_payload = payload.copy()
+        for param_name, transform_type in transformations.items():
+            if (
+                param_name in transformed_payload
+                and transformed_payload[param_name] is not None
+            ):
+                transform_func = TRANSFORMATION_MAP.get(transform_type)
+                if transform_func:
+                    try:
+                        original_value = transformed_payload[param_name]
+                        transformed_payload[param_name] = transform_func(original_value)
+                    except (ValueError, TypeError):
+                        # If conversion fails (e.g., user provides "10GB" instead of 10),
+                        # we let it pass. The API validation will catch it and provide a
+                        # more user-friendly error than a Python traceback.
+                        pass
+        return transformed_payload
 
     def run(self):
         """
@@ -130,12 +168,18 @@ class OrderRunner(BaseRunner):
         for key in self.context["attribute_param_names"]:
             if key in self.module.params and self.module.params[key] is not None:
                 # Recursively resolve the entire parameter structure.
-                attributes[key] = self.resolver.resolve(key, self.module.params[key])
+                # Provide the 'create' hint when resolving for the order payload.
+                attributes[key] = self.resolver.resolve(
+                    key, self.module.params[key], output_format="create"
+                )
+
+        # Apply transformations to the attributes before sending to the API.
+        transformed_attributes = self._apply_transformations(attributes)
 
         order_payload = {
             "project": project_url,
             "offering": offering_url,
-            "attributes": attributes,
+            "attributes": transformed_attributes,
             "accepting_terms_of_service": True,
         }
         plan = self.module.params.get("plan")
@@ -221,8 +265,9 @@ class OrderRunner(BaseRunner):
                 # We use the resolver to get the fully resolved, API-ready version
                 # of the user's input *before*
                 # comparing them to the current state of the resource.
+                # Provide the 'update_action' hint when resolving for idempotency checks and payloads.
                 resolved_payload_for_comparison = self.resolver.resolve(
-                    param_name, param_value
+                    param_name, param_value, output_format="update_action"
                 )
 
                 if resolved_payload_for_comparison != self.resource.get(compare_key):

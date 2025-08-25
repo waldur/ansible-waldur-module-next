@@ -123,7 +123,7 @@ options:
   system_volume_size:
     type: int
     required: true
-    description: Size of the system volume in MiB. Minimum size is 1024 MiB (1 GiB)
+    description: Size of the system volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
   system_volume_type:
     type: str
     required: false
@@ -131,7 +131,7 @@ options:
   data_volume_size:
     type: int
     required: false
-    description: Size of the data volume in MiB. Minimum size is 1024 MiB (1 GiB)
+    description: Size of the data volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
   data_volume_type:
     type: str
     required: false
@@ -161,7 +161,7 @@ options:
       size:
         type: int
         required: true
-        description: Size
+        description: Size. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
       volume_type:
         type: str
         required: false
@@ -208,7 +208,7 @@ EXAMPLES = """
         - ip_address: 8.8.8.8
           subnet_id: string-value
         subnet: Subnet name or UUID
-        port: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        port: string-value
       floating_ips:
       - subnet: Subnet name or UUID
       system_volume_size: 123
@@ -221,7 +221,7 @@ EXAMPLES = """
       connect_directly_to_external_network: true
       data_volumes:
       - size: 100
-        volume_type: https://api.example.com/api/volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        volume_type: string-value
 - name: Update an existing instance
   hosts: localhost
   tasks:
@@ -1047,38 +1047,34 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "wait": {"type": "bool", "required": False},
-    "timeout": {"type": "int", "required": False},
-    "interval": {"type": "int", "required": False},
+    "state": {"type": "str", "choices": ["present", "absent"], "default": "present"},
+    "wait": {"type": "bool", "default": True},
+    "timeout": {"type": "int", "default": 600},
+    "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "offering": {"type": "str", "required": True},
-    "plan": {"type": "str", "required": False},
-    "description": {"type": "str", "required": False},
+    "plan": {"type": "str"},
+    "description": {"type": "str"},
     "flavor": {"type": "str", "required": True},
     "image": {"type": "str", "required": True},
-    "security_groups": {"type": "list", "required": False},
+    "security_groups": {"type": "list"},
     "ports": {"type": "list", "required": True},
-    "floating_ips": {"type": "list", "required": False},
+    "floating_ips": {"type": "list"},
     "system_volume_size": {"type": "int", "required": True},
-    "system_volume_type": {"type": "str", "required": False},
-    "data_volume_size": {"type": "int", "required": False},
-    "data_volume_type": {"type": "str", "required": False},
-    "ssh_public_key": {"type": "str", "required": False},
-    "user_data": {"type": "str", "required": False},
-    "availability_zone": {"type": "str", "required": False},
-    "connect_directly_to_external_network": {"type": "bool", "required": False},
-    "data_volumes": {"type": "list", "required": False},
-    "termination_action": {
-        "type": "str",
-        "required": False,
-        "choices": ["destroy", "force_destroy"],
-    },
-    "delete_volumes": {"type": "str", "required": False},
-    "release_floating_ips": {"type": "str", "required": False},
+    "system_volume_type": {"type": "str"},
+    "data_volume_size": {"type": "int"},
+    "data_volume_type": {"type": "str"},
+    "ssh_public_key": {"type": "str"},
+    "user_data": {"type": "str"},
+    "availability_zone": {"type": "str"},
+    "connect_directly_to_external_network": {"type": "bool"},
+    "data_volumes": {"type": "list"},
+    "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
+    "delete_volumes": {"type": "str"},
+    "release_floating_ips": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -1122,7 +1118,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "image": {
             "url": "/api/openstack-images/",
@@ -1135,7 +1131,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "system_volume_type": {
             "url": "/api/openstack-volume-types/",
@@ -1148,7 +1144,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "data_volume_type": {
             "url": "/api/openstack-volume-types/",
@@ -1161,7 +1157,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "security_groups": {
             "url": "/api/openstack-security-groups/",
@@ -1174,7 +1170,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": True,
-            "list_item_key": None,
+            "list_item_keys": {"create": "url", "update_action": None},
         },
         "availability_zone": {
             "url": "/api/openstack-instance-availability-zones/",
@@ -1187,7 +1183,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "subnet": {
             "url": "/api/openstack-subnets/",
@@ -1200,28 +1196,28 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "ssh_public_key": {
             "url": "/api/keys/",
             "error_message": None,
             "filter_by": [],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
     },
     "update_actions": {
@@ -1242,6 +1238,11 @@ RUNNER_CONTEXT = {
         },
     },
     "resource_detail_path": "/api/openstack-instances/{uuid}/",
+    "transformations": {
+        "data_volume_size": "gb_to_mb",
+        "system_volume_size": "gb_to_mb",
+        "size": "gb_to_mb",
+    },
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],

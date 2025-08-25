@@ -90,7 +90,7 @@ EXAMPLES = """
         to_port: 8080
         cidr: 192.168.1.0/24
         description: A sample description created by Ansible.
-        remote_group: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        remote_group: Remote group name or UUID
 - name: Remove an existing OpenStack security group
   hosts: localhost
   tasks:
@@ -360,15 +360,15 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "wait": {"type": "bool", "required": False},
-    "timeout": {"type": "int", "required": False},
-    "interval": {"type": "int", "required": False},
+    "state": {"type": "str", "choices": ["present", "absent"], "default": "present"},
+    "wait": {"type": "bool", "default": True},
+    "timeout": {"type": "int", "default": 600},
+    "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
-    "description": {"type": "str", "required": False},
+    "description": {"type": "str"},
     "rules": {"type": "list", "required": True},
 }
 
@@ -389,7 +389,13 @@ RUNNER_CONTEXT = {
             "wrap_in_object": False,
         }
     },
-    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
+    "resolvers": {
+        "tenant": {"url": "/api/openstack-tenants/", "error_message": None},
+        "remote_group": {
+            "url": "/api/openstack-security-groups/",
+            "error_message": None,
+        },
+    },
     "resource_detail_path": "/api/openstack-security-groups/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

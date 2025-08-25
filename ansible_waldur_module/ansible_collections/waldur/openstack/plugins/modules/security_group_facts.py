@@ -317,10 +317,10 @@ security_groups:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": False},
-    "tenant": {"type": "str", "required": False},
+    "name": {"type": "str"},
+    "tenant": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {

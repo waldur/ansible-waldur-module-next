@@ -341,22 +341,22 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "wait": {"type": "bool", "required": False},
-    "timeout": {"type": "int", "required": False},
-    "interval": {"type": "int", "required": False},
+    "state": {"type": "str", "choices": ["present", "absent"], "default": "present"},
+    "wait": {"type": "bool", "default": True},
+    "timeout": {"type": "int", "default": 600},
+    "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "offering": {"type": "str", "required": True},
-    "plan": {"type": "str", "required": False},
-    "limits": {"type": "dict", "required": False},
-    "description": {"type": "str", "required": False},
-    "subnet_cidr": {"type": "str", "required": False},
-    "skip_connection_extnet": {"type": "bool", "required": False},
-    "skip_creation_of_default_router": {"type": "bool", "required": False},
-    "availability_zone": {"type": "str", "required": False},
+    "plan": {"type": "str"},
+    "limits": {"type": "dict"},
+    "description": {"type": "str"},
+    "subnet_cidr": {"type": "str"},
+    "skip_connection_extnet": {"type": "bool"},
+    "skip_creation_of_default_router": {"type": "bool"},
+    "availability_zone": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -380,18 +380,19 @@ RUNNER_CONTEXT = {
             "error_message": None,
             "filter_by": [],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
     },
     "update_actions": {},
     "resource_detail_path": None,
+    "transformations": {},
 }
 
 

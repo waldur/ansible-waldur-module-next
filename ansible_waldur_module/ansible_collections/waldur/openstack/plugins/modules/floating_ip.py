@@ -336,12 +336,12 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "wait": {"type": "bool", "required": False},
-    "timeout": {"type": "int", "required": False},
-    "interval": {"type": "int", "required": False},
+    "state": {"type": "str", "choices": ["present", "absent"], "default": "present"},
+    "wait": {"type": "bool", "default": True},
+    "timeout": {"type": "int", "default": 600},
+    "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
 }

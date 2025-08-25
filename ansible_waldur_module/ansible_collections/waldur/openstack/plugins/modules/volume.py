@@ -417,21 +417,21 @@ resource:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "state": {"type": "str", "required": False, "choices": ["present", "absent"]},
-    "wait": {"type": "bool", "required": False},
-    "timeout": {"type": "int", "required": False},
-    "interval": {"type": "int", "required": False},
+    "state": {"type": "str", "choices": ["present", "absent"], "default": "present"},
+    "wait": {"type": "bool", "default": True},
+    "timeout": {"type": "int", "default": 600},
+    "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "offering": {"type": "str", "required": True},
-    "plan": {"type": "str", "required": False},
-    "description": {"type": "str", "required": False},
-    "image": {"type": "str", "required": False},
-    "size": {"type": "int", "required": False},
-    "availability_zone": {"type": "str", "required": False},
-    "type": {"type": "str", "required": False},
+    "plan": {"type": "str"},
+    "description": {"type": "str"},
+    "image": {"type": "str"},
+    "size": {"type": "int"},
+    "availability_zone": {"type": "str"},
+    "type": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -461,7 +461,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "image": {
             "url": "/api/openstack-images/",
@@ -474,7 +474,7 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "availability_zone": {
             "url": "/api/openstack-volume-availability-zones/",
@@ -487,25 +487,26 @@ RUNNER_CONTEXT = {
                 }
             ],
             "is_list": False,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
-            "list_item_key": None,
+            "list_item_keys": {},
         },
     },
     "update_actions": {},
     "resource_detail_path": "/api/openstack-volumes/{uuid}/",
+    "transformations": {},
 }
 
 

@@ -854,7 +854,7 @@ instances:
 """
 
 ARGUMENT_SPEC = {
-    "access_token": {"type": "str", "required": True},
+    "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
 }
