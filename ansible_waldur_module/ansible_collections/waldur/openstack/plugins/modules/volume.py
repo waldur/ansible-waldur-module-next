@@ -107,17 +107,6 @@ EXAMPLES = """
       size: 100
       availability_zone: Availability zone name or UUID
       type: Type name or UUID
-- name: Update an existing volume
-  hosts: localhost
-  tasks:
-  - name: Update the description of a volume
-    waldur.openstack.volume:
-      state: present
-      name: My-Awesome-volume
-      project: Project Name or UUID
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com
-      description: An updated description
 - name: Remove an existing volume
   hosts: localhost
   tasks:
@@ -438,7 +427,7 @@ RUNNER_CONTEXT = {
     "resource_type": "volume",
     "existence_check_url": "/api/openstack-volumes/",
     "existence_check_filter_keys": {"project": "project_uuid"},
-    "update_url": "/api/openstack-volumes/{uuid}/",
+    "update_url": None,
     "update_check_fields": ["description"],
     "attribute_param_names": [
         "availability_zone",

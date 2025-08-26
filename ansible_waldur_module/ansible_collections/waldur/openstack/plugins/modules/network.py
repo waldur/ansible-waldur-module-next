@@ -430,7 +430,7 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-networks/",
     "create_path": "/api/openstack-tenants/{uuid}/create_network/",
     "destroy_path": "/api/openstack-networks/{uuid}/",
-    "update_path": None,
+    "update_path": "/api/openstack-networks/{uuid}/",
     "model_param_names": ["description", "name"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": ["description", "name"],

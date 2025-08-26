@@ -354,7 +354,7 @@ RUNNER_CONTEXT = {
     "update_path": None,
     "model_param_names": [],
     "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": ["description"],
+    "update_fields": [],
     "update_actions": {},
     "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
     "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",

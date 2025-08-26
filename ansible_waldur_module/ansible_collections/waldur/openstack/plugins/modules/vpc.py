@@ -364,7 +364,12 @@ RUNNER_CONTEXT = {
     "existence_check_url": "/api/openstack-tenants/",
     "existence_check_filter_keys": {"project": "project_uuid"},
     "update_url": None,
-    "update_check_fields": [],
+    "update_check_fields": [
+        "availability_zone",
+        "default_volume_type_name",
+        "description",
+        "name",
+    ],
     "attribute_param_names": [
         "availability_zone",
         "description",
@@ -391,7 +396,7 @@ RUNNER_CONTEXT = {
         },
     },
     "update_actions": {},
-    "resource_detail_path": None,
+    "resource_detail_path": "/api/openstack-tenants/{uuid}/",
     "transformations": {},
 }
 

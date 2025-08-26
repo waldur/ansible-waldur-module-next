@@ -222,16 +222,6 @@ EXAMPLES = """
       data_volumes:
       - size: 100
         volume_type: string-value
-- name: Update an existing instance
-  hosts: localhost
-  tasks:
-  - name: Update the name of a instance
-    waldur.openstack.instance:
-      state: present
-      name: An updated name
-      project: Project Name or UUID
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com
 - name: Remove an existing instance
   hosts: localhost
   tasks:
@@ -1081,7 +1071,7 @@ RUNNER_CONTEXT = {
     "resource_type": "instance",
     "existence_check_url": "/api/openstack-instances/",
     "existence_check_filter_keys": {"project": "project_uuid"},
-    "update_url": "/api/openstack-instances/{uuid}/",
+    "update_url": None,
     "update_check_fields": ["description", "name"],
     "attribute_param_names": [
         "availability_zone",
@@ -1225,16 +1215,19 @@ RUNNER_CONTEXT = {
             "path": "/api/openstack-instances/{uuid}/update_ports/",
             "param": "ports",
             "compare_key": "ports",
+            "idempotency_keys": [],
         },
         "update_security_groups": {
             "path": "/api/openstack-instances/{uuid}/update_security_groups/",
             "param": "security_groups",
             "compare_key": "security_groups",
+            "idempotency_keys": [],
         },
         "update_floating_ips": {
             "path": "/api/openstack-instances/{uuid}/update_floating_ips/",
             "param": "floating_ips",
             "compare_key": "floating_ips",
+            "idempotency_keys": [],
         },
     },
     "resource_detail_path": "/api/openstack-instances/{uuid}/",
