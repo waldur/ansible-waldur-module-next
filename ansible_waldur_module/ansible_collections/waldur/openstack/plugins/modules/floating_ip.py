@@ -348,6 +348,8 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack floating IP",
+    "check_url": "/api/openstack-floating-ips/",
+    "check_filter_keys": {},
     "list_path": "/api/openstack-floating-ips/",
     "create_path": "/api/openstack-tenants/{uuid}/create_floating_ip/",
     "destroy_path": "/api/openstack-floating-ips/{uuid}/",

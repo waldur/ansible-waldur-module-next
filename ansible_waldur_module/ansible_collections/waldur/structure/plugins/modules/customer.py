@@ -565,6 +565,8 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "customer",
+    "check_url": "/api/customers/",
+    "check_filter_keys": {},
     "list_path": "/api/customers/",
     "create_path": "/api/customers/",
     "destroy_path": "/api/customers/{uuid}/",

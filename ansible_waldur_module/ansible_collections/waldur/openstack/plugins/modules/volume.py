@@ -425,10 +425,10 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "volume",
-    "existence_check_url": "/api/openstack-volumes/",
-    "existence_check_filter_keys": {"project": "project_uuid"},
+    "check_url": "/api/openstack-volumes/",
+    "check_filter_keys": {"project": "project_uuid"},
     "update_url": None,
-    "update_check_fields": ["description"],
+    "update_fields": ["description"],
     "attribute_param_names": [
         "availability_zone",
         "description",

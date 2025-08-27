@@ -361,10 +361,10 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "vpc",
-    "existence_check_url": "/api/openstack-tenants/",
-    "existence_check_filter_keys": {"project": "project_uuid"},
+    "check_url": "/api/openstack-tenants/",
+    "check_filter_keys": {"project": "project_uuid"},
     "update_url": None,
-    "update_check_fields": [
+    "update_fields": [
         "availability_zone",
         "default_volume_type_name",
         "description",

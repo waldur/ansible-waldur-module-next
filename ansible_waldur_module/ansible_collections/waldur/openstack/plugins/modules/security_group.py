@@ -374,6 +374,8 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack security group",
+    "check_url": "/api/openstack-security-groups/",
+    "check_filter_keys": {},
     "list_path": "/api/openstack-security-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_security_group/",
     "destroy_path": "/api/openstack-security-groups/{uuid}/",
@@ -385,8 +387,19 @@ RUNNER_CONTEXT = {
         "set_rules": {
             "path": "/api/openstack-security-groups/{uuid}/set_rules/",
             "param": "rules",
-            "check_field": "rules",
+            "compare_key": "rules",
             "wrap_in_object": False,
+            "idempotency_keys": [
+                "cidr",
+                "description",
+                "direction",
+                "ethertype",
+                "from_port",
+                "protocol",
+                "remote_group",
+                "to_port",
+            ],
+            "defaults_map": {"ethertype": "IPv4", "direction": "ingress"},
         }
     },
     "resolvers": {

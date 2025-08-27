@@ -339,6 +339,8 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack server group",
+    "check_url": "/api/openstack-server-groups/",
+    "check_filter_keys": {},
     "list_path": "/api/openstack-server-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_server_group/",
     "destroy_path": "/api/openstack-server-groups/{uuid}/",

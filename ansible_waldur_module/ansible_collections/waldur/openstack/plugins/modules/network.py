@@ -427,6 +427,8 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack network",
+    "check_url": "/api/openstack-networks/",
+    "check_filter_keys": {},
     "list_path": "/api/openstack-networks/",
     "create_path": "/api/openstack-tenants/{uuid}/create_network/",
     "destroy_path": "/api/openstack-networks/{uuid}/",
@@ -438,8 +440,10 @@ RUNNER_CONTEXT = {
         "set_mtu": {
             "path": "/api/openstack-networks/{uuid}/set_mtu/",
             "param": "mtu",
-            "check_field": "mtu",
+            "compare_key": "mtu",
             "wrap_in_object": True,
+            "idempotency_keys": [],
+            "defaults_map": {},
         }
     },
     "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
