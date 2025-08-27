@@ -5,8 +5,7 @@ from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runne
     BaseRunner,
 )
 from ansible_collections.waldur.openstack.plugins.module_utils.waldur.command import (
-    DeleteCommand,
-    MarketplaceOrderCommand,
+    Command,
 )
 
 # A map of transformation functions, allowing the generator to configure
@@ -95,7 +94,32 @@ class OrderRunner(BaseRunner):
         if self.module.params.get("limits"):
             order_payload["limits"] = self.module.params["limits"]
 
-        return [MarketplaceOrderCommand(self, order_payload)]
+        # Define the configuration for the generic waiter. This tells the BaseRunner
+        # how to poll the order's status after it's created.
+        wait_config = {
+            "polling_path": "/api/marketplace-orders/{uuid}/",
+            "state_field": "state",
+            "ok_states": ["done"],
+            "erred_states": ["erred", "rejected", "canceled"],
+            # The order's UUID comes from the body of the POST response.
+            "uuid_source": {"location": "result_body", "key": "uuid"},
+            # A special flag telling the waiter to re-fetch the final resource
+            # state upon completion, rather than returning the order object.
+            "refetch_resource": True,
+        }
+
+        # The entire creation workflow is now encapsulated in this single Command.
+        return [
+            Command(
+                self,
+                method="POST",
+                path="/api/marketplace-orders/",
+                command_type="order",
+                data=order_payload,
+                description=f"Create {self.context['resource_type']} via marketplace order",
+                wait_config=wait_config,
+            )
+        ]
 
     def plan_update(self) -> list:
         """
@@ -160,10 +184,14 @@ class OrderRunner(BaseRunner):
             termination_payload["attributes"] = attributes
 
         # Instantiate the `DeleteCommand`, explicitly setting the method to 'POST'.
-        # This is the key to ensuring the correct API call is made.
         return [
-            DeleteCommand(
-                self, path, self.resource, data=termination_payload, method="POST"
+            Command(
+                self,
+                method="POST",
+                path=path,
+                command_type="delete",
+                data=termination_payload,
+                description=f"Terminate {self.context['resource_type']} '{self.resource.get('name', self.resource.get('uuid'))}'",
             )
         ]
 
@@ -189,27 +217,3 @@ class OrderRunner(BaseRunner):
                     except (ValueError, TypeError):
                         pass
         return transformed_payload
-
-    def exit(self, plan: list | None = None, diff: list | None = None):
-        """
-        Formats the final response for Ansible and exits the module, handling the
-        special diff cases for marketplace modules.
-        """
-        if diff is None:
-            # If a plan exists (i.e., we are in an update/delete flow), generate its diff.
-            if plan:
-                diff = [cmd.to_diff() for cmd in plan]
-            # If `self.order` is set, it means we just ran the creation flow.
-            # This is our signal to generate the creation-specific diff.
-            elif self.order:
-                diff = [{"state": "Resource created.", "order_details": self.order}]
-            # Otherwise, no changes were made.
-            else:
-                diff = []
-
-        self.module.exit_json(
-            changed=self.has_changed,
-            resource=self.resource,
-            order=self.order,
-            diff=diff,
-        )

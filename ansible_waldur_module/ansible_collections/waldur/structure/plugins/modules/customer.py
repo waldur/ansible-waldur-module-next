@@ -489,6 +489,30 @@ resource:
       type: str
       returned: always
       sample: null
+commands:
+  description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
+  type: list
+  returned: when changed
+  elements: dict
+  contains:
+    method:
+      description: The HTTP method used (e.g., POST, PATCH, DELETE).
+      type: str
+      sample: POST
+    url:
+      description: The fully qualified URL of the API endpoint.
+      type: str
+      sample: https://api.example.com/api/projects/
+    description:
+      description: A human-readable summary of the command's purpose.
+      type: str
+      sample: Create new project
+    body:
+      description: The JSON payload sent with the request. Only present for methods with a body.
+      type: dict
+      returned: if applicable
+      sample:
+        name: My-Awesome-Project
 
 """
 
