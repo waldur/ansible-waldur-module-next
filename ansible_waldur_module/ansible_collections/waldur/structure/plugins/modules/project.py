@@ -50,9 +50,9 @@ options:
     default: 20
     type: int
   name:
+    description: The name of the project.
     type: str
     required: true
-    description: The name of the project to check/create/delete.
   customer:
     type: str
     required: true

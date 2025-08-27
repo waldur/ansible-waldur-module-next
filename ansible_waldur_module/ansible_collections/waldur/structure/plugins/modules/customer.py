@@ -50,9 +50,9 @@ options:
     default: 20
     type: int
   name:
+    description: The name of the customer.
     type: str
     required: true
-    description: The name of the customer to check/create/delete.
   backend_id:
     type: str
     required: false

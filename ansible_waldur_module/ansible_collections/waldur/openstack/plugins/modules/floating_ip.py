@@ -50,13 +50,21 @@ options:
     default: 20
     type: int
   name:
+    description: The name of the OpenStack floating IP.
     type: str
     required: true
-    description: The name of the floating_ip to check/create/delete.
   tenant:
     type: str
     required: true
     description: The parent tenant name or UUID for creating the resource.
+  project:
+    description: The name or UUID of the project to filter resources by.
+    type: str
+    required: false
+  customer:
+    description: The name or UUID of the customer to filter resources by.
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
@@ -344,12 +352,18 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
+    "project": {"type": "str"},
+    "customer": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack floating IP",
     "check_url": "/api/openstack-floating-ips/",
-    "check_filter_keys": {},
+    "check_filter_keys": {
+        "project": "project_uuid",
+        "customer": "customer_uuid",
+        "tenant": "tenant_uuid",
+    },
     "list_path": "/api/openstack-floating-ips/",
     "create_path": "/api/openstack-tenants/{uuid}/create_floating_ip/",
     "destroy_path": "/api/openstack-floating-ips/{uuid}/",

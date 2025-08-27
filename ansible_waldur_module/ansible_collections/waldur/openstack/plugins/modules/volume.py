@@ -428,7 +428,7 @@ RUNNER_CONTEXT = {
     "check_url": "/api/openstack-volumes/",
     "check_filter_keys": {"project": "project_uuid"},
     "update_url": None,
-    "update_fields": ["description"],
+    "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
         "availability_zone",
         "description",
