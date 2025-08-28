@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: instance_facts
 short_description: Get facts about a specific instance
-description:
-- Get facts about a specific instance
+description: ''
 author: Waldur Team
 options:
   access_token:

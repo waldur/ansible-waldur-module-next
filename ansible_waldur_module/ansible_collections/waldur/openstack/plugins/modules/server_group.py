@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: server_group
 short_description: Manage OpenStack Server Groups (Affinity Groups) in Waldur.
-description:
-- Manage OpenStack Server Groups (Affinity Groups) in Waldur.
+description: 'When the resource already exists, the following fields can be updated: description, name, policy.'
 author: Waldur Team
 options:
   access_token:

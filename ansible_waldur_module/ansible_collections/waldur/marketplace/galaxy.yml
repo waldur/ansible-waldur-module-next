@@ -1,5 +1,5 @@
 namespace: waldur
-name: openstack
+name: marketplace
 version: 7.7.6-dev.20250828162904
 readme: README.md
 authors:

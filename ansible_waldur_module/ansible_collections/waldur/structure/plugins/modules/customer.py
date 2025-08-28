@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description:
-- Manage customer resources.
+description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, email, homepage, image, latitude, longitude, name, native_name, phone_number, postal, registration_code, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -227,11 +226,88 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
+    organization_groups:
+      description: A list of organization groups items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        parent_uuid:
+          description: Parent UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        parent_name:
+          description: Parent name
+          type: str
+          returned: always
+          sample: string-value
+        parent:
+          description: Parent URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/parent/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        customers_count:
+          description: Customers count
+          type: int
+          returned: always
+          sample: 123
     display_name:
       description: Display name
       type: str
       returned: always
       sample: string-value
+    projects:
+      description: A list of projects items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        image:
+          description: Image URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        resource_count:
+          description: Resource count
+          type: int
+          returned: always
+          sample: 123
+        end_date:
+          description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
+          type: str
+          returned: always
+          sample: '2023-10-01'
     backend_id:
       description: Organization identifier in another application.
       type: str
@@ -264,6 +340,11 @@ resource:
       sample: '2023-10-01T12:00:00Z'
     projects_count:
       description: Projects count
+      type: int
+      returned: always
+      sample: 123
+    users_count:
+      description: Users count
       type: int
       returned: always
       sample: 123

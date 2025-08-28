@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: vpc
 short_description: Create, update or delete a vpc via the marketplace.
-description:
-- Create, update or delete a vpc via the marketplace.
+description: 'When the resource already exists, the following fields can be updated: availability_zone, default_volume_type_name, description, name.'
 author: Waldur Team
 options:
   access_token:

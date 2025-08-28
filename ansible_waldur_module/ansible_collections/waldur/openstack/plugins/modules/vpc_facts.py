@@ -15,8 +15,8 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: security_group_facts
-short_description: Get facts about a specific security group
+module: vpc_facts
+short_description: Get facts about a specific vpc
 description: ''
 author: Waldur Team
 options:
@@ -30,9 +30,9 @@ options:
     required: true
     type: str
   name:
-    description: The name or UUID of the security group.
+    description: The name or UUID of the vpc.
     type: str
-    required: false
+    required: true
   project:
     description: The name or UUID of the project to filter resources by.
     type: str
@@ -41,37 +41,32 @@ options:
     description: The name or UUID of the customer to filter resources by.
     type: str
     required: false
-  tenant:
-    description: The name or UUID of the parent tenant.
-    type: str
-    required: false
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Retrieve and print facts about security groups
+- name: Retrieve and print facts about vpcs
   hosts: localhost
   tasks:
-  - name: Get facts about a specific security group
-    waldur.openstack.security_group_facts:
+  - name: Get facts about a specific vpc
+    waldur.openstack.vpc_facts:
       name: My Resource Name
       project: Project name or UUID
       customer: Customer name or UUID
-      tenant: Tenant name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: resource_info.security_groups
+      var: resource_info.vpcs
 
 """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a security group.
+  description: A list of dictionaries, where each dictionary represents a vpc.
   type: list
   returned: always
   elements: dict
@@ -90,7 +85,7 @@ resource:
       description: Name
       type: str
       returned: always
-      sample: My-Awesome-security-group
+      sample: My-Awesome-vpc
     description:
       description: Description
       type: str
@@ -187,91 +182,51 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     backend_id:
-      description: Backend ID
+      description: ID of tenant in the OpenStack backend
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    access_url:
-      description: Access URL
+    availability_zone:
+      description: Optional availability group. Will be used for all instances provisioned in this tenant
       type: str
       returned: always
       sample: string-value
-    tenant:
-      description: Tenant URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    tenant_name:
-      description: Tenant name
+    internal_network_id:
+      description: ID of internal network in OpenStack tenant
       type: str
       returned: always
       sample: string-value
-    tenant_uuid:
-      description: Tenant UUID
+    external_network_id:
+      description: ID of external network connected to OpenStack tenant
       type: str
       returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    rules:
-      description: A list of rules items.
+      sample: string-value
+    quotas:
+      description: A list of quotas items.
       type: list
       returned: always
       sample: []
       contains:
-        ethertype:
-          description: IP protocol version - either 'IPv4' or 'IPv6'
+        name:
+          description: Name
           type: str
           returned: always
-          sample: null
-        direction:
-          description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
-          type: str
-          returned: always
-          sample: null
-        protocol:
-          description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
-          type: str
-          returned: always
-          sample: null
-        from_port:
-          description: Starting port number in the range (1-65535)
-          type: int
-          returned: always
-          sample: 8080
-        to_port:
-          description: Ending port number in the range (1-65535)
-          type: int
-          returned: always
-          sample: 8080
-        cidr:
-          description: CIDR notation for the source/destination network address range
-          type: str
-          returned: always
-          sample: 192.168.1.0/24
-        description:
-          description: Description
-          type: str
-          returned: always
-          sample: A sample description created by Ansible.
-        remote_group_name:
-          description: Remote group name
-          type: str
-          returned: always
-          sample: string-value
-        remote_group_uuid:
-          description: Remote group UUID
-          type: str
-          returned: always
-          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        id:
-          description: ID
+          sample: My-Awesome-vpc
+        usage:
+          description: Usage
           type: int
           returned: always
           sample: 123
-        remote_group:
-          description: Remote security group that this rule references, if any
-          type: str
+        limit:
+          description: Limit
+          type: int
           returned: always
-          sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+          sample: 123
+    default_volume_type_name:
+      description: Volume type name to use when creating volumes.
+      type: str
+      returned: always
+      sample: string-value
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
@@ -328,16 +283,15 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str"},
+    "name": {"type": "str", "required": True},
     "project": {"type": "str"},
     "customer": {"type": "str"},
-    "tenant": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
-    "resource_type": "security group",
-    "list_url": "/api/openstack-security-groups/",
-    "retrieve_url": "/api/openstack-security-groups/{uuid}/",
+    "resource_type": "vpc",
+    "list_url": "/api/openstack-tenants/",
+    "retrieve_url": "/api/openstack-tenants/{uuid}/",
     "identifier_param": "name",
     "resolvers": {
         "project": {
@@ -350,13 +304,8 @@ RUNNER_CONTEXT = {
             "error_message": "Customer '{value}' not found.",
             "filter_key": "customer_uuid",
         },
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
-            "filter_key": "tenant_uuid",
-        },
     },
-    "many": True,
+    "many": False,
 }
 
 

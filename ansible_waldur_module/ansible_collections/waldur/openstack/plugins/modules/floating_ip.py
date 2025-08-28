@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: floating_ip
 short_description: Manage OpenStack Floating IPs in Waldur.
-description:
-- Manage OpenStack Floating IPs in Waldur.
+description: ''
 author: Waldur Team
 options:
   access_token:

@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: security_group
 short_description: Manage OpenStack Security Groups and their rules in Waldur.
-description:
-- Manage OpenStack Security Groups and their rules in Waldur.
+description: 'When the resource already exists, the following fields can be updated: description, name, rules.'
 author: Waldur Team
 options:
   access_token:

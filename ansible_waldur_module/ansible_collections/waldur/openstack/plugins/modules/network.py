@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: network
 short_description: Manage OpenStack Networks in Waldur.
-description:
-- Manage OpenStack Networks in Waldur.
+description: 'When the resource already exists, the following fields can be updated: description, mtu, name.'
 author: Waldur Team
 options:
   access_token:
@@ -254,6 +253,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    segmentation_id:
+      description: VLAN ID for VLAN networks or tunnel ID for VXLAN/GRE networks
+      type: int
+      returned: always
+      sample: 123
     subnets:
       description: A list of subnets items.
       type: list

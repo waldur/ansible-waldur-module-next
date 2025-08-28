@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: instance
 short_description: Create, update or delete a instance via the marketplace.
-description:
-- Create, update or delete a instance via the marketplace.
+description: 'When the resource already exists, the following fields can be updated: description, floating_ips, name, ports, security_groups.'
 author: Waldur Team
 options:
   access_token:

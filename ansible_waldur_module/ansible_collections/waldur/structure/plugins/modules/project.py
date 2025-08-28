@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description:
-- Manage project resources.
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, name, oecd_fos_2007_code, start_date, type.'
 author: Waldur Team
 options:
   access_token:

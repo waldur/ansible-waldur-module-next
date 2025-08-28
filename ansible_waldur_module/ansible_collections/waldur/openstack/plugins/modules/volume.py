@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: volume
 short_description: Create, update or delete a volume via the marketplace.
-description:
-- Create, update or delete a volume via the marketplace.
+description: 'When the resource already exists, the following fields can be updated: bootable, description, name.'
 author: Waldur Team
 options:
   access_token:

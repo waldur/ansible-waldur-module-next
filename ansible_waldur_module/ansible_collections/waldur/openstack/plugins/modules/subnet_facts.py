@@ -17,8 +17,7 @@ DOCUMENTATION = """
 ---
 module: subnet_facts
 short_description: Get facts about a specific subnet
-description:
-- Get facts about a specific subnet
+description: ''
 author: Waldur Team
 options:
   access_token:
