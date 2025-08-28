@@ -186,6 +186,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    access_url:
+      description: Access URL
+      type: str
+      returned: always
+      sample: string-value
     availability_zone:
       description: Optional availability group. Will be used for all instances provisioned in this tenant
       type: str
@@ -201,6 +206,16 @@ resource:
       type: str
       returned: always
       sample: string-value
+    user_username:
+      description: Username of the tenant user
+      type: str
+      returned: always
+      sample: string-value
+    user_password:
+      description: Password of the tenant user
+      type: str
+      returned: always
+      sample: '********'
     quotas:
       description: A list of quotas items.
       type: list

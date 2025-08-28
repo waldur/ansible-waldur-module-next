@@ -72,6 +72,14 @@ options:
     type: str
     required: false
     description: Description
+  user_username:
+    type: str
+    required: false
+    description: Username of the tenant user
+  user_password:
+    type: str
+    required: false
+    description: Password of the tenant user
   subnet_cidr:
     type: str
     required: false
@@ -106,6 +114,8 @@ EXAMPLES = """
       offering: Offering Name or UUID
       name: My-Awesome-vpc
       description: A sample description created by Ansible.
+      user_username: string-value
+      user_password: '********'
       subnet_cidr: 192.168.1.0/24
       skip_connection_extnet: true
       skip_creation_of_default_router: true
@@ -245,6 +255,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    access_url:
+      description: Access URL
+      type: str
+      returned: always
+      sample: string-value
     availability_zone:
       description: Optional availability group. Will be used for all instances provisioned in this tenant
       type: str
@@ -260,6 +275,16 @@ resource:
       type: str
       returned: always
       sample: string-value
+    user_username:
+      description: Username of the tenant user
+      type: str
+      returned: always
+      sample: string-value
+    user_password:
+      description: Password of the tenant user
+      type: str
+      returned: always
+      sample: '********'
     quotas:
       description: A list of quotas items.
       type: list
@@ -376,6 +401,8 @@ ARGUMENT_SPEC = {
     "plan": {"type": "str"},
     "limits": {"type": "dict"},
     "description": {"type": "str"},
+    "user_username": {"type": "str"},
+    "user_password": {"type": "str"},
     "subnet_cidr": {"type": "str"},
     "skip_connection_extnet": {"type": "bool"},
     "skip_creation_of_default_router": {"type": "bool"},
@@ -400,6 +427,8 @@ RUNNER_CONTEXT = {
         "skip_connection_extnet",
         "skip_creation_of_default_router",
         "subnet_cidr",
+        "user_password",
+        "user_username",
     ],
     "termination_attributes_map": {},
     "resolvers": {
