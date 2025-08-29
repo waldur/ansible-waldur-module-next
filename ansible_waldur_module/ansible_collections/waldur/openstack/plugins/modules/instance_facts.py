@@ -359,6 +359,62 @@ resource:
           type: str
           returned: always
           sample: My-Awesome-instance
+        rules:
+          description: A list of rules items.
+          type: list
+          returned: always
+          sample: []
+          contains:
+            ethertype:
+              description: IP protocol version - either 'IPv4' or 'IPv6'
+              type: str
+              returned: always
+              sample: null
+            direction:
+              description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
+              type: str
+              returned: always
+              sample: null
+            protocol:
+              description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+              type: str
+              returned: always
+              sample: null
+            from_port:
+              description: Starting port number in the range (1-65535)
+              type: int
+              returned: always
+              sample: 8080
+            to_port:
+              description: Ending port number in the range (1-65535)
+              type: int
+              returned: always
+              sample: 8080
+            cidr:
+              description: CIDR notation for the source/destination network address range
+              type: str
+              returned: always
+              sample: 192.168.1.0/24
+            description:
+              description: Description
+              type: str
+              returned: always
+              sample: A sample description created by Ansible.
+            remote_group_name:
+              description: Remote group name
+              type: str
+              returned: always
+              sample: string-value
+            remote_group_uuid:
+              description: Remote group UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            id:
+              description: ID
+              type: int
+              returned: always
+              sample: 123
         description:
           description: Description
           type: str
@@ -369,57 +425,6 @@ resource:
           type: str
           returned: always
           sample: OK
-        rules:
-          description: A list of rules items.
-          type: list
-          returned: always
-          sample: []
-          contains:
-            id:
-              description: ID
-              type: int
-              returned: always
-              sample: 123
-            protocol:
-              description: Protocol
-              type: str
-              returned: always
-              sample: string-value
-            from_port:
-              description: From port
-              type: int
-              returned: always
-              sample: 8080
-            to_port:
-              description: To port
-              type: int
-              returned: always
-              sample: 8080
-            cidr:
-              description: CIDR
-              type: str
-              returned: always
-              sample: 192.168.1.0/24
-            remote_group:
-              description: Remote group URL
-              type: str
-              returned: always
-              sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-            direction:
-              description: Direction
-              type: str
-              returned: always
-              sample: string-value
-            ethertype:
-              description: Ethertype
-              type: str
-              returned: always
-              sample: string-value
-            description:
-              description: Description
-              type: str
-              returned: always
-              sample: A sample description created by Ansible.
     server_group:
       description: Server group for instance scheduling policy
       type: str

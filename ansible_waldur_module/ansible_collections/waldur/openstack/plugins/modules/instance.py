@@ -76,11 +76,6 @@ options:
     type: str
     required: true
     description: The OS image to use for the instance
-  security_groups:
-    type: list
-    required: false
-    description: List of security groups to apply to the instance
-    elements: str
   ports:
     type: list
     required: true
@@ -165,6 +160,11 @@ options:
         type: str
         required: false
         description: Volume type URL
+  security_groups:
+    type: list
+    required: false
+    description: Security groups to attach to the instance
+    elements: str
   termination_action:
     type: str
     required: false
@@ -200,8 +200,6 @@ EXAMPLES = """
       description: A sample description created by Ansible.
       flavor: Flavor name or UUID
       image: Image name or UUID
-      security_groups:
-      - Security groups name or UUID
       ports:
       - fixed_ips:
         - ip_address: 8.8.8.8
@@ -221,6 +219,8 @@ EXAMPLES = """
       data_volumes:
       - size: 100
         volume_type: string-value
+      security_groups:
+      - Security groups name or UUID
 - name: Remove an existing instance
   hosts: localhost
   tasks:
@@ -527,6 +527,62 @@ resource:
           type: str
           returned: always
           sample: My-Awesome-Resource
+        rules:
+          description: A list of rules items.
+          type: list
+          returned: always
+          sample: []
+          contains:
+            ethertype:
+              description: IP protocol version - either 'IPv4' or 'IPv6'
+              type: str
+              returned: always
+              sample: null
+            direction:
+              description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
+              type: str
+              returned: always
+              sample: null
+            protocol:
+              description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+              type: str
+              returned: always
+              sample: null
+            from_port:
+              description: Starting port number in the range (1-65535)
+              type: int
+              returned: always
+              sample: 8080
+            to_port:
+              description: Ending port number in the range (1-65535)
+              type: int
+              returned: always
+              sample: 8080
+            cidr:
+              description: CIDR notation for the source/destination network address range
+              type: str
+              returned: always
+              sample: 192.168.1.0/24
+            description:
+              description: Description
+              type: str
+              returned: always
+              sample: A sample description created by Ansible.
+            remote_group_name:
+              description: Remote group name
+              type: str
+              returned: always
+              sample: string-value
+            remote_group_uuid:
+              description: Remote group UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            id:
+              description: ID
+              type: int
+              returned: always
+              sample: 123
         description:
           description: Description
           type: str
@@ -537,57 +593,6 @@ resource:
           type: str
           returned: always
           sample: OK
-        rules:
-          description: A list of rules items.
-          type: list
-          returned: always
-          sample: []
-          contains:
-            id:
-              description: ID
-              type: int
-              returned: always
-              sample: 123
-            protocol:
-              description: Protocol
-              type: str
-              returned: always
-              sample: string-value
-            from_port:
-              description: From port
-              type: int
-              returned: always
-              sample: 8080
-            to_port:
-              description: To port
-              type: int
-              returned: always
-              sample: 8080
-            cidr:
-              description: CIDR
-              type: str
-              returned: always
-              sample: 192.168.1.0/24
-            remote_group:
-              description: Remote group URL
-              type: str
-              returned: always
-              sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-            direction:
-              description: Direction
-              type: str
-              returned: always
-              sample: string-value
-            ethertype:
-              description: Ethertype
-              type: str
-              returned: always
-              sample: string-value
-            description:
-              description: Description
-              type: str
-              returned: always
-              sample: A sample description created by Ansible.
     server_group:
       description: Server group for instance scheduling policy
       type: str
@@ -1139,7 +1144,6 @@ ARGUMENT_SPEC = {
     "description": {"type": "str"},
     "flavor": {"type": "str", "required": True},
     "image": {"type": "str", "required": True},
-    "security_groups": {"type": "list"},
     "ports": {"type": "list", "required": True},
     "floating_ips": {"type": "list"},
     "system_volume_size": {"type": "int", "required": True},
@@ -1151,6 +1155,7 @@ ARGUMENT_SPEC = {
     "availability_zone": {"type": "str"},
     "connect_directly_to_external_network": {"type": "bool"},
     "data_volumes": {"type": "list"},
+    "security_groups": {"type": "list"},
     "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
     "delete_volumes": {"type": "str"},
     "release_floating_ips": {"type": "str"},
