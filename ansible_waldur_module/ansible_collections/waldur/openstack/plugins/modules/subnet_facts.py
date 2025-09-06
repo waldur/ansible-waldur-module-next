@@ -238,15 +238,15 @@ resource:
       sample: []
       contains:
         start:
-          description: Start
+          description: An IPv4 or IPv6 address.
           type: str
           returned: always
-          sample: string-value
+          sample: null
         end:
-          description: End
+          description: An IPv4 or IPv6 address.
           type: str
           returned: always
-          sample: string-value
+          sample: null
     ip_version:
       description: IP protocol version (4 or 6)
       type: int
@@ -274,10 +274,10 @@ resource:
           returned: always
           sample: string-value
         nexthop:
-          description: Nexthop
+          description: An IPv4 or IPv6 address.
           type: str
           returned: always
-          sample: string-value
+          sample: null
     is_connected:
       description: Is subnet connected to the default tenant router.
       type: bool

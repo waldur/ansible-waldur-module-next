@@ -72,6 +72,10 @@ options:
     type: str
     required: false
     description: Type
+    choices:
+    - Create
+    - Update
+    - Terminate
   accepting_terms_of_service:
     type: bool
     required: false
@@ -413,7 +417,7 @@ ARGUMENT_SPEC = {
     "plan": {"type": "str"},
     "attributes": {"type": "str"},
     "limits": {"type": "dict"},
-    "type": {"type": "str"},
+    "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
     "accepting_terms_of_service": {"type": "bool"},
     "callback_url": {"type": "str"},
     "project": {"type": "str", "required": True},

@@ -451,7 +451,7 @@ resource:
           description: The public IPv4 address of the floating IP
           type: str
           returned: always
-          sample: string-value
+          sample: null
         port_fixed_ips:
           description: A list of port fixed ips items.
           type: list

@@ -55,7 +55,7 @@ options:
   tenant:
     type: str
     required: true
-    description: The parent tenant name or UUID for creating the resource.
+    description: The parent tenant name or UUID.
   project:
     description: The name or UUID of the project to filter resources by.
     type: str

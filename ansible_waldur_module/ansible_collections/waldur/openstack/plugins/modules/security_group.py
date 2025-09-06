@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: security_group
 short_description: Manage OpenStack Security Groups and their rules in Waldur.
-description: 'When the resource already exists, the following fields can be updated: description, name, rules.'
+description: 'When the resource already exists, the following fields can be updated: rules.'
 author: Waldur Team
 options:
   access_token:
@@ -55,7 +55,7 @@ options:
   tenant:
     type: str
     required: true
-    description: The parent tenant name or UUID for creating the resource.
+    description: The parent tenant name or UUID.
   project:
     description: The name or UUID of the project to filter resources by.
     type: str
@@ -416,10 +416,10 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-security-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_security_group/",
     "destroy_path": "/api/openstack-security-groups/{uuid}/",
-    "update_path": "/api/openstack-security-groups/{uuid}/",
+    "update_path": None,
     "model_param_names": ["description", "name", "rules"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": ["description", "name"],
+    "update_fields": [],
     "update_actions": {
         "set_rules": {
             "path": "/api/openstack-security-groups/{uuid}/set_rules/",

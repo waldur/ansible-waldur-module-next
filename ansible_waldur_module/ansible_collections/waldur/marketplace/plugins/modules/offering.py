@@ -81,13 +81,13 @@ options:
     required: false
     description: Attributes
   options:
-    type: str
+    type: dict
     required: false
-    description: Options
+    description: ''
   resource_options:
-    type: str
+    type: dict
     required: false
-    description: Resource options
+    description: ''
   components:
     type: list
     required: false
@@ -1012,8 +1012,8 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str"},
     "category": {"type": "str", "required": True},
     "attributes": {"type": "str"},
-    "options": {"type": "str"},
-    "resource_options": {"type": "str"},
+    "options": {"type": "dict"},
+    "resource_options": {"type": "dict"},
     "components": {"type": "list"},
     "vendor_details": {"type": "str"},
     "getting_started": {"type": "str"},

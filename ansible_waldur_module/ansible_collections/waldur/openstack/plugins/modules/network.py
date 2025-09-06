@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: network
 short_description: Manage OpenStack Networks in Waldur.
-description: 'When the resource already exists, the following fields can be updated: description, mtu, name.'
+description: 'When the resource already exists, the following fields can be updated: mtu.'
 author: Waldur Team
 options:
   access_token:
@@ -55,7 +55,7 @@ options:
   tenant:
     type: str
     required: true
-    description: The parent tenant name or UUID for creating the resource.
+    description: The parent tenant name or UUID.
   project:
     description: The name or UUID of the project to filter resources by.
     type: str
@@ -296,15 +296,15 @@ resource:
           sample: []
           contains:
             start:
-              description: Start
+              description: An IPv4 or IPv6 address.
               type: str
               returned: always
-              sample: string-value
+              sample: null
             end:
-              description: End
+              description: An IPv4 or IPv6 address.
               type: str
               returned: always
-              sample: string-value
+              sample: null
         ip_version:
           description: IP protocol version (4 or 6)
           type: int
@@ -474,10 +474,10 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-networks/",
     "create_path": "/api/openstack-tenants/{uuid}/create_network/",
     "destroy_path": "/api/openstack-networks/{uuid}/",
-    "update_path": "/api/openstack-networks/{uuid}/",
+    "update_path": None,
     "model_param_names": ["description", "name"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": ["description", "name"],
+    "update_fields": [],
     "update_actions": {
         "set_mtu": {
             "path": "/api/openstack-networks/{uuid}/set_mtu/",

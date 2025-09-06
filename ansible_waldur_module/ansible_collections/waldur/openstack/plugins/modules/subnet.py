@@ -15,9 +15,9 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = """
 ---
-module: floating_ip
-short_description: Manage OpenStack Floating IPs in Waldur.
-description: 'When the resource already exists, the following fields can be updated: description.'
+module: subnet
+short_description: Manage OpenStack subnets in Waldur.
+description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, name.'
 author: Waldur Team
 options:
   access_token:
@@ -49,13 +49,13 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack floating IP.
+    description: The name of the OpenStack subnet.
     type: str
     required: true
-  tenant:
+  network:
     type: str
     required: true
-    description: The parent tenant name or UUID.
+    description: The parent network name or UUID.
   project:
     description: The name or UUID of the project to filter resources by.
     type: str
@@ -64,41 +64,82 @@ options:
     description: The name or UUID of the customer to filter resources by.
     type: str
     required: false
-  description:
-    type: dict
+  tenant:
+    description: The name or UUID of the parent tenant for filtering.
+    type: str
     required: false
-    description: ''
+  description:
+    type: str
+    required: false
+    description: Description
+  cidr:
+    type: str
+    required: false
+    description: Cidr
+  gateway_ip:
+    type: str
+    required: false
+    description: IP address of the gateway for this subnet
+  disable_gateway:
+    type: bool
+    required: false
+    description: If True, no gateway IP address will be allocated
+  allocation_pools:
+    type: list
+    required: false
+    description: Allocation pools
+  dns_nameservers:
+    type: list
+    required: false
+    description: Dns nameservers
+  host_routes:
+    type: list
+    required: false
+    description: Host routes
 requirements:
 - python >= 3.11
 
 """
 
 EXAMPLES = """
-- name: Create a new OpenStack floating IP
+- name: Create a new OpenStack subnet
   hosts: localhost
   tasks:
-  - name: Add OpenStack floating IP
-    waldur.openstack.floating_ip:
+  - name: Add OpenStack subnet
+    waldur.openstack.subnet:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: Tenant name or UUID
-- name: Remove an existing OpenStack floating IP
+      network: Network name or UUID
+      name: My-Awesome-OpenStack-subnet
+      description: A sample description created by Ansible.
+      cidr: 192.168.1.0/24
+      gateway_ip: 192.168.1.1
+      disable_gateway: 192.168.1.1
+      allocation_pools:
+      - start: null
+        end: null
+      dns_nameservers:
+      - null
+      host_routes:
+      - destination: string-value
+        nexthop: null
+- name: Remove an existing OpenStack subnet
   hosts: localhost
   tasks:
-  - name: Remove OpenStack floating IP
-    waldur.openstack.floating_ip:
+  - name: Remove OpenStack subnet
+    waldur.openstack.subnet:
       state: absent
-      name: My-Awesome-OpenStack-floating-IP
+      name: My-Awesome-OpenStack-subnet
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: Tenant name or UUID
+      network: Network name or UUID
 
 """
 
 RETURN = """
 resource:
-  description: The state of the OpenStack floating IP after the operation.
+  description: The state of the OpenStack subnet after the operation.
   type: dict
   returned: on success
   contains:
@@ -222,23 +263,8 @@ resource:
       type: str
       returned: always
       sample: string-value
-    runtime_state:
-      description: Runtime state
-      type: str
-      returned: always
-      sample: string-value
-    address:
-      description: The public IPv4 address of the floating IP
-      type: str
-      returned: always
-      sample: null
-    backend_network_id:
-      description: ID of network in OpenStack where this floating IP is allocated
-      type: str
-      returned: always
-      sample: string-value
     tenant:
-      description: OpenStack tenant this floating IP belongs to
+      description: Tenant URL
       type: str
       returned: always
       sample: https://api.example.com/api/tenant/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -247,52 +273,83 @@ resource:
       type: str
       returned: always
       sample: string-value
-    tenant_uuid:
-      description: Tenant UUID
+    network:
+      description: Network to which this subnet belongs
       type: str
       returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    port:
-      description: Port URL
+      sample: https://api.example.com/api/network/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    network_name:
+      description: Network name
       type: str
       returned: always
-      sample: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    external_address:
-      description: Optional address that maps to floating IP's address in external networks
+      sample: string-value
+    cidr:
+      description: CIDR
       type: str
       returned: always
-      sample: null
-    port_fixed_ips:
-      description: A list of port fixed ips items.
+      sample: 192.168.1.0/24
+    gateway_ip:
+      description: IP address of the gateway for this subnet
+      type: str
+      returned: always
+      sample: 192.168.1.1
+    disable_gateway:
+      description: If True, no gateway IP address will be allocated
+      type: bool
+      returned: always
+      sample: 192.168.1.1
+    allocation_pools:
+      description: A list of allocation pools items.
       type: list
       returned: always
       sample: []
       contains:
-        ip_address:
-          description: IP address to assign to the port
+        start:
+          description: An IPv4 or IPv6 address.
           type: str
           returned: always
-          sample: 8.8.8.8
-        subnet_id:
-          description: ID of the subnet in which to assign the IP address
+          sample: null
+        end:
+          description: An IPv4 or IPv6 address.
+          type: str
+          returned: always
+          sample: null
+    ip_version:
+      description: IP protocol version (4 or 6)
+      type: int
+      returned: always
+      sample: 123
+    enable_dhcp:
+      description: If True, DHCP service will be enabled on this subnet
+      type: bool
+      returned: always
+      sample: true
+    dns_nameservers:
+      description: A list of DNS nameservers items.
+      type: list
+      returned: always
+      sample: []
+    host_routes:
+      description: A list of host routes items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        destination:
+          description: Destination
           type: str
           returned: always
           sample: string-value
-    instance_uuid:
-      description: Instance UUID
-      type: str
+        nexthop:
+          description: An IPv4 or IPv6 address.
+          type: str
+          returned: always
+          sample: null
+    is_connected:
+      description: Is subnet connected to the default tenant router.
+      type: bool
       returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    instance_name:
-      description: Instance name
-      type: str
-      returned: always
-      sample: string-value
-    instance_url:
-      description: Instance URL
-      type: str
-      returned: always
-      sample: string-value
+      sample: true
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
@@ -378,39 +435,58 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
-    "tenant": {"type": "str", "required": True},
+    "network": {"type": "str", "required": True},
     "project": {"type": "str"},
     "customer": {"type": "str"},
-    "description": {"type": "dict"},
+    "tenant": {"type": "str"},
+    "description": {"type": "str"},
+    "cidr": {"type": "str"},
+    "gateway_ip": {"type": "str"},
+    "disable_gateway": {"type": "bool"},
+    "allocation_pools": {"type": "list"},
+    "dns_nameservers": {"type": "list"},
+    "host_routes": {"type": "list"},
 }
 
 RUNNER_CONTEXT = {
-    "resource_type": "OpenStack floating IP",
-    "check_url": "/api/openstack-floating-ips/",
+    "resource_type": "OpenStack subnet",
+    "check_url": "/api/openstack-subnets/",
     "check_filter_keys": {
         "project": "project_uuid",
         "customer": "customer_uuid",
         "tenant": "tenant_uuid",
     },
-    "list_path": "/api/openstack-floating-ips/",
-    "create_path": "/api/openstack-tenants/{uuid}/create_floating_ip/",
-    "destroy_path": "/api/openstack-floating-ips/{uuid}/",
-    "update_path": None,
-    "model_param_names": [],
-    "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": [],
-    "update_actions": {
-        "update_description": {
-            "path": "/api/openstack-floating-ips/{uuid}/update_description/",
-            "param": "description",
-            "compare_key": "description",
-            "wrap_in_object": True,
-            "idempotency_keys": [],
-            "defaults_map": {},
-        }
+    "list_path": "/api/openstack-subnets/",
+    "create_path": "/api/openstack-networks/{uuid}/create_subnet/",
+    "destroy_path": "/api/openstack-subnets/{uuid}/",
+    "update_path": "/api/openstack-subnets/{uuid}/",
+    "model_param_names": [
+        "allocation_pools",
+        "cidr",
+        "description",
+        "disable_gateway",
+        "dns_nameservers",
+        "gateway_ip",
+        "host_routes",
+        "name",
+    ],
+    "path_param_maps": {"create": {"uuid": "network"}},
+    "update_fields": [
+        "allocation_pools",
+        "cidr",
+        "description",
+        "disable_gateway",
+        "dns_nameservers",
+        "gateway_ip",
+        "host_routes",
+        "name",
+    ],
+    "update_actions": {},
+    "resolvers": {
+        "tenant": {"url": "/api/openstack-tenants/", "error_message": None},
+        "network": {"url": "/api/openstack-networks/", "error_message": None},
     },
-    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
-    "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",
+    "resource_detail_path": "/api/openstack-subnets/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],
