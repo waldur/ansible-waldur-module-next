@@ -33,6 +33,110 @@ options:
     description: The name or UUID of the resource.
     type: str
     required: true
+  backend_id:
+    description: Backend ID
+    type: str
+    required: false
+  category_uuid:
+    description: Filter by category uuid.
+    type: str
+    required: false
+  created:
+    description: Created after
+    type: str
+    required: false
+  customer:
+    description: Filter by customer.
+    type: str
+    required: false
+  customer_uuid:
+    description: Filter by customer uuid.
+    type: str
+    required: false
+  downscaled:
+    description: Filter by downscaled.
+    type: bool
+    required: false
+  has_terminate_date:
+    description: Has termination date
+    type: bool
+    required: false
+  lexis_links_supported:
+    description: LEXIS links supported
+    type: bool
+    required: false
+  modified:
+    description: Modified after
+    type: str
+    required: false
+  offering:
+    description: Filter by offering.
+    type: str
+    required: false
+  offering_billable:
+    description: Filter by offering billable.
+    type: str
+    required: false
+  offering_shared:
+    description: Offering shared
+    type: bool
+    required: false
+  offering_slug:
+    description: Multiple values may be separated by commas.
+    type: list
+    required: false
+  offering_type:
+    description: Filter by offering type.
+    type: str
+    required: false
+  offering_uuid:
+    description: Multiple values may be separated by commas.
+    type: list
+    required: false
+  parent_offering_uuid:
+    description: Filter by parent offering uuid.
+    type: str
+    required: false
+  paused:
+    description: Filter by paused.
+    type: bool
+    required: false
+  project_name:
+    description: Filter by project name.
+    type: str
+    required: false
+  project_uuid:
+    description: Filter by project uuid.
+    type: str
+    required: false
+  provider_uuid:
+    description: Filter by provider uuid.
+    type: str
+    required: false
+  query:
+    description: Search by resource UUID, name, backend ID, effective ID, IPs or hypervisor
+    type: str
+    required: false
+  restrict_member_access:
+    description: Filter by restrict member access.
+    type: bool
+    required: false
+  runtime_state:
+    description: Runtime state
+    type: str
+    required: false
+  service_manager_uuid:
+    description: Service Manager UUID
+    type: str
+    required: false
+  state:
+    description: Filter by state.
+    type: list
+    required: false
+  visible_to_username:
+    description: Visible to username
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
@@ -470,6 +574,32 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "backend_id": {"type": "str"},
+    "category_uuid": {"type": "str"},
+    "created": {"type": "str"},
+    "customer": {"type": "str"},
+    "customer_uuid": {"type": "str"},
+    "downscaled": {"type": "bool"},
+    "has_terminate_date": {"type": "bool"},
+    "lexis_links_supported": {"type": "bool"},
+    "modified": {"type": "str"},
+    "offering": {"type": "str"},
+    "offering_billable": {"type": "str"},
+    "offering_shared": {"type": "bool"},
+    "offering_slug": {"type": "list"},
+    "offering_type": {"type": "str"},
+    "offering_uuid": {"type": "list"},
+    "parent_offering_uuid": {"type": "str"},
+    "paused": {"type": "bool"},
+    "project_name": {"type": "str"},
+    "project_uuid": {"type": "str"},
+    "provider_uuid": {"type": "str"},
+    "query": {"type": "str"},
+    "restrict_member_access": {"type": "bool"},
+    "runtime_state": {"type": "str"},
+    "service_manager_uuid": {"type": "str"},
+    "state": {"type": "list"},
+    "visible_to_username": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -479,6 +609,34 @@ RUNNER_CONTEXT = {
     "identifier_param": "name",
     "resolvers": {},
     "many": False,
+    "inferred_filter_params": [
+        "backend_id",
+        "category_uuid",
+        "created",
+        "customer",
+        "customer_uuid",
+        "downscaled",
+        "has_terminate_date",
+        "lexis_links_supported",
+        "modified",
+        "offering",
+        "offering_billable",
+        "offering_shared",
+        "offering_slug",
+        "offering_type",
+        "offering_uuid",
+        "parent_offering_uuid",
+        "paused",
+        "project_name",
+        "project_uuid",
+        "provider_uuid",
+        "query",
+        "restrict_member_access",
+        "runtime_state",
+        "service_manager_uuid",
+        "state",
+        "visible_to_username",
+    ],
 }
 
 

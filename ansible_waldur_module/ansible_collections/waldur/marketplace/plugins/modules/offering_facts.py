@@ -33,6 +33,98 @@ options:
     description: The name or UUID of the offering.
     type: str
     required: true
+  accessible_via_calls:
+    description: Accessible via calls
+    type: bool
+    required: false
+  allowed_customer_uuid:
+    description: Allowed customer UUID
+    type: str
+    required: false
+  attributes:
+    description: Filter by attributes.
+    type: str
+    required: false
+  billable:
+    description: Filter by billable.
+    type: bool
+    required: false
+  category_group_uuid:
+    description: Filter by category group uuid.
+    type: str
+    required: false
+  category_uuid:
+    description: Filter by category uuid.
+    type: str
+    required: false
+  created:
+    description: Created after
+    type: str
+    required: false
+  customer:
+    description: Filter by customer.
+    type: str
+    required: false
+  customer_uuid:
+    description: Filter by customer uuid.
+    type: str
+    required: false
+  description:
+    description: Filter by description.
+    type: str
+    required: false
+  keyword:
+    description: Keyword
+    type: str
+    required: false
+  modified:
+    description: Modified after
+    type: str
+    required: false
+  organization_group_uuid:
+    description: Filter by organization group uuid.
+    type: list
+    required: false
+  parent_uuid:
+    description: Filter by parent uuid.
+    type: str
+    required: false
+  project_uuid:
+    description: Project UUID
+    type: str
+    required: false
+  resource_customer_uuid:
+    description: Resource customer UUID
+    type: str
+    required: false
+  resource_project_uuid:
+    description: Resource project UUID
+    type: str
+    required: false
+  scope_uuid:
+    description: Scope UUID
+    type: str
+    required: false
+  service_manager_uuid:
+    description: Service manager UUID
+    type: str
+    required: false
+  shared:
+    description: Filter by shared.
+    type: bool
+    required: false
+  state:
+    description: Filter by state.
+    type: list
+    required: false
+  type:
+    description: Filter by type.
+    type: list
+    required: false
+  uuid_list:
+    description: Comma-separated offering UUIDs
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
@@ -788,6 +880,29 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "accessible_via_calls": {"type": "bool"},
+    "allowed_customer_uuid": {"type": "str"},
+    "attributes": {"type": "str"},
+    "billable": {"type": "bool"},
+    "category_group_uuid": {"type": "str"},
+    "category_uuid": {"type": "str"},
+    "created": {"type": "str"},
+    "customer": {"type": "str"},
+    "customer_uuid": {"type": "str"},
+    "description": {"type": "str"},
+    "keyword": {"type": "str"},
+    "modified": {"type": "str"},
+    "organization_group_uuid": {"type": "list"},
+    "parent_uuid": {"type": "str"},
+    "project_uuid": {"type": "str"},
+    "resource_customer_uuid": {"type": "str"},
+    "resource_project_uuid": {"type": "str"},
+    "scope_uuid": {"type": "str"},
+    "service_manager_uuid": {"type": "str"},
+    "shared": {"type": "bool"},
+    "state": {"type": "list"},
+    "type": {"type": "list"},
+    "uuid_list": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -797,6 +912,31 @@ RUNNER_CONTEXT = {
     "identifier_param": "name",
     "resolvers": {},
     "many": False,
+    "inferred_filter_params": [
+        "accessible_via_calls",
+        "allowed_customer_uuid",
+        "attributes",
+        "billable",
+        "category_group_uuid",
+        "category_uuid",
+        "created",
+        "customer",
+        "customer_uuid",
+        "description",
+        "keyword",
+        "modified",
+        "organization_group_uuid",
+        "parent_uuid",
+        "project_uuid",
+        "resource_customer_uuid",
+        "resource_project_uuid",
+        "scope_uuid",
+        "service_manager_uuid",
+        "shared",
+        "state",
+        "type",
+        "uuid_list",
+    ],
 }
 
 

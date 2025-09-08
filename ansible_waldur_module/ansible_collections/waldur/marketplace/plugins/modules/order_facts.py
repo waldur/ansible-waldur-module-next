@@ -33,6 +33,82 @@ options:
     description: The name or UUID of the order.
     type: str
     required: true
+  can_approve_as_consumer:
+    description: Filter by can approve as consumer.
+    type: bool
+    required: false
+  can_approve_as_provider:
+    description: Filter by can approve as provider.
+    type: bool
+    required: false
+  category_uuid:
+    description: Filter by category uuid.
+    type: str
+    required: false
+  created:
+    description: Created after
+    type: str
+    required: false
+  customer_uuid:
+    description: Filter by customer uuid.
+    type: str
+    required: false
+  modified:
+    description: Modified after
+    type: str
+    required: false
+  offering:
+    description: Filter by offering.
+    type: str
+    required: false
+  offering_slug:
+    description: Multiple values may be separated by commas.
+    type: list
+    required: false
+  offering_type:
+    description: Filter by offering type.
+    type: list
+    required: false
+  offering_uuid:
+    description: Filter by offering uuid.
+    type: str
+    required: false
+  parent_offering_uuid:
+    description: Filter by parent offering uuid.
+    type: str
+    required: false
+  project_uuid:
+    description: Filter by project uuid.
+    type: str
+    required: false
+  provider_uuid:
+    description: Filter by provider uuid.
+    type: str
+    required: false
+  query:
+    description: Search by order UUID, project name or resource name
+    type: str
+    required: false
+  resource:
+    description: Filter by resource.
+    type: str
+    required: false
+  resource_uuid:
+    description: Filter by resource uuid.
+    type: str
+    required: false
+  service_manager_uuid:
+    description: Filter by service manager uuid.
+    type: str
+    required: false
+  state:
+    description: Filter by state.
+    type: list
+    required: false
+  type:
+    description: Filter by type.
+    type: list
+    required: false
 requirements:
 - python >= 3.11
 
@@ -398,6 +474,25 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "can_approve_as_consumer": {"type": "bool"},
+    "can_approve_as_provider": {"type": "bool"},
+    "category_uuid": {"type": "str"},
+    "created": {"type": "str"},
+    "customer_uuid": {"type": "str"},
+    "modified": {"type": "str"},
+    "offering": {"type": "str"},
+    "offering_slug": {"type": "list"},
+    "offering_type": {"type": "list"},
+    "offering_uuid": {"type": "str"},
+    "parent_offering_uuid": {"type": "str"},
+    "project_uuid": {"type": "str"},
+    "provider_uuid": {"type": "str"},
+    "query": {"type": "str"},
+    "resource": {"type": "str"},
+    "resource_uuid": {"type": "str"},
+    "service_manager_uuid": {"type": "str"},
+    "state": {"type": "list"},
+    "type": {"type": "list"},
 }
 
 RUNNER_CONTEXT = {
@@ -407,6 +502,27 @@ RUNNER_CONTEXT = {
     "identifier_param": "name",
     "resolvers": {},
     "many": False,
+    "inferred_filter_params": [
+        "can_approve_as_consumer",
+        "can_approve_as_provider",
+        "category_uuid",
+        "created",
+        "customer_uuid",
+        "modified",
+        "offering",
+        "offering_slug",
+        "offering_type",
+        "offering_uuid",
+        "parent_offering_uuid",
+        "project_uuid",
+        "provider_uuid",
+        "query",
+        "resource",
+        "resource_uuid",
+        "service_manager_uuid",
+        "state",
+        "type",
+    ],
 }
 
 

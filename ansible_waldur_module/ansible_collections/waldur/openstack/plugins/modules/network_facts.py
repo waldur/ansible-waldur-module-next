@@ -45,6 +45,70 @@ options:
     description: The name or UUID of the parent tenant.
     type: str
     required: false
+  backend_id:
+    description: Filter by backend id.
+    type: str
+    required: false
+  can_manage:
+    description: Can manage
+    type: bool
+    required: false
+  customer_abbreviation:
+    description: Filter by customer abbreviation.
+    type: str
+    required: false
+  customer_name:
+    description: Filter by customer name.
+    type: str
+    required: false
+  customer_native_name:
+    description: Filter by customer native name.
+    type: str
+    required: false
+  description:
+    description: Filter by description.
+    type: str
+    required: false
+  direct_only:
+    description: Direct only
+    type: bool
+    required: false
+  external_ip:
+    description: Filter by external ip.
+    type: str
+    required: false
+  is_external:
+    description: Filter by is external.
+    type: bool
+    required: false
+  project_name:
+    description: Filter by project name.
+    type: str
+    required: false
+  rbac_only:
+    description: RBAC only
+    type: bool
+    required: false
+  service_settings_name:
+    description: Filter by service settings name.
+    type: str
+    required: false
+  service_settings_uuid:
+    description: Filter by service settings uuid.
+    type: str
+    required: false
+  state:
+    description: Filter by state.
+    type: list
+    required: false
+  type:
+    description: Filter by type.
+    type: str
+    required: false
+  uuid:
+    description: Filter by uuid.
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
@@ -399,6 +463,22 @@ ARGUMENT_SPEC = {
     "project": {"type": "str"},
     "customer": {"type": "str"},
     "tenant": {"type": "str"},
+    "backend_id": {"type": "str"},
+    "can_manage": {"type": "bool"},
+    "customer_abbreviation": {"type": "str"},
+    "customer_name": {"type": "str"},
+    "customer_native_name": {"type": "str"},
+    "description": {"type": "str"},
+    "direct_only": {"type": "bool"},
+    "external_ip": {"type": "str"},
+    "is_external": {"type": "bool"},
+    "project_name": {"type": "str"},
+    "rbac_only": {"type": "bool"},
+    "service_settings_name": {"type": "str"},
+    "service_settings_uuid": {"type": "str"},
+    "state": {"type": "list"},
+    "type": {"type": "str"},
+    "uuid": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -424,6 +504,27 @@ RUNNER_CONTEXT = {
         },
     },
     "many": True,
+    "inferred_filter_params": [
+        "backend_id",
+        "can_manage",
+        "customer",
+        "customer_abbreviation",
+        "customer_name",
+        "customer_native_name",
+        "description",
+        "direct_only",
+        "external_ip",
+        "is_external",
+        "project",
+        "project_name",
+        "rbac_only",
+        "service_settings_name",
+        "service_settings_uuid",
+        "state",
+        "tenant",
+        "type",
+        "uuid",
+    ],
 }
 
 

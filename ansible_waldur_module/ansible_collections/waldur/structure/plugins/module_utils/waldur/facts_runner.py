@@ -12,10 +12,10 @@ parameters (like 'project' or 'tenant'), ensuring a clean separation of concerns
 and consistent logic across all module types.
 """
 
-from ansible_collections.waldur.openstack.plugins.module_utils.waldur.base_runner import (
+from ansible_collections.waldur.structure.plugins.module_utils.waldur.base_runner import (
     BaseRunner,
 )
-from ansible_collections.waldur.openstack.plugins.module_utils.waldur.resolver import (
+from ansible_collections.waldur.structure.plugins.module_utils.waldur.resolver import (
     ParameterResolver,
 )
 
