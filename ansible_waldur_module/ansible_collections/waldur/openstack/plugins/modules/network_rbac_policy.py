@@ -207,8 +207,27 @@ RUNNER_CONTEXT = {
     "update_fields": [],
     "update_actions": {},
     "resolvers": {
-        "target_tenant": {"url": "/api/openstack-tenants/", "error_message": None},
-        "network": {"url": "/api/openstack-networks/", "error_message": None},
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+        },
+        "target_tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+        },
+        "network": {
+            "url": "/api/openstack-networks/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "tenant",
+                    "source_key": "uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
+        },
     },
     "resource_detail_path": "/api/openstack-networks/{uuid}/rbac_policy_delete/{rbac_policy_uuid}/",
 }

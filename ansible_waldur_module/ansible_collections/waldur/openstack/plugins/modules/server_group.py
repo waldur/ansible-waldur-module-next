@@ -386,7 +386,13 @@ RUNNER_CONTEXT = {
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": ["description", "name", "policy"],
     "update_actions": {},
-    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
+    "resolvers": {
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+        }
+    },
     "resource_detail_path": "/api/openstack-server-groups/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

@@ -440,10 +440,21 @@ RUNNER_CONTEXT = {
         }
     },
     "resolvers": {
-        "tenant": {"url": "/api/openstack-tenants/", "error_message": None},
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+        },
         "remote_group": {
             "url": "/api/openstack-security-groups/",
             "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "tenant",
+                    "source_key": "uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
         },
     },
     "resource_detail_path": "/api/openstack-security-groups/{uuid}/",

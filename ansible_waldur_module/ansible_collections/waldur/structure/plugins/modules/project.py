@@ -444,8 +444,8 @@ RUNNER_CONTEXT = {
     ],
     "update_actions": {},
     "resolvers": {
-        "customer": {"url": "/api/customers/", "error_message": None},
-        "type": {"url": "/api/project-types/", "error_message": None},
+        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
+        "type": {"url": "/api/project-types/", "error_message": None, "filter_by": []},
     },
     "resource_detail_path": "/api/projects/{uuid}/",
 }

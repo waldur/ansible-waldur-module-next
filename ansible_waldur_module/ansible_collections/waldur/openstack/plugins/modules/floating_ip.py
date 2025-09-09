@@ -409,7 +409,13 @@ RUNNER_CONTEXT = {
             "defaults_map": {},
         }
     },
-    "resolvers": {"tenant": {"url": "/api/openstack-tenants/", "error_message": None}},
+    "resolvers": {
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+        }
+    },
     "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

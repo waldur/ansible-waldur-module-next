@@ -445,11 +445,12 @@ RUNNER_CONTEXT = {
     "update_fields": [],
     "update_actions": {},
     "resolvers": {
-        "customer": {"url": "/api/customers/", "error_message": None},
-        "project": {"url": "/api/projects/", "error_message": None},
+        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
+        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
+            "filter_by": [],
         },
     },
     "resource_detail_path": "/api/marketplace-orders/{uuid}/",
