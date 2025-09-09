@@ -33,6 +33,10 @@ options:
     description: The name or UUID of the offering.
     type: str
     required: true
+  customer:
+    description: The name or UUID of the parent customer.
+    type: str
+    required: true
   accessible_via_calls:
     description: Accessible via calls
     type: bool
@@ -59,14 +63,6 @@ options:
     required: false
   created:
     description: Created after
-    type: str
-    required: false
-  customer:
-    description: Filter by customer.
-    type: str
-    required: false
-  customer_uuid:
-    description: Filter by customer uuid.
     type: str
     required: false
   description:
@@ -137,6 +133,7 @@ EXAMPLES = """
   - name: Get facts about a specific offering
     waldur.marketplace.offering_facts:
       name: My Resource Name
+      customer: Customer name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
@@ -880,6 +877,7 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "customer": {"type": "str", "required": True},
     "accessible_via_calls": {"type": "bool"},
     "allowed_customer_uuid": {"type": "str"},
     "attributes": {"type": "str"},
@@ -887,8 +885,6 @@ ARGUMENT_SPEC = {
     "category_group_uuid": {"type": "str"},
     "category_uuid": {"type": "str"},
     "created": {"type": "str"},
-    "customer": {"type": "str"},
-    "customer_uuid": {"type": "str"},
     "description": {"type": "str"},
     "keyword": {"type": "str"},
     "modified": {"type": "str"},
@@ -910,7 +906,13 @@ RUNNER_CONTEXT = {
     "list_url": "/api/marketplace-public-offerings/",
     "retrieve_url": "/api/marketplace-public-offerings/{uuid}/",
     "identifier_param": "name",
-    "resolvers": {},
+    "resolvers": {
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": "Customer '{value}' not found.",
+            "filter_key": "customer_uuid",
+        }
+    },
     "many": False,
     "inferred_filter_params": [
         "accessible_via_calls",
@@ -921,7 +923,6 @@ RUNNER_CONTEXT = {
         "category_uuid",
         "created",
         "customer",
-        "customer_uuid",
         "description",
         "keyword",
         "modified",

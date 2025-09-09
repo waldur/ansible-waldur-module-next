@@ -33,18 +33,18 @@ options:
     description: The name or UUID of the network.
     type: str
     required: false
-  project:
-    description: The name or UUID of the project to filter resources by.
-    type: str
-    required: false
-  customer:
-    description: The name or UUID of the customer to filter resources by.
-    type: str
-    required: false
   tenant:
     description: The name or UUID of the parent tenant.
     type: str
-    required: false
+    required: true
+  customer:
+    description: The name or UUID of the parent customer.
+    type: str
+    required: true
+  project:
+    description: The name or UUID of the parent project.
+    type: str
+    required: true
   backend_id:
     description: Filter by backend id.
     type: str
@@ -121,9 +121,9 @@ EXAMPLES = """
   - name: Get facts about a specific network
     waldur.openstack.network_facts:
       name: My Resource Name
-      project: Project name or UUID
-      customer: Customer name or UUID
       tenant: Tenant name or UUID
+      customer: Customer name or UUID
+      project: Project name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
@@ -460,9 +460,9 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str"},
-    "project": {"type": "str"},
-    "customer": {"type": "str"},
-    "tenant": {"type": "str"},
+    "tenant": {"type": "str", "required": True},
+    "customer": {"type": "str", "required": True},
+    "project": {"type": "str", "required": True},
     "backend_id": {"type": "str"},
     "can_manage": {"type": "bool"},
     "customer_abbreviation": {"type": "str"},
@@ -487,20 +487,20 @@ RUNNER_CONTEXT = {
     "retrieve_url": "/api/openstack-networks/{uuid}/",
     "identifier_param": "name",
     "resolvers": {
-        "project": {
-            "url": "/api/projects/",
-            "error_message": "Project '{value}' not found.",
-            "filter_key": "project_uuid",
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": "Tenant '{value}' not found.",
+            "filter_key": "tenant_uuid",
         },
         "customer": {
             "url": "/api/customers/",
             "error_message": "Customer '{value}' not found.",
             "filter_key": "customer_uuid",
         },
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
-            "filter_key": "tenant_uuid",
+        "project": {
+            "url": "/api/projects/",
+            "error_message": "Project '{value}' not found.",
+            "filter_key": "project_uuid",
         },
     },
     "many": True,

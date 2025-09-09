@@ -43,18 +43,18 @@ options:
     - restart
     - pull
     - unlink
-  project:
-    description: The name or UUID of the project to filter resources by.
-    type: str
-    required: false
-  customer:
-    description: The name or UUID of the customer to filter resources by.
-    type: str
-    required: false
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
-    required: false
+    required: true
+  customer:
+    description: The name or UUID of the parent customer for filtering.
+    type: str
+    required: true
+  project:
+    description: The name or UUID of the parent project for filtering.
+    type: str
+    required: true
 requirements:
 - python >= 3.11
 
@@ -69,9 +69,9 @@ EXAMPLES = """
       name: My-Target-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      project: Parent Project Name or UUID
-      customer: Parent Customer Name or UUID
       tenant: Parent Tenant Name or UUID
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: start
 - name: Perform 'stop' action on a OpenStack instance
   hosts: localhost
@@ -81,9 +81,9 @@ EXAMPLES = """
       name: My-Target-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      project: Parent Project Name or UUID
-      customer: Parent Customer Name or UUID
       tenant: Parent Tenant Name or UUID
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: stop
 - name: Perform 'restart' action on a OpenStack instance
   hosts: localhost
@@ -93,9 +93,9 @@ EXAMPLES = """
       name: My-Target-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      project: Parent Project Name or UUID
-      customer: Parent Customer Name or UUID
       tenant: Parent Tenant Name or UUID
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: restart
 - name: Perform 'pull' action on a OpenStack instance
   hosts: localhost
@@ -105,9 +105,9 @@ EXAMPLES = """
       name: My-Target-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      project: Parent Project Name or UUID
-      customer: Parent Customer Name or UUID
       tenant: Parent Tenant Name or UUID
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: pull
 - name: Perform 'unlink' action on a OpenStack instance
   hosts: localhost
@@ -117,9 +117,9 @@ EXAMPLES = """
       name: My-Target-OpenStack-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      project: Parent Project Name or UUID
-      customer: Parent Customer Name or UUID
       tenant: Parent Tenant Name or UUID
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: unlink
 
 """
@@ -1025,31 +1025,33 @@ ARGUMENT_SPEC = {
         "choices": ["start", "stop", "restart", "pull", "unlink"],
         "required": True,
     },
-    "project": {"type": "str"},
-    "customer": {"type": "str"},
-    "tenant": {"type": "str"},
+    "tenant": {"type": "str", "required": True},
+    "customer": {"type": "str", "required": True},
+    "project": {"type": "str", "required": True},
 }
 
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack instance",
     "check_url": "/api/openstack-instances/",
+    "check_filter_keys": {
+        "tenant": "tenant_uuid",
+        "customer": "customer_uuid",
+        "project": "project_uuid",
+    },
     "retrieve_url": "/api/openstack-instances/{uuid}/",
     "identifier_param": "name",
     "resolvers": {
-        "project": {
-            "url": "/api/projects/",
-            "error_message": "Project '{value}' not found.",
-            "filter_key": "project_uuid",
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": "Tenant '{value}' not found.",
         },
         "customer": {
             "url": "/api/customers/",
             "error_message": "Customer '{value}' not found.",
-            "filter_key": "customer_uuid",
         },
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": "Tenant '{value}' not found.",
-            "filter_key": "tenant_uuid",
+        "project": {
+            "url": "/api/projects/",
+            "error_message": "Project '{value}' not found.",
         },
     },
     "actions": {

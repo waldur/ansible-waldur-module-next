@@ -53,9 +53,9 @@ options:
     type: str
     required: true
   customer:
+    description: The name or UUID of the parent customer for filtering.
     type: str
     required: true
-    description: The name or UUID of the customer. Customer
   description:
     type: str
     required: false
@@ -412,7 +412,7 @@ ARGUMENT_SPEC = {
 RUNNER_CONTEXT = {
     "resource_type": "project",
     "check_url": "/api/projects/",
-    "check_filter_keys": {},
+    "check_filter_keys": {"customer": "customer"},
     "list_path": "/api/projects/",
     "create_path": "/api/projects/",
     "destroy_path": "/api/projects/{uuid}/",

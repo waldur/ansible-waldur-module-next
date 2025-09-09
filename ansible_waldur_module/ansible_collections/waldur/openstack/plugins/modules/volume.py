@@ -453,15 +453,22 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "availability_zone",
-        "description",
         "image",
+        "availability_zone",
+        "type",
+        "description",
         "name",
         "size",
-        "type",
     ],
     "termination_attributes_map": {},
     "resolvers": {
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": None,
+            "list_item_keys": {},
+        },
         "type": {
             "url": "/api/openstack-volume-types/",
             "error_message": None,
@@ -503,13 +510,6 @@ RUNNER_CONTEXT = {
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
-            "error_message": None,
-            "filter_by": [],
-            "is_list": None,
-            "list_item_keys": {},
-        },
-        "project": {
-            "url": "/api/projects/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,

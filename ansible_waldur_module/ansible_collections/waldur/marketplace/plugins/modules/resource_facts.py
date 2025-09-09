@@ -33,6 +33,10 @@ options:
     description: The name or UUID of the resource.
     type: str
     required: true
+  project:
+    description: The name or UUID of the parent project.
+    type: str
+    required: true
   backend_id:
     description: Backend ID
     type: str
@@ -105,10 +109,6 @@ options:
     description: Filter by project name.
     type: str
     required: false
-  project_uuid:
-    description: Filter by project uuid.
-    type: str
-    required: false
   provider_uuid:
     description: Filter by provider uuid.
     type: str
@@ -149,6 +149,7 @@ EXAMPLES = """
   - name: Get facts about a specific resource
     waldur.marketplace.resource_facts:
       name: My Resource Name
+      project: Project name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
@@ -574,6 +575,7 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "project": {"type": "str", "required": True},
     "backend_id": {"type": "str"},
     "category_uuid": {"type": "str"},
     "created": {"type": "str"},
@@ -592,7 +594,6 @@ ARGUMENT_SPEC = {
     "parent_offering_uuid": {"type": "str"},
     "paused": {"type": "bool"},
     "project_name": {"type": "str"},
-    "project_uuid": {"type": "str"},
     "provider_uuid": {"type": "str"},
     "query": {"type": "str"},
     "restrict_member_access": {"type": "bool"},
@@ -607,7 +608,13 @@ RUNNER_CONTEXT = {
     "list_url": "/api/marketplace-resources/",
     "retrieve_url": "/api/marketplace-resources/{uuid}/",
     "identifier_param": "name",
-    "resolvers": {},
+    "resolvers": {
+        "project": {
+            "url": "/api/projects/",
+            "error_message": "Project '{value}' not found.",
+            "filter_key": "project_uuid",
+        }
+    },
     "many": False,
     "inferred_filter_params": [
         "backend_id",
@@ -628,7 +635,6 @@ RUNNER_CONTEXT = {
         "parent_offering_uuid",
         "paused",
         "project_name",
-        "project_uuid",
         "provider_uuid",
         "query",
         "restrict_member_access",

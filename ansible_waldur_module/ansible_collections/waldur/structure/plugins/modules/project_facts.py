@@ -33,6 +33,10 @@ options:
     description: The name or UUID of the project.
     type: str
     required: true
+  customer:
+    description: The name or UUID of the parent customer.
+    type: str
+    required: true
   backend_id:
     description: Filter by backend id.
     type: str
@@ -52,10 +56,6 @@ options:
   created:
     description: Created after
     type: str
-    required: false
-  customer:
-    description: Multiple values may be separated by commas.
-    type: list
     required: false
   customer_abbreviation:
     description: Filter by customer abbreviation.
@@ -97,6 +97,7 @@ EXAMPLES = """
   - name: Get facts about a specific project
     waldur.structure.project_facts:
       name: My Resource Name
+      customer: Customer name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
@@ -260,12 +261,12 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "customer": {"type": "str", "required": True},
     "backend_id": {"type": "str"},
     "can_admin": {"type": "bool"},
     "can_manage": {"type": "bool"},
     "conceal_finished_projects": {"type": "bool"},
     "created": {"type": "str"},
-    "customer": {"type": "list"},
     "customer_abbreviation": {"type": "str"},
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
@@ -280,7 +281,13 @@ RUNNER_CONTEXT = {
     "list_url": "/api/projects/",
     "retrieve_url": "/api/projects/{uuid}/",
     "identifier_param": "name",
-    "resolvers": {},
+    "resolvers": {
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": "Customer '{value}' not found.",
+            "filter_key": "customer",
+        }
+    },
     "many": False,
     "inferred_filter_params": [
         "backend_id",
@@ -288,7 +295,6 @@ RUNNER_CONTEXT = {
         "can_manage",
         "conceal_finished_projects",
         "created",
-        "customer",
         "customer_abbreviation",
         "customer_name",
         "customer_native_name",

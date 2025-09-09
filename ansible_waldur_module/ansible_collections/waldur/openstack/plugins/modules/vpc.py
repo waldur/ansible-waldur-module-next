@@ -432,15 +432,15 @@ RUNNER_CONTEXT = {
     ],
     "termination_attributes_map": {},
     "resolvers": {
-        "offering": {
-            "url": "/api/marketplace-public-offerings/",
+        "project": {
+            "url": "/api/projects/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
         },
-        "project": {
-            "url": "/api/projects/",
+        "offering": {
+            "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
             "is_list": None,
