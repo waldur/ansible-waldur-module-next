@@ -105,6 +105,16 @@ options:
     description: Filter by state.
     type: list
     required: false
+    elements: str
+    choices:
+    - CREATING
+    - CREATION_SCHEDULED
+    - DELETING
+    - DELETION_SCHEDULED
+    - ERRED
+    - OK
+    - UPDATE_SCHEDULED
+    - UPDATING
   uuid:
     description: Filter by uuid.
     type: str
@@ -1023,7 +1033,19 @@ ARGUMENT_SPEC = {
     "runtime_state": {"type": "str"},
     "service_settings_name": {"type": "str"},
     "service_settings_uuid": {"type": "str"},
-    "state": {"type": "list"},
+    "state": {
+        "type": "list",
+        "choices": [
+            "CREATING",
+            "CREATION_SCHEDULED",
+            "DELETING",
+            "DELETION_SCHEDULED",
+            "ERRED",
+            "OK",
+            "UPDATE_SCHEDULED",
+            "UPDATING",
+        ],
+    },
     "uuid": {"type": "str"},
 }
 

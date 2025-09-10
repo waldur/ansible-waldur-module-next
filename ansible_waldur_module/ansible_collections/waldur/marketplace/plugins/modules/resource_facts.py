@@ -89,6 +89,7 @@ options:
     description: Multiple values may be separated by commas.
     type: list
     required: false
+    elements: str
   offering_type:
     description: Filter by offering type.
     type: str
@@ -97,6 +98,7 @@ options:
     description: Multiple values may be separated by commas.
     type: list
     required: false
+    elements: str
   parent_offering_uuid:
     description: Filter by parent offering uuid.
     type: str
@@ -133,6 +135,14 @@ options:
     description: Filter by state.
     type: list
     required: false
+    elements: str
+    choices:
+    - Creating
+    - Erred
+    - OK
+    - Terminated
+    - Terminating
+    - Updating
   visible_to_username:
     description: Visible to username
     type: str
@@ -599,7 +609,10 @@ ARGUMENT_SPEC = {
     "restrict_member_access": {"type": "bool"},
     "runtime_state": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
-    "state": {"type": "list"},
+    "state": {
+        "type": "list",
+        "choices": ["Creating", "Erred", "OK", "Terminated", "Terminating", "Updating"],
+    },
     "visible_to_username": {"type": "str"},
 }
 

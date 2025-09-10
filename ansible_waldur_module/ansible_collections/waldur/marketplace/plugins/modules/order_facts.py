@@ -65,10 +65,12 @@ options:
     description: Multiple values may be separated by commas.
     type: list
     required: false
+    elements: str
   offering_type:
     description: Filter by offering type.
     type: list
     required: false
+    elements: str
   offering_uuid:
     description: Filter by offering uuid.
     type: str
@@ -105,10 +107,25 @@ options:
     description: Filter by state.
     type: list
     required: false
+    elements: str
+    choices:
+    - canceled
+    - done
+    - erred
+    - executing
+    - pending-consumer
+    - pending-project
+    - pending-provider
+    - rejected
   type:
     description: Filter by type.
     type: list
     required: false
+    elements: str
+    choices:
+    - Create
+    - Terminate
+    - Update
 requirements:
 - python >= 3.11
 
@@ -491,8 +508,20 @@ ARGUMENT_SPEC = {
     "resource": {"type": "str"},
     "resource_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
-    "state": {"type": "list"},
-    "type": {"type": "list"},
+    "state": {
+        "type": "list",
+        "choices": [
+            "canceled",
+            "done",
+            "erred",
+            "executing",
+            "pending-consumer",
+            "pending-project",
+            "pending-provider",
+            "rejected",
+        ],
+    },
+    "type": {"type": "list", "choices": ["Create", "Terminate", "Update"]},
 }
 
 RUNNER_CONTEXT = {

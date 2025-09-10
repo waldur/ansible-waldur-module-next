@@ -81,6 +81,7 @@ options:
     description: Filter by organization group uuid.
     type: list
     required: false
+    elements: str
   parent_uuid:
     description: Filter by parent uuid.
     type: str
@@ -113,10 +114,17 @@ options:
     description: Filter by state.
     type: list
     required: false
+    elements: str
+    choices:
+    - Active
+    - Archived
+    - Draft
+    - Paused
   type:
     description: Filter by type.
     type: list
     required: false
+    elements: str
   uuid_list:
     description: Comma-separated offering UUIDs
     type: str
@@ -896,7 +904,7 @@ ARGUMENT_SPEC = {
     "scope_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
     "shared": {"type": "bool"},
-    "state": {"type": "list"},
+    "state": {"type": "list", "choices": ["Active", "Archived", "Draft", "Paused"]},
     "type": {"type": "list"},
     "uuid_list": {"type": "str"},
 }
