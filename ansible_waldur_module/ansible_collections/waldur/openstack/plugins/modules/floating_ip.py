@@ -272,7 +272,7 @@ resource:
           description: IP address to assign to the port
           type: str
           returned: always
-          sample: 8.8.8.8
+          sample: 192.168.42.50
         subnet_id:
           description: ID of the subnet in which to assign the IP address
           type: str
@@ -418,6 +418,7 @@ RUNNER_CONTEXT = {
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
         "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
     },
+    "resolver_order": ["tenant", "customer", "project"],
     "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

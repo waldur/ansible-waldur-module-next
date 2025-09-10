@@ -459,6 +459,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
+    "resolver_order": ["remote_group", "customer", "project", "tenant"],
     "resource_detail_path": "/api/openstack-security-groups/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

@@ -447,6 +447,7 @@ RUNNER_CONTEXT = {
             "list_item_keys": {},
         },
     },
+    "resolver_order": ["project", "offering"],
     "update_actions": {},
     "resource_detail_path": "/api/openstack-tenants/{uuid}/",
     "transformations": {},

@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, email, homepage, image, latitude, longitude, name, native_name, phone_number, postal, registration_code, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, description, email, homepage, image, latitude, longitude, name, native_name, phone_number, postal, registration_code, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -68,6 +68,10 @@ options:
     type: str
     required: false
     description: Abbreviation
+  description:
+    type: str
+    required: false
+    description: Description
   contact_details:
     type: str
     required: false
@@ -180,6 +184,7 @@ EXAMPLES = """
       name: My-Awesome-customer
       native_name: string-value
       abbreviation: string-value
+      description: A sample description created by Ansible.
       contact_details: string-value
       email: alice@example.com
       phone_number: +1-202-555-0104
@@ -388,6 +393,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    description:
+      description: Description
+      type: str
+      returned: always
+      sample: A sample description created by Ansible.
     contact_details:
       description: Contact details
       type: str
@@ -609,6 +619,7 @@ ARGUMENT_SPEC = {
     "image": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},
+    "description": {"type": "str"},
     "contact_details": {"type": "str"},
     "email": {"type": "str"},
     "phone_number": {"type": "str"},
@@ -684,6 +695,7 @@ RUNNER_CONTEXT = {
         "bank_name",
         "contact_details",
         "country",
+        "description",
         "email",
         "homepage",
         "image",
@@ -705,6 +717,7 @@ RUNNER_CONTEXT = {
         "bank_name",
         "contact_details",
         "country",
+        "description",
         "email",
         "homepage",
         "image",
@@ -719,6 +732,7 @@ RUNNER_CONTEXT = {
     ],
     "update_actions": {},
     "resolvers": {},
+    "resolver_order": [],
     "resource_detail_path": "/api/customers/{uuid}/",
 }
 

@@ -239,6 +239,11 @@ resource:
       type: int
       returned: always
       sample: 123
+    kind:
+      description: Kind
+      type: str
+      returned: always
+      sample: null
     project_credit:
       description: Project credit
       type: float

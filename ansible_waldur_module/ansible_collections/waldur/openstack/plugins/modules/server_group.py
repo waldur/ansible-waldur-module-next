@@ -395,6 +395,7 @@ RUNNER_CONTEXT = {
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
         "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
     },
+    "resolver_order": ["tenant", "customer", "project"],
     "resource_detail_path": "/api/openstack-server-groups/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

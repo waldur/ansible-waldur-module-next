@@ -516,7 +516,7 @@ resource:
               description: IP address to assign to the port
               type: str
               returned: always
-              sample: 8.8.8.8
+              sample: 192.168.42.50
             subnet_id:
               description: ID of the subnet in which to assign the IP address
               type: str
@@ -574,7 +574,7 @@ resource:
               description: IP address to assign to the port
               type: str
               returned: always
-              sample: 8.8.8.8
+              sample: 192.168.42.50
             subnet_id:
               description: ID of the subnet in which to assign the IP address
               type: str

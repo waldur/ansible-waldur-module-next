@@ -1086,15 +1086,15 @@ RUNNER_CONTEXT = {
     "destroy_path": "/api/marketplace-provider-offerings/{uuid}/",
     "update_path": None,
     "model_param_names": [
+        "category",
+        "customer",
         "access_url",
         "attributes",
         "backend_id",
         "backend_metadata",
         "billable",
-        "category",
         "components",
         "country",
-        "customer",
         "datacite_doi",
         "description",
         "full_description",
@@ -1125,6 +1125,7 @@ RUNNER_CONTEXT = {
         },
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
     },
+    "resolver_order": ["category", "customer"],
     "resource_detail_path": "/api/marketplace-provider-offerings/{uuid}/",
 }
 

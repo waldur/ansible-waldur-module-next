@@ -202,7 +202,7 @@ EXAMPLES = """
       image: Image name or UUID
       ports:
       - fixed_ips:
-        - ip_address: 8.8.8.8
+        - ip_address: 192.168.42.50
           subnet_id: string-value
         subnet: Subnet name or UUID
         port: string-value
@@ -630,7 +630,7 @@ resource:
               description: IP address to assign to the port
               type: str
               returned: always
-              sample: 8.8.8.8
+              sample: 192.168.42.50
             subnet_id:
               description: ID of the subnet in which to assign the IP address
               type: str
@@ -688,7 +688,7 @@ resource:
               description: IP address to assign to the port
               type: str
               returned: always
-              sample: 8.8.8.8
+              sample: 192.168.42.50
             subnet_id:
               description: ID of the subnet in which to assign the IP address
               type: str
@@ -1168,12 +1168,12 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "data_volume_type",
         "flavor",
+        "image",
         "availability_zone",
+        "data_volume_type",
         "ssh_public_key",
         "system_volume_type",
-        "image",
         "security_groups",
         "connect_directly_to_external_network",
         "data_volume_size",
@@ -1304,6 +1304,18 @@ RUNNER_CONTEXT = {
             "list_item_keys": {},
         },
     },
+    "resolver_order": [
+        "project",
+        "flavor",
+        "image",
+        "system_volume_type",
+        "data_volume_type",
+        "security_groups",
+        "availability_zone",
+        "subnet",
+        "ssh_public_key",
+        "offering",
+    ],
     "update_actions": {
         "update_ports": {
             "path": "/api/openstack-instances/{uuid}/update_ports/",

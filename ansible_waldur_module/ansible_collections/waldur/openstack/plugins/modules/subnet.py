@@ -455,6 +455,7 @@ RUNNER_CONTEXT = {
         "tenant": "tenant_uuid",
         "customer": "customer_uuid",
         "project": "project_uuid",
+        "network": "network_uuid",
     },
     "list_path": "/api/openstack-subnets/",
     "create_path": "/api/openstack-networks/{uuid}/create_subnet/",
@@ -502,6 +503,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
+    "resolver_order": ["network", "customer", "project", "tenant"],
     "resource_detail_path": "/api/openstack-subnets/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

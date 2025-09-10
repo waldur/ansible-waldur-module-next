@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, name, oecd_fos_2007_code, start_date, type.'
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, kind, name, oecd_fos_2007_code, start_date, type.'
 author: Waldur Team
 options:
   access_token:
@@ -133,6 +133,14 @@ options:
     type: str
     required: false
     description: Image
+  kind:
+    type: str
+    required: false
+    description: Kind
+    choices:
+    - default
+    - course
+    - public
 requirements:
 - python >= 3.11
 
@@ -157,6 +165,7 @@ EXAMPLES = """
       oecd_fos_2007_code: null
       is_industry: true
       image: string-value
+      kind: null
 - name: Remove an existing project
   hosts: localhost
   tasks:
@@ -300,6 +309,11 @@ resource:
       type: int
       returned: always
       sample: 123
+    kind:
+      description: Kind
+      type: str
+      returned: always
+      sample: null
     project_credit:
       description: Project credit
       type: float
@@ -407,6 +421,7 @@ ARGUMENT_SPEC = {
     },
     "is_industry": {"type": "bool"},
     "image": {"type": "str"},
+    "kind": {"type": "str", "choices": ["default", "course", "public"]},
 }
 
 RUNNER_CONTEXT = {
@@ -418,16 +433,17 @@ RUNNER_CONTEXT = {
     "destroy_path": "/api/projects/{uuid}/",
     "update_path": "/api/projects/{uuid}/",
     "model_param_names": [
-        "backend_id",
         "customer",
+        "type",
+        "backend_id",
         "description",
         "end_date",
         "image",
         "is_industry",
+        "kind",
         "name",
         "oecd_fos_2007_code",
         "start_date",
-        "type",
     ],
     "path_param_maps": {},
     "update_fields": [
@@ -437,6 +453,7 @@ RUNNER_CONTEXT = {
         "end_date",
         "image",
         "is_industry",
+        "kind",
         "name",
         "oecd_fos_2007_code",
         "start_date",
@@ -447,6 +464,7 @@ RUNNER_CONTEXT = {
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
         "type": {"url": "/api/project-types/", "error_message": None, "filter_by": []},
     },
+    "resolver_order": ["customer", "type"],
     "resource_detail_path": "/api/projects/{uuid}/",
 }
 

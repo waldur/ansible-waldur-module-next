@@ -432,13 +432,13 @@ RUNNER_CONTEXT = {
     "destroy_path": "/api/marketplace-orders/{uuid}/",
     "update_path": None,
     "model_param_names": [
+        "project",
+        "offering",
         "accepting_terms_of_service",
         "attributes",
         "callback_url",
         "limits",
-        "offering",
         "plan",
-        "project",
         "type",
     ],
     "path_param_maps": {},
@@ -453,6 +453,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
     },
+    "resolver_order": ["customer", "project", "offering"],
     "resource_detail_path": "/api/marketplace-orders/{uuid}/",
 }
 
