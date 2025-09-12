@@ -69,6 +69,14 @@ options:
     description: Filter by description.
     type: str
     required: false
+  has_active_terms_of_service:
+    description: Has Active Terms of Service
+    type: bool
+    required: false
+  has_terms_of_service:
+    description: Has Terms of Service
+    type: bool
+    required: false
   keyword:
     description: Keyword
     type: str
@@ -894,6 +902,8 @@ ARGUMENT_SPEC = {
     "category_uuid": {"type": "str"},
     "created": {"type": "str"},
     "description": {"type": "str"},
+    "has_active_terms_of_service": {"type": "bool"},
+    "has_terms_of_service": {"type": "bool"},
     "keyword": {"type": "str"},
     "modified": {"type": "str"},
     "organization_group_uuid": {"type": "list"},
@@ -932,6 +942,8 @@ RUNNER_CONTEXT = {
         "created",
         "customer",
         "description",
+        "has_active_terms_of_service",
+        "has_terms_of_service",
         "keyword",
         "modified",
         "organization_group_uuid",
