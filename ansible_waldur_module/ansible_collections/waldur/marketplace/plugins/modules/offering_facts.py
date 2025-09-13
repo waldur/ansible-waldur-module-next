@@ -133,6 +133,10 @@ options:
     type: list
     required: false
     elements: str
+  user_has_consent:
+    description: User Has Consent
+    type: bool
+    required: false
   uuid_list:
     description: Comma-separated offering UUIDs
     type: str
@@ -820,6 +824,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    user_has_consent:
+      description: User has consent
+      type: bool
+      returned: always
+      sample: true
     google_calendar_is_public:
       description: Google calendar is public
       type: bool
@@ -916,6 +925,7 @@ ARGUMENT_SPEC = {
     "shared": {"type": "bool"},
     "state": {"type": "list", "choices": ["Active", "Archived", "Draft", "Paused"]},
     "type": {"type": "list"},
+    "user_has_consent": {"type": "bool"},
     "uuid_list": {"type": "str"},
 }
 
@@ -956,6 +966,7 @@ RUNNER_CONTEXT = {
         "shared",
         "state",
         "type",
+        "user_has_consent",
         "uuid_list",
     ],
 }
