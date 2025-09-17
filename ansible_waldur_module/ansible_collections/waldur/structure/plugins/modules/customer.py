@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, description, email, homepage, image, latitude, longitude, name, native_name, phone_number, postal, registration_code, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, description, email, homepage, image, latitude, longitude, name, native_name, phone_number, postal, registration_code, slug, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -60,6 +60,10 @@ options:
     type: str
     required: false
     description: Image
+  slug:
+    type: str
+    required: false
+    description: Slug
   native_name:
     type: str
     required: false
@@ -393,6 +397,7 @@ EXAMPLES = """
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       image: string-value
       name: My-Awesome-customer
+      slug: string-value
       native_name: string-value
       abbreviation: string-value
       description: A sample description created by Ansible.
@@ -828,6 +833,7 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "backend_id": {"type": "str"},
     "image": {"type": "str"},
+    "slug": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},
     "description": {"type": "str"},
@@ -1128,6 +1134,7 @@ RUNNER_CONTEXT = {
         "phone_number",
         "postal",
         "registration_code",
+        "slug",
         "vat_code",
     ],
     "path_param_maps": {},
@@ -1150,6 +1157,7 @@ RUNNER_CONTEXT = {
         "phone_number",
         "postal",
         "registration_code",
+        "slug",
         "vat_code",
     ],
     "update_actions": {},

@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, kind, name, oecd_fos_2007_code, start_date, type.'
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, kind, name, oecd_fos_2007_code, slug, start_date, type.'
 author: Waldur Team
 options:
   access_token:
@@ -56,6 +56,10 @@ options:
     description: The name or UUID of the parent customer for filtering.
     type: str
     required: true
+  slug:
+    type: str
+    required: false
+    description: Slug
   description:
     type: str
     required: false
@@ -156,6 +160,7 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       name: My-Awesome-project
+      slug: string-value
       customer: Customer name or UUID
       description: A sample description created by Ansible.
       type: Type name or UUID
@@ -365,6 +370,7 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "customer": {"type": "str", "required": True},
+    "slug": {"type": "str"},
     "description": {"type": "str"},
     "type": {"type": "str"},
     "backend_id": {"type": "str"},
@@ -443,6 +449,7 @@ RUNNER_CONTEXT = {
         "kind",
         "name",
         "oecd_fos_2007_code",
+        "slug",
         "start_date",
     ],
     "path_param_maps": {},
@@ -456,6 +463,7 @@ RUNNER_CONTEXT = {
         "kind",
         "name",
         "oecd_fos_2007_code",
+        "slug",
         "start_date",
         "type",
     ],

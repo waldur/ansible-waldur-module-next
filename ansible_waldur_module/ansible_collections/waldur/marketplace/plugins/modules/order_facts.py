@@ -324,6 +324,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    error_traceback:
+      description: Error traceback
+      type: str
+      returned: always
+      sample: string-value
     callback_url:
       description: Callback URL URL
       type: str
@@ -334,6 +339,16 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
+    request_comment:
+      description: Request comment
+      type: str
+      returned: always
+      sample: string-value
+    attachment:
+      description: Attachment URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     consumer_reviewed_by:
       description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
       type: str

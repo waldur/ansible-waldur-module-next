@@ -52,6 +52,10 @@ options:
     description: The name of the offering.
     type: str
     required: true
+  slug:
+    type: str
+    required: false
+    description: Slug
   description:
     type: str
     required: false
@@ -423,6 +427,7 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       name: My-Awesome-offering
+      slug: string-value
       description: A sample description created by Ansible.
       full_description: string-value
       privacy_policy_link: https://api.example.com/api/privacy-policy-link/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -1216,6 +1221,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "slug": {"type": "str"},
     "description": {"type": "str"},
     "full_description": {"type": "str"},
     "privacy_policy_link": {"type": "str"},
@@ -1532,6 +1538,7 @@ RUNNER_CONTEXT = {
         "privacy_policy_link",
         "resource_options",
         "shared",
+        "slug",
         "thumbnail",
         "type",
         "vendor_details",

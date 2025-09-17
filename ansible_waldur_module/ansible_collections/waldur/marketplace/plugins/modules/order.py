@@ -84,6 +84,14 @@ options:
     type: str
     required: false
     description: Callback url
+  request_comment:
+    type: str
+    required: false
+    description: Request comment
+  attachment:
+    type: str
+    required: false
+    description: Attachment
   project:
     type: str
     required: true
@@ -109,6 +117,8 @@ EXAMPLES = """
       type: null
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      attachment: string-value
       project: Project name or UUID
 - name: Remove an existing order
   hosts: localhost
@@ -298,6 +308,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    error_traceback:
+      description: Error traceback
+      type: str
+      returned: always
+      sample: string-value
     callback_url:
       description: Callback URL URL
       type: str
@@ -308,6 +323,16 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
+    request_comment:
+      description: Request comment
+      type: str
+      returned: always
+      sample: string-value
+    attachment:
+      description: Attachment URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     url:
       description: URL URL
       type: str
@@ -420,6 +445,8 @@ ARGUMENT_SPEC = {
     "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
     "accepting_terms_of_service": {"type": "bool"},
     "callback_url": {"type": "str"},
+    "request_comment": {"type": "str"},
+    "attachment": {"type": "str"},
     "project": {"type": "str", "required": True},
 }
 
@@ -435,10 +462,12 @@ RUNNER_CONTEXT = {
         "project",
         "offering",
         "accepting_terms_of_service",
+        "attachment",
         "attributes",
         "callback_url",
         "limits",
         "plan",
+        "request_comment",
         "type",
     ],
     "path_param_maps": {},
