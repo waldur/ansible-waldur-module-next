@@ -68,14 +68,6 @@ options:
     type: dict
     required: false
     description: Limits
-  type:
-    type: str
-    required: false
-    description: Type
-    choices:
-    - Create
-    - Update
-    - Terminate
   accepting_terms_of_service:
     type: bool
     required: false
@@ -88,10 +80,14 @@ options:
     type: str
     required: false
     description: Request comment
-  attachment:
+  type:
     type: str
     required: false
-    description: Attachment
+    description: Type
+    choices:
+    - Create
+    - Update
+    - Terminate
   project:
     type: str
     required: true
@@ -114,11 +110,10 @@ EXAMPLES = """
       plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       attributes: null
       limits: {}
-      type: null
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      attachment: string-value
+      type: null
       project: Project name or UUID
 - name: Remove an existing order
   hosts: localhost
@@ -263,11 +258,6 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
-    type:
-      description: Type
-      type: str
-      returned: always
-      sample: null
     resource_uuid:
       description: Resource UUID
       type: str
@@ -333,6 +323,11 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    type:
+      description: Type
+      type: str
+      returned: always
+      sample: null
     url:
       description: URL URL
       type: str
@@ -442,11 +437,10 @@ ARGUMENT_SPEC = {
     "plan": {"type": "str"},
     "attributes": {"type": "str"},
     "limits": {"type": "dict"},
-    "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
     "accepting_terms_of_service": {"type": "bool"},
     "callback_url": {"type": "str"},
     "request_comment": {"type": "str"},
-    "attachment": {"type": "str"},
+    "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
     "project": {"type": "str", "required": True},
 }
 
@@ -462,7 +456,6 @@ RUNNER_CONTEXT = {
         "project",
         "offering",
         "accepting_terms_of_service",
-        "attachment",
         "attributes",
         "callback_url",
         "limits",

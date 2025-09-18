@@ -279,11 +279,6 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
-    type:
-      description: Type
-      type: str
-      returned: always
-      sample: null
     resource_uuid:
       description: Resource UUID
       type: str
@@ -349,6 +344,11 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    type:
+      description: Type
+      type: str
+      returned: always
+      sample: null
     consumer_reviewed_by:
       description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
       type: str
