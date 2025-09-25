@@ -824,6 +824,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    compliance_checklist:
+      description: Checklist that offering users must complete for compliance
+      type: str
+      returned: always
+      sample: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     user_has_consent:
       description: User has consent
       type: bool

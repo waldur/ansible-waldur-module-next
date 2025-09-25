@@ -453,9 +453,9 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "availability_zone",
-        "image",
         "type",
+        "image",
+        "availability_zone",
         "description",
         "name",
         "size",

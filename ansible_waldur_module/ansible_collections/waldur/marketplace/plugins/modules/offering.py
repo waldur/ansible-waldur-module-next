@@ -408,6 +408,10 @@ options:
     type: str
     required: false
     description: Backend metadata
+  compliance_checklist:
+    type: str
+    required: false
+    description: Checklist that offering users must complete for compliance
   limits:
     type: dict
     required: false
@@ -481,6 +485,7 @@ EXAMPLES = """
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       image: string-value
       backend_metadata: null
+      compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       limits: {}
 - name: Remove an existing offering
   hosts: localhost
@@ -1186,6 +1191,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    compliance_checklist:
+      description: Checklist that offering users must complete for compliance
+      type: str
+      returned: always
+      sample: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
@@ -1502,6 +1512,7 @@ ARGUMENT_SPEC = {
     "backend_id": {"type": "str"},
     "image": {"type": "str"},
     "backend_metadata": {"type": "str"},
+    "compliance_checklist": {"type": "str"},
     "limits": {"type": "dict"},
 }
 
@@ -1521,6 +1532,7 @@ RUNNER_CONTEXT = {
         "backend_id",
         "backend_metadata",
         "billable",
+        "compliance_checklist",
         "components",
         "country",
         "datacite_doi",
