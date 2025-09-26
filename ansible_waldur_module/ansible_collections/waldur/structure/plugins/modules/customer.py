@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, description, email, homepage, image, latitude, longitude, name, native_name, phone_number, postal, registration_code, slug, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, description, email, homepage, image, latitude, longitude, name, native_name, notification_emails, phone_number, postal, registration_code, slug, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -380,6 +380,10 @@ options:
     - ZW
     - EU
     - ''
+  notification_emails:
+    type: str
+    required: false
+    description: Comma-separated list of notification email addresses
 requirements:
 - python >= 3.11
 
@@ -414,6 +418,7 @@ EXAMPLES = """
       longitude: 123.45
       bank_account: string-value
       country: null
+      notification_emails: alice@example.com
 - name: Remove an existing customer
   hosts: localhost
   tasks:
@@ -694,6 +699,11 @@ resource:
       type: str
       returned: always
       sample: null
+    notification_emails:
+      description: Comma-separated list of notification email addresses
+      type: str
+      returned: always
+      sample: alice@example.com
     payment_profiles:
       description: A list of payment profiles items.
       type: list
@@ -1105,6 +1115,7 @@ ARGUMENT_SPEC = {
             "",
         ],
     },
+    "notification_emails": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -1131,6 +1142,7 @@ RUNNER_CONTEXT = {
         "longitude",
         "name",
         "native_name",
+        "notification_emails",
         "phone_number",
         "postal",
         "registration_code",
@@ -1154,6 +1166,7 @@ RUNNER_CONTEXT = {
         "longitude",
         "name",
         "native_name",
+        "notification_emails",
         "phone_number",
         "postal",
         "registration_code",
