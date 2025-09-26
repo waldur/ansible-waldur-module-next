@@ -79,7 +79,7 @@ options:
     required: false
   offering_billable:
     description: Filter by offering billable.
-    type: str
+    type: bool
     required: false
   offering_shared:
     description: Offering shared
@@ -606,7 +606,7 @@ ARGUMENT_SPEC = {
     "lexis_links_supported": {"type": "bool"},
     "modified": {"type": "str"},
     "offering": {"type": "str"},
-    "offering_billable": {"type": "str"},
+    "offering_billable": {"type": "bool"},
     "offering_shared": {"type": "bool"},
     "offering_slug": {"type": "list"},
     "offering_type": {"type": "str"},
