@@ -214,6 +214,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    provider_slug:
+      description: Provider slug
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     category_title:
       description: Category title
       type: str
@@ -494,21 +499,6 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    offering_customer_uuid:
-      description: Offering customer UUID
-      type: str
-      returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    offering_customer_name:
-      description: Offering customer name
-      type: str
-      returned: always
-      sample: string-value
-    offering_customer_slug:
-      description: Offering customer slug
-      type: str
-      returned: always
-      sample: string-value
     issue:
       description: Issue
       type: str

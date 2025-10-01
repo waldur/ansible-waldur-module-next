@@ -76,6 +76,15 @@ options:
     type: str
     required: true
     description: The OS image to use for the instance
+  security_groups:
+    type: list
+    required: false
+    description: List of security groups to apply to the instance
+    elements: str
+  server_group:
+    type: str
+    required: false
+    description: Server group for instance scheduling policy
   ports:
     type: list
     required: true
@@ -110,6 +119,10 @@ options:
     description: Floating IPs to assign to the instance
     elements: dict
     suboptions:
+      url:
+        type: str
+        required: false
+        description: URL URL
       subnet:
         type: str
         required: true
@@ -160,11 +173,6 @@ options:
         type: str
         required: false
         description: Volume type URL
-  security_groups:
-    type: list
-    required: false
-    description: Security groups to attach to the instance
-    elements: str
   termination_action:
     type: str
     required: false
@@ -200,6 +208,9 @@ EXAMPLES = """
       description: A sample description created by Ansible.
       flavor: Flavor name or UUID
       image: Image name or UUID
+      security_groups:
+      - Security groups name or UUID
+      server_group: string-value
       ports:
       - fixed_ips:
         - ip_address: 192.168.42.50
@@ -207,7 +218,8 @@ EXAMPLES = """
         subnet: Subnet name or UUID
         port: string-value
       floating_ips:
-      - subnet: Subnet name or UUID
+      - url: string-value
+        subnet: Subnet name or UUID
       system_volume_size: 123
       system_volume_type: System volume type name or UUID
       data_volume_size: 123
@@ -219,8 +231,6 @@ EXAMPLES = """
       data_volumes:
       - size: 100
         volume_type: string-value
-      security_groups:
-      - Security groups name or UUID
 - name: Remove an existing instance
   hosts: localhost
   tasks:
@@ -511,7 +521,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     security_groups:
-      description: List of security groups to apply to the instance
+      description: A list of security groups items.
       type: list
       returned: always
       sample:
@@ -594,12 +604,33 @@ resource:
           returned: always
           sample: OK
     server_group:
-      description: Server group for instance scheduling policy
-      type: str
+      description: Server group
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        policy:
+          description: Server group policy determining the rules for scheduling servers in this group
+          type: str
+          returned: always
+          sample: null
+        state:
+          description: State
+          type: str
+          returned: always
+          sample: OK
     floating_ips:
-      description: Floating IPs to assign to the instance
+      description: A list of floating ips items.
       type: list
       returned: always
       sample:
@@ -667,7 +698,7 @@ resource:
           returned: always
           sample: 192.168.1.0/24
     ports:
-      description: Network ports to attach to the instance
+      description: A list of ports items.
       type: list
       returned: always
       sample:
@@ -1144,6 +1175,8 @@ ARGUMENT_SPEC = {
     "description": {"type": "str"},
     "flavor": {"type": "str", "required": True},
     "image": {"type": "str", "required": True},
+    "security_groups": {"type": "list"},
+    "server_group": {"type": "str"},
     "ports": {"type": "list", "required": True},
     "floating_ips": {"type": "list"},
     "system_volume_size": {"type": "int", "required": True},
@@ -1155,7 +1188,6 @@ ARGUMENT_SPEC = {
     "availability_zone": {"type": "str"},
     "connect_directly_to_external_network": {"type": "bool"},
     "data_volumes": {"type": "list"},
-    "security_groups": {"type": "list"},
     "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
     "delete_volumes": {"type": "str"},
     "release_floating_ips": {"type": "str"},
@@ -1168,12 +1200,12 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "flavor",
         "system_volume_type",
+        "image",
         "data_volume_type",
-        "security_groups",
         "availability_zone",
+        "flavor",
+        "security_groups",
         "ssh_public_key",
         "connect_directly_to_external_network",
         "data_volume_size",
@@ -1182,6 +1214,7 @@ RUNNER_CONTEXT = {
         "floating_ips",
         "name",
         "ports",
+        "server_group",
         "system_volume_size",
         "user_data",
     ],
@@ -1338,7 +1371,7 @@ RUNNER_CONTEXT = {
             "param": "floating_ips",
             "compare_key": "floating_ips",
             "wrap_in_object": True,
-            "idempotency_keys": ["subnet"],
+            "idempotency_keys": ["subnet", "url"],
             "defaults_map": {},
         },
     },

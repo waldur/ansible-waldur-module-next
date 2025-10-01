@@ -417,7 +417,7 @@ resource:
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     security_groups:
-      description: List of security groups to apply to the instance
+      description: A list of security groups items.
       type: list
       returned: always
       sample:
@@ -500,12 +500,33 @@ resource:
           returned: always
           sample: OK
     server_group:
-      description: Server group for instance scheduling policy
-      type: str
+      description: Server group
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-instance
+        policy:
+          description: Server group policy determining the rules for scheduling servers in this group
+          type: str
+          returned: always
+          sample: null
+        state:
+          description: State
+          type: str
+          returned: always
+          sample: OK
     floating_ips:
-      description: Floating IPs to assign to the instance
+      description: A list of floating ips items.
       type: list
       returned: always
       sample:
@@ -573,7 +594,7 @@ resource:
           returned: always
           sample: 192.168.1.0/24
     ports:
-      description: Network ports to attach to the instance
+      description: A list of ports items.
       type: list
       returned: always
       sample:

@@ -193,6 +193,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    provider_slug:
+      description: Provider slug
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     category_title:
       description: Category title
       type: str
