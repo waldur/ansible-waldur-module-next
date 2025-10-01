@@ -107,6 +107,10 @@ options:
     description: Filter by paused.
     type: bool
     required: false
+  plan_uuid:
+    description: Filter by plan uuid.
+    type: str
+    required: false
   project_name:
     description: Filter by project name.
     type: str
@@ -603,6 +607,7 @@ ARGUMENT_SPEC = {
     "offering_uuid": {"type": "list"},
     "parent_offering_uuid": {"type": "str"},
     "paused": {"type": "bool"},
+    "plan_uuid": {"type": "str"},
     "project_name": {"type": "str"},
     "provider_uuid": {"type": "str"},
     "query": {"type": "str"},
@@ -647,6 +652,7 @@ RUNNER_CONTEXT = {
         "offering_uuid",
         "parent_offering_uuid",
         "paused",
+        "plan_uuid",
         "project_name",
         "provider_uuid",
         "query",
