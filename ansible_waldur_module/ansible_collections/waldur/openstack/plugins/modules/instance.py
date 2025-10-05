@@ -123,6 +123,10 @@ options:
         type: str
         required: false
         description: URL URL
+      ip_address:
+        type: str
+        required: false
+        description: Existing floating IP address in selected OpenStack tenant to be assigned to new virtual machine
       subnet:
         type: str
         required: true
@@ -219,6 +223,7 @@ EXAMPLES = """
         port: string-value
       floating_ips:
       - url: string-value
+        ip_address: 192.168.42.50
         subnet: Subnet name or UUID
       system_volume_size: 123
       system_volume_type: System volume type name or UUID
@@ -1200,13 +1205,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "data_volume_type",
         "image",
-        "availability_zone",
-        "security_groups",
         "ssh_public_key",
-        "flavor",
+        "security_groups",
         "system_volume_type",
+        "availability_zone",
+        "data_volume_type",
+        "flavor",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
@@ -1371,7 +1376,7 @@ RUNNER_CONTEXT = {
             "param": "floating_ips",
             "compare_key": "floating_ips",
             "wrap_in_object": True,
-            "idempotency_keys": ["subnet", "url"],
+            "idempotency_keys": ["ip_address", "subnet", "url"],
             "defaults_map": {},
         },
     },
