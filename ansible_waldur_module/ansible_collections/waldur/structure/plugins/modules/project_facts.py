@@ -169,6 +169,11 @@ resource:
       type: str
       returned: always
       sample: A sample description created by Ansible.
+    customer_display_billing_info_in_projects:
+      description: Customer display billing info in projects
+      type: bool
+      returned: always
+      sample: true
     created:
       description: Created
       type: str

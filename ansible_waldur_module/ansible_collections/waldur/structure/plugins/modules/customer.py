@@ -554,6 +554,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    display_billing_info_in_projects:
+      description: Display billing info in projects
+      type: bool
+      returned: always
+      sample: true
     default_tax_percent:
       description: Default tax percent
       type: str
