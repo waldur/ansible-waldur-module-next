@@ -185,11 +185,11 @@ options:
     - force_destroy
     description: Force destroy avoids to bypass standard validations and directly deletes the instance.
   delete_volumes:
-    type: str
+    type: bool
     required: false
     description: If true, delete attached volumes on termination.
   release_floating_ips:
-    type: str
+    type: bool
     required: false
     description: If true, release associated floating IPs on termination.
 requirements:
@@ -248,7 +248,7 @@ EXAMPLES = """
       project: Project Name or UUID
       offering: Offering Name or UUID
       termination_action: destroy
-      delete_volumes: null
+      delete_volumes: true
       release_floating_ips: 8.8.8.8
 
 """
@@ -1194,8 +1194,8 @@ ARGUMENT_SPEC = {
     "connect_directly_to_external_network": {"type": "bool"},
     "data_volumes": {"type": "list"},
     "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
-    "delete_volumes": {"type": "str"},
-    "release_floating_ips": {"type": "str"},
+    "delete_volumes": {"type": "bool"},
+    "release_floating_ips": {"type": "bool"},
 }
 
 RUNNER_CONTEXT = {
@@ -1205,13 +1205,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "security_groups",
         "flavor",
         "ssh_public_key",
-        "data_volume_type",
         "system_volume_type",
+        "security_groups",
+        "data_volume_type",
         "availability_zone",
+        "image",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
