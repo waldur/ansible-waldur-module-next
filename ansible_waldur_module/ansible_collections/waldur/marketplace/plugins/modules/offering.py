@@ -462,6 +462,10 @@ EXAMPLES = """
         max_available_limit: 123
         is_boolean: true
         default_limit: 123
+        is_prepaid: true
+        overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        min_prepaid_duration: 123
+        max_prepaid_duration: 123
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -765,6 +769,26 @@ resource:
           type: bool
           returned: always
           sample: true
+        is_prepaid:
+          description: Is prepaid
+          type: bool
+          returned: always
+          sample: true
+        overage_component:
+          description: Overage component
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        min_prepaid_duration:
+          description: Min prepaid duration
+          type: int
+          returned: always
+          sample: 123
+        max_prepaid_duration:
+          description: Max prepaid duration
+          type: int
+          returned: always
+          sample: 123
     plugin_options:
       description: Plugin options
       type: str
