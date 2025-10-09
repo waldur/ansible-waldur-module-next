@@ -52,10 +52,14 @@ options:
     description: The name of the OpenStack network RBAC policy.
     type: str
     required: true
-  network:
+  tenant:
+    description: The name or UUID of the parent tenant for filtering.
     type: str
     required: true
-    description: The parent network name or UUID.
+  network:
+    description: The name or UUID of the parent network for filtering.
+    type: str
+    required: true
   target_tenant:
     type: str
     required: true
@@ -93,7 +97,6 @@ EXAMPLES = """
       name: My-Awesome-OpenStack-network-RBAC-policy
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      network: Network name or UUID
 
 """
 
@@ -183,6 +186,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "tenant": {"type": "str", "required": True},
     "network": {"type": "str", "required": True},
     "target_tenant": {"type": "str", "required": True},
     "policy_type": {
@@ -194,16 +198,13 @@ ARGUMENT_SPEC = {
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack network RBAC policy",
     "check_url": "/api/openstack-network-rbac-policies/",
-    "check_filter_keys": {"network": "network_uuid"},
+    "check_filter_keys": {"tenant": "tenant_uuid", "network": "network_uuid"},
     "list_path": "/api/openstack-network-rbac-policies/",
-    "create_path": "/api/openstack-networks/{uuid}/rbac_policy_create/",
-    "destroy_path": "/api/openstack-networks/{uuid}/rbac_policy_delete/{rbac_policy_uuid}/",
+    "create_path": "/api/openstack-network-rbac-policies/",
+    "destroy_path": "/api/openstack-network-rbac-policies/{uuid}/",
     "update_path": "/api/openstack-network-rbac-policies/{uuid}/",
-    "model_param_names": ["target_tenant", "policy_type"],
-    "path_param_maps": {
-        "create": {"uuid": "network"},
-        "destroy": {"uuid": "network", "rbac_policy_uuid": "name"},
-    },
+    "model_param_names": ["target_tenant", "network", "policy_type"],
+    "path_param_maps": {},
     "update_fields": ["network", "policy_type", "target_tenant"],
     "update_actions": {},
     "resolvers": {
@@ -230,7 +231,7 @@ RUNNER_CONTEXT = {
         },
     },
     "resolver_order": ["network", "target_tenant", "tenant"],
-    "resource_detail_path": "/api/openstack-networks/{uuid}/rbac_policy_delete/{rbac_policy_uuid}/",
+    "resource_detail_path": "/api/openstack-network-rbac-policies/{uuid}/",
 }
 
 
