@@ -79,7 +79,7 @@ options:
   end_date:
     type: str
     required: false
-    description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
+    description: End date
   oecd_fos_2007_code:
     type: str
     required: false
@@ -280,7 +280,7 @@ resource:
       returned: always
       sample: '2023-10-01'
     end_date:
-      description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
+      description: End date
       type: str
       returned: always
       sample: '2023-10-01'

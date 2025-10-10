@@ -518,7 +518,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["network", "security_groups", "tenant"],
+    "resolver_order": ["security_groups", "network", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],
