@@ -50,32 +50,45 @@ options:
     type: int
   name:
     type: str
-    required: true
-    description: Name
+    required: false
+    description:
+    - Name
+    - Required when C(state) is 'present'.
   project:
     type: str
     required: true
     description: The name or UUID of the project.
   offering:
     type: str
-    required: true
-    description: The name or UUID of the marketplace offering.
+    required: false
+    description:
+    - The name or UUID of the marketplace offering.
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   plan:
     type: str
     required: false
-    description: URL of the marketplace plan.
+    description:
+    - URL of the marketplace plan.
+    - This attribute cannot be updated.
   description:
     type: str
     required: false
     description: Description
   flavor:
     type: str
-    required: true
-    description: The flavor to use for the instance
+    required: false
+    description:
+    - The flavor to use for the instance
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   image:
     type: str
-    required: true
-    description: The OS image to use for the instance
+    required: false
+    description:
+    - The OS image to use for the instance
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   security_groups:
     type: list
     required: false
@@ -84,11 +97,15 @@ options:
   server_group:
     type: str
     required: false
-    description: Server group for instance scheduling policy
+    description:
+    - Server group for instance scheduling policy
+    - This attribute cannot be updated.
   ports:
     type: list
-    required: true
-    description: Network ports to attach to the instance
+    required: false
+    description:
+    - Network ports to attach to the instance
+    - Required when C(state) is 'present'.
     elements: dict
     suboptions:
       fixed_ips:
@@ -133,40 +150,59 @@ options:
         description: The name or UUID of the subnet.
   system_volume_size:
     type: int
-    required: true
-    description: Size of the system volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+    required: false
+    description:
+    - Size of the system volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   system_volume_type:
     type: str
     required: false
-    description: Volume type for the system volume
+    description:
+    - Volume type for the system volume
+    - This attribute cannot be updated.
   data_volume_size:
     type: int
     required: false
-    description: Size of the data volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+    description:
+    - Size of the data volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+    - This attribute cannot be updated.
   data_volume_type:
     type: str
     required: false
-    description: Volume type for the data volume
+    description:
+    - Volume type for the data volume
+    - This attribute cannot be updated.
   ssh_public_key:
     type: str
     required: false
-    description: The name or UUID of the SSH public key.
+    description:
+    - The name or UUID of the SSH public key.
+    - This attribute cannot be updated.
   user_data:
     type: str
     required: false
-    description: Additional data that will be added to instance on provisioning
+    description:
+    - Additional data that will be added to instance on provisioning
+    - This attribute cannot be updated.
   availability_zone:
     type: str
     required: false
-    description: Availability zone where this instance is located
+    description:
+    - Availability zone where this instance is located
+    - This attribute cannot be updated.
   connect_directly_to_external_network:
     type: bool
     required: false
-    description: If True, instance will be connected directly to external network
+    description:
+    - If True, instance will be connected directly to external network
+    - This attribute cannot be updated.
   data_volumes:
     type: list
     required: false
-    description: Additional data volumes to attach to the instance
+    description:
+    - Additional data volumes to attach to the instance
+    - This attribute cannot be updated.
     elements: dict
     suboptions:
       size:
@@ -1173,18 +1209,18 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "project": {"type": "str", "required": True},
-    "offering": {"type": "str", "required": True},
+    "offering": {"type": "str"},
     "plan": {"type": "str"},
     "description": {"type": "str"},
-    "flavor": {"type": "str", "required": True},
-    "image": {"type": "str", "required": True},
+    "flavor": {"type": "str"},
+    "image": {"type": "str"},
     "security_groups": {"type": "list"},
     "server_group": {"type": "str"},
-    "ports": {"type": "list", "required": True},
+    "ports": {"type": "list"},
     "floating_ips": {"type": "list"},
-    "system_volume_size": {"type": "int", "required": True},
+    "system_volume_size": {"type": "int"},
     "system_volume_type": {"type": "str"},
     "data_volume_size": {"type": "int"},
     "data_volume_type": {"type": "str"},
@@ -1205,13 +1241,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "system_volume_type",
-        "security_groups",
-        "data_volume_type",
-        "availability_zone",
         "flavor",
+        "availability_zone",
+        "security_groups",
+        "system_volume_type",
         "ssh_public_key",
         "image",
+        "data_volume_type",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
@@ -1222,6 +1258,14 @@ RUNNER_CONTEXT = {
         "server_group",
         "system_volume_size",
         "user_data",
+    ],
+    "required_for_create": [
+        "flavor",
+        "image",
+        "name",
+        "offering",
+        "ports",
+        "system_volume_size",
     ],
     "termination_attributes_map": {
         "termination_action": "action",

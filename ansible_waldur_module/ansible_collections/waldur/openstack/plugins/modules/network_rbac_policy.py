@@ -49,7 +49,9 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack network RBAC policy.
+    description:
+    - The name of the OpenStack network RBAC policy.
+    - This attribute cannot be updated.
     type: str
     required: true
   tenant:
@@ -62,8 +64,10 @@ options:
     required: true
   target_tenant:
     type: str
-    required: true
-    description: The name or UUID of the target_tenant. Target tenant
+    required: false
+    description:
+    - The name or UUID of the target_tenant. Target tenant
+    - Required when C(state) is 'present'.
   policy_type:
     type: str
     required: false
@@ -188,7 +192,7 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
     "network": {"type": "str", "required": True},
-    "target_tenant": {"type": "str", "required": True},
+    "target_tenant": {"type": "str"},
     "policy_type": {
         "type": "str",
         "choices": ["access_as_shared", "access_as_external"],
@@ -203,6 +207,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-network-rbac-policies/",
     "destroy_path": "/api/openstack-network-rbac-policies/{uuid}/",
     "update_path": "/api/openstack-network-rbac-policies/{uuid}/",
+    "required_for_create": ["network", "target_tenant"],
     "model_param_names": ["target_tenant", "network", "policy_type"],
     "path_param_maps": {},
     "update_fields": ["network", "policy_type", "target_tenant"],

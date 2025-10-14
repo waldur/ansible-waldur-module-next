@@ -50,24 +50,33 @@ options:
     type: int
   name:
     type: str
-    required: true
-    description: Name
+    required: false
+    description:
+    - Name
+    - Required when C(state) is 'present'.
   project:
     type: str
     required: true
     description: The name or UUID of the project.
   offering:
     type: str
-    required: true
-    description: The name or UUID of the marketplace offering.
+    required: false
+    description:
+    - The name or UUID of the marketplace offering.
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   plan:
     type: str
     required: false
-    description: URL of the marketplace plan.
+    description:
+    - URL of the marketplace plan.
+    - This attribute cannot be updated.
   limits:
     type: dict
     required: false
-    description: Marketplace resource limits for limit-based billing.
+    description:
+    - Marketplace resource limits for limit-based billing.
+    - This attribute cannot be updated.
   description:
     type: str
     required: false
@@ -75,15 +84,21 @@ options:
   subnet_cidr:
     type: str
     required: false
-    description: Subnet CIDR
+    description:
+    - Subnet CIDR
+    - This attribute cannot be updated.
   skip_connection_extnet:
     type: bool
     required: false
-    description: Skip connection extnet
+    description:
+    - Skip connection extnet
+    - This attribute cannot be updated.
   skip_creation_of_default_router:
     type: bool
     required: false
-    description: Skip creation of default router
+    description:
+    - Skip creation of default router
+    - This attribute cannot be updated.
   availability_zone:
     type: str
     required: false
@@ -385,9 +400,9 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "project": {"type": "str", "required": True},
-    "offering": {"type": "str", "required": True},
+    "offering": {"type": "str"},
     "plan": {"type": "str"},
     "limits": {"type": "dict"},
     "description": {"type": "str"},
@@ -416,6 +431,7 @@ RUNNER_CONTEXT = {
         "skip_creation_of_default_router",
         "subnet_cidr",
     ],
+    "required_for_create": ["name", "offering"],
     "termination_attributes_map": {},
     "resolvers": {
         "project": {

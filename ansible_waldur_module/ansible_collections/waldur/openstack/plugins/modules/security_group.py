@@ -49,7 +49,9 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack security group.
+    description:
+    - The name of the OpenStack security group.
+    - This attribute cannot be updated.
     type: str
     required: true
   tenant:
@@ -67,11 +69,15 @@ options:
   description:
     type: str
     required: false
-    description: Description
+    description:
+    - Description
+    - This attribute cannot be updated.
   rules:
     type: list
-    required: true
-    description: Rules
+    required: false
+    description:
+    - Rules
+    - Required when C(state) is 'present'.
 requirements:
 - python >= 3.11
 
@@ -402,7 +408,7 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "description": {"type": "str"},
-    "rules": {"type": "list", "required": True},
+    "rules": {"type": "list"},
 }
 
 RUNNER_CONTEXT = {
@@ -417,6 +423,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_security_group/",
     "destroy_path": "/api/openstack-security-groups/{uuid}/",
     "update_path": None,
+    "required_for_create": ["name", "rules"],
     "model_param_names": ["description", "name", "rules"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": [],

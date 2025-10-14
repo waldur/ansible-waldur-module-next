@@ -49,49 +49,71 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the order.
+    description:
+    - The name of the order.
+    - This attribute cannot be updated.
     type: str
     required: true
   offering:
     type: str
-    required: true
-    description: The name or UUID of the offering. Offering
+    required: false
+    description:
+    - The name or UUID of the offering. Offering
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   plan:
     type: str
     required: false
-    description: Plan
+    description:
+    - Plan
+    - This attribute cannot be updated.
   attributes:
     type: str
     required: false
-    description: Attributes structure depends on the offering type specified in the parent object. Can also be a generic object for offerings without a specific attributes schema.
+    description:
+    - Attributes structure depends on the offering type specified in the parent object. Can also be a generic object for offerings without a specific attributes schema.
+    - This attribute cannot be updated.
   limits:
     type: dict
     required: false
-    description: Limits
+    description:
+    - Limits
+    - This attribute cannot be updated.
   accepting_terms_of_service:
     type: bool
     required: false
-    description: Accepting terms of service
+    description:
+    - Accepting terms of service
+    - This attribute cannot be updated.
   callback_url:
     type: str
     required: false
-    description: Callback url
+    description:
+    - Callback url
+    - This attribute cannot be updated.
   request_comment:
     type: str
     required: false
-    description: Request comment
+    description:
+    - Request comment
+    - This attribute cannot be updated.
   type:
     type: str
     required: false
-    description: Type
+    description:
+    - Type
+    - This attribute cannot be updated.
     choices:
     - Create
     - Update
     - Terminate
   project:
     type: str
-    required: true
-    description: The name or UUID of the project. Project
+    required: false
+    description:
+    - The name or UUID of the project. Project
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
 requirements:
 - python >= 3.11
 
@@ -438,7 +460,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
-    "offering": {"type": "str", "required": True},
+    "offering": {"type": "str"},
     "plan": {"type": "str"},
     "attributes": {"type": "str"},
     "limits": {"type": "dict"},
@@ -446,7 +468,7 @@ ARGUMENT_SPEC = {
     "callback_url": {"type": "str"},
     "request_comment": {"type": "str"},
     "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
-    "project": {"type": "str", "required": True},
+    "project": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -457,6 +479,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/marketplace-orders/",
     "destroy_path": "/api/marketplace-orders/{uuid}/",
     "update_path": None,
+    "required_for_create": ["offering", "project"],
     "model_param_names": [
         "project",
         "offering",

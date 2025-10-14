@@ -49,101 +49,151 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the offering.
+    description:
+    - The name of the offering.
+    - This attribute cannot be updated.
     type: str
     required: true
   slug:
     type: str
     required: false
-    description: Slug
+    description:
+    - Slug
+    - This attribute cannot be updated.
   description:
     type: str
     required: false
-    description: Description
+    description:
+    - Description
+    - This attribute cannot be updated.
   full_description:
     type: str
     required: false
-    description: Full description
+    description:
+    - Full description
+    - This attribute cannot be updated.
   privacy_policy_link:
     type: str
     required: false
-    description: Privacy policy link
+    description:
+    - Privacy policy link
+    - This attribute cannot be updated.
   access_url:
     type: str
     required: false
-    description: Publicly accessible offering access URL
+    description:
+    - Publicly accessible offering access URL
+    - This attribute cannot be updated.
   customer:
     type: str
     required: false
-    description: The name or UUID of the customer. Customer
+    description:
+    - The name or UUID of the customer. Customer
+    - This attribute cannot be updated.
   category:
     type: str
-    required: true
-    description: The name or UUID of the category. Category
+    required: false
+    description:
+    - The name or UUID of the category. Category
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   attributes:
     type: str
     required: false
-    description: Attributes
+    description:
+    - Attributes
+    - This attribute cannot be updated.
   options:
     type: dict
     required: false
-    description: ''
+    description:
+    - ''
+    - This attribute cannot be updated.
   resource_options:
     type: dict
     required: false
-    description: ''
+    description:
+    - ''
+    - This attribute cannot be updated.
   components:
     type: list
     required: false
-    description: Components
+    description:
+    - Components
+    - This attribute cannot be updated.
   vendor_details:
     type: str
     required: false
-    description: Vendor details
+    description:
+    - Vendor details
+    - This attribute cannot be updated.
   getting_started:
     type: str
     required: false
-    description: Getting started
+    description:
+    - Getting started
+    - This attribute cannot be updated.
   integration_guide:
     type: str
     required: false
-    description: Integration guide
+    description:
+    - Integration guide
+    - This attribute cannot be updated.
   thumbnail:
     type: str
     required: false
-    description: Thumbnail
+    description:
+    - Thumbnail
+    - This attribute cannot be updated.
   plans:
     type: list
     required: false
-    description: Plans
+    description:
+    - Plans
+    - This attribute cannot be updated.
   type:
     type: str
-    required: true
-    description: Type
+    required: false
+    description:
+    - Type
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   shared:
     type: bool
     required: false
-    description: Accessible to all customers.
+    description:
+    - Accessible to all customers.
+    - This attribute cannot be updated.
   billable:
     type: bool
     required: false
-    description: Purchase and usage is invoiced.
+    description:
+    - Purchase and usage is invoiced.
+    - This attribute cannot be updated.
   datacite_doi:
     type: str
     required: false
-    description: Datacite doi
+    description:
+    - Datacite doi
+    - This attribute cannot be updated.
   latitude:
     type: float
     required: false
-    description: Latitude
+    description:
+    - Latitude
+    - This attribute cannot be updated.
   longitude:
     type: float
     required: false
-    description: Longitude
+    description:
+    - Longitude
+    - This attribute cannot be updated.
   country:
     type: str
     required: false
-    description: Country
+    description:
+    - Country
+    - This attribute cannot be updated.
     choices:
     - AW
     - AF
@@ -399,23 +449,33 @@ options:
   backend_id:
     type: str
     required: false
-    description: Backend id
+    description:
+    - Backend id
+    - This attribute cannot be updated.
   image:
     type: str
     required: false
-    description: Image
+    description:
+    - Image
+    - This attribute cannot be updated.
   backend_metadata:
     type: str
     required: false
-    description: Backend metadata
+    description:
+    - Backend metadata
+    - This attribute cannot be updated.
   compliance_checklist:
     type: str
     required: false
-    description: Compliance checklist
+    description:
+    - Compliance checklist
+    - This attribute cannot be updated.
   limits:
     type: dict
     required: false
-    description: Limits
+    description:
+    - Limits
+    - This attribute cannot be updated.
 requirements:
 - python >= 3.11
 
@@ -1261,7 +1321,7 @@ ARGUMENT_SPEC = {
     "privacy_policy_link": {"type": "str"},
     "access_url": {"type": "str"},
     "customer": {"type": "str"},
-    "category": {"type": "str", "required": True},
+    "category": {"type": "str"},
     "attributes": {"type": "str"},
     "options": {"type": "dict"},
     "resource_options": {"type": "dict"},
@@ -1271,7 +1331,7 @@ ARGUMENT_SPEC = {
     "integration_guide": {"type": "str"},
     "thumbnail": {"type": "str"},
     "plans": {"type": "list"},
-    "type": {"type": "str", "required": True},
+    "type": {"type": "str"},
     "shared": {"type": "bool"},
     "billable": {"type": "bool"},
     "datacite_doi": {"type": "str"},
@@ -1548,6 +1608,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/marketplace-provider-offerings/",
     "destroy_path": "/api/marketplace-provider-offerings/{uuid}/",
     "update_path": None,
+    "required_for_create": ["category", "name", "type"],
     "model_param_names": [
         "category",
         "customer",

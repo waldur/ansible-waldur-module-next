@@ -50,20 +50,27 @@ options:
     type: int
   name:
     type: str
-    required: true
-    description: Name
+    required: false
+    description:
+    - Name
+    - Required when C(state) is 'present'.
   project:
     type: str
     required: true
     description: The name or UUID of the project.
   offering:
     type: str
-    required: true
-    description: The name or UUID of the marketplace offering.
+    required: false
+    description:
+    - The name or UUID of the marketplace offering.
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
   plan:
     type: str
     required: false
-    description: URL of the marketplace plan.
+    description:
+    - URL of the marketplace plan.
+    - This attribute cannot be updated.
   description:
     type: str
     required: false
@@ -71,19 +78,27 @@ options:
   image:
     type: str
     required: false
-    description: Image that this volume was created from, if any
+    description:
+    - Image that this volume was created from, if any
+    - This attribute cannot be updated.
   size:
     type: int
     required: false
-    description: Size in MiB. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+    description:
+    - Size in MiB. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
+    - This attribute cannot be updated.
   availability_zone:
     type: str
     required: false
-    description: Availability zone where this volume is located
+    description:
+    - Availability zone where this volume is located
+    - This attribute cannot be updated.
   type:
     type: str
     required: false
-    description: Type of the volume (e.g. SSD, HDD)
+    description:
+    - Type of the volume (e.g. SSD, HDD)
+    - This attribute cannot be updated.
 requirements:
 - python >= 3.11
 
@@ -435,9 +450,9 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "project": {"type": "str", "required": True},
-    "offering": {"type": "str", "required": True},
+    "offering": {"type": "str"},
     "plan": {"type": "str"},
     "description": {"type": "str"},
     "image": {"type": "str"},
@@ -453,13 +468,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "availability_zone",
         "type",
         "image",
+        "availability_zone",
         "description",
         "name",
         "size",
     ],
+    "required_for_create": ["name", "offering"],
     "termination_attributes_map": {},
     "resolvers": {
         "project": {

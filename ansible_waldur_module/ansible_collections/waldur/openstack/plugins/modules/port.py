@@ -49,7 +49,9 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack port.
+    description:
+    - The name of the OpenStack port.
+    - This attribute cannot be updated.
     type: str
     required: true
   tenant:
@@ -59,27 +61,39 @@ options:
   description:
     type: str
     required: false
-    description: Description
+    description:
+    - Description
+    - This attribute cannot be updated.
   fixed_ips:
     type: list
     required: false
-    description: Fixed ips
+    description:
+    - Fixed ips
+    - This attribute cannot be updated.
   mac_address:
     type: str
     required: false
-    description: MAC address of the port
+    description:
+    - MAC address of the port
+    - This attribute cannot be updated.
   allowed_address_pairs:
     type: list
     required: false
-    description: Allowed address pairs
+    description:
+    - Allowed address pairs
+    - This attribute cannot be updated.
   network:
     type: str
     required: false
-    description: The name or UUID of the network. Network to which this port belongs
+    description:
+    - The name or UUID of the network. Network to which this port belongs
+    - This attribute cannot be updated.
   port_security_enabled:
     type: bool
     required: false
-    description: If True, security groups and rules will be applied to this port
+    description:
+    - If True, security groups and rules will be applied to this port
+    - This attribute cannot be updated.
   security_groups:
     type: list
     required: false
@@ -467,6 +481,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-ports/",
     "destroy_path": "/api/openstack-ports/{uuid}/",
     "update_path": None,
+    "required_for_create": ["name"],
     "model_param_names": [
         "network",
         "security_groups",

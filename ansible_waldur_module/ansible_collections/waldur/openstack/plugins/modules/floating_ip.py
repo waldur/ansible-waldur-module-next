@@ -49,7 +49,9 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack floating IP.
+    description:
+    - The name of the OpenStack floating IP.
+    - This attribute cannot be updated.
     type: str
     required: true
   tenant:
@@ -396,6 +398,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_floating_ip/",
     "destroy_path": "/api/openstack-floating-ips/{uuid}/",
     "update_path": None,
+    "required_for_create": [],
     "model_param_names": [],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": [],

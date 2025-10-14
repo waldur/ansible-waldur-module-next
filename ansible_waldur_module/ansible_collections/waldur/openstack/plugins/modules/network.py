@@ -49,7 +49,9 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack network.
+    description:
+    - The name of the OpenStack network.
+    - This attribute cannot be updated.
     type: str
     required: true
   tenant:
@@ -67,7 +69,9 @@ options:
   description:
     type: str
     required: false
-    description: Description
+    description:
+    - Description
+    - This attribute cannot be updated.
   mtu:
     type: dict
     required: false
@@ -475,6 +479,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_network/",
     "destroy_path": "/api/openstack-networks/{uuid}/",
     "update_path": None,
+    "required_for_create": ["name"],
     "model_param_names": ["description", "name"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": [],
