@@ -69,6 +69,10 @@ options:
     description: LEXIS links supported
     type: bool
     required: false
+  limit_based:
+    description: Filter by limit-based offerings
+    type: bool
+    required: false
   modified:
     description: Modified after
     type: str
@@ -99,6 +103,14 @@ options:
     type: list
     required: false
     elements: str
+  only_limit_based:
+    description: Filter out resources with only limit-based components
+    type: bool
+    required: false
+  only_usage_based:
+    description: Filter out resources with only usage-based components
+    type: bool
+    required: false
   parent_offering_uuid:
     description: Filter by parent offering uuid.
     type: str
@@ -147,6 +159,10 @@ options:
     - Terminated
     - Terminating
     - Updating
+  usage_based:
+    description: Filter by usage-based offerings
+    type: bool
+    required: false
   visible_to_username:
     description: Visible to username
     type: str
@@ -598,6 +614,7 @@ ARGUMENT_SPEC = {
     "downscaled": {"type": "bool"},
     "has_terminate_date": {"type": "bool"},
     "lexis_links_supported": {"type": "bool"},
+    "limit_based": {"type": "bool"},
     "modified": {"type": "str"},
     "offering": {"type": "str"},
     "offering_billable": {"type": "bool"},
@@ -605,6 +622,8 @@ ARGUMENT_SPEC = {
     "offering_slug": {"type": "list"},
     "offering_type": {"type": "str"},
     "offering_uuid": {"type": "list"},
+    "only_limit_based": {"type": "bool"},
+    "only_usage_based": {"type": "bool"},
     "parent_offering_uuid": {"type": "str"},
     "paused": {"type": "bool"},
     "plan_uuid": {"type": "str"},
@@ -618,6 +637,7 @@ ARGUMENT_SPEC = {
         "type": "list",
         "choices": ["Creating", "Erred", "OK", "Terminated", "Terminating", "Updating"],
     },
+    "usage_based": {"type": "bool"},
     "visible_to_username": {"type": "str"},
 }
 
@@ -643,6 +663,7 @@ RUNNER_CONTEXT = {
         "downscaled",
         "has_terminate_date",
         "lexis_links_supported",
+        "limit_based",
         "modified",
         "offering",
         "offering_billable",
@@ -650,6 +671,8 @@ RUNNER_CONTEXT = {
         "offering_slug",
         "offering_type",
         "offering_uuid",
+        "only_limit_based",
+        "only_usage_based",
         "parent_offering_uuid",
         "paused",
         "plan_uuid",
@@ -660,6 +683,7 @@ RUNNER_CONTEXT = {
         "runtime_state",
         "service_manager_uuid",
         "state",
+        "usage_based",
         "visible_to_username",
     ],
 }
