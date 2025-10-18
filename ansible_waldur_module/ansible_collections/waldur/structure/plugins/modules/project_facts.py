@@ -73,6 +73,14 @@ options:
     description: Filter by description.
     type: str
     required: false
+  include_terminated:
+    description: Include soft-deleted (terminated) projects. Only available to staff and support users, or users with organizational roles who can see their terminated projects.
+    type: bool
+    required: false
+  is_removed:
+    description: Filter by is removed.
+    type: bool
+    required: false
   modified:
     description: Modified after
     type: str
@@ -249,6 +257,11 @@ resource:
       type: str
       returned: always
       sample: null
+    is_removed:
+      description: Is removed
+      type: bool
+      returned: always
+      sample: true
     project_credit:
       description: Project credit
       type: float
@@ -281,6 +294,8 @@ ARGUMENT_SPEC = {
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
     "description": {"type": "str"},
+    "include_terminated": {"type": "bool"},
+    "is_removed": {"type": "bool"},
     "modified": {"type": "str"},
     "query": {"type": "str"},
     "slug": {"type": "str"},
@@ -309,6 +324,8 @@ RUNNER_CONTEXT = {
         "customer_name",
         "customer_native_name",
         "description",
+        "include_terminated",
+        "is_removed",
         "modified",
         "query",
         "slug",

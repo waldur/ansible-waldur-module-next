@@ -137,6 +137,10 @@ options:
     description: User Has Consent
     type: bool
     required: false
+  user_has_offering_user:
+    description: User Has Offering User
+    type: bool
+    required: false
   uuid_list:
     description: Comma-separated offering UUIDs
     type: str
@@ -951,6 +955,7 @@ ARGUMENT_SPEC = {
     "state": {"type": "list", "choices": ["Active", "Archived", "Draft", "Paused"]},
     "type": {"type": "list"},
     "user_has_consent": {"type": "bool"},
+    "user_has_offering_user": {"type": "bool"},
     "uuid_list": {"type": "str"},
 }
 
@@ -992,6 +997,7 @@ RUNNER_CONTEXT = {
         "state",
         "type",
         "user_has_consent",
+        "user_has_offering_user",
         "uuid_list",
     ],
 }

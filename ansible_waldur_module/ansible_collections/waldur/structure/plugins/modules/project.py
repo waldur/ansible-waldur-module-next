@@ -324,6 +324,11 @@ resource:
       type: str
       returned: always
       sample: null
+    is_removed:
+      description: Is removed
+      type: bool
+      returned: always
+      sample: true
     project_credit:
       description: Project credit
       type: float

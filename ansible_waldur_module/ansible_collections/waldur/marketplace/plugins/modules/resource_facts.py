@@ -598,6 +598,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    renewal_date:
+      description: Renewal date
+      type: dict
+      returned: always
+      sample: {}
 
 """
 
