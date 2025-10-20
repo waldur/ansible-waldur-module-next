@@ -45,6 +45,10 @@ options:
     description: Filter by category uuid.
     type: str
     required: false
+  component_count:
+    description: Filter by exact number of components
+    type: float
+    required: false
   created:
     description: Created after
     type: str
@@ -72,6 +76,10 @@ options:
   limit_based:
     description: Filter by limit-based offerings
     type: bool
+    required: false
+  limit_component_count:
+    description: Filter by exact number of limit-based components
+    type: float
     required: false
   modified:
     description: Modified after
@@ -613,6 +621,7 @@ ARGUMENT_SPEC = {
     "project": {"type": "str", "required": True},
     "backend_id": {"type": "str"},
     "category_uuid": {"type": "str"},
+    "component_count": {"type": "float"},
     "created": {"type": "str"},
     "customer": {"type": "str"},
     "customer_uuid": {"type": "str"},
@@ -620,6 +629,7 @@ ARGUMENT_SPEC = {
     "has_terminate_date": {"type": "bool"},
     "lexis_links_supported": {"type": "bool"},
     "limit_based": {"type": "bool"},
+    "limit_component_count": {"type": "float"},
     "modified": {"type": "str"},
     "offering": {"type": "str"},
     "offering_billable": {"type": "bool"},
@@ -662,6 +672,7 @@ RUNNER_CONTEXT = {
     "inferred_filter_params": [
         "backend_id",
         "category_uuid",
+        "component_count",
         "created",
         "customer",
         "customer_uuid",
@@ -669,6 +680,7 @@ RUNNER_CONTEXT = {
         "has_terminate_date",
         "lexis_links_supported",
         "limit_based",
+        "limit_component_count",
         "modified",
         "offering",
         "offering_billable",
