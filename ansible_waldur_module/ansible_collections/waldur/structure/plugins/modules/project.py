@@ -329,6 +329,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    termination_metadata:
+      description: Termination metadata
+      type: str
+      returned: always
+      sample: null
     project_credit:
       description: Project credit
       type: float
