@@ -354,6 +354,11 @@ resource:
       type: str
       returned: always
       sample: null
+    url:
+      description: URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     consumer_reviewed_by:
       description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
       type: str

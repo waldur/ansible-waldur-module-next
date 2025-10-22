@@ -579,6 +579,52 @@ resource:
               type: int
               returned: always
               sample: 123
+        components:
+          description: A list of components items.
+          type: list
+          returned: always
+          sample: []
+          contains:
+            type:
+              description: Unique internal name of the measured unit, for example floating_ip.
+              type: str
+              returned: always
+              sample: string-value
+            name:
+              description: Display name for the measured unit, for example, Floating IP.
+              type: str
+              returned: always
+              sample: My-Awesome-offering
+            measured_unit:
+              description: Unit of measurement, for example, GB.
+              type: str
+              returned: always
+              sample: string-value
+            amount:
+              description: Amount
+              type: int
+              returned: always
+              sample: 123
+            price:
+              description: Price
+              type: str
+              returned: always
+              sample: '12.34'
+            future_price:
+              description: Future price
+              type: str
+              returned: always
+              sample: '12.34'
+            discount_threshold:
+              description: Minimum amount to be eligible for discount.
+              type: int
+              returned: always
+              sample: 123
+            discount_rate:
+              description: Discount rate in percentage.
+              type: int
+              returned: always
+              sample: 123
         prices:
           description: Prices
           type: dict
