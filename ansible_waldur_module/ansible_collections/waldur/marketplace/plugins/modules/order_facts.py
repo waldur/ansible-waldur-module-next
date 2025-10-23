@@ -116,6 +116,7 @@ options:
     - pending-consumer
     - pending-project
     - pending-provider
+    - pending-start-date
     - rejected
   type:
     description: Filter by type.
@@ -543,6 +544,7 @@ ARGUMENT_SPEC = {
             "pending-consumer",
             "pending-project",
             "pending-provider",
+            "pending-start-date",
             "rejected",
         ],
     },
