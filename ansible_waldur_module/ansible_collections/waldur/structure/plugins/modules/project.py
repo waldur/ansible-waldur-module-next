@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, kind, name, oecd_fos_2007_code, slug, start_date, type.'
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, kind, name, oecd_fos_2007_code, slug, staff_notes, start_date, type.'
 author: Waldur Team
 options:
   access_token:
@@ -145,6 +145,10 @@ options:
     - default
     - course
     - public
+  staff_notes:
+    type: str
+    required: false
+    description: Staff notes
 requirements:
 - python >= 3.11
 
@@ -171,6 +175,7 @@ EXAMPLES = """
       is_industry: true
       image: string-value
       kind: null
+      staff_notes: string-value
 - name: Remove an existing project
   hosts: localhost
   tasks:
@@ -334,6 +339,11 @@ resource:
       type: str
       returned: always
       sample: null
+    staff_notes:
+      description: Staff notes
+      type: str
+      returned: always
+      sample: string-value
     project_credit:
       description: Project credit
       type: float
@@ -443,6 +453,7 @@ ARGUMENT_SPEC = {
     "is_industry": {"type": "bool"},
     "image": {"type": "str"},
     "kind": {"type": "str", "choices": ["default", "course", "public"]},
+    "staff_notes": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -466,6 +477,7 @@ RUNNER_CONTEXT = {
         "name",
         "oecd_fos_2007_code",
         "slug",
+        "staff_notes",
         "start_date",
     ],
     "path_param_maps": {},
@@ -480,6 +492,7 @@ RUNNER_CONTEXT = {
         "name",
         "oecd_fos_2007_code",
         "slug",
+        "staff_notes",
         "start_date",
         "type",
     ],

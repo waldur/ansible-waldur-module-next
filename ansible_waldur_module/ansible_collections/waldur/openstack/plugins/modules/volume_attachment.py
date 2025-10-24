@@ -455,7 +455,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["volume", "instance", "customer", "project", "tenant"],
+    "resolver_order": ["instance", "volume", "customer", "project", "tenant"],
 }
 
 

@@ -355,6 +355,11 @@ resource:
       type: str
       returned: always
       sample: null
+    start_date:
+      description: Enables delayed processing of resource provisioning order.
+      type: str
+      returned: always
+      sample: '2023-10-01'
     url:
       description: URL URL
       type: str

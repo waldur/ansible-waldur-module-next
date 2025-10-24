@@ -267,6 +267,11 @@ resource:
       type: str
       returned: always
       sample: null
+    staff_notes:
+      description: Staff notes
+      type: str
+      returned: always
+      sample: string-value
     project_credit:
       description: Project credit
       type: float
