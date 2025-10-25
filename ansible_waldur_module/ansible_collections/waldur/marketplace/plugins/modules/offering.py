@@ -635,6 +635,195 @@ resource:
           type: str
           returned: always
           sample: string-value
+    software_catalogs:
+      description: A list of software catalogs items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        catalog:
+          description: Catalog
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            uuid:
+              description: UUID
+              type: str
+              returned: always
+              sample: string-value
+            name:
+              description: Name
+              type: str
+              returned: always
+              sample: My-Awesome-Resource
+            version:
+              description: Version
+              type: str
+              returned: always
+              sample: string-value
+            description:
+              description: Description
+              type: str
+              returned: always
+              sample: A sample description created by Ansible.
+        enabled_cpu_family:
+          description: 'List of enabled CPU families: [''x86_64'', ''aarch64'']'
+          type: str
+          returned: always
+          sample: null
+        enabled_cpu_microarchitectures:
+          description: 'List of enabled CPU microarchitectures: [''generic'', ''zen3'']'
+          type: str
+          returned: always
+          sample: null
+        package_count:
+          description: Package count
+          type: int
+          returned: always
+          sample: 123
+        partition:
+          description: Partition
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            uuid:
+              description: UUID
+              type: str
+              returned: always
+              sample: string-value
+            partition_name:
+              description: Partition name
+              type: str
+              returned: always
+              sample: string-value
+            priority_tier:
+              description: Priority tier
+              type: int
+              returned: always
+              sample: 123
+            qos:
+              description: Qos
+              type: str
+              returned: always
+              sample: string-value
+    partitions:
+      description: A list of partitions items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        partition_name:
+          description: Name of the SLURM partition
+          type: str
+          returned: always
+          sample: string-value
+        cpu_bind:
+          description: Default task binding policy (SLURM cpu_bind)
+          type: int
+          returned: always
+          sample: 123
+        def_cpu_per_gpu:
+          description: Default CPUs allocated per GPU
+          type: int
+          returned: always
+          sample: 123
+        max_cpus_per_node:
+          description: Maximum allocated CPUs per node
+          type: int
+          returned: always
+          sample: 123
+        max_cpus_per_socket:
+          description: Maximum allocated CPUs per socket
+          type: int
+          returned: always
+          sample: 123
+        def_mem_per_cpu:
+          description: Default memory per CPU in MB
+          type: int
+          returned: always
+          sample: 123
+        def_mem_per_gpu:
+          description: Default memory per GPU in MB
+          type: int
+          returned: always
+          sample: 123
+        def_mem_per_node:
+          description: Default memory per node in MB
+          type: int
+          returned: always
+          sample: 123
+        max_mem_per_cpu:
+          description: Maximum memory per CPU in MB
+          type: int
+          returned: always
+          sample: 123
+        max_mem_per_node:
+          description: Maximum memory per node in MB
+          type: int
+          returned: always
+          sample: 123
+        default_time:
+          description: Default time limit in minutes
+          type: int
+          returned: always
+          sample: 123
+        max_time:
+          description: Maximum time limit in minutes
+          type: int
+          returned: always
+          sample: 123
+        grace_time:
+          description: Preemption grace time in seconds
+          type: int
+          returned: always
+          sample: 123
+        max_nodes:
+          description: Maximum nodes per job
+          type: int
+          returned: always
+          sample: 123
+        min_nodes:
+          description: Minimum nodes per job
+          type: int
+          returned: always
+          sample: 123
+        exclusive_topo:
+          description: Exclusive topology access required
+          type: bool
+          returned: always
+          sample: true
+        exclusive_user:
+          description: Exclusive user access required
+          type: bool
+          returned: always
+          sample: true
+        priority_tier:
+          description: Priority tier for scheduling and preemption
+          type: int
+          returned: always
+          sample: 123
+        qos:
+          description: Quality of Service (QOS) name
+          type: str
+          returned: always
+          sample: string-value
+        req_resv:
+          description: Require reservation for job allocation
+          type: bool
+          returned: always
+          sample: true
     roles:
       description: A list of roles items.
       type: list
