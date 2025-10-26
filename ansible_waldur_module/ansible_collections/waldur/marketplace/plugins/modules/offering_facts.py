@@ -98,6 +98,10 @@ options:
     description: Project UUID
     type: str
     required: false
+  query:
+    description: Search by offering name, slug or description
+    type: str
+    required: false
   resource_customer_uuid:
     description: Resource customer UUID
     type: str
@@ -1182,6 +1186,7 @@ ARGUMENT_SPEC = {
     "organization_group_uuid": {"type": "list"},
     "parent_uuid": {"type": "str"},
     "project_uuid": {"type": "str"},
+    "query": {"type": "str"},
     "resource_customer_uuid": {"type": "str"},
     "resource_project_uuid": {"type": "str"},
     "scope_uuid": {"type": "str"},
@@ -1224,6 +1229,7 @@ RUNNER_CONTEXT = {
         "organization_group_uuid",
         "parent_uuid",
         "project_uuid",
+        "query",
         "resource_customer_uuid",
         "resource_project_uuid",
         "scope_uuid",

@@ -140,7 +140,7 @@ options:
     type: str
     required: false
   query:
-    description: Search by resource UUID, name, backend ID, effective ID, IPs or hypervisor
+    description: Search by resource UUID, name, slug, backend ID, effective ID, IPs or hypervisor
     type: str
     required: false
   restrict_member_access:

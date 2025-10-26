@@ -88,7 +88,7 @@ options:
     type: str
     required: false
   query:
-    description: Search by order UUID, project name or resource name
+    description: Search by order UUID, slug, project name or resource name
     type: str
     required: false
   resource:

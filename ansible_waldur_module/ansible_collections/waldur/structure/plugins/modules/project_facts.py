@@ -86,7 +86,7 @@ options:
     type: str
     required: false
   query:
-    description: Filter by name, UUID, backend ID or resource effective ID
+    description: Filter by name, slug, UUID, backend ID or resource effective ID
     type: str
     required: false
   slug:
