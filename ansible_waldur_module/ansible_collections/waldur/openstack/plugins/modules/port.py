@@ -208,6 +208,11 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    customer_uuid:
+      description: Customer UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer_name:
       description: Customer name
       type: str
@@ -533,7 +538,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["security_groups", "network", "tenant"],
+    "resolver_order": ["network", "security_groups", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

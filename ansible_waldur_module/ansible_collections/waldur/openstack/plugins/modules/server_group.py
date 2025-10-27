@@ -177,6 +177,11 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    customer_uuid:
+      description: Customer UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer_name:
       description: Customer name
       type: str

@@ -360,6 +360,11 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    customer_uuid:
+      description: Customer UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     customer_name:
       description: Customer name
       type: str
@@ -889,6 +894,11 @@ resource:
               type: str
               returned: always
               sample: https://api.example.com/api/customer/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+            customer_uuid:
+              description: Customer UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             customer_name:
               description: Customer name
               type: str
@@ -1241,12 +1251,12 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
+        "availability_zone",
+        "flavor",
         "security_groups",
         "ssh_public_key",
-        "data_volume_type",
-        "flavor",
         "image",
-        "availability_zone",
+        "data_volume_type",
         "system_volume_type",
         "connect_directly_to_external_network",
         "data_volume_size",
