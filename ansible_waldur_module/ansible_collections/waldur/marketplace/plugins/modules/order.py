@@ -107,6 +107,12 @@ options:
     - Create
     - Update
     - Terminate
+  start_date:
+    type: str
+    required: false
+    description:
+    - Enables delayed processing of resource provisioning order.
+    - This attribute cannot be updated.
   project:
     type: str
     required: false
@@ -136,6 +142,7 @@ EXAMPLES = """
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
       type: null
+      start_date: '2023-10-01'
       project: Project name or UUID
 - name: Remove an existing order
   hosts: localhost
@@ -355,6 +362,11 @@ resource:
       type: str
       returned: always
       sample: null
+    start_date:
+      description: Enables delayed processing of resource provisioning order.
+      type: str
+      returned: always
+      sample: '2023-10-01'
     url:
       description: URL URL
       type: str
@@ -468,6 +480,7 @@ ARGUMENT_SPEC = {
     "callback_url": {"type": "str"},
     "request_comment": {"type": "str"},
     "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
+    "start_date": {"type": "str"},
     "project": {"type": "str"},
 }
 
@@ -489,6 +502,7 @@ RUNNER_CONTEXT = {
         "limits",
         "plan",
         "request_comment",
+        "start_date",
         "type",
     ],
     "path_param_maps": {},
