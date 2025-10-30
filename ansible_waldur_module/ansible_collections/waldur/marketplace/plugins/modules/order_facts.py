@@ -150,10 +150,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a order.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single order.
+  type: dict
+  returned: on success
   contains:
     offering:
       description: Offering URL

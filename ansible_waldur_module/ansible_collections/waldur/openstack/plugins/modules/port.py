@@ -57,7 +57,7 @@ options:
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
-    required: true
+    required: false
   description:
     type: str
     required: false
@@ -468,7 +468,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
-    "tenant": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
     "description": {"type": "str"},
     "fixed_ips": {"type": "list"},
     "mac_address": {"type": "str"},
@@ -538,7 +538,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["security_groups", "network", "tenant"],
+    "resolver_order": ["network", "security_groups", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

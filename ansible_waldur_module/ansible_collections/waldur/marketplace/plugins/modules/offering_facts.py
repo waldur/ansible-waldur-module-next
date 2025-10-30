@@ -36,7 +36,7 @@ options:
   customer:
     description: The name or UUID of the parent customer.
     type: str
-    required: true
+    required: false
   accessible_via_calls:
     description: Accessible via calls
     type: bool
@@ -173,10 +173,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a offering.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single offering.
+  type: dict
+  returned: on success
   contains:
     url:
       description: URL URL
@@ -1170,7 +1169,7 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
+    "customer": {"type": "str"},
     "accessible_via_calls": {"type": "bool"},
     "allowed_customer_uuid": {"type": "str"},
     "attributes": {"type": "str"},

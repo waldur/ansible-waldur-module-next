@@ -32,19 +32,19 @@ options:
   name:
     description: The name or UUID of the subnet.
     type: str
-    required: false
+    required: true
   tenant:
     description: The name or UUID of the parent tenant.
     type: str
-    required: true
+    required: false
   customer:
     description: The name or UUID of the parent customer.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project.
     type: str
-    required: true
+    required: false
   backend_id:
     description: Filter by backend id.
     type: str
@@ -153,10 +153,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a subnet.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single subnet.
+  type: dict
+  returned: on success
   contains:
     url:
       description: URL URL
@@ -426,10 +425,10 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str"},
-    "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "name": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
     "backend_id": {"type": "str"},
     "can_manage": {"type": "bool"},
     "customer_abbreviation": {"type": "str"},
@@ -484,7 +483,7 @@ RUNNER_CONTEXT = {
             "filter_key": "project_uuid",
         },
     },
-    "many": True,
+    "many": False,
     "inferred_filter_params": [
         "backend_id",
         "can_manage",

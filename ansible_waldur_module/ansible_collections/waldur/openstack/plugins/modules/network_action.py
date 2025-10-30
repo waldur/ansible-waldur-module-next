@@ -43,15 +43,15 @@ options:
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
-    required: true
+    required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project for filtering.
     type: str
-    required: true
+    required: false
 requirements:
 - python >= 3.11
 
@@ -441,9 +441,9 @@ ARGUMENT_SPEC = {
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
     "action": {"type": "str", "choices": ["pull", "unlink"], "required": True},
-    "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {

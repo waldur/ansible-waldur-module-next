@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the volume type.
     type: str
-    required: false
+    required: true
   offering_uuid:
     description: Filter by offering uuid.
     type: str
@@ -76,10 +76,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a volume type.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single volume type.
+  type: dict
+  returned: on success
   contains:
     url:
       description: URL URL
@@ -112,7 +111,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str"},
+    "name": {"type": "str", "required": True},
     "offering_uuid": {"type": "str"},
     "settings": {"type": "str"},
     "settings_uuid": {"type": "str"},
@@ -126,7 +125,7 @@ RUNNER_CONTEXT = {
     "retrieve_url": "/api/openstack-volume-types/{uuid}/",
     "identifier_param": "name",
     "resolvers": {},
-    "many": True,
+    "many": False,
     "inferred_filter_params": [
         "offering_uuid",
         "settings",

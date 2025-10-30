@@ -61,11 +61,11 @@ options:
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project for filtering.
     type: str
-    required: true
+    required: false
   description:
     type: str
     required: false
@@ -410,8 +410,8 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
     "description": {"type": "str"},
     "rules": {"type": "list"},
 }
@@ -458,7 +458,17 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
+        },
         "remote_group": {
             "url": "/api/openstack-security-groups/",
             "error_message": None,
@@ -471,7 +481,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["remote_group", "customer", "project", "tenant"],
+    "resolver_order": ["remote_group", "project", "tenant", "customer"],
     "resource_detail_path": "/api/openstack-security-groups/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

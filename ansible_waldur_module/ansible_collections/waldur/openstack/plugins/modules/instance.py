@@ -57,7 +57,14 @@ options:
   project:
     type: str
     required: true
-    description: The name or UUID of the project.
+    description:
+    - The name or UUID of the project.
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
+  customer:
+    type: str
+    required: false
+    description: The name or UUID of the customer to filter the project lookup. This is useful when a project name is not unique across all customers.
   offering:
     type: str
     required: false
@@ -1221,6 +1228,7 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str"},
     "project": {"type": "str", "required": True},
+    "customer": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
     "description": {"type": "str"},
@@ -1247,17 +1255,17 @@ ARGUMENT_SPEC = {
 RUNNER_CONTEXT = {
     "resource_type": "instance",
     "check_url": "/api/openstack-instances/",
-    "check_filter_keys": {"project": "project_uuid"},
+    "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "security_groups",
         "data_volume_type",
+        "availability_zone",
         "image",
+        "flavor",
+        "security_groups",
         "ssh_public_key",
         "system_volume_type",
-        "flavor",
-        "availability_zone",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
@@ -1283,10 +1291,23 @@ RUNNER_CONTEXT = {
         "release_floating_ips": "release_floating_ips",
     },
     "resolvers": {
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": None,
+            "list_item_keys": {},
+        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
             "is_list": None,
             "list_item_keys": {},
         },
@@ -1406,6 +1427,7 @@ RUNNER_CONTEXT = {
         "availability_zone",
         "subnet",
         "ssh_public_key",
+        "customer",
         "offering",
     ],
     "update_actions": {

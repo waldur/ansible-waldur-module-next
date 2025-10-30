@@ -51,15 +51,15 @@ options:
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
-    required: true
+    required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project for filtering.
     type: str
-    required: true
+    required: false
 requirements:
 - python >= 3.11
 
@@ -416,9 +416,9 @@ ARGUMENT_SPEC = {
     "volume": {"type": "str", "required": True},
     "instance": {"type": "str", "required": True},
     "device": {"type": "string"},
-    "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -436,7 +436,17 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
+        },
         "instance": {
             "url": "/api/openstack-instances/",
             "error_message": None,
@@ -460,7 +470,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["instance", "volume", "customer", "project", "tenant"],
+    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
 }
 
 

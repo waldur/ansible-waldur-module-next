@@ -61,11 +61,11 @@ options:
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project for filtering.
     type: str
-    required: true
+    required: false
   description:
     type: dict
     required: false
@@ -386,8 +386,8 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
     "description": {"type": "dict"},
 }
 
@@ -424,9 +424,19 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
+        },
     },
-    "resolver_order": ["tenant", "customer", "project"],
+    "resolver_order": ["tenant", "project", "customer"],
     "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

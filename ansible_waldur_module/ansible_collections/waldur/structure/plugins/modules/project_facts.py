@@ -36,7 +36,7 @@ options:
   customer:
     description: The name or UUID of the parent customer.
     type: str
-    required: true
+    required: false
   backend_id:
     description: Filter by backend id.
     type: str
@@ -117,10 +117,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a project.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single project.
+  type: dict
+  returned: on success
   contains:
     url:
       description: URL URL
@@ -294,7 +293,7 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
+    "customer": {"type": "str"},
     "backend_id": {"type": "str"},
     "can_admin": {"type": "bool"},
     "can_manage": {"type": "bool"},

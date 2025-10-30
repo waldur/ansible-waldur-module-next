@@ -57,7 +57,14 @@ options:
   project:
     type: str
     required: true
-    description: The name or UUID of the project.
+    description:
+    - The name or UUID of the project.
+    - Required when C(state) is 'present'.
+    - This attribute cannot be updated.
+  customer:
+    type: str
+    required: false
+    description: The name or UUID of the customer to filter the project lookup. This is useful when a project name is not unique across all customers.
   offering:
     type: str
     required: false
@@ -457,6 +464,7 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str"},
     "project": {"type": "str", "required": True},
+    "customer": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
     "description": {"type": "str"},
@@ -469,12 +477,12 @@ ARGUMENT_SPEC = {
 RUNNER_CONTEXT = {
     "resource_type": "volume",
     "check_url": "/api/openstack-volumes/",
-    "check_filter_keys": {"project": "project_uuid"},
+    "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "type",
         "image",
+        "type",
         "availability_zone",
         "description",
         "name",
@@ -483,10 +491,23 @@ RUNNER_CONTEXT = {
     "required_for_create": ["name", "offering"],
     "termination_attributes_map": {},
     "resolvers": {
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "is_list": None,
+            "list_item_keys": {},
+        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
-            "filter_by": [],
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
             "is_list": None,
             "list_item_keys": {},
         },
@@ -537,7 +558,14 @@ RUNNER_CONTEXT = {
             "list_item_keys": {},
         },
     },
-    "resolver_order": ["project", "type", "image", "availability_zone", "offering"],
+    "resolver_order": [
+        "project",
+        "type",
+        "image",
+        "availability_zone",
+        "customer",
+        "offering",
+    ],
     "update_actions": {},
     "resource_detail_path": "/api/openstack-volumes/{uuid}/",
     "transformations": {"size": "gb_to_mb"},

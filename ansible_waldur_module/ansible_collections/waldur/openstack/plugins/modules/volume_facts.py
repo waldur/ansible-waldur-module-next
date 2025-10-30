@@ -36,15 +36,15 @@ options:
   tenant:
     description: The name or UUID of the parent tenant.
     type: str
-    required: true
+    required: false
   customer:
     description: The name or UUID of the parent customer.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project.
     type: str
-    required: true
+    required: false
   attach_instance_uuid:
     description: Filter by attach instance uuid.
     type: str
@@ -157,10 +157,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a volume.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single volume.
+  type: dict
+  returned: on success
   contains:
     url:
       description: URL URL
@@ -449,9 +448,9 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
-    "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
     "attach_instance_uuid": {"type": "str"},
     "availability_zone_name": {"type": "str"},
     "backend_id": {"type": "str"},

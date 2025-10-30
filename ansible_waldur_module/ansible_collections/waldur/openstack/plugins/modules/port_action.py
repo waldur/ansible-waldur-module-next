@@ -47,7 +47,7 @@ options:
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
-    required: true
+    required: false
 requirements:
 - python >= 3.11
 
@@ -456,7 +456,7 @@ ARGUMENT_SPEC = {
         ],
         "required": True,
     },
-    "tenant": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {

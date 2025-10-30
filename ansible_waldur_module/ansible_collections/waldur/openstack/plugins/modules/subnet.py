@@ -59,15 +59,15 @@ options:
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
-    required: true
+    required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project for filtering.
     type: str
-    required: true
+    required: false
   description:
     type: str
     required: false
@@ -441,9 +441,9 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
     "network": {"type": "str", "required": True},
-    "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "tenant": {"type": "str"},
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
     "description": {"type": "str"},
     "cidr": {"type": "str"},
     "gateway_ip": {"type": "str"},
@@ -496,7 +496,17 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
         "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
+        },
         "network": {
             "url": "/api/openstack-networks/",
             "error_message": None,
@@ -509,7 +519,7 @@ RUNNER_CONTEXT = {
             ],
         },
     },
-    "resolver_order": ["network", "customer", "project", "tenant"],
+    "resolver_order": ["network", "project", "tenant", "customer"],
     "resource_detail_path": "/api/openstack-subnets/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

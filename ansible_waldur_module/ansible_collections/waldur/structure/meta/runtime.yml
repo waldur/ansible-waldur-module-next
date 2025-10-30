@@ -1,1 +1,7 @@
 requires_ansible: '>=2.14'
+action_groups:
+  structure:
+  - customer
+  - project
+  - project_facts
+  - ssh_key_facts

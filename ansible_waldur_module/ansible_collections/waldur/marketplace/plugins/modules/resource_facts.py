@@ -36,7 +36,7 @@ options:
   project:
     description: The name or UUID of the parent project.
     type: str
-    required: true
+    required: false
   backend_id:
     description: Backend ID
     type: str
@@ -112,11 +112,11 @@ options:
     required: false
     elements: str
   only_limit_based:
-    description: Filter out resources with only limit-based components
+    description: Filter resources with only limit-based components
     type: bool
     required: false
   only_usage_based:
-    description: Filter out resources with only usage-based components
+    description: Filter resources with only usage-based components
     type: bool
     required: false
   parent_offering_uuid:
@@ -199,10 +199,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a resource.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single resource.
+  type: dict
+  returned: on success
   contains:
     offering:
       description: Offering URL
@@ -618,7 +617,7 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
-    "project": {"type": "str", "required": True},
+    "project": {"type": "str"},
     "backend_id": {"type": "str"},
     "category_uuid": {"type": "str"},
     "component_count": {"type": "float"},

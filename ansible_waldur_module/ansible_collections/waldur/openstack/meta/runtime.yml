@@ -1,1 +1,29 @@
 requires_ansible: '>=2.14'
+action_groups:
+  openstack:
+  - flavor_facts
+  - floating_ip
+  - image_facts
+  - instance
+  - instance_action
+  - instance_facts
+  - network
+  - network_action
+  - network_facts
+  - network_rbac_policy
+  - port
+  - port_action
+  - port_facts
+  - security_group
+  - security_group_facts
+  - server_group
+  - subnet
+  - subnet_action
+  - subnet_facts
+  - volume
+  - volume_attachment
+  - volume_facts
+  - volume_type_facts
+  - vpc
+  - vpc_action
+  - vpc_facts

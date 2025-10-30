@@ -55,7 +55,7 @@ options:
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
-    required: true
+    required: false
   slug:
     type: str
     required: false
@@ -394,7 +394,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
-    "customer": {"type": "str", "required": True},
+    "customer": {"type": "str"},
     "slug": {"type": "str"},
     "description": {"type": "str"},
     "type": {"type": "str"},

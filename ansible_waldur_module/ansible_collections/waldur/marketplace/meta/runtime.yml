@@ -1,1 +1,8 @@
 requires_ansible: '>=2.14'
+action_groups:
+  marketplace:
+  - offering
+  - offering_facts
+  - order
+  - order_facts
+  - resource_facts

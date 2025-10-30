@@ -88,10 +88,9 @@ EXAMPLES = """
 
 RETURN = """
 resource:
-  description: A list of dictionaries, where each dictionary represents a ssh key.
-  type: list
-  returned: always
-  elements: dict
+  description: A dictionary representing the facts of a single ssh key.
+  type: dict
+  returned: on success
   contains:
     url:
       description: URL URL
