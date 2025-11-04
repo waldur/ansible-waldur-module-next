@@ -53,12 +53,24 @@ options:
     description: Exclude Subnet UUIDs (comma-separated)
     type: str
     required: false
+  fixed_ips:
+    description: Search by fixed IP
+    type: str
+    required: false
   has_device_owner:
     description: Has device owner
     type: bool
     required: false
   mac_address:
     description: Filter by mac address.
+    type: str
+    required: false
+  network_name:
+    description: Search by network name
+    type: str
+    required: false
+  network_uuid:
+    description: Search by network UUID
     type: str
     required: false
   query:
@@ -406,8 +418,11 @@ ARGUMENT_SPEC = {
     "device_id": {"type": "str"},
     "device_owner": {"type": "str"},
     "exclude_subnet_uuids": {"type": "str"},
+    "fixed_ips": {"type": "str"},
     "has_device_owner": {"type": "bool"},
     "mac_address": {"type": "str"},
+    "network_name": {"type": "str"},
+    "network_uuid": {"type": "str"},
     "query": {"type": "str"},
     "status": {"type": "str"},
     "tenant": {"type": "str"},
@@ -427,8 +442,11 @@ RUNNER_CONTEXT = {
         "device_id",
         "device_owner",
         "exclude_subnet_uuids",
+        "fixed_ips",
         "has_device_owner",
         "mac_address",
+        "network_name",
+        "network_uuid",
         "query",
         "status",
         "tenant",

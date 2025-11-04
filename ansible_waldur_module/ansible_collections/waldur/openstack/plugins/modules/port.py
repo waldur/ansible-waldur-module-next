@@ -82,6 +82,12 @@ options:
     description:
     - Allowed address pairs
     - This attribute cannot be updated.
+  target_tenant:
+    type: str
+    required: false
+    description:
+    - The name or UUID of the target_tenant. Target tenant for shared network port creation. If not specified, defaults to network's tenant.
+    - This attribute cannot be updated.
   network:
     type: str
     required: false
@@ -121,6 +127,7 @@ EXAMPLES = """
       allowed_address_pairs:
       - ip_address: 192.168.42.50
         mac_address: 00:1B:44:11:3A:B7
+      target_tenant: Target tenant name or UUID
       network: Network name or UUID
       port_security_enabled: true
       security_groups:
@@ -473,6 +480,7 @@ ARGUMENT_SPEC = {
     "fixed_ips": {"type": "list"},
     "mac_address": {"type": "str"},
     "allowed_address_pairs": {"type": "list"},
+    "target_tenant": {"type": "str"},
     "network": {"type": "str"},
     "port_security_enabled": {"type": "bool"},
     "security_groups": {"type": "list"},
@@ -490,6 +498,7 @@ RUNNER_CONTEXT = {
     "model_param_names": [
         "network",
         "security_groups",
+        "target_tenant",
         "allowed_address_pairs",
         "description",
         "fixed_ips",
@@ -537,8 +546,13 @@ RUNNER_CONTEXT = {
                 }
             ],
         },
+        "target_tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+        },
     },
-    "resolver_order": ["security_groups", "network", "tenant"],
+    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],
