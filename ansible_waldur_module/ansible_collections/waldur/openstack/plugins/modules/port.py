@@ -552,7 +552,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
     },
-    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
+    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],
