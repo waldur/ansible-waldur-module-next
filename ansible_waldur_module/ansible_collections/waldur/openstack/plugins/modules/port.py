@@ -513,6 +513,7 @@ RUNNER_CONTEXT = {
             "path": "/api/openstack-ports/{uuid}/update_security_groups/",
             "param": "security_groups",
             "compare_key": "security_groups",
+            "maps_to": None,
             "wrap_in_object": True,
             "idempotency_keys": [],
             "defaults_map": {},
@@ -552,7 +553,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
     },
-    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
+    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

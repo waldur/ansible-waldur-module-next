@@ -493,6 +493,7 @@ RUNNER_CONTEXT = {
             "path": "/api/openstack-networks/{uuid}/set_mtu/",
             "param": "mtu",
             "compare_key": "mtu",
+            "maps_to": None,
             "wrap_in_object": True,
             "idempotency_keys": [],
             "defaults_map": {},

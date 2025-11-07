@@ -21,6 +21,7 @@ action_groups:
   - subnet_action
   - subnet_facts
   - volume
+  - volume_action
   - volume_attachment
   - volume_facts
   - volume_type_facts

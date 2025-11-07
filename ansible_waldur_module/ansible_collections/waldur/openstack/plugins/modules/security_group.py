@@ -437,6 +437,7 @@ RUNNER_CONTEXT = {
             "path": "/api/openstack-security-groups/{uuid}/set_rules/",
             "param": "rules",
             "compare_key": "rules",
+            "maps_to": None,
             "wrap_in_object": False,
             "idempotency_keys": [
                 "cidr",

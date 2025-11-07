@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: volume
 short_description: Create, update or delete a volume via the marketplace.
-description: 'When the resource already exists, the following fields can be updated: bootable, description, name.'
+description: 'When the resource already exists, the following fields can be updated: bootable, description, name, size, type.'
 author: Waldur Team
 options:
   access_token:
@@ -91,9 +91,7 @@ options:
   size:
     type: int
     required: false
-    description:
-    - Size in MiB. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
-    - This attribute cannot be updated.
+    description: Size in MiB. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
   availability_zone:
     type: str
     required: false
@@ -103,9 +101,7 @@ options:
   type:
     type: str
     required: false
-    description:
-    - Type of the volume (e.g. SSD, HDD)
-    - This attribute cannot be updated.
+    description: Type of the volume (e.g. SSD, HDD)
 requirements:
 - python >= 3.11
 
@@ -566,7 +562,26 @@ RUNNER_CONTEXT = {
         "customer",
         "offering",
     ],
-    "update_actions": {},
+    "update_actions": {
+        "retype": {
+            "path": "/api/openstack-volumes/{uuid}/retype/",
+            "param": "type",
+            "compare_key": "type",
+            "maps_to": None,
+            "wrap_in_object": True,
+            "idempotency_keys": [],
+            "defaults_map": {},
+        },
+        "extend": {
+            "path": "/api/openstack-volumes/{uuid}/extend/",
+            "param": "size",
+            "compare_key": "size",
+            "maps_to": "disk_size",
+            "wrap_in_object": True,
+            "idempotency_keys": [],
+            "defaults_map": {},
+        },
+    },
     "resource_detail_path": "/api/openstack-volumes/{uuid}/",
     "transformations": {"size": "gb_to_mb"},
 }
