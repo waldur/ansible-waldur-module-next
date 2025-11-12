@@ -599,6 +599,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    grace_period_days:
+      description: Number of extra days after project end date before resources are terminated
+      type: int
+      returned: always
+      sample: 123
     name:
       description: Name
       type: str

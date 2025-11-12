@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, image, is_industry, kind, name, oecd_fos_2007_code, slug, staff_notes, start_date, type.'
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, slug, staff_notes, start_date, type.'
 author: Waldur Team
 options:
   access_token:
@@ -149,6 +149,10 @@ options:
     type: str
     required: false
     description: Staff notes
+  grace_period_days:
+    type: int
+    required: false
+    description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
 requirements:
 - python >= 3.11
 
@@ -176,6 +180,7 @@ EXAMPLES = """
       image: string-value
       kind: null
       staff_notes: string-value
+      grace_period_days: 123
 - name: Remove an existing project
   hosts: localhost
   tasks:
@@ -344,6 +349,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    grace_period_days:
+      description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
+      type: int
+      returned: always
+      sample: 123
     project_credit:
       description: Project credit
       type: float
@@ -454,6 +464,7 @@ ARGUMENT_SPEC = {
     "image": {"type": "str"},
     "kind": {"type": "str", "choices": ["default", "course", "public"]},
     "staff_notes": {"type": "str"},
+    "grace_period_days": {"type": "int"},
 }
 
 RUNNER_CONTEXT = {
@@ -471,6 +482,7 @@ RUNNER_CONTEXT = {
         "backend_id",
         "description",
         "end_date",
+        "grace_period_days",
         "image",
         "is_industry",
         "kind",
@@ -486,6 +498,7 @@ RUNNER_CONTEXT = {
         "customer",
         "description",
         "end_date",
+        "grace_period_days",
         "image",
         "is_industry",
         "kind",

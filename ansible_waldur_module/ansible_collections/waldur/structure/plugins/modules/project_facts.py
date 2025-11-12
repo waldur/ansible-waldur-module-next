@@ -271,6 +271,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    grace_period_days:
+      description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
+      type: int
+      returned: always
+      sample: 123
     project_credit:
       description: Project credit
       type: float
