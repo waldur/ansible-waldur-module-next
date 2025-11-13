@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, address, backend_id, bank_account, bank_name, contact_details, country, description, email, homepage, image, latitude, longitude, name, native_name, notification_emails, phone_number, postal, registration_code, slug, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, archived, backend_id, bank_account, bank_name, blocked, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, phone_number, postal, project_metadata_checklist, registration_code, slug, sponsor_number, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -60,6 +60,42 @@ options:
     type: str
     required: false
     description: Image
+  blocked:
+    type: bool
+    required: false
+    description: Blocked
+  archived:
+    type: bool
+    required: false
+    description: Archived
+  display_billing_info_in_projects:
+    type: bool
+    required: false
+    description: Display billing info in projects
+  default_tax_percent:
+    type: str
+    required: false
+    description: Default tax percent
+  accounting_start_date:
+    type: str
+    required: false
+    description: Accounting start date
+  sponsor_number:
+    type: int
+    required: false
+    description: External ID of the sponsor covering the costs
+  max_service_accounts:
+    type: int
+    required: false
+    description: Maximum number of service accounts allowed
+  project_metadata_checklist:
+    type: str
+    required: false
+    description: Project metadata checklist
+  grace_period_days:
+    type: int
+    required: false
+    description: Number of extra days after project end date before resources are terminated
   slug:
     type: str
     required: false
@@ -80,6 +116,10 @@ options:
     type: str
     required: false
     description: Contact details
+  agreement_number:
+    type: str
+    required: false
+    description: Agreement number
   email:
     type: str
     required: false
@@ -88,6 +128,10 @@ options:
     type: str
     required: false
     description: Phone number
+  access_subnets:
+    type: str
+    required: false
+    description: Enter a comma separated list of IPv4 or IPv6 CIDR addresses from where connection to self-service is allowed.
   registration_code:
     type: str
     required: false
@@ -96,6 +140,10 @@ options:
     type: str
     required: false
     description: Homepage
+  domain:
+    type: str
+    required: false
+    description: Domain
   vat_code:
     type: str
     required: false
@@ -400,16 +448,28 @@ EXAMPLES = """
       api_url: https://waldur.example.com
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       image: string-value
+      blocked: true
+      archived: true
+      display_billing_info_in_projects: true
+      default_tax_percent: '12.34'
+      accounting_start_date: '2023-10-01T12:00:00Z'
+      sponsor_number: 123
+      max_service_accounts: 123
+      project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      grace_period_days: 123
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
       abbreviation: string-value
       description: A sample description created by Ansible.
       contact_details: string-value
+      agreement_number: string-value
       email: alice@example.com
       phone_number: +1-202-555-0104
+      access_subnets: string-value
       registration_code: string-value
       homepage: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      domain: string-value
       vat_code: string-value
       postal: string-value
       address: string-value
@@ -853,15 +913,27 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "backend_id": {"type": "str"},
     "image": {"type": "str"},
+    "blocked": {"type": "bool"},
+    "archived": {"type": "bool"},
+    "display_billing_info_in_projects": {"type": "bool"},
+    "default_tax_percent": {"type": "str"},
+    "accounting_start_date": {"type": "str"},
+    "sponsor_number": {"type": "int"},
+    "max_service_accounts": {"type": "int"},
+    "project_metadata_checklist": {"type": "str"},
+    "grace_period_days": {"type": "int"},
     "slug": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},
     "description": {"type": "str"},
     "contact_details": {"type": "str"},
+    "agreement_number": {"type": "str"},
     "email": {"type": "str"},
     "phone_number": {"type": "str"},
+    "access_subnets": {"type": "str"},
     "registration_code": {"type": "str"},
     "homepage": {"type": "str"},
+    "domain": {"type": "str"},
     "vat_code": {"type": "str"},
     "postal": {"type": "str"},
     "address": {"type": "str"},
@@ -1139,49 +1211,73 @@ RUNNER_CONTEXT = {
     "required_for_create": ["name"],
     "model_param_names": [
         "abbreviation",
+        "access_subnets",
+        "accounting_start_date",
         "address",
+        "agreement_number",
+        "archived",
         "backend_id",
         "bank_account",
         "bank_name",
+        "blocked",
         "contact_details",
         "country",
+        "default_tax_percent",
         "description",
+        "display_billing_info_in_projects",
+        "domain",
         "email",
+        "grace_period_days",
         "homepage",
         "image",
         "latitude",
         "longitude",
+        "max_service_accounts",
         "name",
         "native_name",
         "notification_emails",
         "phone_number",
         "postal",
+        "project_metadata_checklist",
         "registration_code",
         "slug",
+        "sponsor_number",
         "vat_code",
     ],
     "path_param_maps": {},
     "update_fields": [
         "abbreviation",
+        "access_subnets",
+        "accounting_start_date",
         "address",
+        "agreement_number",
+        "archived",
         "backend_id",
         "bank_account",
         "bank_name",
+        "blocked",
         "contact_details",
         "country",
+        "default_tax_percent",
         "description",
+        "display_billing_info_in_projects",
+        "domain",
         "email",
+        "grace_period_days",
         "homepage",
         "image",
         "latitude",
         "longitude",
+        "max_service_accounts",
         "name",
         "native_name",
         "notification_emails",
         "phone_number",
         "postal",
+        "project_metadata_checklist",
         "registration_code",
         "slug",
+        "sponsor_number",
         "vat_code",
     ],
     "update_actions": {},
