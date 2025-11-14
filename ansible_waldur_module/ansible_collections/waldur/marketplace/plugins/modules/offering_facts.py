@@ -53,6 +53,10 @@ options:
     description: Filter by billable.
     type: bool
     required: false
+  can_create_offering_user:
+    description: Filter by can create offering user.
+    type: bool
+    required: false
   category_group_uuid:
     description: Filter by category group uuid.
     type: str
@@ -1174,6 +1178,7 @@ ARGUMENT_SPEC = {
     "allowed_customer_uuid": {"type": "str"},
     "attributes": {"type": "str"},
     "billable": {"type": "bool"},
+    "can_create_offering_user": {"type": "bool"},
     "category_group_uuid": {"type": "str"},
     "category_uuid": {"type": "str"},
     "created": {"type": "str"},
@@ -1216,6 +1221,7 @@ RUNNER_CONTEXT = {
         "allowed_customer_uuid",
         "attributes",
         "billable",
+        "can_create_offering_user",
         "category_group_uuid",
         "category_uuid",
         "created",
