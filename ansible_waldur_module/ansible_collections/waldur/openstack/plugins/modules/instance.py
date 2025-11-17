@@ -1259,11 +1259,11 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
+        "availability_zone",
         "data_volume_type",
         "flavor",
         "security_groups",
-        "availability_zone",
+        "image",
         "ssh_public_key",
         "system_volume_type",
         "connect_directly_to_external_network",
