@@ -110,6 +110,71 @@ options:
     type: str
     required: false
     description: Optional availability group. Will be used for all instances provisioned in this tenant
+  security_groups:
+    type: list
+    required: false
+    description:
+    - A list of security groups names or UUIDs.
+    - This attribute cannot be updated.
+    elements: dict
+    suboptions:
+      name:
+        type: str
+        required: true
+        description: Name
+      description:
+        type: str
+        required: false
+        description: Description
+      rules:
+        type: list
+        required: false
+        description: A list of rules names or UUIDs.
+        elements: dict
+        suboptions:
+          ethertype:
+            type: str
+            required: false
+            choices:
+            - IPv4
+            - IPv6
+            description: IP protocol version - either 'IPv4' or 'IPv6'
+          direction:
+            type: str
+            required: false
+            choices:
+            - ingress
+            - egress
+            description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
+          protocol:
+            type: str
+            required: false
+            choices:
+            - tcp
+            - udp
+            - icmp
+            - ''
+            description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+          from_port:
+            type: int
+            required: false
+            description: Starting port number in the range (1-65535)
+          to_port:
+            type: int
+            required: false
+            description: Ending port number in the range (1-65535)
+          cidr:
+            type: str
+            required: false
+            description: CIDR notation for the source/destination network address range
+          description:
+            type: str
+            required: false
+            description: Description
+          remote_group:
+            type: str
+            required: false
+            description: Remote security group that this rule references, if any
 requirements:
 - python >= 3.11
 
@@ -132,6 +197,18 @@ EXAMPLES = """
       skip_connection_extnet: true
       skip_creation_of_default_router: true
       availability_zone: string-value
+      security_groups:
+      - name: My-Awesome-vpc
+        description: A sample description created by Ansible.
+        rules:
+        - ethertype: string-value
+          direction: string-value
+          protocol: string-value
+          from_port: 8080
+          to_port: 8080
+          cidr: 192.168.1.0/24
+          description: A sample description created by Ansible.
+          remote_group: string-value
 - name: Remove an existing vpc
   hosts: localhost
   tasks:
@@ -423,6 +500,7 @@ ARGUMENT_SPEC = {
     "skip_connection_extnet": {"type": "bool"},
     "skip_creation_of_default_router": {"type": "bool"},
     "availability_zone": {"type": "str"},
+    "security_groups": {"type": "list"},
 }
 
 RUNNER_CONTEXT = {
@@ -440,6 +518,7 @@ RUNNER_CONTEXT = {
         "availability_zone",
         "description",
         "name",
+        "security_groups",
         "skip_connection_extnet",
         "skip_creation_of_default_router",
         "subnet_cidr",

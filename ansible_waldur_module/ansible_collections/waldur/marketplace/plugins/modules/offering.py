@@ -892,41 +892,19 @@ resource:
       sample: string-value
     attributes:
       description: Attributes
+      type: dict
+      returned: always
+      sample: {}
+    options:
+      description: Options
       type: str
       returned: always
       sample: null
-    options:
-      description: Options
-      type: dict
-      returned: always
-      sample: {}
-      contains:
-        order:
-          description: A list of order items.
-          type: list
-          returned: always
-          sample: []
-        options:
-          description: Options
-          type: dict
-          returned: always
-          sample: {}
     resource_options:
       description: Resource options
-      type: dict
+      type: str
       returned: always
-      sample: {}
-      contains:
-        order:
-          description: A list of order items.
-          type: list
-          returned: always
-          sample: []
-        options:
-          description: Options
-          type: dict
-          returned: always
-          sample: {}
+      sample: null
     components:
       description: A list of components items.
       type: list
@@ -1515,6 +1493,42 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    integration_status:
+      description: A list of integration status items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        agent_type:
+          description: Agent type
+          type: str
+          returned: always
+          sample: null
+        status:
+          description: Status
+          type: str
+          returned: always
+          sample: OK
+        last_request_timestamp:
+          description: Last request timestamp
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        service_name:
+          description: Service name
+          type: str
+          returned: always
+          sample: string-value
+    google_calendar_is_public:
+      description: Google calendar is public
+      type: bool
+      returned: always
+      sample: true
+    google_calendar_link:
+      description: Get the Google Calendar link for an offering.
+      type: str
+      returned: always
+      sample: string-value
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list

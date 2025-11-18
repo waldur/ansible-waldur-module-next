@@ -372,11 +372,46 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    created_by:
-      description: Created by URL
+    consumer_reviewed_by:
+      description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
       type: str
       returned: always
       sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    consumer_reviewed_by_full_name:
+      description: Consumer reviewed by full name
+      type: str
+      returned: always
+      sample: string-value
+    consumer_reviewed_by_username:
+      description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+      type: str
+      returned: always
+      sample: string-value
+    consumer_reviewed_at:
+      description: Consumer reviewed at
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
+    provider_reviewed_by:
+      description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+      type: str
+      returned: always
+      sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    provider_reviewed_by_full_name:
+      description: Provider reviewed by full name
+      type: str
+      returned: always
+      sample: string-value
+    provider_reviewed_by_username:
+      description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+      type: str
+      returned: always
+      sample: string-value
+    provider_reviewed_at:
+      description: Provider reviewed at
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
     created_by_username:
       description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
       type: str
@@ -387,43 +422,8 @@ resource:
       type: str
       returned: always
       sample: string-value
-    consumer_reviewed_by:
-      description: Consumer reviewed by URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    consumer_reviewed_at:
-      description: Consumer reviewed at
-      type: str
-      returned: always
-      sample: '2023-10-01T12:00:00Z'
-    consumer_reviewed_by_username:
-      description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
-      type: str
-      returned: always
-      sample: string-value
-    consumer_reviewed_by_full_name:
-      description: Consumer reviewed by full name
-      type: str
-      returned: always
-      sample: string-value
-    project:
-      description: Project URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/project/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-    project_uuid:
-      description: Project UUID
-      type: str
-      returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    project_name:
-      description: Project name
-      type: str
-      returned: always
-      sample: Internal Research Project
-    project_description:
-      description: Project description
+    created_by_civil_number:
+      description: Created by civil number
       type: str
       returned: always
       sample: string-value
@@ -437,6 +437,91 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    customer_slug:
+      description: Customer slug
+      type: str
+      returned: always
+      sample: string-value
+    project_name:
+      description: Project name
+      type: str
+      returned: always
+      sample: Internal Research Project
+    project_uuid:
+      description: Project UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    project_description:
+      description: Project description
+      type: str
+      returned: always
+      sample: string-value
+    project_slug:
+      description: Project slug
+      type: str
+      returned: always
+      sample: string-value
+    old_plan_name:
+      description: Old plan name
+      type: str
+      returned: always
+      sample: string-value
+    new_plan_name:
+      description: New plan name
+      type: str
+      returned: always
+      sample: string-value
+    old_plan_uuid:
+      description: Old plan UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    new_plan_uuid:
+      description: New plan UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    old_cost_estimate:
+      description: Old cost estimate
+      type: str
+      returned: always
+      sample: '12.34'
+    new_cost_estimate:
+      description: New cost estimate
+      type: str
+      returned: always
+      sample: '12.34'
+    can_terminate:
+      description: Can terminate
+      type: bool
+      returned: always
+      sample: true
+    fixed_price:
+      description: Fixed price
+      type: float
+      returned: always
+      sample: 123.45
+    activation_price:
+      description: Activation price
+      type: float
+      returned: always
+      sample: 123.45
+    termination_comment:
+      description: Termination comment
+      type: str
+      returned: always
+      sample: string-value
+    backend_id:
+      description: Backend ID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    issue:
+      description: Issue
+      type: str
+      returned: always
+      sample: null
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
