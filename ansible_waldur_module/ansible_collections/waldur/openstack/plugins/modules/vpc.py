@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: vpc
 short_description: Create, update or delete a vpc via the marketplace.
-description: 'When the resource already exists, the following fields can be updated: availability_zone, default_volume_type_name, description, name.'
+description: 'When the resource already exists, the following fields can be updated: availability_zone, default_volume_type_name, description, name, security_groups.'
 author: Waldur Team
 options:
   access_token:
@@ -113,9 +113,7 @@ options:
   security_groups:
     type: list
     required: false
-    description:
-    - A list of security groups names or UUIDs.
-    - This attribute cannot be updated.
+    description: A list of security groups names or UUIDs.
     elements: dict
     suboptions:
       name:
@@ -555,7 +553,17 @@ RUNNER_CONTEXT = {
         },
     },
     "resolver_order": ["project", "offering", "customer"],
-    "update_actions": {},
+    "update_actions": {
+        "push_security_groups": {
+            "path": "/api/openstack-tenants/{uuid}/push_security_groups/",
+            "param": "security_groups",
+            "compare_key": "security_groups",
+            "maps_to": None,
+            "wrap_in_object": False,
+            "idempotency_keys": ["description", "name", "rules", "uuid"],
+            "defaults_map": {},
+        }
+    },
     "resource_detail_path": "/api/openstack-tenants/{uuid}/",
     "transformations": {},
 }
