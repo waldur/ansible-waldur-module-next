@@ -359,6 +359,11 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01'
+    slug:
+      description: Slug
+      type: str
+      returned: always
+      sample: string-value
     url:
       description: URL URL
       type: str

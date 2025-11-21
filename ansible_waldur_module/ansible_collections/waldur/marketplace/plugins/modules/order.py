@@ -113,6 +113,12 @@ options:
     description:
     - Enables delayed processing of resource provisioning order.
     - This attribute cannot be updated.
+  slug:
+    type: str
+    required: false
+    description:
+    - Slug
+    - This attribute cannot be updated.
   project:
     type: str
     required: false
@@ -143,6 +149,7 @@ EXAMPLES = """
       request_comment: string-value
       type: null
       start_date: '2023-10-01'
+      slug: string-value
       project: Project name or UUID
 - name: Remove an existing order
   hosts: localhost
@@ -367,6 +374,11 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01'
+    slug:
+      description: Slug
+      type: str
+      returned: always
+      sample: string-value
     url:
       description: URL URL
       type: str
@@ -566,6 +578,7 @@ ARGUMENT_SPEC = {
     "request_comment": {"type": "str"},
     "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
     "start_date": {"type": "str"},
+    "slug": {"type": "str"},
     "project": {"type": "str"},
 }
 
@@ -587,6 +600,7 @@ RUNNER_CONTEXT = {
         "limits",
         "plan",
         "request_comment",
+        "slug",
         "start_date",
         "type",
     ],
