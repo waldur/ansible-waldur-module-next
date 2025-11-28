@@ -46,11 +46,11 @@ options:
     type: str
     required: false
   attributes:
-    description: Filter by attributes.
+    description: Offering attributes (JSON)
     type: str
     required: false
   billable:
-    description: Filter by billable.
+    description: Billable
     type: bool
     required: false
   can_create_offering_user:
@@ -58,11 +58,11 @@ options:
     type: bool
     required: false
   category_group_uuid:
-    description: Filter by category group uuid.
+    description: Category group UUID
     type: str
     required: false
   category_uuid:
-    description: Filter by category uuid.
+    description: Category UUID
     type: str
     required: false
   created:
@@ -70,7 +70,7 @@ options:
     type: str
     required: false
   description:
-    description: Filter by description.
+    description: Description contains
     type: str
     required: false
   has_active_terms_of_service:
@@ -90,12 +90,12 @@ options:
     type: str
     required: false
   organization_group_uuid:
-    description: Filter by organization group uuid.
+    description: Organization group UUID
     type: list
     required: false
     elements: str
   parent_uuid:
-    description: Filter by parent uuid.
+    description: Parent offering UUID
     type: str
     required: false
   project_uuid:
@@ -123,11 +123,11 @@ options:
     type: str
     required: false
   shared:
-    description: Filter by shared.
+    description: Shared
     type: bool
     required: false
   state:
-    description: Filter by state.
+    description: Offering state
     type: list
     required: false
     elements: str
@@ -137,7 +137,7 @@ options:
     - Draft
     - Paused
   type:
-    description: Filter by type.
+    description: Offering type
     type: list
     required: false
     elements: str

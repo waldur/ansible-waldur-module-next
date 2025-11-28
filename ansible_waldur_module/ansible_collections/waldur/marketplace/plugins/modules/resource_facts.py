@@ -42,7 +42,7 @@ options:
     type: str
     required: false
   category_uuid:
-    description: Filter by category uuid.
+    description: Category UUID
     type: str
     required: false
   component_count:
@@ -54,15 +54,15 @@ options:
     type: str
     required: false
   customer:
-    description: Filter by customer.
+    description: Customer URL
     type: str
     required: false
   customer_uuid:
-    description: Filter by customer uuid.
+    description: Customer UUID
     type: str
     required: false
   downscaled:
-    description: Filter by downscaled.
+    description: Downscaled
     type: bool
     required: false
   has_terminate_date:
@@ -90,7 +90,7 @@ options:
     type: str
     required: false
   offering_billable:
-    description: Filter by offering billable.
+    description: Offering billable
     type: bool
     required: false
   offering_shared:
@@ -103,7 +103,7 @@ options:
     required: false
     elements: str
   offering_type:
-    description: Filter by offering type.
+    description: Offering type
     type: str
     required: false
   offering_uuid:
@@ -119,24 +119,39 @@ options:
     description: Filter resources with only usage-based components
     type: bool
     required: false
+  order_state:
+    description: Order state
+    type: list
+    required: false
+    elements: str
+    choices:
+    - canceled
+    - done
+    - erred
+    - executing
+    - pending-consumer
+    - pending-project
+    - pending-provider
+    - pending-start-date
+    - rejected
   parent_offering_uuid:
     description: Filter by parent offering uuid.
     type: str
     required: false
   paused:
-    description: Filter by paused.
+    description: Paused
     type: bool
     required: false
   plan_uuid:
-    description: Filter by plan uuid.
+    description: Plan UUID
     type: str
     required: false
   project_name:
-    description: Filter by project name.
+    description: Project name
     type: str
     required: false
   provider_uuid:
-    description: Filter by provider uuid.
+    description: Provider UUID
     type: str
     required: false
   query:
@@ -144,7 +159,7 @@ options:
     type: str
     required: false
   restrict_member_access:
-    description: Filter by restrict member access.
+    description: Restrict member access
     type: bool
     required: false
   runtime_state:
@@ -152,11 +167,11 @@ options:
     type: str
     required: false
   service_manager_uuid:
-    description: Service Manager UUID
+    description: Service manager UUID
     type: str
     required: false
   state:
-    description: Filter by state.
+    description: Resource state
     type: list
     required: false
     elements: str
@@ -638,6 +653,20 @@ ARGUMENT_SPEC = {
     "offering_uuid": {"type": "list"},
     "only_limit_based": {"type": "bool"},
     "only_usage_based": {"type": "bool"},
+    "order_state": {
+        "type": "list",
+        "choices": [
+            "canceled",
+            "done",
+            "erred",
+            "executing",
+            "pending-consumer",
+            "pending-project",
+            "pending-provider",
+            "pending-start-date",
+            "rejected",
+        ],
+    },
     "parent_offering_uuid": {"type": "str"},
     "paused": {"type": "bool"},
     "plan_uuid": {"type": "str"},
@@ -689,6 +718,7 @@ RUNNER_CONTEXT = {
         "offering_uuid",
         "only_limit_based",
         "only_usage_based",
+        "order_state",
         "parent_offering_uuid",
         "paused",
         "plan_uuid",

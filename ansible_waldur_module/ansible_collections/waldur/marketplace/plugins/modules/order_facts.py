@@ -34,15 +34,15 @@ options:
     type: str
     required: true
   can_approve_as_consumer:
-    description: Filter by can approve as consumer.
+    description: Can approve as consumer
     type: bool
     required: false
   can_approve_as_provider:
-    description: Filter by can approve as provider.
+    description: Can approve as provider
     type: bool
     required: false
   category_uuid:
-    description: Filter by category uuid.
+    description: Category UUID
     type: str
     required: false
   created:
@@ -50,7 +50,7 @@ options:
     type: str
     required: false
   customer_uuid:
-    description: Filter by customer uuid.
+    description: Customer UUID
     type: str
     required: false
   modified:
@@ -67,12 +67,12 @@ options:
     required: false
     elements: str
   offering_type:
-    description: Filter by offering type.
+    description: Offering type
     type: list
     required: false
     elements: str
   offering_uuid:
-    description: Filter by offering uuid.
+    description: Offering UUID
     type: str
     required: false
   parent_offering_uuid:
@@ -80,11 +80,11 @@ options:
     type: str
     required: false
   project_uuid:
-    description: Filter by project uuid.
+    description: Project UUID
     type: str
     required: false
   provider_uuid:
-    description: Filter by provider uuid.
+    description: Provider UUID
     type: str
     required: false
   query:
@@ -92,19 +92,19 @@ options:
     type: str
     required: false
   resource:
-    description: Filter by resource.
+    description: Resource URL
     type: str
     required: false
   resource_uuid:
-    description: Filter by resource uuid.
+    description: Resource UUID
     type: str
     required: false
   service_manager_uuid:
-    description: Filter by service manager uuid.
+    description: Service manager UUID
     type: str
     required: false
   state:
-    description: Filter by state.
+    description: Order state
     type: list
     required: false
     elements: str
@@ -119,7 +119,7 @@ options:
     - pending-start-date
     - rejected
   type:
-    description: Filter by type.
+    description: Order type
     type: list
     required: false
     elements: str
