@@ -46,15 +46,15 @@ options:
     type: str
     required: false
   attach_volume_uuid:
-    description: Filter by attach volume uuid.
+    description: Filter for attachment to volume UUID
     type: str
     required: false
   availability_zone_name:
-    description: Filter by availability zone name.
+    description: Availability zone name
     type: str
     required: false
   backend_id:
-    description: Filter by backend id.
+    description: Backend ID
     type: str
     required: false
   can_manage:
@@ -62,27 +62,27 @@ options:
     type: bool
     required: false
   customer_abbreviation:
-    description: Filter by customer abbreviation.
+    description: Customer abbreviation
     type: str
     required: false
   customer_name:
-    description: Filter by customer name.
+    description: Customer name
     type: str
     required: false
   customer_native_name:
-    description: Filter by customer native name.
+    description: Customer native name
     type: str
     required: false
   description:
-    description: Filter by description.
+    description: Description
     type: str
     required: false
   external_ip:
-    description: Filter by external ip.
+    description: External IP
     type: str
     required: false
   project_name:
-    description: Filter by project name.
+    description: Project name
     type: str
     required: false
   query:
@@ -94,15 +94,15 @@ options:
     type: str
     required: false
   service_settings_name:
-    description: Filter by service settings name.
+    description: Service settings name
     type: str
     required: false
   service_settings_uuid:
-    description: Filter by service settings uuid.
+    description: Service settings UUID
     type: str
     required: false
   state:
-    description: Filter by state.
+    description: State
     type: list
     required: false
     elements: str
@@ -116,7 +116,7 @@ options:
     - UPDATE_SCHEDULED
     - UPDATING
   uuid:
-    description: Filter by uuid.
+    description: UUID
     type: str
     required: false
 requirements:

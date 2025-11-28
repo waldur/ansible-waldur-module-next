@@ -34,23 +34,23 @@ options:
     type: str
     required: true
   offering_uuid:
-    description: Filter by offering uuid.
+    description: Offering UUID
     type: str
     required: false
   settings:
-    description: Filter by settings.
+    description: Settings URL
     type: str
     required: false
   settings_uuid:
-    description: Filter by settings uuid.
+    description: Settings UUID
     type: str
     required: false
   tenant:
-    description: Filter by tenant.
+    description: Tenant URL
     type: str
     required: false
   tenant_uuid:
-    description: Filter by tenant uuid.
+    description: Tenant UUID
     type: str
     required: false
 requirements:

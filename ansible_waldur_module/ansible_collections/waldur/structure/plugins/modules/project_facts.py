@@ -58,19 +58,19 @@ options:
     type: str
     required: false
   customer_abbreviation:
-    description: Filter by customer abbreviation.
+    description: Customer abbreviation
     type: str
     required: false
   customer_name:
-    description: Filter by customer name.
+    description: Customer name
     type: str
     required: false
   customer_native_name:
-    description: Filter by customer native name.
+    description: Customer native name
     type: str
     required: false
   description:
-    description: Filter by description.
+    description: Description
     type: str
     required: false
   include_terminated:
@@ -78,7 +78,7 @@ options:
     type: bool
     required: false
   is_removed:
-    description: Filter by is removed.
+    description: Is removed
     type: bool
     required: false
   modified:
@@ -90,7 +90,7 @@ options:
     type: str
     required: false
   slug:
-    description: Filter by slug.
+    description: Slug
     type: str
     required: false
 requirements:

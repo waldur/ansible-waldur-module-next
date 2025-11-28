@@ -82,11 +82,11 @@ options:
     type: str
     required: false
   tenant:
-    description: Filter by tenant.
+    description: Tenant URL
     type: str
     required: false
   tenant_uuid:
-    description: Filter by tenant uuid.
+    description: Tenant UUID
     type: str
     required: false
 requirements:

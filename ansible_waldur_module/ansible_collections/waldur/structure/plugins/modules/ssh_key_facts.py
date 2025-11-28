@@ -58,11 +58,11 @@ options:
     type: str
     required: false
   user_uuid:
-    description: Filter by user uuid.
+    description: User UUID
     type: str
     required: false
   uuid:
-    description: Filter by uuid.
+    description: UUID
     type: str
     required: false
 requirements:
