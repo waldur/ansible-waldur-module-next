@@ -65,6 +65,10 @@ options:
     description: Downscaled
     type: bool
     required: false
+  exclude_pending_transitional:
+    description: Exclude transitional resources with early pending orders
+    type: bool
+    required: false
   has_terminate_date:
     description: Has termination date
     type: bool
@@ -640,6 +644,7 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str"},
     "customer_uuid": {"type": "str"},
     "downscaled": {"type": "bool"},
+    "exclude_pending_transitional": {"type": "bool"},
     "has_terminate_date": {"type": "bool"},
     "lexis_links_supported": {"type": "bool"},
     "limit_based": {"type": "bool"},
@@ -705,6 +710,7 @@ RUNNER_CONTEXT = {
         "customer",
         "customer_uuid",
         "downscaled",
+        "exclude_pending_transitional",
         "has_terminate_date",
         "lexis_links_supported",
         "limit_based",
