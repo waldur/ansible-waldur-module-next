@@ -1,6 +1,6 @@
 namespace: waldur
 name: openstack
-version: 7.9.0-dev.20251130030854
+version: 7.9.1-dev.20251130143726
 readme: README.md
 authors:
 - Waldur Team <info@waldur.com>
