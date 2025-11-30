@@ -125,6 +125,7 @@ options:
     elements: str
     choices:
     - Create
+    - Restore
     - Terminate
     - Update
 requirements:
@@ -557,7 +558,7 @@ ARGUMENT_SPEC = {
             "rejected",
         ],
     },
-    "type": {"type": "list", "choices": ["Create", "Terminate", "Update"]},
+    "type": {"type": "list", "choices": ["Create", "Restore", "Terminate", "Update"]},
 }
 
 RUNNER_CONTEXT = {

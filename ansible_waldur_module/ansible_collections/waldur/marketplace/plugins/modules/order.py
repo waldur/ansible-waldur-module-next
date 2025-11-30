@@ -107,6 +107,7 @@ options:
     - Create
     - Update
     - Terminate
+    - Restore
   start_date:
     type: str
     required: false
@@ -576,7 +577,7 @@ ARGUMENT_SPEC = {
     "accepting_terms_of_service": {"type": "bool"},
     "callback_url": {"type": "str"},
     "request_comment": {"type": "str"},
-    "type": {"type": "str", "choices": ["Create", "Update", "Terminate"]},
+    "type": {"type": "str", "choices": ["Create", "Update", "Terminate", "Restore"]},
     "start_date": {"type": "str"},
     "slug": {"type": "str"},
     "project": {"type": "str"},
