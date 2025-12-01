@@ -1090,6 +1090,13 @@ resource:
       type: bool
       returned: always
       sample: true
+    billing_type_classification:
+      description: 'Classify offering components by billing type.
+
+        Returns ''limit_only'', ''usage_only'', or ''mixed''.'
+      type: str
+      returned: always
+      sample: string-value
     compliance_checklist:
       description: Compliance checklist URL
       type: str
