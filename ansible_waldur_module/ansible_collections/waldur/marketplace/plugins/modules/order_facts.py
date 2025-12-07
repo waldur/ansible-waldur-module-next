@@ -515,6 +515,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    order_subtype:
+      description: Order subtype
+      type: str
+      returned: always
+      sample: string-value
     issue:
       description: Issue
       type: str
