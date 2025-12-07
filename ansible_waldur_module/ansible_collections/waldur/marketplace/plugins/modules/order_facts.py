@@ -482,9 +482,9 @@ resource:
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     old_cost_estimate:
       description: Old cost estimate
-      type: str
+      type: float
       returned: always
-      sample: '12.34'
+      sample: 123.45
     new_cost_estimate:
       description: New cost estimate
       type: str
