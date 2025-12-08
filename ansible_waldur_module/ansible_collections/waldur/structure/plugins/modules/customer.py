@@ -558,42 +558,6 @@ resource:
       type: str
       returned: always
       sample: string-value
-    projects:
-      description: A list of projects items.
-      type: list
-      returned: always
-      sample: []
-      contains:
-        url:
-          description: URL URL
-          type: str
-          returned: always
-          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-        uuid:
-          description: UUID
-          type: str
-          returned: always
-          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          description: Name
-          type: str
-          returned: always
-          sample: My-Awesome-Resource
-        image:
-          description: Image URL
-          type: str
-          returned: always
-          sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-        resource_count:
-          description: Resource count
-          type: int
-          returned: always
-          sample: 123
-        end_date:
-          description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
-          type: str
-          returned: always
-          sample: '2023-10-01'
     backend_id:
       description: Organization identifier in another application.
       type: str
