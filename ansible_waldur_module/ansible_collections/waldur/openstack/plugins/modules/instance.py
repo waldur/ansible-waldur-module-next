@@ -1261,10 +1261,10 @@ RUNNER_CONTEXT = {
     "attribute_param_names": [
         "ssh_public_key",
         "security_groups",
+        "data_volume_type",
         "image",
         "system_volume_type",
         "flavor",
-        "data_volume_type",
         "availability_zone",
         "connect_directly_to_external_network",
         "data_volume_size",
