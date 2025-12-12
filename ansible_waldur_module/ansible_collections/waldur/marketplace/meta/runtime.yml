@@ -5,4 +5,5 @@ action_groups:
   - offering_facts
   - order
   - order_facts
+  - resource_action
   - resource_facts
