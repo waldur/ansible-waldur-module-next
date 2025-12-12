@@ -634,6 +634,117 @@ resource:
       type: str
       returned: always
       sample: null
+    offering_components:
+      description: A list of offering components items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        billing_type:
+          description: Billing type
+          type: str
+          returned: always
+          sample: fixed
+        type:
+          description: Unique internal name of the measured unit, for example floating_ip.
+          type: str
+          returned: always
+          sample: string-value
+        name:
+          description: Display name for the measured unit, for example, Floating IP.
+          type: str
+          returned: always
+          sample: My-Awesome-resource
+        description:
+          description: Description
+          type: str
+          returned: always
+          sample: A sample description created by Ansible.
+        measured_unit:
+          description: Unit of measurement, for example, GB.
+          type: str
+          returned: always
+          sample: string-value
+        unit_factor:
+          description: The conversion factor from backend units to measured_unit
+          type: int
+          returned: always
+          sample: 123
+        limit_period:
+          description: Limit period
+          type: str
+          returned: always
+          sample: null
+        limit_amount:
+          description: Limit amount
+          type: int
+          returned: always
+          sample: 123
+        article_code:
+          description: Article code
+          type: str
+          returned: always
+          sample: string-value
+        max_value:
+          description: Max value
+          type: int
+          returned: always
+          sample: 123
+        min_value:
+          description: Min value
+          type: int
+          returned: always
+          sample: 123
+        max_available_limit:
+          description: Max available limit
+          type: int
+          returned: always
+          sample: 123
+        is_boolean:
+          description: Is boolean
+          type: bool
+          returned: always
+          sample: true
+        default_limit:
+          description: Default limit
+          type: int
+          returned: always
+          sample: 123
+        factor:
+          description: Factor
+          type: int
+          returned: always
+          sample: 123
+        is_builtin:
+          description: Is builtin
+          type: bool
+          returned: always
+          sample: true
+        is_prepaid:
+          description: Is prepaid
+          type: bool
+          returned: always
+          sample: true
+        overage_component:
+          description: Overage component
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        min_prepaid_duration:
+          description: Min prepaid duration
+          type: int
+          returned: always
+          sample: 123
+        max_prepaid_duration:
+          description: Max prepaid duration
+          type: int
+          returned: always
+          sample: 123
 
 """
 
