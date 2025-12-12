@@ -91,7 +91,7 @@ options:
   project_metadata_checklist:
     type: str
     required: false
-    description: Project metadata checklist
+    description: Checklist to be used for project metadata validation in this organization
   grace_period_days:
     type: int
     required: false
@@ -99,7 +99,7 @@ options:
   slug:
     type: str
     required: false
-    description: Slug
+    description: URL-friendly identifier. Only editable by staff users.
   native_name:
     type: str
     required: false
@@ -175,7 +175,7 @@ options:
   country:
     type: str
     required: false
-    description: Country
+    description: Country code (ISO 3166-1 alpha-2)
     choices:
     - AW
     - AF
@@ -513,7 +513,7 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     organization_groups:
-      description: A list of organization groups items.
+      description: Organization groups this customer belongs to
       type: list
       returned: always
       sample: []
@@ -534,12 +534,12 @@ resource:
           returned: always
           sample: My-Awesome-Resource
         parent_uuid:
-          description: Parent UUID
+          description: UUID of the parent organization group
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         parent_name:
-          description: Parent name
+          description: Name of the parent organization group
           type: str
           returned: always
           sample: string-value
@@ -549,12 +549,12 @@ resource:
           returned: always
           sample: https://api.example.com/api/parent/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         customers_count:
-          description: Customers count
+          description: Number of customers in this organization group
           type: int
           returned: always
           sample: 123
     display_name:
-      description: Display name
+      description: Display name of the organization (includes native name if available)
       type: str
       returned: always
       sample: string-value
@@ -594,12 +594,12 @@ resource:
       returned: always
       sample: '2023-10-01T12:00:00Z'
     projects_count:
-      description: Projects count
+      description: Number of projects in this organization
       type: int
       returned: always
       sample: 123
     users_count:
-      description: Users count
+      description: Number of users with access to this organization
       type: int
       returned: always
       sample: 123
@@ -609,7 +609,7 @@ resource:
       returned: always
       sample: 123
     country_name:
-      description: Country name
+      description: Human-readable country name
       type: str
       returned: always
       sample: string-value
@@ -619,7 +619,7 @@ resource:
       returned: always
       sample: 123
     project_metadata_checklist:
-      description: Project metadata checklist
+      description: Checklist to be used for project metadata validation in this organization
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -634,7 +634,7 @@ resource:
       returned: always
       sample: My-Awesome-Resource
     slug:
-      description: Slug
+      description: URL-friendly identifier. Only editable by staff users.
       type: str
       returned: always
       sample: string-value
@@ -729,7 +729,7 @@ resource:
       returned: always
       sample: string-value
     country:
-      description: Country
+      description: Country code (ISO 3166-1 alpha-2)
       type: str
       returned: always
       sample: null

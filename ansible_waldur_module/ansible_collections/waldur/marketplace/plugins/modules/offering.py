@@ -58,7 +58,7 @@ options:
     type: str
     required: false
     description:
-    - Slug
+    - URL-friendly identifier. Only editable by staff users.
     - This attribute cannot be updated.
   description:
     type: str
@@ -192,7 +192,7 @@ options:
     type: str
     required: false
     description:
-    - Country
+    - Country code (ISO 3166-1 alpha-2)
     - This attribute cannot be updated.
     choices:
     - AW
@@ -590,7 +590,7 @@ resource:
       returned: always
       sample: My-Awesome-Resource
     slug:
-      description: Slug
+      description: URL-friendly identifier. Only editable by staff users.
       type: str
       returned: always
       sample: string-value
@@ -1154,12 +1154,12 @@ resource:
               returned: always
               sample: My-Awesome-Resource
             parent_uuid:
-              description: Parent UUID
+              description: UUID of the parent organization group
               type: str
               returned: always
               sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             parent_name:
-              description: Parent name
+              description: Name of the parent organization group
               type: str
               returned: always
               sample: string-value
@@ -1169,7 +1169,7 @@ resource:
               returned: always
               sample: https://api.example.com/api/parent/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
             customers_count:
-              description: Customers count
+              description: Number of customers in this organization group
               type: int
               returned: always
               sample: 123
@@ -1393,7 +1393,7 @@ resource:
       returned: always
       sample: 123.45
     country:
-      description: Country
+      description: Country code (ISO 3166-1 alpha-2)
       type: str
       returned: always
       sample: null
@@ -1424,12 +1424,12 @@ resource:
           returned: always
           sample: My-Awesome-Resource
         parent_uuid:
-          description: Parent UUID
+          description: UUID of the parent organization group
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         parent_name:
-          description: Parent name
+          description: Name of the parent organization group
           type: str
           returned: always
           sample: string-value
@@ -1439,7 +1439,7 @@ resource:
           returned: always
           sample: https://api.example.com/api/parent/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         customers_count:
-          description: Customers count
+          description: Number of customers in this organization group
           type: int
           returned: always
           sample: 123

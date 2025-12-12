@@ -59,11 +59,11 @@ options:
   slug:
     type: str
     required: false
-    description: Slug
+    description: URL-friendly identifier. Only editable by staff users.
   description:
     type: str
     required: false
-    description: Description
+    description: Project description (HTML content will be sanitized)
   type:
     type: str
     required: false
@@ -75,11 +75,11 @@ options:
   start_date:
     type: str
     required: false
-    description: Start date
+    description: Project start date. Cannot be edited after the start date has arrived.
   end_date:
     type: str
     required: false
-    description: End date
+    description: Project end date. Setting this field requires DELETE_PROJECT permission.
   oecd_fos_2007_code:
     type: str
     required: false
@@ -148,7 +148,7 @@ options:
   staff_notes:
     type: str
     required: false
-    description: Staff notes
+    description: Internal notes visible only to staff and support users (HTML content will be sanitized)
   grace_period_days:
     type: int
     required: false
@@ -215,7 +215,7 @@ resource:
       returned: always
       sample: My-Awesome-Resource
     slug:
-      description: Slug
+      description: URL-friendly identifier. Only editable by staff users.
       type: str
       returned: always
       sample: string-value
@@ -250,7 +250,7 @@ resource:
       returned: always
       sample: string-value
     description:
-      description: Description
+      description: Project description (HTML content will be sanitized)
       type: str
       returned: always
       sample: A sample description created by Ansible.
@@ -285,12 +285,12 @@ resource:
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     start_date:
-      description: Start date
+      description: Project start date. Cannot be edited after the start date has arrived.
       type: str
       returned: always
       sample: '2023-10-01'
     end_date:
-      description: End date
+      description: Project end date. Setting this field requires DELETE_PROJECT permission.
       type: str
       returned: always
       sample: '2023-10-01'
@@ -305,7 +305,7 @@ resource:
       returned: always
       sample: null
     oecd_fos_2007_label:
-      description: Oecd fos 2007 label
+      description: Human-readable label for the OECD FOS 2007 classification code
       type: str
       returned: always
       sample: string-value
@@ -320,7 +320,7 @@ resource:
       returned: always
       sample: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     resources_count:
-      description: Resources count
+      description: Number of active resources in this project
       type: int
       returned: always
       sample: 123
@@ -340,12 +340,12 @@ resource:
       returned: always
       sample: true
     termination_metadata:
-      description: Termination metadata
+      description: Metadata about project termination (read-only)
       type: str
       returned: always
       sample: null
     staff_notes:
-      description: Staff notes
+      description: Internal notes visible only to staff and support users (HTML content will be sanitized)
       type: str
       returned: always
       sample: string-value

@@ -483,7 +483,7 @@ resource:
       returned: always
       sample: My-Awesome-resource
     slug:
-      description: Slug
+      description: URL-friendly identifier. Only editable by staff users.
       type: str
       returned: always
       sample: string-value
@@ -504,12 +504,12 @@ resource:
       sample: []
       contains:
         header:
-          description: Header
+          description: Section header text
           type: str
           returned: always
           sample: string-value
         body:
-          description: Body
+          description: Section body content
           type: str
           returned: always
           sample: string-value

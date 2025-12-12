@@ -118,7 +118,7 @@ options:
     type: str
     required: false
     description:
-    - Slug
+    - URL-friendly identifier. Only editable by staff users.
     - This attribute cannot be updated.
   project:
     type: str
