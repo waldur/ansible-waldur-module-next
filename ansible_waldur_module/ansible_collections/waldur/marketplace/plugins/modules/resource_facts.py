@@ -629,6 +629,11 @@ resource:
       type: dict
       returned: always
       sample: {}
+    offering_state:
+      description: Offering state
+      type: str
+      returned: always
+      sample: null
 
 """
 
