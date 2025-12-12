@@ -244,7 +244,7 @@ resource:
           returned: always
           sample: My-Awesome-offering
         url:
-          description: URL
+          description: URL of the access endpoint
           type: str
           returned: always
           sample: string-value

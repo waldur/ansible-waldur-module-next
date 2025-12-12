@@ -565,7 +565,7 @@ resource:
           returned: always
           sample: My-Awesome-resource
         url:
-          description: URL
+          description: URL of the access endpoint
           type: str
           returned: always
           sample: string-value
