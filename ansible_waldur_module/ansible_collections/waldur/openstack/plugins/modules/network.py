@@ -103,6 +103,17 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       tenant: Tenant name or UUID
+- name: Update OpenStack network - set mtu
+  hosts: localhost
+  tasks:
+  - name: Update OpenStack network
+    waldur.openstack.network:
+      state: present
+      name: My-Awesome-OpenStack-network
+      mtu: 123
+      tenant: Tenant name or UUID
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
 
 """
 

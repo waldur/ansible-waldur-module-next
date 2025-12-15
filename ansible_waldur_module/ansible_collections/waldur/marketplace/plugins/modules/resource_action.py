@@ -41,6 +41,14 @@ options:
     - pull
     - terminate
     - unlink
+  customer:
+    description: The name or UUID of the parent customer for filtering.
+    type: str
+    required: false
+  project:
+    description: The name or UUID of the parent project for filtering.
+    type: str
+    required: false
 requirements:
 - python >= 3.11
 
@@ -55,6 +63,8 @@ EXAMPLES = """
       name: My-Target-marketplace-resource
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: pull
 - name: Perform 'terminate' action on a marketplace resource
   hosts: localhost
@@ -64,6 +74,8 @@ EXAMPLES = """
       name: My-Target-marketplace-resource
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: terminate
 - name: Perform 'unlink' action on a marketplace resource
   hosts: localhost
@@ -73,6 +85,8 @@ EXAMPLES = """
       name: My-Target-marketplace-resource
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
+      customer: Parent Customer Name or UUID
+      project: Parent Project Name or UUID
       action: unlink
 
 """
@@ -642,15 +656,26 @@ ARGUMENT_SPEC = {
         "choices": ["pull", "terminate", "unlink"],
         "required": True,
     },
+    "customer": {"type": "str"},
+    "project": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
     "resource_type": "marketplace resource",
     "check_url": "/api/marketplace-resources/",
-    "check_filter_keys": {},
+    "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
     "retrieve_url": "/api/marketplace-resources/{uuid}/",
     "identifier_param": "name",
-    "resolvers": {},
+    "resolvers": {
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": "Customer '{value}' not found.",
+        },
+        "project": {
+            "url": "/api/projects/",
+            "error_message": "Project '{value}' not found.",
+        },
+    },
     "actions": {
         "pull": "/api/marketplace-resources/{uuid}/pull/",
         "terminate": "/api/marketplace-resources/{uuid}/terminate/",

@@ -95,6 +95,17 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       tenant: Tenant name or UUID
+- name: Update OpenStack floating IP - update description
+  hosts: localhost
+  tasks:
+  - name: Update OpenStack floating IP
+    waldur.openstack.floating_ip:
+      state: present
+      name: My-Awesome-OpenStack-floating-IP
+      description: A sample description created by Ansible.
+      tenant: Tenant name or UUID
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
 
 """
 

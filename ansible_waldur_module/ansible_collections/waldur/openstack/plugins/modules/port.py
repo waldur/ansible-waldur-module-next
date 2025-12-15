@@ -141,6 +141,17 @@ EXAMPLES = """
       name: My-Awesome-OpenStack-port
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
+- name: Update OpenStack port - update security groups
+  hosts: localhost
+  tasks:
+  - name: Update OpenStack port
+    waldur.openstack.port:
+      state: present
+      name: My-Awesome-OpenStack-port
+      security_groups:
+      - web-server-sg
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
 
 """
 
@@ -553,7 +564,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
         },
     },
-    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
+    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],
