@@ -1,4 +1,5 @@
 requires_ansible: '>=2.14'
+requires_python: '>=3.9'
 action_groups:
   structure:
   - customer
