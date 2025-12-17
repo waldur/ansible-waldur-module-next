@@ -1168,6 +1168,7 @@ RUNNER_CONTEXT = {
     "resource_type": "customer",
     "check_url": "/api/customers/",
     "check_filter_keys": {},
+    "name_query_param": "name_exact",
     "list_path": "/api/customers/",
     "create_path": "/api/customers/",
     "destroy_path": "/api/customers/{uuid}/",

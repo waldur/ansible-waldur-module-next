@@ -673,6 +673,7 @@ RUNNER_CONTEXT = {
     "resource_type": "marketplace resource",
     "check_url": "/api/marketplace-resources/",
     "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
+    "name_query_param": "name_exact",
     "list_path": "/api/marketplace-resources/",
     "create_path": None,
     "destroy_path": None,
@@ -702,7 +703,12 @@ RUNNER_CONTEXT = {
         },
     },
     "resolvers": {
-        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -713,6 +719,7 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
         },
     },
     "resolver_order": ["project", "customer"],

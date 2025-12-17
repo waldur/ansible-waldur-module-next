@@ -501,6 +501,7 @@ RUNNER_CONTEXT = {
     "resource_type": "OpenStack port",
     "check_url": "/api/openstack-ports/",
     "check_filter_keys": {"tenant": "tenant_uuid"},
+    "name_query_param": "name_exact",
     "list_path": "/api/openstack-ports/",
     "create_path": "/api/openstack-ports/",
     "destroy_path": "/api/openstack-ports/{uuid}/",
@@ -535,6 +536,7 @@ RUNNER_CONTEXT = {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
         "network": {
             "url": "/api/openstack-networks/",
@@ -546,6 +548,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "name_query_param": "name_exact",
         },
         "security_groups": {
             "url": "/api/openstack-security-groups/",
@@ -557,14 +560,16 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "name_query_param": "name_exact",
         },
         "target_tenant": {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
+    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

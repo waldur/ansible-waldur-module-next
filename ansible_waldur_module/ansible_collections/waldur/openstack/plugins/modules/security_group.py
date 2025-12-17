@@ -435,6 +435,7 @@ RUNNER_CONTEXT = {
         "customer": "customer_uuid",
         "project": "project_uuid",
     },
+    "name_query_param": "name_exact",
     "list_path": "/api/openstack-security-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_security_group/",
     "destroy_path": "/api/openstack-security-groups/{uuid}/",
@@ -468,8 +469,14 @@ RUNNER_CONTEXT = {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
-        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -480,6 +487,7 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
         },
         "remote_group": {
             "url": "/api/openstack-security-groups/",
@@ -491,6 +499,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "name_query_param": "name_exact",
         },
     },
     "resolver_order": ["remote_group", "project", "tenant", "customer"],

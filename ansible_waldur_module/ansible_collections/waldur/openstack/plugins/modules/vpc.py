@@ -505,6 +505,7 @@ RUNNER_CONTEXT = {
     "resource_type": "vpc",
     "check_url": "/api/openstack-tenants/",
     "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
+    "name_query_param": "name_exact",
     "update_url": None,
     "update_fields": [
         "availability_zone",

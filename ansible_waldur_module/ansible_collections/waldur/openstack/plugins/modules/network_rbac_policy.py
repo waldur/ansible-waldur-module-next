@@ -203,6 +203,7 @@ RUNNER_CONTEXT = {
     "resource_type": "OpenStack network RBAC policy",
     "check_url": "/api/openstack-network-rbac-policies/",
     "check_filter_keys": {"tenant": "tenant_uuid", "network": "network_uuid"},
+    "name_query_param": "name_exact",
     "list_path": "/api/openstack-network-rbac-policies/",
     "create_path": "/api/openstack-network-rbac-policies/",
     "destroy_path": "/api/openstack-network-rbac-policies/{uuid}/",
@@ -217,11 +218,13 @@ RUNNER_CONTEXT = {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
         "target_tenant": {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
         "network": {
             "url": "/api/openstack-networks/",
@@ -233,6 +236,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "name_query_param": "name_exact",
         },
     },
     "resolver_order": ["network", "target_tenant", "tenant"],

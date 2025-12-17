@@ -857,9 +857,10 @@ class BaseRunner:
         check_url = self.context["check_url"]
 
         # --- Step 2: Build the query parameters ---
-        # Start with the primary identifier (e.g., 'name_exact').
+        # Start with the primary identifier using the configured query parameter name.
         identifier_value = self.module.params["name"]
-        query_params = {"name_exact": identifier_value}
+        name_query_param = self.context.get("name_query_param", "name_exact")
+        query_params = {name_query_param: identifier_value}
 
         # Get the sorted list of resolver keys and the map of filter keys.
         resolver_order = self.context.get("resolver_order", [])
@@ -895,8 +896,16 @@ class BaseRunner:
 
         # --- Step 4: Process the result ---
         if data and len(data) > 1:
+            # Build a helpful error message showing which filters were applied
+            applied_filters = ", ".join(f"{k}={v}" for k, v in query_params.items())
             self.module.fail_json(
-                msg=f"Multiple resources found for '{identifier_value}'. The first one will be used."
+                msg=(
+                    f"Multiple resources found for name '{identifier_value}'. "
+                    f"This usually means the resource is not unique within your filter scope. "
+                    f"Applied filters: {applied_filters}. "
+                    f"Found {len(data)} matches. Please ensure the resource name is unique within your project/customer scope, "
+                    f"or use a UUID instead of a name for precise identification."
+                )
             )
 
         # Handle both list responses and direct object responses gracefully.

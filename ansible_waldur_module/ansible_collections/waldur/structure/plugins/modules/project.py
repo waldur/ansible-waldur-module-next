@@ -471,6 +471,7 @@ RUNNER_CONTEXT = {
     "resource_type": "project",
     "check_url": "/api/projects/",
     "check_filter_keys": {"customer": "customer"},
+    "name_query_param": "name_exact",
     "list_path": "/api/projects/",
     "create_path": "/api/projects/",
     "destroy_path": "/api/projects/{uuid}/",
@@ -511,8 +512,18 @@ RUNNER_CONTEXT = {
     ],
     "update_actions": {},
     "resolvers": {
-        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
-        "type": {"url": "/api/project-types/", "error_message": None, "filter_by": []},
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
+        "type": {
+            "url": "/api/project-types/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
     },
     "resolver_order": ["customer", "type"],
     "resource_detail_path": "/api/projects/{uuid}/",

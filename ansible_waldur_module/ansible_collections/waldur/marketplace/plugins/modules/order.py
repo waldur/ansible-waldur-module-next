@@ -54,6 +54,10 @@ options:
     - This attribute cannot be updated.
     type: str
     required: true
+  project:
+    description: The name or UUID of the parent project for filtering.
+    type: str
+    required: false
   offering:
     type: str
     required: false
@@ -119,13 +123,6 @@ options:
     required: false
     description:
     - URL-friendly identifier. Only editable by staff users.
-    - This attribute cannot be updated.
-  project:
-    type: str
-    required: false
-    description:
-    - The name or UUID of the project. Project
-    - Required when C(state) is 'present'.
     - This attribute cannot be updated.
 requirements:
 - python >= 3.11
@@ -575,6 +572,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "project": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
     "attributes": {"type": "str"},
@@ -585,13 +583,13 @@ ARGUMENT_SPEC = {
     "type": {"type": "str", "choices": ["Create", "Update", "Terminate", "Restore"]},
     "start_date": {"type": "str"},
     "slug": {"type": "str"},
-    "project": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
     "resource_type": "order",
     "check_url": "/api/marketplace-orders/",
-    "check_filter_keys": {},
+    "check_filter_keys": {"project": "project_uuid"},
+    "name_query_param": "resource_name",
     "list_path": "/api/marketplace-orders/",
     "create_path": "/api/marketplace-orders/",
     "destroy_path": "/api/marketplace-orders/{uuid}/",
@@ -614,15 +612,26 @@ RUNNER_CONTEXT = {
     "update_fields": [],
     "update_actions": {},
     "resolvers": {
-        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
-        "project": {"url": "/api/projects/", "error_message": None, "filter_by": []},
+        "project": {
+            "url": "/api/projects/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "customer",
+                    "source_key": "uuid",
+                    "target_key": "customer",
+                }
+            ],
+            "name_query_param": "name_exact",
+        },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["customer", "project", "offering"],
+    "resolver_order": ["project", "offering"],
     "resource_detail_path": "/api/marketplace-orders/{uuid}/",
 }
 

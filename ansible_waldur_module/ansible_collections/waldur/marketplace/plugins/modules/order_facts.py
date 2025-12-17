@@ -95,6 +95,10 @@ options:
     description: Resource URL
     type: str
     required: false
+  resource_name:
+    description: Resource name
+    type: str
+    required: false
   resource_uuid:
     description: Resource UUID
     type: str
@@ -547,6 +551,7 @@ ARGUMENT_SPEC = {
     "provider_uuid": {"type": "str"},
     "query": {"type": "str"},
     "resource": {"type": "str"},
+    "resource_name": {"type": "str"},
     "resource_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
     "state": {
@@ -589,6 +594,7 @@ RUNNER_CONTEXT = {
         "provider_uuid",
         "query",
         "resource",
+        "resource_name",
         "resource_uuid",
         "service_manager_uuid",
         "state",

@@ -434,8 +434,14 @@ RUNNER_CONTEXT = {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
-        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -446,6 +452,7 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
         },
         "instance": {
             "url": "/api/openstack-instances/",
@@ -457,6 +464,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "name_query_param": "name_exact",
         },
         "volume": {
             "url": "/api/openstack-volumes/",
@@ -468,6 +476,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
+            "name_query_param": "name_exact",
         },
     },
     "resolver_order": ["volume", "instance", "project", "tenant", "customer"],

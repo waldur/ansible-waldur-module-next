@@ -410,6 +410,7 @@ RUNNER_CONTEXT = {
         "customer": "customer_uuid",
         "project": "project_uuid",
     },
+    "name_query_param": "name_exact",
     "list_path": "/api/openstack-floating-ips/",
     "create_path": "/api/openstack-tenants/{uuid}/create_floating_ip/",
     "destroy_path": "/api/openstack-floating-ips/{uuid}/",
@@ -434,8 +435,14 @@ RUNNER_CONTEXT = {
             "url": "/api/openstack-tenants/",
             "error_message": None,
             "filter_by": [],
+            "name_query_param": "name_exact",
         },
-        "customer": {"url": "/api/customers/", "error_message": None, "filter_by": []},
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -446,6 +453,7 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
         },
     },
     "resolver_order": ["tenant", "project", "customer"],
