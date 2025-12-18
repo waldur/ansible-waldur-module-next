@@ -1260,12 +1260,12 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "system_volume_type",
         "image",
         "data_volume_type",
         "security_groups",
         "availability_zone",
         "ssh_public_key",
+        "system_volume_type",
         "flavor",
         "connect_directly_to_external_network",
         "data_volume_size",
