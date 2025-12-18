@@ -53,7 +53,7 @@ options:
     type: str
     required: false
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -195,7 +195,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str
@@ -353,7 +353,7 @@ resource:
           description: Type of access granted - either shared access or external network access
           type: str
           returned: always
-          sample: null
+          sample: access_as_shared
         created:
           description: Created
           type: str

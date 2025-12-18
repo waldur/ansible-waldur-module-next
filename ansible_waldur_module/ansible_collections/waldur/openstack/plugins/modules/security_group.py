@@ -79,7 +79,7 @@ options:
     - Rules
     - Required when C(state) is 'present'.
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -96,8 +96,8 @@ EXAMPLES = """
       name: My-Awesome-OpenStack-security-group
       description: A sample description created by Ansible.
       rules:
-      - ethertype: null
-        direction: null
+      - ethertype: IPv4
+        direction: ingress
         protocol: null
         from_port: 8080
         to_port: 8080
@@ -238,7 +238,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str
@@ -284,12 +284,12 @@ resource:
           description: IP protocol version - either 'IPv4' or 'IPv6'
           type: str
           returned: always
-          sample: null
+          sample: IPv4
         direction:
           description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
           type: str
           returned: always
-          sample: null
+          sample: ingress
         protocol:
           description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
           type: str

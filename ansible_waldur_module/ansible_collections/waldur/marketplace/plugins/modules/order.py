@@ -72,7 +72,7 @@ options:
     - Plan
     - This attribute cannot be updated.
   attributes:
-    type: str
+    type: dict
     required: false
     description:
     - Attributes structure depends on the offering type specified in the parent object. Can also be a generic object for offerings without a specific attributes schema.
@@ -125,27 +125,274 @@ options:
     - URL-friendly identifier. Only editable by staff users.
     - This attribute cannot be updated.
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
 EXAMPLES = """
-- name: Create a new order
+- name: Create a new order (AzureVirtualMachine)
   hosts: localhost
   tasks:
-  - name: Add order
+  - name: Add order (AzureVirtualMachine)
     waldur.marketplace.order:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       offering: Offering name or UUID
       plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      attributes: null
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+        size: 100
+        image: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        location: https://api.example.com/api/location/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       limits: {}
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: null
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (AzureSQLServer)
+  hosts: localhost
+  tasks:
+  - name: Add order (AzureSQLServer)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+        location: https://api.example.com/api/location/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (MarketplaceOpenPortal)
+  hosts: localhost
+  tasks:
+  - name: Add order (MarketplaceOpenPortal)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (MarketplaceOpenPortalRemote)
+  hosts: localhost
+  tasks:
+  - name: Add order (MarketplaceOpenPortalRemote)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (OpenStackTenant)
+  hosts: localhost
+  tasks:
+  - name: Add order (OpenStackTenant)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+        subnet_cidr: 192.168.42.0/24
+        skip_connection_extnet: false
+        skip_creation_of_default_router: false
+        availability_zone: string-value
+        security_groups:
+        - name: My-Awesome-order
+          description: A sample description created by Ansible.
+          rules:
+          - ethertype: IPv4
+            direction: ingress
+            protocol: null
+            from_port: 8080
+            to_port: 8080
+            cidr: 192.168.1.0/24
+            description: A sample description created by Ansible.
+            remote_group: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (OpenStackInstance)
+  hosts: localhost
+  tasks:
+  - name: Add order (OpenStackInstance)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+        flavor: https://api.example.com/api/flavor/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        image: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        security_groups:
+        - url: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        server_group:
+          url: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        ports:
+        - fixed_ips:
+          - ip_address: 192.168.42.50
+            subnet_id: string-value
+          subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+          port: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        floating_ips:
+        - url: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+          ip_address: 192.168.42.50
+          subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        system_volume_size: 123
+        system_volume_type: https://api.example.com/api/system-volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        data_volume_size: 123
+        data_volume_type: https://api.example.com/api/data-volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        ssh_public_key: https://api.example.com/api/ssh-public-key/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        user_data: "#cloud-config\npackages:\n  - nginx"
+        availability_zone: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        connect_directly_to_external_network: true
+        data_volumes:
+        - size: 100
+          volume_type: https://api.example.com/api/volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (OpenStackVolume)
+  hosts: localhost
+  tasks:
+  - name: Add order (OpenStackVolume)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+        image: https://api.example.com/api/image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        size: 100
+        availability_zone: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        type: https://api.example.com/api/type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (SlurmInvoicesSlurmPackage)
+  hosts: localhost
+  tasks:
+  - name: Add order (SlurmInvoicesSlurmPackage)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (VMwareVirtualMachine)
+  hosts: localhost
+  tasks:
+  - name: Add order (VMwareVirtualMachine)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+        guest_os: DOS
+        cores_per_socket: 123
+        template: https://api.example.com/api/template/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        cluster: https://api.example.com/api/cluster/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        datastore: https://api.example.com/api/datastore/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
+      start_date: '2023-10-01'
+      slug: string-value
+      project: Project name or UUID
+- name: Create a new order (GenericOrderAttributes)
+  hosts: localhost
+  tasks:
+  - name: Add order (GenericOrderAttributes)
+    waldur.marketplace.order:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      offering: Offering name or UUID
+      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      attributes:
+        name: My-Awesome-order
+        description: A sample description created by Ansible.
+      limits: {}
+      accepting_terms_of_service: true
+      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      request_comment: string-value
+      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -256,7 +503,7 @@ resource:
       description: Plan unit
       type: str
       returned: always
-      sample: null
+      sample: month
     plan_name:
       description: Plan name
       type: str
@@ -321,7 +568,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: pending-consumer
     output:
       description: Output
       type: str
@@ -366,7 +613,7 @@ resource:
       description: Type
       type: str
       returned: always
-      sample: null
+      sample: Create
     start_date:
       description: Enables delayed processing of resource provisioning order.
       type: str
@@ -534,9 +781,20 @@ resource:
       sample: string-value
     issue:
       description: Issue
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        key:
+          description: Key
+          type: str
+          returned: always
+          sample: special-key
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: string-value
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
@@ -575,7 +833,7 @@ ARGUMENT_SPEC = {
     "project": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
-    "attributes": {"type": "str"},
+    "attributes": {"type": "dict"},
     "limits": {"type": "dict"},
     "accepting_terms_of_service": {"type": "bool"},
     "callback_url": {"type": "str"},

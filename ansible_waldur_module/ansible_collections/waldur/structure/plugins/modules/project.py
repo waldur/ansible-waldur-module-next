@@ -81,7 +81,7 @@ options:
     required: false
     description: Project end date. Setting this field requires DELETE_PROJECT permission.
   oecd_fos_2007_code:
-    type: str
+    type: dict
     required: false
     description: Oecd fos 2007 code
     choices:
@@ -154,15 +154,15 @@ options:
     required: false
     description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
 EXAMPLES = """
-- name: Create a new project
+- name: Create a new project (OecdFos2007CodeEnum)
   hosts: localhost
   tasks:
-  - name: Add project
+  - name: Add project (OecdFos2007CodeEnum)
     waldur.structure.project:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
@@ -175,10 +175,54 @@ EXAMPLES = """
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       start_date: '2023-10-01'
       end_date: '2023-10-01'
-      oecd_fos_2007_code: null
+      oecd_fos_2007_code: {}
       is_industry: true
       image: string-value
-      kind: null
+      kind: default
+      staff_notes: string-value
+      grace_period_days: 123
+- name: Create a new project (BlankEnum)
+  hosts: localhost
+  tasks:
+  - name: Add project (BlankEnum)
+    waldur.structure.project:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      name: My-Awesome-project
+      slug: string-value
+      customer: Customer name or UUID
+      description: A sample description created by Ansible.
+      type: Type name or UUID
+      backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      start_date: '2023-10-01'
+      end_date: '2023-10-01'
+      oecd_fos_2007_code: {}
+      is_industry: true
+      image: string-value
+      kind: default
+      staff_notes: string-value
+      grace_period_days: 123
+- name: Create a new project (NullEnum)
+  hosts: localhost
+  tasks:
+  - name: Add project (NullEnum)
+    waldur.structure.project:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      name: My-Awesome-project
+      slug: string-value
+      customer: Customer name or UUID
+      description: A sample description created by Ansible.
+      type: Type name or UUID
+      backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      start_date: '2023-10-01'
+      end_date: '2023-10-01'
+      oecd_fos_2007_code: {}
+      is_industry: true
+      image: string-value
+      kind: default
       staff_notes: string-value
       grace_period_days: 123
 - name: Remove an existing project
@@ -333,7 +377,7 @@ resource:
       description: Kind
       type: str
       returned: always
-      sample: null
+      sample: default
     is_removed:
       description: Is removed
       type: bool
@@ -366,9 +410,30 @@ resource:
       sample: {}
     billing_price_estimate:
       description: Billing price estimate
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        total:
+          description: Total
+          type: str
+          returned: always
+          sample: '12.34'
+        current:
+          description: Current
+          type: str
+          returned: always
+          sample: '12.34'
+        tax:
+          description: Tax
+          type: str
+          returned: always
+          sample: '12.34'
+        tax_current:
+          description: Tax current
+          type: str
+          returned: always
+          sample: '12.34'
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
@@ -412,7 +477,7 @@ ARGUMENT_SPEC = {
     "start_date": {"type": "str"},
     "end_date": {"type": "str"},
     "oecd_fos_2007_code": {
-        "type": "str",
+        "type": "dict",
         "choices": [
             "1.1",
             "1.2",

@@ -174,7 +174,7 @@ options:
             required: false
             description: Remote security group that this rule references, if any
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -331,7 +331,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str

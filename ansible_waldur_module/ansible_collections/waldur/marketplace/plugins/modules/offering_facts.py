@@ -155,7 +155,7 @@ options:
     type: str
     required: false
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -510,14 +510,36 @@ resource:
       sample: {}
     options:
       description: Options
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        order:
+          description: A list of order items.
+          type: list
+          returned: always
+          sample: []
+        options:
+          description: Options
+          type: dict
+          returned: always
+          sample: {}
     resource_options:
       description: Resource options
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        order:
+          description: A list of order items.
+          type: list
+          returned: always
+          sample: []
+        options:
+          description: Options
+          type: dict
+          returned: always
+          sample: {}
     components:
       description: A list of components items.
       type: list
@@ -631,14 +653,310 @@ resource:
           sample: 123
     plugin_options:
       description: Plugin options
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        auto_approve_remote_orders:
+          description: If set to True, an order can be processed without approval
+          type: bool
+          returned: always
+          sample: true
+        service_provider_can_create_offering_user:
+          description: Service provider can create offering user
+          type: bool
+          returned: always
+          sample: true
+        max_resource_termination_offset_in_days:
+          description: Maximum resource termination offset in days
+          type: int
+          returned: always
+          sample: 123
+        default_resource_termination_offset_in_days:
+          description: If set, it will be used as a default resource termination offset in days
+          type: int
+          returned: always
+          sample: 123
+        is_resource_termination_date_required:
+          description: If set to True, resource termination date is required
+          type: bool
+          returned: always
+          sample: true
+        latest_date_for_resource_termination:
+          description: If set, it will be used as a latest date for resource termination
+          type: str
+          returned: always
+          sample: '2023-10-01'
+        auto_approve_in_service_provider_projects:
+          description: Skip approval of public offering belonging to the same organization under which the request is done
+          type: bool
+          returned: always
+          sample: true
+        supports_downscaling:
+          description: If set to True, it will be possible to downscale resources
+          type: bool
+          returned: always
+          sample: true
+        supports_pausing:
+          description: If set to True, it will be possible to pause resources
+          type: bool
+          returned: always
+          sample: true
+        minimal_team_count_for_provisioning:
+          description: Minimal team count required for provisioning of resources
+          type: int
+          returned: always
+          sample: 123
+        maximal_resource_count_per_project:
+          description: Maximal number of offering resources allowed per project
+          type: int
+          returned: always
+          sample: 123
+        required_team_role_for_provisioning:
+          description: Required user role in a project for provisioning of resources
+          type: str
+          returned: always
+          sample: string-value
+        enable_purchase_order_upload:
+          description: If set to True, users will be able to upload purchase orders.
+          type: bool
+          returned: always
+          sample: true
+        require_purchase_order_upload:
+          description: If set to True, users will be required to upload purchase orders.
+          type: bool
+          returned: always
+          sample: true
+        conceal_billing_data:
+          description: If set to True, pricing and components tab would be concealed.
+          type: bool
+          returned: always
+          sample: true
+        create_orders_on_resource_option_change:
+          description: If set to True, create orders when options of related resources are changed.
+          type: bool
+          returned: always
+          sample: true
+        can_restore_resource:
+          description: If set to True, resource can be restored.
+          type: bool
+          returned: always
+          sample: true
+        default_internal_network_mtu:
+          description: If set, it will be used as a default MTU for the first network in a tenant
+          type: int
+          returned: always
+          sample: 123
+        max_instances:
+          description: Default limit for number of instances in OpenStack tenant
+          type: int
+          returned: always
+          sample: 123
+        max_volumes:
+          description: Default limit for number of volumes in OpenStack tenant
+          type: int
+          returned: always
+          sample: 123
+        max_security_groups:
+          description: Default limit for number of security groups in OpenStack tenant
+          type: int
+          returned: always
+          sample: 123
+        storage_mode:
+          description: Storage mode for OpenStack offering
+          type: str
+          returned: always
+          sample: fixed
+        snapshot_size_limit_gb:
+          description: Default limit for snapshot size in GB
+          type: int
+          returned: always
+          sample: 123
+        heappe_cluster_id:
+          description: HEAppE cluster id
+          type: str
+          returned: always
+          sample: string-value
+        heappe_local_base_path:
+          description: HEAppE local base path
+          type: str
+          returned: always
+          sample: string-value
+        heappe_url:
+          description: HEAppE url
+          type: str
+          returned: always
+          sample: string-value
+        heappe_username:
+          description: HEAppE username
+          type: str
+          returned: always
+          sample: string-value
+        homedir_prefix:
+          description: GLAuth homedir prefix
+          type: str
+          returned: always
+          sample: /home/
+        scratch_project_directory:
+          description: HEAppE scratch project directory
+          type: str
+          returned: always
+          sample: string-value
+        project_permanent_directory:
+          description: HEAppE project permanent directory
+          type: str
+          returned: always
+          sample: string-value
+        initial_primarygroup_number:
+          description: GLAuth initial primary group number
+          type: int
+          returned: always
+          sample: 5000
+        initial_uidnumber:
+          description: GLAuth initial uidnumber
+          type: int
+          returned: always
+          sample: 5000
+        initial_usergroup_number:
+          description: GLAuth initial usergroup number
+          type: int
+          returned: always
+          sample: 6000
+        username_anonymized_prefix:
+          description: GLAuth prefix for anonymized usernames
+          type: str
+          returned: always
+          sample: waldur_
+        username_generation_policy:
+          description: GLAuth username generation policy
+          type: str
+          returned: always
+          sample: service_provider
+        enable_issues_for_membership_changes:
+          description: Enable issues for membership changes
+          type: bool
+          returned: always
+          sample: true
+        deployment_mode:
+          description: Rancher deployment mode
+          type: str
+          returned: always
+          sample: self_managed
+        flavors_regex:
+          description: Regular expression to limit flavors list
+          type: str
+          returned: always
+          sample: string-value
+        openstack_offering_uuid_list:
+          description: List of UUID of OpenStack offerings where tenant can be created
+          type: list
+          returned: always
+          sample: []
+        managed_rancher_server_flavor_name:
+          description: Flavor name for managed Rancher server instances
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_server_system_volume_size_gb:
+          description: System volume size in GB for managed Rancher server
+          type: int
+          returned: always
+          sample: 123
+        managed_rancher_server_system_volume_type_name:
+          description: System volume type name for managed Rancher server
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_server_data_volume_size_gb:
+          description: Data volume size in GB for managed Rancher server
+          type: int
+          returned: always
+          sample: 123
+        managed_rancher_server_data_volume_type_name:
+          description: Data volume type name for managed Rancher server
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_worker_system_volume_size_gb:
+          description: System volume size in GB for managed Rancher worker nodes
+          type: int
+          returned: always
+          sample: 123
+        managed_rancher_worker_system_volume_type_name:
+          description: System volume type name for managed Rancher worker nodes
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_load_balancer_flavor_name:
+          description: Flavor name for managed Rancher load balancer
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_load_balancer_system_volume_size_gb:
+          description: System volume size in GB for managed Rancher load balancer
+          type: int
+          returned: always
+          sample: 123
+        managed_rancher_load_balancer_system_volume_type_name:
+          description: System volume type name for managed Rancher load balancer
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_load_balancer_data_volume_size_gb:
+          description: Data volume size in GB for managed Rancher load balancer
+          type: int
+          returned: always
+          sample: 123
+        managed_rancher_load_balancer_data_volume_type_name:
+          description: Data volume type name for managed Rancher load balancer
+          type: str
+          returned: always
+          sample: string-value
+        managed_rancher_tenant_max_cpu:
+          description: Max number of vCPUs for tenants
+          type: int
+          returned: always
+          sample: 123
+        managed_rancher_tenant_max_ram:
+          description: Max number of RAM for tenants (GB)
+          type: int
+          returned: always
+          sample: 2048
+        managed_rancher_tenant_max_disk:
+          description: Max size of disk space for tenants (GB)
+          type: int
+          returned: always
+          sample: 20480
+        account_name_generation_policy:
+          description: Slurm account name generation policy
+          type: str
+          returned: always
+          sample: null
+        enable_display_of_order_actions_for_service_provider:
+          description: Enable display of order actions for service provider
+          type: bool
+          returned: always
+          sample: true
+        auto_approve_marketplace_script:
+          description: If set to False, an order requires manual provider approval
+          type: bool
+          returned: always
+          sample: true
+        highlight_backend_id_display:
+          description: Defines if backend_id should be shown more prominently by the UI
+          type: bool
+          returned: always
+          sample: false
+        backend_id_display_label:
+          description: Label used by UI for showing value of the backend_id
+          type: str
+          returned: always
+          sample: Backend ID
     state:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: Draft
     vendor_details:
       description: Vendor details
       type: str

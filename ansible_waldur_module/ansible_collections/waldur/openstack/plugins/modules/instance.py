@@ -236,7 +236,7 @@ options:
     required: false
     description: If true, release associated floating IPs on termination.
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -406,7 +406,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str
@@ -600,12 +600,12 @@ resource:
               description: IP protocol version - either 'IPv4' or 'IPv6'
               type: str
               returned: always
-              sample: null
+              sample: IPv4
             direction:
               description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
               type: str
               returned: always
-              sample: null
+              sample: ingress
             protocol:
               description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
               type: str
@@ -676,7 +676,7 @@ resource:
           description: Server group policy determining the rules for scheduling servers in this group
           type: str
           returned: always
-          sample: null
+          sample: affinity
         state:
           description: State
           type: str
@@ -940,7 +940,7 @@ resource:
               description: State
               type: str
               returned: always
-              sample: OK
+              sample: CREATION_SCHEDULED
             created:
               description: Created
               type: str
@@ -986,12 +986,12 @@ resource:
                   description: IP protocol version - either 'IPv4' or 'IPv6'
                   type: str
                   returned: always
-                  sample: null
+                  sample: IPv4
                 direction:
                   description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
                   type: str
                   returned: always
-                  sample: null
+                  sample: ingress
                 protocol:
                   description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
                   type: str
@@ -1139,9 +1139,25 @@ resource:
       sample: []
     rancher_cluster:
       description: Rancher cluster
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        marketplace_uuid:
+          description: Marketplace UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
@@ -1260,13 +1276,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
+        "availability_zone",
+        "system_volume_type",
         "image",
+        "flavor",
+        "ssh_public_key",
         "data_volume_type",
         "security_groups",
-        "availability_zone",
-        "ssh_public_key",
-        "system_volume_type",
-        "flavor",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",

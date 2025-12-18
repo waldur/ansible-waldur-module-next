@@ -94,7 +94,7 @@ options:
     type: str
     required: false
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -255,7 +255,7 @@ resource:
       description: Kind
       type: str
       returned: always
-      sample: null
+      sample: default
     is_removed:
       description: Is removed
       type: bool
@@ -288,9 +288,30 @@ resource:
       sample: {}
     billing_price_estimate:
       description: Billing price estimate
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        total:
+          description: Total
+          type: str
+          returned: always
+          sample: '12.34'
+        current:
+          description: Current
+          type: str
+          returned: always
+          sample: '12.34'
+        tax:
+          description: Tax
+          type: str
+          returned: always
+          sample: '12.34'
+        tax_current:
+          description: Tax current
+          type: str
+          returned: always
+          sample: '12.34'
 
 """
 

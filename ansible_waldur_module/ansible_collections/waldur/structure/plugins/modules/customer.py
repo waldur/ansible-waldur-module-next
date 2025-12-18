@@ -173,7 +173,7 @@ options:
     required: false
     description: Bank account
   country:
-    type: str
+    type: dict
     required: false
     description: Country code (ISO 3166-1 alpha-2)
     choices:
@@ -433,15 +433,15 @@ options:
     required: false
     description: Comma-separated list of notification email addresses
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
 EXAMPLES = """
-- name: Create a new customer
+- name: Create a new customer (CountryEnum)
   hosts: localhost
   tasks:
-  - name: Add customer
+  - name: Add customer (CountryEnum)
     waldur.structure.customer:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
@@ -477,7 +477,48 @@ EXAMPLES = """
       latitude: 123.45
       longitude: 123.45
       bank_account: string-value
-      country: null
+      country: {}
+      notification_emails: alice@example.com
+- name: Create a new customer (BlankEnum)
+  hosts: localhost
+  tasks:
+  - name: Add customer (BlankEnum)
+    waldur.structure.customer:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      image: string-value
+      blocked: true
+      archived: true
+      display_billing_info_in_projects: true
+      default_tax_percent: '12.34'
+      accounting_start_date: '2023-10-01T12:00:00Z'
+      sponsor_number: 123
+      max_service_accounts: 123
+      project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      grace_period_days: 123
+      name: My-Awesome-customer
+      slug: string-value
+      native_name: string-value
+      abbreviation: string-value
+      description: A sample description created by Ansible.
+      contact_details: string-value
+      agreement_number: string-value
+      email: alice@example.com
+      phone_number: +1-202-555-0104
+      access_subnets: string-value
+      registration_code: string-value
+      homepage: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      domain: string-value
+      vat_code: string-value
+      postal: string-value
+      address: string-value
+      bank_name: string-value
+      latitude: 123.45
+      longitude: 123.45
+      bank_account: string-value
+      country: {}
       notification_emails: alice@example.com
 - name: Remove an existing customer
   hosts: localhost
@@ -837,9 +878,30 @@ resource:
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     billing_price_estimate:
       description: Billing price estimate
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        total:
+          description: Total
+          type: str
+          returned: always
+          sample: '12.34'
+        current:
+          description: Current
+          type: str
+          returned: always
+          sample: '12.34'
+        tax:
+          description: Tax
+          type: str
+          returned: always
+          sample: '12.34'
+        tax_current:
+          description: Tax current
+          type: str
+          returned: always
+          sample: '12.34'
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
@@ -906,7 +968,7 @@ ARGUMENT_SPEC = {
     "longitude": {"type": "float"},
     "bank_account": {"type": "str"},
     "country": {
-        "type": "str",
+        "type": "dict",
         "choices": [
             "AW",
             "AF",

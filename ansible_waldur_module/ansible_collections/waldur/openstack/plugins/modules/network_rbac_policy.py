@@ -76,7 +76,7 @@ options:
     - access_as_shared
     - access_as_external
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -91,7 +91,7 @@ EXAMPLES = """
       api_url: https://waldur.example.com
       network: Network name or UUID
       target_tenant: Target tenant name or UUID
-      policy_type: null
+      policy_type: access_as_shared
 - name: Remove an existing OpenStack network RBAC policy
   hosts: localhost
   tasks:
@@ -149,7 +149,7 @@ resource:
       description: Type of access granted - either shared access or external network access
       type: str
       returned: always
-      sample: null
+      sample: access_as_shared
     created:
       description: Created
       type: str

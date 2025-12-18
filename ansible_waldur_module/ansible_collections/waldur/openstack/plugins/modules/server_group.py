@@ -69,22 +69,22 @@ options:
     required: false
     description: Description
   policy:
-    type: str
+    type: dict
     required: false
     description: Server group policy determining the rules for scheduling servers in this group
     choices:
     - affinity
     - ''
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
 EXAMPLES = """
-- name: Create a new OpenStack server group
+- name: Create a new OpenStack server group (PolicyEnum)
   hosts: localhost
   tasks:
-  - name: Add OpenStack server group
+  - name: Add OpenStack server group (PolicyEnum)
     waldur.openstack.server_group:
       state: present
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
@@ -92,7 +92,19 @@ EXAMPLES = """
       tenant: Tenant name or UUID
       name: My-Awesome-OpenStack-server-group
       description: A sample description created by Ansible.
-      policy: null
+      policy: {}
+- name: Create a new OpenStack server group (BlankEnum)
+  hosts: localhost
+  tasks:
+  - name: Add OpenStack server group (BlankEnum)
+    waldur.openstack.server_group:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      tenant: Tenant name or UUID
+      name: My-Awesome-OpenStack-server-group
+      description: A sample description created by Ansible.
+      policy: {}
 - name: Remove an existing OpenStack server group
   hosts: localhost
   tasks:
@@ -216,7 +228,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str
@@ -372,7 +384,7 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str"},
     "project": {"type": "str"},
     "description": {"type": "str"},
-    "policy": {"type": "str", "choices": ["affinity", ""]},
+    "policy": {"type": "dict", "choices": ["affinity", ""]},
 }
 
 RUNNER_CONTEXT = {

@@ -133,7 +133,7 @@ options:
     - Terminate
     - Update
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -248,7 +248,7 @@ resource:
       description: Plan unit
       type: str
       returned: always
-      sample: null
+      sample: month
     plan_name:
       description: Plan name
       type: str
@@ -313,7 +313,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: pending-consumer
     output:
       description: Output
       type: str
@@ -358,7 +358,7 @@ resource:
       description: Type
       type: str
       returned: always
-      sample: null
+      sample: Create
     start_date:
       description: Enables delayed processing of resource provisioning order.
       type: str
@@ -526,9 +526,20 @@ resource:
       sample: string-value
     issue:
       description: Issue
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        key:
+          description: Key
+          type: str
+          returned: always
+          sample: special-key
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: string-value
 
 """
 

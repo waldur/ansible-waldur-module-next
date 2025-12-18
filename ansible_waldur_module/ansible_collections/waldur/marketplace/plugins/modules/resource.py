@@ -71,7 +71,7 @@ options:
     required: false
     description: ''
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -194,7 +194,7 @@ resource:
       description: Plan unit
       type: str
       returned: always
-      sample: null
+      sample: month
     plan_name:
       description: Plan name
       type: str
@@ -254,7 +254,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: Creating
     resource_uuid:
       description: Resource UUID
       type: str
@@ -347,9 +347,30 @@ resource:
       sample: string-value
     backend_metadata:
       description: Backend metadata
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        state:
+          description: Backend resource state
+          type: str
+          returned: always
+          sample: OK
+        runtime_state:
+          description: Runtime state of the backend resource
+          type: str
+          returned: always
+          sample: string-value
+        action:
+          description: Current action being performed
+          type: str
+          returned: always
+          sample: string-value
+        instance_name:
+          description: Name of the backend instance
+          type: str
+          returned: always
+          sample: string-value
     is_usage_based:
       description: Is usage based
       type: bool
@@ -479,14 +500,778 @@ resource:
       sample: '2023-10-01T12:00:00Z'
     order_in_progress:
       description: Order in progress
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        offering:
+          description: Offering URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/offering/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        offering_name:
+          description: Offering name
+          type: str
+          returned: always
+          sample: string-value
+        offering_uuid:
+          description: Offering UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        offering_description:
+          description: Offering description
+          type: str
+          returned: always
+          sample: string-value
+        offering_image:
+          description: Offering image URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/offering-image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        offering_thumbnail:
+          description: Offering thumbnail URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/offering-thumbnail/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        offering_type:
+          description: Offering type
+          type: str
+          returned: always
+          sample: string-value
+        offering_shared:
+          description: Accessible to all customers.
+          type: bool
+          returned: always
+          sample: true
+        offering_billable:
+          description: Purchase and usage is invoiced.
+          type: bool
+          returned: always
+          sample: true
+        offering_plugin_options:
+          description: Public data used by specific plugin, such as storage mode for OpenStack.
+          type: str
+          returned: always
+          sample: null
+        provider_name:
+          description: Provider name
+          type: str
+          returned: always
+          sample: string-value
+        provider_uuid:
+          description: Provider UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        provider_slug:
+          description: Provider slug
+          type: str
+          returned: always
+          sample: string-value
+        category_title:
+          description: Category title
+          type: str
+          returned: always
+          sample: string-value
+        category_uuid:
+          description: Category UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        category_icon:
+          description: Category icon URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/category-icon/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        plan:
+          description: Plan URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        plan_unit:
+          description: Plan unit
+          type: str
+          returned: always
+          sample: month
+        plan_name:
+          description: Plan name
+          type: str
+          returned: always
+          sample: string-value
+        plan_uuid:
+          description: Plan UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        plan_description:
+          description: Plan description
+          type: str
+          returned: always
+          sample: string-value
+        attributes:
+          description: Attributes
+          type: str
+          returned: always
+          sample: null
+        limits:
+          description: Limits
+          type: dict
+          returned: always
+          sample: {}
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        created:
+          description: Created
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        modified:
+          description: Modified
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        resource_uuid:
+          description: Resource UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        resource_type:
+          description: Resource type
+          type: str
+          returned: always
+          sample: string-value
+        resource_name:
+          description: Resource name
+          type: str
+          returned: always
+          sample: string-value
+        cost:
+          description: Cost
+          type: str
+          returned: always
+          sample: '12.34'
+        state:
+          description: State
+          type: str
+          returned: always
+          sample: pending-consumer
+        output:
+          description: Output
+          type: str
+          returned: always
+          sample: string-value
+        marketplace_resource_uuid:
+          description: Marketplace resource UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        error_message:
+          description: Error message
+          type: str
+          returned: always
+          sample: string-value
+        error_traceback:
+          description: Error traceback
+          type: str
+          returned: always
+          sample: string-value
+        callback_url:
+          description: Callback URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        completed_at:
+          description: Completed at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        request_comment:
+          description: Request comment
+          type: str
+          returned: always
+          sample: string-value
+        attachment:
+          description: Attachment URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        type:
+          description: Type
+          type: str
+          returned: always
+          sample: Create
+        start_date:
+          description: Enables delayed processing of resource provisioning order.
+          type: str
+          returned: always
+          sample: '2023-10-01'
+        slug:
+          description: Slug
+          type: str
+          returned: always
+          sample: string-value
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_reviewed_by:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_reviewed_by_full_name:
+          description: Consumer reviewed by full name
+          type: str
+          returned: always
+          sample: string-value
+        consumer_reviewed_by_username:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: string-value
+        consumer_reviewed_at:
+          description: Consumer reviewed at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        provider_reviewed_by:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        provider_reviewed_by_full_name:
+          description: Provider reviewed by full name
+          type: str
+          returned: always
+          sample: string-value
+        provider_reviewed_by_username:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: string-value
+        provider_reviewed_at:
+          description: Provider reviewed at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        created_by_username:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: string-value
+        created_by_full_name:
+          description: Created by full name
+          type: str
+          returned: always
+          sample: string-value
+        created_by_civil_number:
+          description: Created by civil number
+          type: str
+          returned: always
+          sample: string-value
+        customer_name:
+          description: Customer name
+          type: str
+          returned: always
+          sample: Big Corp Inc.
+        customer_uuid:
+          description: Customer UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        customer_slug:
+          description: Customer slug
+          type: str
+          returned: always
+          sample: string-value
+        project_name:
+          description: Project name
+          type: str
+          returned: always
+          sample: Internal Research Project
+        project_uuid:
+          description: Project UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        project_description:
+          description: Project description
+          type: str
+          returned: always
+          sample: string-value
+        project_slug:
+          description: Project slug
+          type: str
+          returned: always
+          sample: string-value
+        old_plan_name:
+          description: Old plan name
+          type: str
+          returned: always
+          sample: string-value
+        new_plan_name:
+          description: New plan name
+          type: str
+          returned: always
+          sample: string-value
+        old_plan_uuid:
+          description: Old plan UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        new_plan_uuid:
+          description: New plan UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        old_cost_estimate:
+          description: Old cost estimate
+          type: float
+          returned: always
+          sample: 123.45
+        new_cost_estimate:
+          description: New cost estimate
+          type: str
+          returned: always
+          sample: '12.34'
+        can_terminate:
+          description: Can terminate
+          type: bool
+          returned: always
+          sample: true
+        fixed_price:
+          description: Fixed price
+          type: float
+          returned: always
+          sample: 123.45
+        activation_price:
+          description: Activation price
+          type: float
+          returned: always
+          sample: 123.45
+        termination_comment:
+          description: Termination comment
+          type: str
+          returned: always
+          sample: string-value
+        backend_id:
+          description: Backend ID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        order_subtype:
+          description: Order subtype
+          type: str
+          returned: always
+          sample: string-value
+        issue:
+          description: Issue
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            key:
+              description: Key
+              type: str
+              returned: always
+              sample: special-key
+            uuid:
+              description: UUID
+              type: str
+              returned: always
+              sample: string-value
     creation_order:
       description: Creation order
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
+      contains:
+        offering:
+          description: Offering URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/offering/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        offering_name:
+          description: Offering name
+          type: str
+          returned: always
+          sample: string-value
+        offering_uuid:
+          description: Offering UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        offering_description:
+          description: Offering description
+          type: str
+          returned: always
+          sample: string-value
+        offering_image:
+          description: Offering image URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/offering-image/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        offering_thumbnail:
+          description: Offering thumbnail URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/offering-thumbnail/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        offering_type:
+          description: Offering type
+          type: str
+          returned: always
+          sample: string-value
+        offering_shared:
+          description: Accessible to all customers.
+          type: bool
+          returned: always
+          sample: true
+        offering_billable:
+          description: Purchase and usage is invoiced.
+          type: bool
+          returned: always
+          sample: true
+        offering_plugin_options:
+          description: Public data used by specific plugin, such as storage mode for OpenStack.
+          type: str
+          returned: always
+          sample: null
+        provider_name:
+          description: Provider name
+          type: str
+          returned: always
+          sample: string-value
+        provider_uuid:
+          description: Provider UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        provider_slug:
+          description: Provider slug
+          type: str
+          returned: always
+          sample: string-value
+        category_title:
+          description: Category title
+          type: str
+          returned: always
+          sample: string-value
+        category_uuid:
+          description: Category UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        category_icon:
+          description: Category icon URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/category-icon/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        plan:
+          description: Plan URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        plan_unit:
+          description: Plan unit
+          type: str
+          returned: always
+          sample: month
+        plan_name:
+          description: Plan name
+          type: str
+          returned: always
+          sample: string-value
+        plan_uuid:
+          description: Plan UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        plan_description:
+          description: Plan description
+          type: str
+          returned: always
+          sample: string-value
+        attributes:
+          description: Attributes
+          type: str
+          returned: always
+          sample: null
+        limits:
+          description: Limits
+          type: dict
+          returned: always
+          sample: {}
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        created:
+          description: Created
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        modified:
+          description: Modified
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        resource_uuid:
+          description: Resource UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        resource_type:
+          description: Resource type
+          type: str
+          returned: always
+          sample: string-value
+        resource_name:
+          description: Resource name
+          type: str
+          returned: always
+          sample: string-value
+        cost:
+          description: Cost
+          type: str
+          returned: always
+          sample: '12.34'
+        state:
+          description: State
+          type: str
+          returned: always
+          sample: pending-consumer
+        output:
+          description: Output
+          type: str
+          returned: always
+          sample: string-value
+        marketplace_resource_uuid:
+          description: Marketplace resource UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        error_message:
+          description: Error message
+          type: str
+          returned: always
+          sample: string-value
+        error_traceback:
+          description: Error traceback
+          type: str
+          returned: always
+          sample: string-value
+        callback_url:
+          description: Callback URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        completed_at:
+          description: Completed at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        request_comment:
+          description: Request comment
+          type: str
+          returned: always
+          sample: string-value
+        attachment:
+          description: Attachment URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        type:
+          description: Type
+          type: str
+          returned: always
+          sample: Create
+        start_date:
+          description: Enables delayed processing of resource provisioning order.
+          type: str
+          returned: always
+          sample: '2023-10-01'
+        slug:
+          description: Slug
+          type: str
+          returned: always
+          sample: string-value
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_reviewed_by:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_reviewed_by_full_name:
+          description: Consumer reviewed by full name
+          type: str
+          returned: always
+          sample: string-value
+        consumer_reviewed_by_username:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: string-value
+        consumer_reviewed_at:
+          description: Consumer reviewed at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        provider_reviewed_by:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        provider_reviewed_by_full_name:
+          description: Provider reviewed by full name
+          type: str
+          returned: always
+          sample: string-value
+        provider_reviewed_by_username:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: string-value
+        provider_reviewed_at:
+          description: Provider reviewed at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        created_by_username:
+          description: Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
+          type: str
+          returned: always
+          sample: string-value
+        created_by_full_name:
+          description: Created by full name
+          type: str
+          returned: always
+          sample: string-value
+        created_by_civil_number:
+          description: Created by civil number
+          type: str
+          returned: always
+          sample: string-value
+        customer_name:
+          description: Customer name
+          type: str
+          returned: always
+          sample: Big Corp Inc.
+        customer_uuid:
+          description: Customer UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        customer_slug:
+          description: Customer slug
+          type: str
+          returned: always
+          sample: string-value
+        project_name:
+          description: Project name
+          type: str
+          returned: always
+          sample: Internal Research Project
+        project_uuid:
+          description: Project UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        project_description:
+          description: Project description
+          type: str
+          returned: always
+          sample: string-value
+        project_slug:
+          description: Project slug
+          type: str
+          returned: always
+          sample: string-value
+        old_plan_name:
+          description: Old plan name
+          type: str
+          returned: always
+          sample: string-value
+        new_plan_name:
+          description: New plan name
+          type: str
+          returned: always
+          sample: string-value
+        old_plan_uuid:
+          description: Old plan UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        new_plan_uuid:
+          description: New plan UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        old_cost_estimate:
+          description: Old cost estimate
+          type: float
+          returned: always
+          sample: 123.45
+        new_cost_estimate:
+          description: New cost estimate
+          type: str
+          returned: always
+          sample: '12.34'
+        can_terminate:
+          description: Can terminate
+          type: bool
+          returned: always
+          sample: true
+        fixed_price:
+          description: Fixed price
+          type: float
+          returned: always
+          sample: 123.45
+        activation_price:
+          description: Activation price
+          type: float
+          returned: always
+          sample: 123.45
+        termination_comment:
+          description: Termination comment
+          type: str
+          returned: always
+          sample: string-value
+        backend_id:
+          description: Backend ID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        order_subtype:
+          description: Order subtype
+          type: str
+          returned: always
+          sample: string-value
+        issue:
+          description: Issue
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            key:
+              description: Key
+              type: str
+              returned: always
+              sample: special-key
+            uuid:
+              description: UUID
+              type: str
+              returned: always
+              sample: string-value
     service_settings_uuid:
       description: Service settings UUID
       type: str
@@ -516,7 +1301,7 @@ resource:
       description: Offering state
       type: str
       returned: always
-      sample: null
+      sample: Draft
     offering_components:
       description: A list of offering components items.
       type: list

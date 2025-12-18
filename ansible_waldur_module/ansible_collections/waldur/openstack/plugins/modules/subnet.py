@@ -97,7 +97,7 @@ options:
     required: false
     description: Host routes
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -114,7 +114,29 @@ EXAMPLES = """
       name: My-Awesome-OpenStack-subnet
       description: A sample description created by Ansible.
       cidr: 192.168.1.0/24
-      gateway_ip: 192.168.1.1
+      gateway_ip: {}
+      disable_gateway: 192.168.1.1
+      allocation_pools:
+      - start: null
+        end: null
+      dns_nameservers:
+      - null
+      host_routes:
+      - destination: string-value
+        nexthop: null
+- name: Create a new OpenStack subnet
+  hosts: localhost
+  tasks:
+  - name: Add OpenStack subnet
+    waldur.openstack.subnet:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      network: Network name or UUID
+      name: My-Awesome-OpenStack-subnet
+      description: A sample description created by Ansible.
+      cidr: 192.168.1.0/24
+      gateway_ip: {}
       disable_gateway: 192.168.1.1
       allocation_pools:
       - start: null
@@ -247,7 +269,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str

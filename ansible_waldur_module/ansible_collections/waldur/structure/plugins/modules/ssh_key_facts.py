@@ -66,7 +66,7 @@ options:
     type: str
     required: false
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 

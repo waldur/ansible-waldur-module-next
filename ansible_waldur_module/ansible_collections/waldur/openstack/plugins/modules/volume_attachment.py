@@ -61,7 +61,7 @@ options:
     type: str
     required: false
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -206,7 +206,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str
@@ -479,7 +479,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["instance", "volume", "project", "tenant", "customer"],
+    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
 }
 
 

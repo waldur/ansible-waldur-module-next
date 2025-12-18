@@ -71,7 +71,7 @@ options:
     required: false
     description: ''
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -219,7 +219,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str

@@ -105,7 +105,7 @@ options:
     required: false
     description: The name or UUID of the security_groups. Security groups
 requirements:
-- python >= 3.11
+- python >= 3.9
 
 """
 
@@ -125,7 +125,7 @@ EXAMPLES = """
         subnet_id: string-value
       mac_address: 00:1B:44:11:3A:B7
       allowed_address_pairs:
-      - ip_address: 192.168.42.50
+      - ip_address: 192.168.42.0/24
         mac_address: 00:1B:44:11:3A:B7
       target_tenant: Target tenant name or UUID
       network: Network name or UUID
@@ -265,7 +265,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: OK
+      sample: CREATION_SCHEDULED
     created:
       description: Created
       type: str
