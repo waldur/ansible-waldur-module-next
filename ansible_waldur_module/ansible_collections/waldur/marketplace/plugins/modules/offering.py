@@ -2464,6 +2464,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/marketplace-provider-offerings/",
     "destroy_path": "/api/marketplace-provider-offerings/{uuid}/",
     "update_path": None,
+    "retrieve_path": "/api/marketplace-provider-offerings/{uuid}/",
     "required_for_create": ["category", "name", "type"],
     "model_param_names": [
         "category",

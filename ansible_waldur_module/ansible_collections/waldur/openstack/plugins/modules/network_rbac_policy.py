@@ -208,6 +208,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-network-rbac-policies/",
     "destroy_path": "/api/openstack-network-rbac-policies/{uuid}/",
     "update_path": "/api/openstack-network-rbac-policies/{uuid}/",
+    "retrieve_path": "/api/openstack-network-rbac-policies/{uuid}/",
     "required_for_create": ["network", "target_tenant"],
     "model_param_names": ["target_tenant", "network", "policy_type"],
     "path_param_maps": {},

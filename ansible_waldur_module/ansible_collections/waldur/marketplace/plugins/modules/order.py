@@ -852,6 +852,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/marketplace-orders/",
     "destroy_path": "/api/marketplace-orders/{uuid}/",
     "update_path": None,
+    "retrieve_path": "/api/marketplace-orders/{uuid}/",
     "required_for_create": ["offering", "project"],
     "model_param_names": [
         "project",

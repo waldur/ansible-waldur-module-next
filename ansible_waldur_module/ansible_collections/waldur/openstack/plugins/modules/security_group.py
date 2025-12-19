@@ -440,6 +440,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_security_group/",
     "destroy_path": "/api/openstack-security-groups/{uuid}/",
     "update_path": None,
+    "retrieve_path": "/api/openstack-security-groups/{uuid}/",
     "required_for_create": ["name", "rules"],
     "model_param_names": ["description", "name", "rules"],
     "path_param_maps": {"create": {"uuid": "tenant"}},

@@ -415,6 +415,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_floating_ip/",
     "destroy_path": "/api/openstack-floating-ips/{uuid}/",
     "update_path": None,
+    "retrieve_path": "/api/openstack-floating-ips/{uuid}/",
     "required_for_create": [],
     "model_param_names": [],
     "path_param_maps": {"create": {"uuid": "tenant"}},

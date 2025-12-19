@@ -541,6 +541,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/projects/",
     "destroy_path": "/api/projects/{uuid}/",
     "update_path": "/api/projects/{uuid}/",
+    "retrieve_path": "/api/projects/{uuid}/",
     "required_for_create": ["customer", "name"],
     "model_param_names": [
         "customer",

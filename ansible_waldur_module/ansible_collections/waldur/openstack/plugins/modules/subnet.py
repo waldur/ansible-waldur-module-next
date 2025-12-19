@@ -489,6 +489,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-networks/{uuid}/create_subnet/",
     "destroy_path": "/api/openstack-subnets/{uuid}/",
     "update_path": "/api/openstack-subnets/{uuid}/",
+    "retrieve_path": "/api/openstack-subnets/{uuid}/",
     "required_for_create": ["name"],
     "model_param_names": [
         "allocation_pools",

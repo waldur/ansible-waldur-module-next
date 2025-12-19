@@ -1463,6 +1463,7 @@ RUNNER_CONTEXT = {
     "create_path": None,
     "destroy_path": None,
     "update_path": None,
+    "retrieve_path": "/api/marketplace-resources/{uuid}/",
     "required_for_create": [],
     "model_param_names": [],
     "path_param_maps": {},
@@ -1508,7 +1509,7 @@ RUNNER_CONTEXT = {
         },
     },
     "resolver_order": ["project", "customer"],
-    "resource_detail_path": None,
+    "resource_detail_path": "/api/marketplace-resources/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],

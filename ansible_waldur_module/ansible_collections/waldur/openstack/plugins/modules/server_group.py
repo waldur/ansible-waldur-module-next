@@ -400,6 +400,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/openstack-tenants/{uuid}/create_server_group/",
     "destroy_path": "/api/openstack-server-groups/{uuid}/",
     "update_path": "/api/openstack-server-groups/{uuid}/",
+    "retrieve_path": "/api/openstack-server-groups/{uuid}/",
     "required_for_create": ["name"],
     "model_param_names": ["description", "name", "policy"],
     "path_param_maps": {"create": {"uuid": "tenant"}},

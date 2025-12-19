@@ -1235,6 +1235,7 @@ RUNNER_CONTEXT = {
     "create_path": "/api/customers/",
     "destroy_path": "/api/customers/{uuid}/",
     "update_path": "/api/customers/{uuid}/",
+    "retrieve_path": "/api/customers/{uuid}/",
     "required_for_create": ["name"],
     "model_param_names": [
         "abbreviation",
