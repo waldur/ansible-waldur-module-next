@@ -65,11 +65,11 @@ options:
   limits:
     type: dict
     required: false
-    description: ''
+    description: Parameter for the 'update_limits' action.
   options:
     type: dict
     required: false
-    description: ''
+    description: Parameter for the 'update_options' action.
 requirements:
 - python >= 3.9
 
@@ -658,7 +658,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: pending-consumer
+          sample: pending-start-date
         output:
           description: Output
           type: str
@@ -1045,7 +1045,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: pending-consumer
+          sample: pending-start-date
         output:
           description: Output
           type: str

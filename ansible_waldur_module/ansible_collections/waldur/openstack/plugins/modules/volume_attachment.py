@@ -141,7 +141,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: string-value
+      sample: CREATION_SCHEDULED
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -371,7 +371,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: string-value
+      sample: null
     is_usage_based:
       description: Is usage based
       type: bool
@@ -479,7 +479,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["instance", "volume", "project", "tenant", "customer"],
+    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
 }
 
 

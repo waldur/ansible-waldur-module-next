@@ -124,16 +124,6 @@ options:
     type: list
     required: false
     elements: str
-    choices:
-    - canceled
-    - done
-    - erred
-    - executing
-    - pending-consumer
-    - pending-project
-    - pending-provider
-    - pending-start-date
-    - rejected
   parent_offering_uuid:
     description: Filter by parent offering uuid.
     type: str
@@ -175,13 +165,6 @@ options:
     type: list
     required: false
     elements: str
-    choices:
-    - Creating
-    - Erred
-    - OK
-    - Terminated
-    - Terminating
-    - Updating
   usage_based:
     description: Filter by usage-based offerings
     type: bool
@@ -775,7 +758,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: pending-consumer
+          sample: pending-start-date
         output:
           description: Output
           type: str
@@ -1162,7 +1145,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: pending-consumer
+          sample: pending-start-date
         output:
           description: Output
           type: str
@@ -1558,20 +1541,7 @@ ARGUMENT_SPEC = {
     "offering_uuid": {"type": "list"},
     "only_limit_based": {"type": "bool"},
     "only_usage_based": {"type": "bool"},
-    "order_state": {
-        "type": "list",
-        "choices": [
-            "canceled",
-            "done",
-            "erred",
-            "executing",
-            "pending-consumer",
-            "pending-project",
-            "pending-provider",
-            "pending-start-date",
-            "rejected",
-        ],
-    },
+    "order_state": {"type": "list"},
     "parent_offering_uuid": {"type": "str"},
     "paused": {"type": "bool"},
     "plan_uuid": {"type": "str"},
@@ -1581,10 +1551,7 @@ ARGUMENT_SPEC = {
     "restrict_member_access": {"type": "bool"},
     "runtime_state": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
-    "state": {
-        "type": "list",
-        "choices": ["Creating", "Erred", "OK", "Terminated", "Terminating", "Updating"],
-    },
+    "state": {"type": "list"},
     "usage_based": {"type": "bool"},
     "visible_to_providers": {"type": "bool"},
     "visible_to_username": {"type": "str"},

@@ -650,7 +650,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: pending-consumer
+          sample: pending-start-date
         output:
           description: Output
           type: str
@@ -1037,7 +1037,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: pending-consumer
+          sample: pending-start-date
         output:
           description: Output
           type: str

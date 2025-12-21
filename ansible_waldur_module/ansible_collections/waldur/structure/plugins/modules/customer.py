@@ -650,7 +650,7 @@ resource:
       returned: always
       sample: 123
     country_name:
-      description: Human-readable country name
+      description: Country name
       type: str
       returned: always
       sample: string-value

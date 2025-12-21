@@ -107,13 +107,13 @@ options:
     type: dict
     required: false
     description:
-    - ''
+    - Options
     - This attribute cannot be updated.
   resource_options:
     type: dict
     required: false
     description:
-    - ''
+    - Resource options
     - This attribute cannot be updated.
   components:
     type: list
@@ -2114,7 +2114,7 @@ resource:
           description: Status
           type: str
           returned: always
-          sample: OK
+          sample: Unknown
         last_request_timestamp:
           description: Last request timestamp
           type: str

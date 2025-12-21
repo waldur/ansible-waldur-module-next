@@ -341,7 +341,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: string-value
+      sample: CREATION_SCHEDULED
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -537,7 +537,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: OK
+          sample: CREATION_SCHEDULED
         bootable:
           description: Indicates if this volume can be used to boot an instance
           type: bool
@@ -655,7 +655,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: OK
+          sample: CREATION_SCHEDULED
     server_group:
       description: Server group
       type: dict
@@ -681,7 +681,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: OK
+          sample: CREATION_SCHEDULED
     floating_ips:
       description: A list of floating ips items.
       type: list
@@ -875,7 +875,7 @@ resource:
               description: Service settings state
               type: str
               returned: always
-              sample: string-value
+              sample: CREATION_SCHEDULED
             service_settings_error_message:
               description: Service settings error message
               type: str
@@ -1076,7 +1076,7 @@ resource:
               description: Marketplace resource state
               type: str
               returned: always
-              sample: string-value
+              sample: null
             is_usage_based:
               description: Is usage based
               type: bool
@@ -1197,7 +1197,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: string-value
+      sample: null
     is_usage_based:
       description: Is usage based
       type: bool
@@ -1276,13 +1276,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "data_volume_type",
-        "flavor",
         "availability_zone",
-        "system_volume_type",
+        "data_volume_type",
         "ssh_public_key",
         "image",
+        "flavor",
         "security_groups",
+        "system_volume_type",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
