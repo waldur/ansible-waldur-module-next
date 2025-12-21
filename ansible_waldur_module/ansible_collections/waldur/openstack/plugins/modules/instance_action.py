@@ -169,7 +169,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: CREATION_SCHEDULED
+      sample: string-value
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -365,7 +365,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: CREATION_SCHEDULED
+          sample: OK
         bootable:
           description: Indicates if this volume can be used to boot an instance
           type: bool
@@ -483,7 +483,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: CREATION_SCHEDULED
+          sample: OK
     server_group:
       description: Server group
       type: dict
@@ -509,7 +509,7 @@ resource:
           description: State
           type: str
           returned: always
-          sample: CREATION_SCHEDULED
+          sample: OK
     floating_ips:
       description: A list of floating ips items.
       type: list
@@ -703,7 +703,7 @@ resource:
               description: Service settings state
               type: str
               returned: always
-              sample: CREATION_SCHEDULED
+              sample: string-value
             service_settings_error_message:
               description: Service settings error message
               type: str
@@ -904,7 +904,7 @@ resource:
               description: Marketplace resource state
               type: str
               returned: always
-              sample: null
+              sample: string-value
             is_usage_based:
               description: Is usage based
               type: bool
@@ -1025,7 +1025,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: null
+      sample: string-value
     is_usage_based:
       description: Is usage based
       type: bool

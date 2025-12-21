@@ -183,7 +183,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: CREATION_SCHEDULED
+      sample: string-value
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -413,7 +413,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: null
+      sample: string-value
     is_usage_based:
       description: Is usage based
       type: bool
@@ -479,8 +479,8 @@ RUNNER_CONTEXT = {
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
         "availability_zone",
-        "type",
         "image",
+        "type",
         "description",
         "name",
         "size",

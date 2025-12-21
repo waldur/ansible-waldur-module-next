@@ -352,7 +352,7 @@ resource:
       description: Human-readable label for the OECD FOS 2007 classification code
       type: str
       returned: always
-      sample: null
+      sample: string-value
     is_industry:
       description: Is industry
       type: bool

@@ -118,6 +118,15 @@ options:
     type: list
     required: false
     elements: str
+    choices:
+    - CREATING
+    - CREATION_SCHEDULED
+    - DELETING
+    - DELETION_SCHEDULED
+    - ERRED
+    - OK
+    - UPDATE_SCHEDULED
+    - UPDATING
   uuid:
     description: UUID
     type: str
@@ -191,7 +200,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: CREATION_SCHEDULED
+      sample: string-value
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -421,7 +430,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: null
+      sample: string-value
     is_usage_based:
       description: Is usage based
       type: bool
@@ -459,7 +468,19 @@ ARGUMENT_SPEC = {
     "service_settings_uuid": {"type": "str"},
     "snapshot": {"type": "str"},
     "snapshot_uuid": {"type": "str"},
-    "state": {"type": "list"},
+    "state": {
+        "type": "list",
+        "choices": [
+            "CREATING",
+            "CREATION_SCHEDULED",
+            "DELETING",
+            "DELETION_SCHEDULED",
+            "ERRED",
+            "OK",
+            "UPDATE_SCHEDULED",
+            "UPDATING",
+        ],
+    },
     "uuid": {"type": "str"},
 }
 

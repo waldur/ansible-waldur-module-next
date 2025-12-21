@@ -69,7 +69,7 @@ options:
   description:
     type: dict
     required: false
-    description: Parameter for the 'update_description' action.
+    description: ''
 requirements:
 - python >= 3.9
 
@@ -154,7 +154,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: CREATION_SCHEDULED
+      sample: string-value
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -350,7 +350,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: null
+      sample: string-value
     is_usage_based:
       description: Is usage based
       type: bool

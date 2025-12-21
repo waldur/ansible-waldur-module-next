@@ -131,6 +131,12 @@ options:
     type: list
     required: false
     elements: str
+    choices:
+    - Active
+    - Archived
+    - Draft
+    - Paused
+    - Unavailable
   type:
     description: Offering type
     type: list
@@ -1516,7 +1522,10 @@ ARGUMENT_SPEC = {
     "scope_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
     "shared": {"type": "bool"},
-    "state": {"type": "list"},
+    "state": {
+        "type": "list",
+        "choices": ["Active", "Archived", "Draft", "Paused", "Unavailable"],
+    },
     "type": {"type": "list"},
     "user_has_consent": {"type": "bool"},
     "user_has_offering_user": {"type": "bool"},

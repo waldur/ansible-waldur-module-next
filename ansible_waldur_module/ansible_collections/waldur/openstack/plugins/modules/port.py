@@ -200,7 +200,7 @@ resource:
       description: Service settings state
       type: str
       returned: always
-      sample: CREATION_SCHEDULED
+      sample: string-value
     service_settings_error_message:
       description: Service settings error message
       type: str
@@ -440,7 +440,7 @@ resource:
       description: Marketplace resource state
       type: str
       returned: always
-      sample: null
+      sample: string-value
     is_usage_based:
       description: Is usage based
       type: bool
@@ -570,7 +570,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
+    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "wait_config": {
         "ok_states": ["OK"],

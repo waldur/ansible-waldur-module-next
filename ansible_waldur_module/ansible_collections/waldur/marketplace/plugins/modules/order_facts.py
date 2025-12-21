@@ -112,11 +112,26 @@ options:
     type: list
     required: false
     elements: str
+    choices:
+    - canceled
+    - done
+    - erred
+    - executing
+    - pending-consumer
+    - pending-project
+    - pending-provider
+    - pending-start-date
+    - rejected
   type:
     description: Order type
     type: list
     required: false
     elements: str
+    choices:
+    - Create
+    - Restore
+    - Terminate
+    - Update
 requirements:
 - python >= 3.9
 
@@ -298,7 +313,7 @@ resource:
       description: State
       type: str
       returned: always
-      sample: pending-start-date
+      sample: pending-consumer
     output:
       description: Output
       type: str
@@ -550,8 +565,21 @@ ARGUMENT_SPEC = {
     "resource_name": {"type": "str"},
     "resource_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
-    "state": {"type": "list"},
-    "type": {"type": "list"},
+    "state": {
+        "type": "list",
+        "choices": [
+            "canceled",
+            "done",
+            "erred",
+            "executing",
+            "pending-consumer",
+            "pending-project",
+            "pending-provider",
+            "pending-start-date",
+            "rejected",
+        ],
+    },
+    "type": {"type": "list", "choices": ["Create", "Restore", "Terminate", "Update"]},
 }
 
 RUNNER_CONTEXT = {
