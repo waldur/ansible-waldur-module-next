@@ -1278,10 +1278,10 @@ RUNNER_CONTEXT = {
     "attribute_param_names": [
         "image",
         "security_groups",
-        "ssh_public_key",
-        "data_volume_type",
-        "availability_zone",
         "system_volume_type",
+        "availability_zone",
+        "data_volume_type",
+        "ssh_public_key",
         "flavor",
         "connect_directly_to_external_network",
         "data_volume_size",
