@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, slug, staff_notes, start_date, type.'
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
 author: Waldur Team
 options:
   access_token:
@@ -153,6 +153,18 @@ options:
     type: int
     required: false
     description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
+  user_email_patterns:
+    type: str
+    required: false
+    description: User email patterns
+  user_affiliations:
+    type: str
+    required: false
+    description: User affiliations
+  user_identity_sources:
+    type: str
+    required: false
+    description: List of allowed identity sources (identity providers).
 requirements:
 - python >= 3.9
 
@@ -181,6 +193,9 @@ EXAMPLES = """
       kind: default
       staff_notes: string-value
       grace_period_days: 123
+      user_email_patterns: alice@example.com
+      user_affiliations: null
+      user_identity_sources: null
 - name: Create a new project (BlankEnum)
   hosts: localhost
   tasks:
@@ -203,6 +218,9 @@ EXAMPLES = """
       kind: default
       staff_notes: string-value
       grace_period_days: 123
+      user_email_patterns: alice@example.com
+      user_affiliations: null
+      user_identity_sources: null
 - name: Create a new project (NullEnum)
   hosts: localhost
   tasks:
@@ -225,6 +243,9 @@ EXAMPLES = """
       kind: default
       staff_notes: string-value
       grace_period_days: 123
+      user_email_patterns: alice@example.com
+      user_affiliations: null
+      user_identity_sources: null
 - name: Remove an existing project
   hosts: localhost
   tasks:
@@ -398,6 +419,21 @@ resource:
       type: int
       returned: always
       sample: 123
+    user_email_patterns:
+      description: User email patterns
+      type: str
+      returned: always
+      sample: alice@example.com
+    user_affiliations:
+      description: User affiliations
+      type: str
+      returned: always
+      sample: null
+    user_identity_sources:
+      description: List of allowed identity sources (identity providers).
+      type: str
+      returned: always
+      sample: null
     project_credit:
       description: Project credit
       type: float
@@ -530,6 +566,9 @@ ARGUMENT_SPEC = {
     "kind": {"type": "str", "choices": ["default", "course", "public"]},
     "staff_notes": {"type": "str"},
     "grace_period_days": {"type": "int"},
+    "user_email_patterns": {"type": "str"},
+    "user_affiliations": {"type": "str"},
+    "user_identity_sources": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -558,6 +597,9 @@ RUNNER_CONTEXT = {
         "slug",
         "staff_notes",
         "start_date",
+        "user_affiliations",
+        "user_email_patterns",
+        "user_identity_sources",
     ],
     "path_param_maps": {},
     "update_fields": [
@@ -575,6 +617,9 @@ RUNNER_CONTEXT = {
         "staff_notes",
         "start_date",
         "type",
+        "user_affiliations",
+        "user_email_patterns",
+        "user_identity_sources",
     ],
     "update_actions": {},
     "resolvers": {

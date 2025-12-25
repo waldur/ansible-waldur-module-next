@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, archived, backend_id, bank_account, bank_name, blocked, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, phone_number, postal, project_metadata_checklist, registration_code, slug, sponsor_number, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, archived, backend_id, bank_account, bank_name, blocked, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, phone_number, postal, project_metadata_checklist, registration_code, slug, sponsor_number, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -96,6 +96,18 @@ options:
     type: int
     required: false
     description: Number of extra days after project end date before resources are terminated
+  user_email_patterns:
+    type: str
+    required: false
+    description: User email patterns
+  user_affiliations:
+    type: str
+    required: false
+    description: User affiliations
+  user_identity_sources:
+    type: str
+    required: false
+    description: List of allowed identity sources (identity providers).
   slug:
     type: str
     required: false
@@ -457,6 +469,9 @@ EXAMPLES = """
       max_service_accounts: 123
       project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       grace_period_days: 123
+      user_email_patterns: alice@example.com
+      user_affiliations: null
+      user_identity_sources: null
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -498,6 +513,9 @@ EXAMPLES = """
       max_service_accounts: 123
       project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       grace_period_days: 123
+      user_email_patterns: alice@example.com
+      user_affiliations: null
+      user_identity_sources: null
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -669,6 +687,21 @@ resource:
       type: int
       returned: always
       sample: 123
+    user_email_patterns:
+      description: User email patterns
+      type: str
+      returned: always
+      sample: alice@example.com
+    user_affiliations:
+      description: User affiliations
+      type: str
+      returned: always
+      sample: null
+    user_identity_sources:
+      description: List of allowed identity sources (identity providers).
+      type: str
+      returned: always
+      sample: null
     name:
       description: Name
       type: str
@@ -948,6 +981,9 @@ ARGUMENT_SPEC = {
     "max_service_accounts": {"type": "int"},
     "project_metadata_checklist": {"type": "str"},
     "grace_period_days": {"type": "int"},
+    "user_email_patterns": {"type": "str"},
+    "user_affiliations": {"type": "str"},
+    "user_identity_sources": {"type": "str"},
     "slug": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},
@@ -1270,6 +1306,9 @@ RUNNER_CONTEXT = {
         "registration_code",
         "slug",
         "sponsor_number",
+        "user_affiliations",
+        "user_email_patterns",
+        "user_identity_sources",
         "vat_code",
     ],
     "path_param_maps": {},
@@ -1306,6 +1345,9 @@ RUNNER_CONTEXT = {
         "registration_code",
         "slug",
         "sponsor_number",
+        "user_affiliations",
+        "user_email_patterns",
+        "user_identity_sources",
         "vat_code",
     ],
     "update_actions": {},

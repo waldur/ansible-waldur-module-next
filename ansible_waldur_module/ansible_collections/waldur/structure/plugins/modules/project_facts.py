@@ -276,6 +276,21 @@ resource:
       type: int
       returned: always
       sample: 123
+    user_email_patterns:
+      description: User email patterns
+      type: str
+      returned: always
+      sample: alice@example.com
+    user_affiliations:
+      description: User affiliations
+      type: str
+      returned: always
+      sample: null
+    user_identity_sources:
+      description: List of allowed identity sources (identity providers).
+      type: str
+      returned: always
+      sample: null
     project_credit:
       description: Project credit
       type: float
