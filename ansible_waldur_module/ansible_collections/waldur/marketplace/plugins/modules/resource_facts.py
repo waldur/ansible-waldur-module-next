@@ -69,6 +69,10 @@ options:
     description: Has termination date
     type: bool
     required: false
+  is_attached:
+    description: Filter by attached state
+    type: bool
+    required: false
   lexis_links_supported:
     description: LEXIS links supported
     type: bool
@@ -1546,6 +1550,7 @@ ARGUMENT_SPEC = {
     "customer_uuid": {"type": "str"},
     "downscaled": {"type": "bool"},
     "has_terminate_date": {"type": "bool"},
+    "is_attached": {"type": "bool"},
     "lexis_links_supported": {"type": "bool"},
     "limit_based": {"type": "bool"},
     "limit_component_count": {"type": "float"},
@@ -1612,6 +1617,7 @@ RUNNER_CONTEXT = {
         "customer_uuid",
         "downscaled",
         "has_terminate_date",
+        "is_attached",
         "lexis_links_supported",
         "limit_based",
         "limit_component_count",
