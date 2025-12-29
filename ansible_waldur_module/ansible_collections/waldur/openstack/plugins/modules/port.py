@@ -54,6 +54,10 @@ options:
     - This attribute cannot be updated.
     type: str
     required: true
+  uuid:
+    description: The UUID of the OpenStack port. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
@@ -486,6 +490,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "uuid": {"type": "str"},
     "tenant": {"type": "str"},
     "description": {"type": "str"},
     "fixed_ips": {"type": "list"},

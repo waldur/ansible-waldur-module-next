@@ -52,6 +52,10 @@ options:
     description: The name of the OpenStack subnet.
     type: str
     required: true
+  uuid:
+    description: The UUID of the OpenStack subnet. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   network:
     type: str
     required: true
@@ -462,6 +466,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "uuid": {"type": "str"},
     "network": {"type": "str", "required": True},
     "tenant": {"type": "str"},
     "customer": {"type": "str"},

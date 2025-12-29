@@ -54,6 +54,10 @@ options:
     - This attribute cannot be updated.
     type: str
     required: true
+  uuid:
+    description: The UUID of the offering. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   slug:
     type: str
     required: false
@@ -2170,6 +2174,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "uuid": {"type": "str"},
     "slug": {"type": "str"},
     "description": {"type": "str"},
     "full_description": {"type": "str"},

@@ -52,6 +52,10 @@ options:
     description: The name of the project.
     type: str
     required: true
+  uuid:
+    description: The UUID of the project. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
@@ -505,6 +509,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "uuid": {"type": "str"},
     "customer": {"type": "str"},
     "slug": {"type": "str"},
     "description": {"type": "str"},

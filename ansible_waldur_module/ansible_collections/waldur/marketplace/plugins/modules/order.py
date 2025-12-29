@@ -53,7 +53,11 @@ options:
     - The name of the order.
     - This attribute cannot be updated.
     type: str
-    required: true
+    required: false
+  uuid:
+    description: The UUID of the order. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   project:
     description: The name or UUID of the parent project for filtering.
     type: str
@@ -829,7 +833,8 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
+    "uuid": {"type": "str"},
     "project": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},

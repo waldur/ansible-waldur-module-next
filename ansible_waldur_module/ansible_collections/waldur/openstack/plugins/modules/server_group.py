@@ -52,6 +52,10 @@ options:
     description: The name of the OpenStack server group.
     type: str
     required: true
+  uuid:
+    description: The UUID of the OpenStack server group. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   tenant:
     type: str
     required: true
@@ -380,6 +384,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "uuid": {"type": "str"},
     "tenant": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "project": {"type": "str"},

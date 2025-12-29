@@ -53,7 +53,11 @@ options:
     - The name of the marketplace resource.
     - This attribute cannot be updated.
     type: str
-    required: true
+    required: false
+  uuid:
+    description: The UUID of the marketplace resource. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
@@ -1447,7 +1451,8 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
+    "uuid": {"type": "str"},
     "customer": {"type": "str"},
     "project": {"type": "str"},
     "limits": {"type": "dict"},

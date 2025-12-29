@@ -52,6 +52,10 @@ options:
     description: The name of the customer.
     type: str
     required: true
+  uuid:
+    description: The UUID of the customer. Use this to identify a specific resource for modification or deletion.
+    type: str
+    required: false
   backend_id:
     type: str
     required: false
@@ -970,6 +974,7 @@ ARGUMENT_SPEC = {
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str", "required": True},
+    "uuid": {"type": "str"},
     "backend_id": {"type": "str"},
     "image": {"type": "str"},
     "blocked": {"type": "bool"},
