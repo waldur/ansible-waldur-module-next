@@ -643,6 +643,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["customer", "type"],
     "resource_detail_path": "/api/projects/{uuid}/",
+    "composite_keys": None,
 }
 
 

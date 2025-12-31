@@ -1515,6 +1515,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["project", "customer"],
     "resource_detail_path": "/api/marketplace-resources/{uuid}/",
+    "composite_keys": None,
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],

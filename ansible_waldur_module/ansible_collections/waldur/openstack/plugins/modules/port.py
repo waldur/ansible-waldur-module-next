@@ -577,6 +577,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
+    "composite_keys": None,
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],

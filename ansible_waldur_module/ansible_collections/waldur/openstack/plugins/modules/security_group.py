@@ -510,6 +510,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["remote_group", "project", "tenant", "customer"],
     "resource_detail_path": "/api/openstack-security-groups/{uuid}/",
+    "composite_keys": None,
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],

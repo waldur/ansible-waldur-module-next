@@ -1359,6 +1359,7 @@ RUNNER_CONTEXT = {
     "resolvers": {},
     "resolver_order": [],
     "resource_detail_path": "/api/customers/{uuid}/",
+    "composite_keys": None,
 }
 
 

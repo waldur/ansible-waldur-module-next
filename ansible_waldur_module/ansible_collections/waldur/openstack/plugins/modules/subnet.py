@@ -558,6 +558,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["network", "project", "tenant", "customer"],
     "resource_detail_path": "/api/openstack-subnets/{uuid}/",
+    "composite_keys": None,
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],

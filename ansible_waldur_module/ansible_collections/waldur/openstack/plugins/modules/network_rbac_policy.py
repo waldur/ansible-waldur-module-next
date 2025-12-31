@@ -62,16 +62,14 @@ options:
     description: The name or UUID of the parent tenant for filtering.
     type: str
     required: false
+  target_tenant:
+    description: The name or UUID of the parent target_tenant for filtering.
+    type: str
+    required: false
   network:
     description: The name or UUID of the parent network for filtering.
     type: str
     required: false
-  target_tenant:
-    type: str
-    required: false
-    description:
-    - The name or UUID of the target_tenant. Target tenant
-    - Required when C(state) is 'present'.
   policy_type:
     type: str
     required: false
@@ -196,8 +194,8 @@ ARGUMENT_SPEC = {
     "name": {"type": "str"},
     "uuid": {"type": "str"},
     "tenant": {"type": "str"},
-    "network": {"type": "str"},
     "target_tenant": {"type": "str"},
+    "network": {"type": "str"},
     "policy_type": {
         "type": "str",
         "choices": ["access_as_shared", "access_as_external"],
@@ -207,7 +205,11 @@ ARGUMENT_SPEC = {
 RUNNER_CONTEXT = {
     "resource_type": "OpenStack network RBAC policy",
     "check_url": "/api/openstack-network-rbac-policies/",
-    "check_filter_keys": {"tenant": "tenant_uuid", "network": "network_uuid"},
+    "check_filter_keys": {
+        "tenant": "tenant_uuid",
+        "target_tenant": "target_tenant_uuid",
+        "network": "network_uuid",
+    },
     "name_query_param": "name_exact",
     "list_path": "/api/openstack-network-rbac-policies/",
     "create_path": "/api/openstack-network-rbac-policies/",
@@ -247,6 +249,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["network", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-network-rbac-policies/{uuid}/",
+    "composite_keys": ["network", "target_tenant"],
 }
 
 

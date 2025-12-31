@@ -2521,6 +2521,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["category", "customer"],
     "resource_detail_path": "/api/marketplace-provider-offerings/{uuid}/",
+    "composite_keys": None,
 }
 
 

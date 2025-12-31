@@ -897,6 +897,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["project", "offering"],
     "resource_detail_path": "/api/marketplace-orders/{uuid}/",
+    "composite_keys": None,
 }
 
 

@@ -464,6 +464,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["tenant", "project", "customer"],
     "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",
+    "composite_keys": None,
     "wait_config": {
         "ok_states": ["OK"],
         "erred_states": ["ERRED"],
