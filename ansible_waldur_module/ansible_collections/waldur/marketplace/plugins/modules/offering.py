@@ -1398,7 +1398,7 @@ resource:
           returned: always
           sample: true
         auto_approve_marketplace_script:
-          description: If set to False, an order requires manual provider approval
+          description: If set to False, all orders require manual provider approval, including for service provider owners and staff
           type: bool
           returned: always
           sample: true
