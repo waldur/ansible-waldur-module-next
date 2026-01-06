@@ -238,6 +238,7 @@ EXAMPLES = """
         subnet_cidr: 192.168.42.0/24
         skip_connection_extnet: false
         skip_creation_of_default_router: false
+        skip_creation_of_default_subnet: false
         availability_zone: string-value
         security_groups:
         - name: My-Awesome-order

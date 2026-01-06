@@ -106,6 +106,12 @@ options:
     description:
     - Skip creation of default router
     - This attribute cannot be updated.
+  skip_creation_of_default_subnet:
+    type: bool
+    required: false
+    description:
+    - Skip creation of default subnet
+    - This attribute cannot be updated.
   availability_zone:
     type: str
     required: false
@@ -194,6 +200,7 @@ EXAMPLES = """
       subnet_cidr: 192.168.1.0/24
       skip_connection_extnet: true
       skip_creation_of_default_router: true
+      skip_creation_of_default_subnet: true
       availability_zone: string-value
       security_groups:
       - name: My-Awesome-vpc
@@ -218,6 +225,35 @@ EXAMPLES = """
       api_url: https://waldur.example.com
       project: Project Name or UUID
       offering: Offering Name or UUID
+- name: Create a VPC with Static Storage Limits
+  hosts: localhost
+  tasks:
+  - name: Create VPC with static limits
+    waldur.openstack.vpc:
+      access_token: '{{ waldur_access_token }}'
+      api_url: '{{ waldur_api_url }}'
+      name: vpc-static-limits
+      project: My Project
+      offering: OpenStack.Tenant
+      limits:
+        storage: 102400
+        ram: 20480
+        cores: 10
+- name: Create a VPC with Dynamic Volume Type Limits
+  hosts: localhost
+  tasks:
+  - name: Create VPC with dynamic limits
+    waldur.openstack.vpc:
+      access_token: '{{ waldur_access_token }}'
+      api_url: '{{ waldur_api_url }}'
+      name: vpc-dynamic-limits
+      project: My Project
+      offering: OpenStack.Tenant
+      limits:
+        gigabytes_ssd: 500
+        gigabytes_hpc: 2000
+        ram: 51200
+        cores: 20
 
 """
 
@@ -497,6 +533,7 @@ ARGUMENT_SPEC = {
     "subnet_cidr": {"type": "str"},
     "skip_connection_extnet": {"type": "bool"},
     "skip_creation_of_default_router": {"type": "bool"},
+    "skip_creation_of_default_subnet": {"type": "bool"},
     "availability_zone": {"type": "str"},
     "security_groups": {"type": "list"},
 }
@@ -520,6 +557,7 @@ RUNNER_CONTEXT = {
         "security_groups",
         "skip_connection_extnet",
         "skip_creation_of_default_router",
+        "skip_creation_of_default_subnet",
         "subnet_cidr",
     ],
     "required_for_create": ["name", "offering"],
