@@ -540,6 +540,8 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "vpc",
+    "offering_type": "OpenStack.Tenant",
+    "marketplace_resource_check_url": "/api/marketplace-resources/",
     "check_url": "/api/openstack-tenants/",
     "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
     "name_query_param": "name_exact",
@@ -585,7 +587,7 @@ RUNNER_CONTEXT = {
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
-            "error_message": None,
+            "error_message": "Offering '{value}' not found.",
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},

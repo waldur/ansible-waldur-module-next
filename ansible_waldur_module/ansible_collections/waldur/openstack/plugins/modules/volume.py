@@ -472,14 +472,16 @@ ARGUMENT_SPEC = {
 
 RUNNER_CONTEXT = {
     "resource_type": "volume",
+    "offering_type": "OpenStack.Volume",
+    "marketplace_resource_check_url": "/api/marketplace-resources/",
     "check_url": "/api/openstack-volumes/",
     "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
     "name_query_param": "name_exact",
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "type",
         "availability_zone",
+        "type",
         "image",
         "description",
         "name",
@@ -549,7 +551,7 @@ RUNNER_CONTEXT = {
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
-            "error_message": None,
+            "error_message": "Offering '{value}' not found.",
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
