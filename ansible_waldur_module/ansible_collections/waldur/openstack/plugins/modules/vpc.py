@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: vpc
 short_description: Create, update or delete a vpc via the marketplace.
-description: 'When the resource already exists, the following fields can be updated: availability_zone, default_volume_type_name, description, name, security_groups.'
+description: 'When the resource already exists, the following fields can be updated: availability_zone, default_volume_type_name, description, name, security_groups, skip_creation_of_default_router.'
 author: Waldur Team
 options:
   access_token:
@@ -103,9 +103,7 @@ options:
   skip_creation_of_default_router:
     type: bool
     required: false
-    description:
-    - Skip creation of default router
-    - This attribute cannot be updated.
+    description: Skip creation of default router
   skip_creation_of_default_subnet:
     type: bool
     required: false
@@ -439,6 +437,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    skip_creation_of_default_router:
+      description: Skip creation of default router
+      type: bool
+      returned: always
+      sample: false
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
@@ -551,6 +554,7 @@ RUNNER_CONTEXT = {
         "default_volume_type_name",
         "description",
         "name",
+        "skip_creation_of_default_router",
     ],
     "attribute_param_names": [
         "availability_zone",

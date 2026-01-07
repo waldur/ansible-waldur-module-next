@@ -261,6 +261,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    skip_creation_of_default_router:
+      description: Skip creation of default router
+      type: bool
+      returned: always
+      sample: false
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
