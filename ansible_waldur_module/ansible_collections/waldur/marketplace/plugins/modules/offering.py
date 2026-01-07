@@ -1152,6 +1152,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        disable_autoapprove:
+          description: If set to True, orders for this offering will always require manual approval, overriding auto_approve_in_service_provider_projects
+          type: bool
+          returned: always
+          sample: true
         supports_downscaling:
           description: If set to True, it will be possible to downscale resources
           type: bool
