@@ -70,6 +70,12 @@ options:
     description: The name or UUID of the parent project for filtering.
     type: str
     required: false
+  router:
+    type: str
+    required: false
+    description:
+    - Optional router to use for external network detection
+    - This attribute cannot be updated.
   description:
     type: dict
     required: false
@@ -89,6 +95,7 @@ EXAMPLES = """
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       tenant: Tenant name or UUID
+      router: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
 - name: Remove an existing OpenStack floating IP
   hosts: localhost
   tasks:
@@ -404,6 +411,7 @@ ARGUMENT_SPEC = {
     "tenant": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "project": {"type": "str"},
+    "router": {"type": "str"},
     "description": {"type": "dict"},
 }
 
@@ -422,7 +430,7 @@ RUNNER_CONTEXT = {
     "update_path": None,
     "retrieve_path": "/api/openstack-floating-ips/{uuid}/",
     "required_for_create": [],
-    "model_param_names": [],
+    "model_param_names": ["router"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
     "update_fields": [],
     "update_actions": {
