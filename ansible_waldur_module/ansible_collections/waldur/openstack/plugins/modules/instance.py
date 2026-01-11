@@ -1278,11 +1278,11 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
+        "security_groups",
         "system_volume_type",
-        "ssh_public_key",
         "image",
         "availability_zone",
-        "security_groups",
+        "ssh_public_key",
         "flavor",
         "data_volume_type",
         "connect_directly_to_external_network",
