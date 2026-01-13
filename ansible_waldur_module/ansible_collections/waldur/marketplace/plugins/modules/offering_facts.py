@@ -662,6 +662,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        resource_expiration_threshold:
+          description: Resource expiration threshold in days.
+          type: int
+          returned: always
+          sample: 30
         service_provider_can_create_offering_user:
           description: Service provider can create offering user
           type: bool

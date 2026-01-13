@@ -1279,11 +1279,11 @@ RUNNER_CONTEXT = {
     "update_fields": ["description", "name"],
     "attribute_param_names": [
         "ssh_public_key",
+        "flavor",
         "data_volume_type",
         "image",
-        "system_volume_type",
-        "flavor",
         "availability_zone",
+        "system_volume_type",
         "security_groups",
         "connect_directly_to_external_network",
         "data_volume_size",
