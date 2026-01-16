@@ -1182,6 +1182,11 @@ resource:
           type: int
           returned: always
           sample: 123
+        unique_resource_per_attribute:
+          description: Attribute name to enforce uniqueness per value. E.g., 'storage_data_type' ensures only one resource per storage type per project.
+          type: str
+          returned: always
+          sample: string-value
         required_team_role_for_provisioning:
           description: Required user role in a project for provisioning of resources
           type: str
