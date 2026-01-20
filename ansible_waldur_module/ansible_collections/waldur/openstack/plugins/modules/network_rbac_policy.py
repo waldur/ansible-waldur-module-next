@@ -237,17 +237,11 @@ RUNNER_CONTEXT = {
         "network": {
             "url": "/api/openstack-networks/",
             "error_message": None,
-            "filter_by": [
-                {
-                    "source_param": "tenant",
-                    "source_key": "uuid",
-                    "target_key": "tenant_uuid",
-                }
-            ],
+            "filter_by": [],
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["network", "target_tenant", "tenant"],
+    "resolver_order": ["tenant", "target_tenant", "network"],
     "resource_detail_path": "/api/openstack-network-rbac-policies/{uuid}/",
     "composite_keys": ["network", "target_tenant"],
 }

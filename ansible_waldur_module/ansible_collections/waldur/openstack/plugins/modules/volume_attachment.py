@@ -479,7 +479,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["instance", "volume", "project", "tenant", "customer"],
+    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
 }
 
 
