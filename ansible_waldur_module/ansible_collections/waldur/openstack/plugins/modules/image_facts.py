@@ -45,6 +45,10 @@ options:
     description: Settings UUID
     type: str
     required: false
+  show_duplicate_names:
+    description: Show duplicate image names
+    type: bool
+    required: false
   tenant:
     description: Tenant URL
     type: str
@@ -115,6 +119,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    backend_created_at:
+      description: Backend created at
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
 
 """
 
@@ -125,6 +134,7 @@ ARGUMENT_SPEC = {
     "offering_uuid": {"type": "str"},
     "settings": {"type": "str"},
     "settings_uuid": {"type": "str"},
+    "show_duplicate_names": {"type": "bool"},
     "tenant": {"type": "str"},
     "tenant_uuid": {"type": "str"},
 }
@@ -140,6 +150,7 @@ RUNNER_CONTEXT = {
         "offering_uuid",
         "settings",
         "settings_uuid",
+        "show_duplicate_names",
         "tenant",
         "tenant_uuid",
     ],
