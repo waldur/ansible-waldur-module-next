@@ -2061,6 +2061,22 @@ resource:
           type: int
           returned: always
           sample: 123
+    tags:
+      description: A list of tags items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
     image:
       description: Image URL
       type: str

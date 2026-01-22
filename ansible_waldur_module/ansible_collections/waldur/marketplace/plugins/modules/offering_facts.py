@@ -137,6 +137,24 @@ options:
     - Draft
     - Paused
     - Unavailable
+  tag:
+    description: Tag UUID (OR logic)
+    type: list
+    required: false
+    elements: str
+  tag_name:
+    description: Tag name (OR logic)
+    type: list
+    required: false
+    elements: str
+  tag_names_and:
+    description: Tag names with AND logic (comma-separated)
+    type: str
+    required: false
+  tags_and:
+    description: Tag UUIDs with AND logic (comma-separated)
+    type: str
+    required: false
   type:
     description: Offering type
     type: list
@@ -1379,6 +1397,22 @@ resource:
           type: int
           returned: always
           sample: 123
+    tags:
+      description: A list of tags items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-offering
     image:
       description: Image URL
       type: str
@@ -1541,6 +1575,10 @@ ARGUMENT_SPEC = {
         "type": "list",
         "choices": ["Active", "Archived", "Draft", "Paused", "Unavailable"],
     },
+    "tag": {"type": "list"},
+    "tag_name": {"type": "list"},
+    "tag_names_and": {"type": "str"},
+    "tags_and": {"type": "str"},
     "type": {"type": "list"},
     "user_has_consent": {"type": "bool"},
     "user_has_offering_user": {"type": "bool"},
@@ -1585,6 +1623,10 @@ RUNNER_CONTEXT = {
         "service_manager_uuid",
         "shared",
         "state",
+        "tag",
+        "tag_name",
+        "tag_names_and",
+        "tags_and",
         "type",
         "user_has_consent",
         "user_has_offering_user",
