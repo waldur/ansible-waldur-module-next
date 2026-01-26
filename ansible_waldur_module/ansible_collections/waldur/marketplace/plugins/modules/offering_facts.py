@@ -970,6 +970,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        slurm_periodic_policy_enabled:
+          description: Enable SLURM periodic usage policy configuration. When enabled, allows configuring QoS-based threshold enforcement, carryover logic, and fairshare decay for site-agent managed SLURM offerings.
+          type: bool
+          returned: always
+          sample: false
         auto_approve_marketplace_script:
           description: If set to False, all orders require manual provider approval, including for service provider owners and staff
           type: bool
