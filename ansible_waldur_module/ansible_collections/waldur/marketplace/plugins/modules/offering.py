@@ -125,6 +125,12 @@ options:
     description:
     - Components
     - This attribute cannot be updated.
+  plugin_options:
+    type: dict
+    required: false
+    description:
+    - ''
+    - This attribute cannot be updated.
   vendor_details:
     type: str
     required: false
@@ -530,6 +536,71 @@ EXAMPLES = """
         overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         min_prepaid_duration: 123
         max_prepaid_duration: 123
+      plugin_options:
+        auto_approve_remote_orders: true
+        resource_expiration_threshold: 30
+        service_provider_can_create_offering_user: true
+        max_resource_termination_offset_in_days: 123
+        default_resource_termination_offset_in_days: 123
+        is_resource_termination_date_required: true
+        latest_date_for_resource_termination: '2023-10-01'
+        auto_approve_in_service_provider_projects: true
+        disable_autoapprove: true
+        supports_downscaling: true
+        supports_pausing: true
+        minimal_team_count_for_provisioning: 123
+        maximal_resource_count_per_project: 123
+        unique_resource_per_attribute: string-value
+        required_team_role_for_provisioning: string-value
+        enable_purchase_order_upload: true
+        require_purchase_order_upload: true
+        conceal_billing_data: true
+        create_orders_on_resource_option_change: true
+        can_restore_resource: true
+        default_internal_network_mtu: 123
+        max_instances: 123
+        max_volumes: 123
+        max_security_groups: 123
+        storage_mode: fixed
+        snapshot_size_limit_gb: 123
+        heappe_cluster_id: string-value
+        heappe_local_base_path: string-value
+        heappe_url: string-value
+        heappe_username: string-value
+        homedir_prefix: /home/
+        scratch_project_directory: string-value
+        project_permanent_directory: string-value
+        initial_primarygroup_number: 5000
+        initial_uidnumber: 5000
+        initial_usergroup_number: 6000
+        username_anonymized_prefix: waldur_
+        username_generation_policy: service_provider
+        enable_issues_for_membership_changes: true
+        deployment_mode: self_managed
+        flavors_regex: string-value
+        openstack_offering_uuid_list:
+        - string-value
+        managed_rancher_server_flavor_name: string-value
+        managed_rancher_server_system_volume_size_gb: 123
+        managed_rancher_server_system_volume_type_name: string-value
+        managed_rancher_server_data_volume_size_gb: 123
+        managed_rancher_server_data_volume_type_name: string-value
+        managed_rancher_worker_system_volume_size_gb: 123
+        managed_rancher_worker_system_volume_type_name: string-value
+        managed_rancher_load_balancer_flavor_name: string-value
+        managed_rancher_load_balancer_system_volume_size_gb: 123
+        managed_rancher_load_balancer_system_volume_type_name: string-value
+        managed_rancher_load_balancer_data_volume_size_gb: 123
+        managed_rancher_load_balancer_data_volume_type_name: string-value
+        managed_rancher_tenant_max_cpu: 123
+        managed_rancher_tenant_max_ram: 2048
+        managed_rancher_tenant_max_disk: 20480
+        account_name_generation_policy: null
+        enable_display_of_order_actions_for_service_provider: true
+        slurm_periodic_policy_enabled: false
+        auto_approve_marketplace_script: true
+        highlight_backend_id_display: false
+        backend_id_display_label: Backend ID
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -599,6 +670,71 @@ EXAMPLES = """
         overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         min_prepaid_duration: 123
         max_prepaid_duration: 123
+      plugin_options:
+        auto_approve_remote_orders: true
+        resource_expiration_threshold: 30
+        service_provider_can_create_offering_user: true
+        max_resource_termination_offset_in_days: 123
+        default_resource_termination_offset_in_days: 123
+        is_resource_termination_date_required: true
+        latest_date_for_resource_termination: '2023-10-01'
+        auto_approve_in_service_provider_projects: true
+        disable_autoapprove: true
+        supports_downscaling: true
+        supports_pausing: true
+        minimal_team_count_for_provisioning: 123
+        maximal_resource_count_per_project: 123
+        unique_resource_per_attribute: string-value
+        required_team_role_for_provisioning: string-value
+        enable_purchase_order_upload: true
+        require_purchase_order_upload: true
+        conceal_billing_data: true
+        create_orders_on_resource_option_change: true
+        can_restore_resource: true
+        default_internal_network_mtu: 123
+        max_instances: 123
+        max_volumes: 123
+        max_security_groups: 123
+        storage_mode: fixed
+        snapshot_size_limit_gb: 123
+        heappe_cluster_id: string-value
+        heappe_local_base_path: string-value
+        heappe_url: string-value
+        heappe_username: string-value
+        homedir_prefix: /home/
+        scratch_project_directory: string-value
+        project_permanent_directory: string-value
+        initial_primarygroup_number: 5000
+        initial_uidnumber: 5000
+        initial_usergroup_number: 6000
+        username_anonymized_prefix: waldur_
+        username_generation_policy: service_provider
+        enable_issues_for_membership_changes: true
+        deployment_mode: self_managed
+        flavors_regex: string-value
+        openstack_offering_uuid_list:
+        - string-value
+        managed_rancher_server_flavor_name: string-value
+        managed_rancher_server_system_volume_size_gb: 123
+        managed_rancher_server_system_volume_type_name: string-value
+        managed_rancher_server_data_volume_size_gb: 123
+        managed_rancher_server_data_volume_type_name: string-value
+        managed_rancher_worker_system_volume_size_gb: 123
+        managed_rancher_worker_system_volume_type_name: string-value
+        managed_rancher_load_balancer_flavor_name: string-value
+        managed_rancher_load_balancer_system_volume_size_gb: 123
+        managed_rancher_load_balancer_system_volume_type_name: string-value
+        managed_rancher_load_balancer_data_volume_size_gb: 123
+        managed_rancher_load_balancer_data_volume_type_name: string-value
+        managed_rancher_tenant_max_cpu: 123
+        managed_rancher_tenant_max_ram: 2048
+        managed_rancher_tenant_max_disk: 20480
+        account_name_generation_policy: null
+        enable_display_of_order_actions_for_service_provider: true
+        slurm_periodic_policy_enabled: false
+        auto_approve_marketplace_script: true
+        highlight_backend_id_display: false
+        backend_id_display_label: Backend ID
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -2222,6 +2358,7 @@ ARGUMENT_SPEC = {
     "options": {"type": "dict"},
     "resource_options": {"type": "dict"},
     "components": {"type": "list"},
+    "plugin_options": {"type": "dict"},
     "vendor_details": {"type": "str"},
     "getting_started": {"type": "str"},
     "integration_guide": {"type": "str"},
@@ -2530,6 +2667,7 @@ RUNNER_CONTEXT = {
         "name",
         "options",
         "plans",
+        "plugin_options",
         "privacy_policy_link",
         "resource_options",
         "shared",
