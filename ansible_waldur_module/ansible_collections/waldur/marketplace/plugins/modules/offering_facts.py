@@ -1480,6 +1480,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    is_accessible:
+      description: Is accessible
+      type: bool
+      returned: always
+      sample: true
     google_calendar_is_public:
       description: Google calendar is public
       type: bool
