@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: order
 short_description: Manage order resources.
-description: ''
+description: 'When the resource already exists, the following fields can be updated: attributes, limits, start_date.'
 author: Waldur Team
 options:
   access_token:
@@ -78,15 +78,11 @@ options:
   attributes:
     type: dict
     required: false
-    description:
-    - Attributes structure depends on the offering type specified in the parent object. Can also be a generic object for offerings without a specific attributes schema.
-    - This attribute cannot be updated.
+    description: Attributes structure depends on the offering type specified in the parent object. Can also be a generic object for offerings without a specific attributes schema.
   limits:
     type: dict
     required: false
-    description:
-    - Limits
-    - This attribute cannot be updated.
+    description: Limits
   accepting_terms_of_service:
     type: bool
     required: false
@@ -119,9 +115,7 @@ options:
   start_date:
     type: str
     required: false
-    description:
-    - Enables delayed processing of resource provisioning order.
-    - This attribute cannot be updated.
+    description: Enables delayed processing of resource provisioning order.
   slug:
     type: str
     required: false
@@ -857,7 +851,7 @@ RUNNER_CONTEXT = {
     "list_path": "/api/marketplace-orders/",
     "create_path": "/api/marketplace-orders/",
     "destroy_path": "/api/marketplace-orders/{uuid}/",
-    "update_path": None,
+    "update_path": "/api/marketplace-orders/{uuid}/",
     "retrieve_path": "/api/marketplace-orders/{uuid}/",
     "required_for_create": ["offering", "project"],
     "model_param_names": [
@@ -874,7 +868,7 @@ RUNNER_CONTEXT = {
         "type",
     ],
     "path_param_maps": {},
-    "update_fields": [],
+    "update_fields": ["attributes", "limits", "start_date"],
     "update_actions": {},
     "resolvers": {
         "project": {

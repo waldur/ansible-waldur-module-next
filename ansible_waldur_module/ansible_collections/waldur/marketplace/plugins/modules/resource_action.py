@@ -327,6 +327,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    offering_backend_id:
+      description: Offering backend ID
+      type: str
+      returned: always
+      sample: string-value
     parent_uuid:
       description: Parent UUID
       type: str
