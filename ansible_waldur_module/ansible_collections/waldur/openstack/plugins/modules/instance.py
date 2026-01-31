@@ -1278,9 +1278,9 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "system_volume_type",
-        "image",
         "ssh_public_key",
+        "image",
+        "system_volume_type",
         "flavor",
         "security_groups",
         "availability_zone",
