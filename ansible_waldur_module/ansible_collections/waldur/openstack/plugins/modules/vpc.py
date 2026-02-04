@@ -401,6 +401,16 @@ resource:
       type: str
       returned: always
       sample: string-value
+    external_network_ref_uuid:
+      description: External network ref UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    external_network_ref_name:
+      description: External network ref name
+      type: str
+      returned: always
+      sample: ''
     user_username:
       description: Username of the tenant user
       type: str
