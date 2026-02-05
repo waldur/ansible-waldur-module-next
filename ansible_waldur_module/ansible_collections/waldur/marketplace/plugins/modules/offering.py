@@ -601,6 +601,8 @@ EXAMPLES = """
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
+        disabled_resource_actions:
+        - string-value
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -735,6 +737,8 @@ EXAMPLES = """
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
+        disabled_resource_actions:
+        - string-value
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -1568,6 +1572,11 @@ resource:
           type: str
           returned: always
           sample: Backend ID
+        disabled_resource_actions:
+          description: List of disabled marketplace resource actions for this offering.
+          type: list
+          returned: always
+          sample: []
     secret_options:
       description: Secret options
       type: dict

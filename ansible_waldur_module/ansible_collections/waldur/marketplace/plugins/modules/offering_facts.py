@@ -990,6 +990,11 @@ resource:
           type: str
           returned: always
           sample: Backend ID
+        disabled_resource_actions:
+          description: List of disabled marketplace resource actions for this offering.
+          type: list
+          returned: always
+          sample: []
     state:
       description: State
       type: str
