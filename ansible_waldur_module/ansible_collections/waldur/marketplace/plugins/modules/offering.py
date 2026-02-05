@@ -543,7 +543,7 @@ EXAMPLES = """
         max_resource_termination_offset_in_days: 123
         default_resource_termination_offset_in_days: 123
         is_resource_termination_date_required: true
-        latest_date_for_resource_termination: '2023-10-01'
+        latest_date_for_resource_termination: string-value
         auto_approve_in_service_provider_projects: true
         disable_autoapprove: true
         supports_downscaling: true
@@ -679,7 +679,7 @@ EXAMPLES = """
         max_resource_termination_offset_in_days: 123
         default_resource_termination_offset_in_days: 123
         is_resource_termination_date_required: true
-        latest_date_for_resource_termination: '2023-10-01'
+        latest_date_for_resource_termination: string-value
         auto_approve_in_service_provider_projects: true
         disable_autoapprove: true
         supports_downscaling: true
@@ -869,14 +869,14 @@ resource:
               description: UUID
               type: str
               returned: always
-              sample: string-value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             name:
-              description: Name
+              description: Catalog name (e.g., EESSI, Spack)
               type: str
               returned: always
               sample: My-Awesome-Resource
             version:
-              description: Version
+              description: Catalog version (e.g., 2023.06, 0.21.0)
               type: str
               returned: always
               sample: string-value
@@ -910,19 +910,19 @@ resource:
               description: UUID
               type: str
               returned: always
-              sample: string-value
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
             partition_name:
-              description: Partition name
+              description: Name of the SLURM partition
               type: str
               returned: always
               sample: string-value
             priority_tier:
-              description: Priority tier
+              description: Priority tier for scheduling and preemption
               type: int
               returned: always
               sample: 123
             qos:
-              description: Qos
+              description: Quality of Service (QOS) name
               type: str
               returned: always
               sample: string-value
@@ -1288,10 +1288,10 @@ resource:
           returned: always
           sample: true
         latest_date_for_resource_termination:
-          description: If set, it will be used as a latest date for resource termination
+          description: 'If set, it will be used as a latest date for resource termination. Format: YYYY-MM-DD'
           type: str
           returned: always
-          sample: '2023-10-01'
+          sample: string-value
         auto_approve_in_service_provider_projects:
           description: Skip approval of public offering belonging to the same organization under which the request is done
           type: bool
