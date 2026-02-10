@@ -557,6 +557,8 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         can_restore_resource: true
+        enable_provider_consumer_messaging: true
+        notify_about_provider_consumer_messages: true
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -693,6 +695,8 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         can_restore_resource: true
+        enable_provider_consumer_messaging: true
+        notify_about_provider_consumer_messages: true
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -1354,6 +1358,16 @@ resource:
           sample: true
         can_restore_resource:
           description: If set to True, resource can be restored.
+          type: bool
+          returned: always
+          sample: true
+        enable_provider_consumer_messaging:
+          description: If set to True, service providers can send messages with attachments to consumers on pending orders, and consumers can respond.
+          type: bool
+          returned: always
+          sample: true
+        notify_about_provider_consumer_messages:
+          description: If set to True, send email notifications when providers or consumers exchange messages on pending orders.
           type: bool
           returned: always
           sample: true

@@ -775,6 +775,16 @@ resource:
           type: bool
           returned: always
           sample: true
+        enable_provider_consumer_messaging:
+          description: If set to True, service providers can send messages with attachments to consumers on pending orders, and consumers can respond.
+          type: bool
+          returned: always
+          sample: true
+        notify_about_provider_consumer_messages:
+          description: If set to True, send email notifications when providers or consumers exchange messages on pending orders.
+          type: bool
+          returned: always
+          sample: true
         default_internal_network_mtu:
           description: If set, it will be used as a default MTU for the first network in a tenant
           type: int

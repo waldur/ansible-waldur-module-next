@@ -778,6 +778,31 @@ resource:
       type: str
       returned: always
       sample: string-value
+    provider_message:
+      description: Provider message
+      type: str
+      returned: always
+      sample: string-value
+    provider_message_url:
+      description: Provider message URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/provider-message-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    provider_message_attachment:
+      description: Provider message attachment URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/provider-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    consumer_message:
+      description: Consumer message
+      type: str
+      returned: always
+      sample: string-value
+    consumer_message_attachment:
+      description: Consumer message attachment URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/consumer-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     issue:
       description: Issue
       type: dict
