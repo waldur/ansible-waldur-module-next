@@ -783,6 +783,21 @@ resource:
           type: str
           returned: always
           sample: string-value
+        created_by_email:
+          description: Created by email
+          type: str
+          returned: always
+          sample: alice@example.com
+        created_by_organization:
+          description: Created by organization
+          type: str
+          returned: always
+          sample: string-value
+        created_by_organization_registry_code:
+          description: Company registration code of the user's organization, if known
+          type: str
+          returned: always
+          sample: string-value
         customer_name:
           description: Customer name
           type: str
@@ -1192,6 +1207,21 @@ resource:
           sample: string-value
         created_by_civil_number:
           description: Created by civil number
+          type: str
+          returned: always
+          sample: string-value
+        created_by_email:
+          description: Created by email
+          type: str
+          returned: always
+          sample: alice@example.com
+        created_by_organization:
+          description: Created by organization
+          type: str
+          returned: always
+          sample: string-value
+        created_by_organization_registry_code:
+          description: Company registration code of the user's organization, if known
           type: str
           returned: always
           sample: string-value
