@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: server_group
 short_description: Manage OpenStack Server Groups (Affinity Groups) in Waldur.
-description: 'When the resource already exists, the following fields can be updated: description, name, policy.'
+description: ''
 author: Waldur Team
 options:
   access_token:
@@ -49,7 +49,9 @@ options:
     default: 20
     type: int
   name:
-    description: The name of the OpenStack server group.
+    description:
+    - The name of the OpenStack server group.
+    - This attribute cannot be updated.
     type: str
     required: true
   uuid:
@@ -71,11 +73,15 @@ options:
   description:
     type: str
     required: false
-    description: Description
+    description:
+    - Description
+    - This attribute cannot be updated.
   policy:
     type: dict
     required: false
-    description: Server group policy determining the rules for scheduling servers in this group
+    description:
+    - Server group policy determining the rules for scheduling servers in this group
+    - This attribute cannot be updated.
     choices:
     - affinity
     - ''
@@ -404,12 +410,12 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-server-groups/",
     "create_path": "/api/openstack-tenants/{uuid}/create_server_group/",
     "destroy_path": "/api/openstack-server-groups/{uuid}/",
-    "update_path": "/api/openstack-server-groups/{uuid}/",
+    "update_path": None,
     "retrieve_path": "/api/openstack-server-groups/{uuid}/",
     "required_for_create": ["name"],
     "model_param_names": ["description", "name", "policy"],
     "path_param_maps": {"create": {"uuid": "tenant"}},
-    "update_fields": ["description", "name", "policy"],
+    "update_fields": [],
     "update_actions": {},
     "resolvers": {
         "tenant": {

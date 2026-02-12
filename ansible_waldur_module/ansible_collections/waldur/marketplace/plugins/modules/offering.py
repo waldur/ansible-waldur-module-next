@@ -462,6 +462,12 @@ options:
     description:
     - Backend id
     - This attribute cannot be updated.
+  backend_id_rules:
+    type: str
+    required: false
+    description:
+    - 'Validation rules for resource backend_id: format regex and uniqueness scope.'
+    - This attribute cannot be updated.
   image:
     type: str
     required: false
@@ -626,6 +632,7 @@ EXAMPLES = """
       longitude: 123.45
       country: {}
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      backend_id_rules: null
       image: string-value
       backend_metadata: null
       compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -764,6 +771,7 @@ EXAMPLES = """
       longitude: 123.45
       country: {}
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      backend_id_rules: null
       image: string-value
       backend_metadata: null
       compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -2184,6 +2192,11 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    backend_id_rules:
+      description: 'Validation rules for resource backend_id: format regex and uniqueness scope.'
+      type: str
+      returned: always
+      sample: null
     organization_groups:
       description: A list of organization groups items.
       type: list
@@ -2650,6 +2663,7 @@ ARGUMENT_SPEC = {
         ],
     },
     "backend_id": {"type": "str"},
+    "backend_id_rules": {"type": "str"},
     "image": {"type": "str"},
     "backend_metadata": {"type": "str"},
     "compliance_checklist": {"type": "str"},
@@ -2673,6 +2687,7 @@ RUNNER_CONTEXT = {
         "access_url",
         "attributes",
         "backend_id",
+        "backend_id_rules",
         "backend_metadata",
         "billable",
         "compliance_checklist",
