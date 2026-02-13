@@ -918,6 +918,16 @@ resource:
           type: str
           returned: always
           sample: https://api.example.com/api/consumer-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_rejection_comment:
+          description: Consumer rejection comment
+          type: str
+          returned: always
+          sample: string-value
+        provider_rejection_comment:
+          description: Provider rejection comment
+          type: str
+          returned: always
+          sample: string-value
         issue:
           description: Issue
           type: dict
@@ -1345,6 +1355,16 @@ resource:
           type: str
           returned: always
           sample: https://api.example.com/api/consumer-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_rejection_comment:
+          description: Consumer rejection comment
+          type: str
+          returned: always
+          sample: string-value
+        provider_rejection_comment:
+          description: Provider rejection comment
+          type: str
+          returned: always
+          sample: string-value
         issue:
           description: Issue
           type: dict
