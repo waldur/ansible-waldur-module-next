@@ -785,6 +785,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        restrict_deletion_with_active_resources:
+          description: If set to True, offering cannot be deleted while it has non-terminated resources.
+          type: bool
+          returned: always
+          sample: true
         default_internal_network_mtu:
           description: If set, it will be used as a default MTU for the first network in a tenant
           type: int

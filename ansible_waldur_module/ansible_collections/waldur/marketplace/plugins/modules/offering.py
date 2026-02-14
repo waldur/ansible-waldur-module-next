@@ -565,6 +565,7 @@ EXAMPLES = """
         can_restore_resource: true
         enable_provider_consumer_messaging: true
         notify_about_provider_consumer_messages: true
+        restrict_deletion_with_active_resources: true
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -704,6 +705,7 @@ EXAMPLES = """
         can_restore_resource: true
         enable_provider_consumer_messaging: true
         notify_about_provider_consumer_messages: true
+        restrict_deletion_with_active_resources: true
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -1376,6 +1378,11 @@ resource:
           sample: true
         notify_about_provider_consumer_messages:
           description: If set to True, send email notifications when providers or consumers exchange messages on pending orders.
+          type: bool
+          returned: always
+          sample: true
+        restrict_deletion_with_active_resources:
+          description: If set to True, offering cannot be deleted while it has non-terminated resources.
           type: bool
           returned: always
           sample: true
