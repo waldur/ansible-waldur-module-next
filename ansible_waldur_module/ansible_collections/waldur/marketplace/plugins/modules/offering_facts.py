@@ -91,9 +91,8 @@ options:
     required: false
   organization_group_uuid:
     description: Organization group UUID
-    type: list
+    type: str
     required: false
-    elements: str
   parent_uuid:
     description: Parent offering UUID
     type: str
@@ -1592,7 +1591,7 @@ ARGUMENT_SPEC = {
     "has_terms_of_service": {"type": "bool"},
     "keyword": {"type": "str"},
     "modified": {"type": "str"},
-    "organization_group_uuid": {"type": "list"},
+    "organization_group_uuid": {"type": "str"},
     "parent_uuid": {"type": "str"},
     "project_uuid": {"type": "str"},
     "query": {"type": "str"},

@@ -50,9 +50,9 @@ options:
     type: int
   name:
     type: str
-    required: false
+    required: true
     description:
-    - Name
+    - The name of the instance.
     - Required when C(state) is 'present'.
   project:
     type: str
@@ -81,145 +81,7 @@ options:
   description:
     type: str
     required: false
-    description: Description
-  flavor:
-    type: str
-    required: false
-    description:
-    - The flavor to use for the instance
-    - Required when C(state) is 'present'.
-    - This attribute cannot be updated.
-  image:
-    type: str
-    required: false
-    description:
-    - The OS image to use for the instance
-    - Required when C(state) is 'present'.
-    - This attribute cannot be updated.
-  security_groups:
-    type: list
-    required: false
-    description: List of security groups to apply to the instance
-    elements: str
-  server_group:
-    type: str
-    required: false
-    description:
-    - Server group for instance scheduling policy
-    - This attribute cannot be updated.
-  ports:
-    type: list
-    required: false
-    description:
-    - Network ports to attach to the instance
-    - Required when C(state) is 'present'.
-    elements: dict
-    suboptions:
-      fixed_ips:
-        type: list
-        required: false
-        description: A list of fixed ips names or UUIDs.
-        elements: dict
-        suboptions:
-          ip_address:
-            type: str
-            required: true
-            description: IP address to assign to the port
-          subnet_id:
-            type: str
-            required: true
-            description: ID of the subnet in which to assign the IP address
-      subnet:
-        type: str
-        required: false
-        description: Subnet to which this port belongs
-      port:
-        type: str
-        required: false
-        description: Port URL
-  floating_ips:
-    type: list
-    required: false
-    description: Floating IPs to assign to the instance
-    elements: dict
-    suboptions:
-      url:
-        type: str
-        required: false
-        description: URL URL
-      ip_address:
-        type: str
-        required: false
-        description: Existing floating IP address in selected OpenStack tenant to be assigned to new virtual machine
-      subnet:
-        type: str
-        required: true
-        description: The name or UUID of the subnet.
-  system_volume_size:
-    type: int
-    required: false
-    description:
-    - Size of the system volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
-    - Required when C(state) is 'present'.
-    - This attribute cannot be updated.
-  system_volume_type:
-    type: str
-    required: false
-    description:
-    - Volume type for the system volume
-    - This attribute cannot be updated.
-  data_volume_size:
-    type: int
-    required: false
-    description:
-    - Size of the data volume in MiB. Minimum size is 1024 MiB (1 GiB). The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
-    - This attribute cannot be updated.
-  data_volume_type:
-    type: str
-    required: false
-    description:
-    - Volume type for the data volume
-    - This attribute cannot be updated.
-  ssh_public_key:
-    type: str
-    required: false
-    description:
-    - The name or UUID of the SSH public key.
-    - This attribute cannot be updated.
-  user_data:
-    type: str
-    required: false
-    description:
-    - Additional data that will be added to instance on provisioning
-    - This attribute cannot be updated.
-  availability_zone:
-    type: str
-    required: false
-    description:
-    - Availability zone where this instance is located
-    - This attribute cannot be updated.
-  connect_directly_to_external_network:
-    type: bool
-    required: false
-    description:
-    - If True, instance will be connected directly to external network
-    - This attribute cannot be updated.
-  data_volumes:
-    type: list
-    required: false
-    description:
-    - Additional data volumes to attach to the instance
-    - This attribute cannot be updated.
-    elements: dict
-    suboptions:
-      size:
-        type: int
-        required: true
-        description: Size
-      volume_type:
-        type: str
-        required: false
-        description: Volume type URL
+    description: A description for the instance.
   termination_action:
     type: str
     required: false
@@ -253,32 +115,6 @@ EXAMPLES = """
       offering: Offering Name or UUID
       name: My-Awesome-instance
       description: A sample description created by Ansible.
-      flavor: Flavor name or UUID
-      image: Image name or UUID
-      security_groups:
-      - Security groups name or UUID
-      server_group: string-value
-      ports:
-      - fixed_ips:
-        - ip_address: 192.168.42.50
-          subnet_id: string-value
-        subnet: Subnet name or UUID
-        port: string-value
-      floating_ips:
-      - url: string-value
-        ip_address: 192.168.42.50
-        subnet: Subnet name or UUID
-      system_volume_size: 123
-      system_volume_type: System volume type name or UUID
-      data_volume_size: 123
-      data_volume_type: Data volume type name or UUID
-      ssh_public_key: Ssh public key name or UUID
-      user_data: "#cloud-config\npackages:\n  - nginx"
-      availability_zone: Availability zone name or UUID
-      connect_directly_to_external_network: true
-      data_volumes:
-      - size: 100
-        volume_type: string-value
 - name: Remove an existing instance
   hosts: localhost
   tasks:
@@ -1242,27 +1078,12 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str"},
+    "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
     "description": {"type": "str"},
-    "flavor": {"type": "str"},
-    "image": {"type": "str"},
-    "security_groups": {"type": "list"},
-    "server_group": {"type": "str"},
-    "ports": {"type": "list"},
-    "floating_ips": {"type": "list"},
-    "system_volume_size": {"type": "int"},
-    "system_volume_type": {"type": "str"},
-    "data_volume_size": {"type": "int"},
-    "data_volume_type": {"type": "str"},
-    "ssh_public_key": {"type": "str"},
-    "user_data": {"type": "str"},
-    "availability_zone": {"type": "str"},
-    "connect_directly_to_external_network": {"type": "bool"},
-    "data_volumes": {"type": "list"},
     "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
     "delete_volumes": {"type": "bool"},
     "release_floating_ips": {"type": "bool"},
@@ -1277,33 +1098,8 @@ RUNNER_CONTEXT = {
     "name_query_param": "name_exact",
     "update_url": None,
     "update_fields": ["description", "name"],
-    "attribute_param_names": [
-        "security_groups",
-        "image",
-        "flavor",
-        "data_volume_type",
-        "system_volume_type",
-        "availability_zone",
-        "ssh_public_key",
-        "connect_directly_to_external_network",
-        "data_volume_size",
-        "data_volumes",
-        "description",
-        "floating_ips",
-        "name",
-        "ports",
-        "server_group",
-        "system_volume_size",
-        "user_data",
-    ],
-    "required_for_create": [
-        "flavor",
-        "image",
-        "name",
-        "offering",
-        "ports",
-        "system_volume_size",
-    ],
+    "attribute_param_names": ["description"],
+    "required_for_create": ["offering"],
     "termination_attributes_map": {
         "termination_action": "action",
         "delete_volumes": "delete_volumes",
@@ -1340,7 +1136,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "image": {
@@ -1353,7 +1149,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "system_volume_type": {
@@ -1366,7 +1162,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "data_volume_type": {
@@ -1379,7 +1175,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "security_groups": {
@@ -1392,8 +1188,8 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": True,
-            "list_item_keys": {"create": "url", "update_action": None},
+            "is_list": None,
+            "list_item_keys": {},
         },
         "availability_zone": {
             "url": "/api/openstack-instance-availability-zones/",
@@ -1405,7 +1201,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "subnet": {
@@ -1425,7 +1221,7 @@ RUNNER_CONTEXT = {
             "url": "/api/keys/",
             "error_message": None,
             "filter_by": [],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "offering": {

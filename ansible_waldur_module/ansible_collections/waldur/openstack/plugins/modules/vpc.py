@@ -50,9 +50,9 @@ options:
     type: int
   name:
     type: str
-    required: false
+    required: true
     description:
-    - Name
+    - The name of the vpc.
     - Required when C(state) is 'present'.
   project:
     type: str
@@ -87,96 +87,7 @@ options:
   description:
     type: str
     required: false
-    description: Description
-  subnet_cidr:
-    type: str
-    required: false
-    description:
-    - Subnet CIDR
-    - This attribute cannot be updated.
-  skip_connection_extnet:
-    type: bool
-    required: false
-    description:
-    - Skip connection extnet
-    - This attribute cannot be updated.
-  skip_creation_of_default_router:
-    type: bool
-    required: false
-    description: Skip creation of default router
-  skip_creation_of_default_subnet:
-    type: bool
-    required: false
-    description:
-    - Skip creation of default subnet
-    - This attribute cannot be updated.
-  availability_zone:
-    type: str
-    required: false
-    description: Optional availability group. Will be used for all instances provisioned in this tenant
-  security_groups:
-    type: list
-    required: false
-    description: A list of security groups names or UUIDs.
-    elements: dict
-    suboptions:
-      name:
-        type: str
-        required: true
-        description: Name
-      description:
-        type: str
-        required: false
-        description: Description
-      rules:
-        type: list
-        required: false
-        description: A list of rules names or UUIDs.
-        elements: dict
-        suboptions:
-          ethertype:
-            type: str
-            required: false
-            choices:
-            - IPv4
-            - IPv6
-            description: IP protocol version - either 'IPv4' or 'IPv6'
-          direction:
-            type: str
-            required: false
-            choices:
-            - ingress
-            - egress
-            description: Traffic direction - either 'ingress' (incoming) or 'egress' (outgoing)
-          protocol:
-            type: str
-            required: false
-            choices:
-            - tcp
-            - udp
-            - icmp
-            - ''
-            description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
-          from_port:
-            type: int
-            required: false
-            description: Starting port number in the range (1-65535)
-          to_port:
-            type: int
-            required: false
-            description: Ending port number in the range (1-65535)
-          cidr:
-            type: str
-            required: false
-            description: CIDR notation for the source/destination network address range
-          description:
-            type: str
-            required: false
-            description: Description
-          remote_group:
-            type: str
-            required: false
-            description: Remote security group that this rule references, if any
+    description: A description for the vpc.
 requirements:
 - python >= 3.9
 
@@ -195,23 +106,6 @@ EXAMPLES = """
       offering: Offering Name or UUID
       name: My-Awesome-vpc
       description: A sample description created by Ansible.
-      subnet_cidr: 192.168.1.0/24
-      skip_connection_extnet: true
-      skip_creation_of_default_router: true
-      skip_creation_of_default_subnet: true
-      availability_zone: string-value
-      security_groups:
-      - name: My-Awesome-vpc
-        description: A sample description created by Ansible.
-        rules:
-        - ethertype: string-value
-          direction: string-value
-          protocol: string-value
-          from_port: 8080
-          to_port: 8080
-          cidr: 192.168.1.0/24
-          description: A sample description created by Ansible.
-          remote_group: string-value
 - name: Remove an existing vpc
   hosts: localhost
   tasks:
@@ -536,19 +430,13 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str"},
+    "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
     "limits": {"type": "dict"},
     "description": {"type": "str"},
-    "subnet_cidr": {"type": "str"},
-    "skip_connection_extnet": {"type": "bool"},
-    "skip_creation_of_default_router": {"type": "bool"},
-    "skip_creation_of_default_subnet": {"type": "bool"},
-    "availability_zone": {"type": "str"},
-    "security_groups": {"type": "list"},
 }
 
 RUNNER_CONTEXT = {
@@ -566,17 +454,8 @@ RUNNER_CONTEXT = {
         "name",
         "skip_creation_of_default_router",
     ],
-    "attribute_param_names": [
-        "availability_zone",
-        "description",
-        "name",
-        "security_groups",
-        "skip_connection_extnet",
-        "skip_creation_of_default_router",
-        "skip_creation_of_default_subnet",
-        "subnet_cidr",
-    ],
-    "required_for_create": ["name", "offering"],
+    "attribute_param_names": ["description"],
+    "required_for_create": ["offering"],
     "termination_attributes_map": {},
     "resolvers": {
         "customer": {

@@ -50,9 +50,9 @@ options:
     type: int
   name:
     type: str
-    required: false
+    required: true
     description:
-    - Name
+    - The name of the volume.
     - Required when C(state) is 'present'.
   project:
     type: str
@@ -81,27 +81,7 @@ options:
   description:
     type: str
     required: false
-    description: Description
-  image:
-    type: str
-    required: false
-    description:
-    - Image that this volume was created from, if any
-    - This attribute cannot be updated.
-  size:
-    type: int
-    required: false
-    description: Size in MiB. The value should be provided in GiB and will be converted to MiB. The value should be provided in GiB and will be converted to MiB.
-  availability_zone:
-    type: str
-    required: false
-    description:
-    - Availability zone where this volume is located
-    - This attribute cannot be updated.
-  type:
-    type: str
-    required: false
-    description: Type of the volume (e.g. SSD, HDD)
+    description: A description for the volume.
 requirements:
 - python >= 3.9
 
@@ -120,10 +100,6 @@ EXAMPLES = """
       offering: Offering Name or UUID
       name: My-Awesome-volume
       description: A sample description created by Ansible.
-      image: Image name or UUID
-      size: 100
-      availability_zone: Availability zone name or UUID
-      type: Type name or UUID
 - name: Remove an existing volume
   hosts: localhost
   tasks:
@@ -458,16 +434,12 @@ ARGUMENT_SPEC = {
     "wait": {"type": "bool", "default": True},
     "timeout": {"type": "int", "default": 600},
     "interval": {"type": "int", "default": 20},
-    "name": {"type": "str"},
+    "name": {"type": "str", "required": True},
     "project": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "offering": {"type": "str"},
     "plan": {"type": "str"},
     "description": {"type": "str"},
-    "image": {"type": "str"},
-    "size": {"type": "int"},
-    "availability_zone": {"type": "str"},
-    "type": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -479,15 +451,8 @@ RUNNER_CONTEXT = {
     "name_query_param": "name_exact",
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
-    "attribute_param_names": [
-        "image",
-        "availability_zone",
-        "type",
-        "description",
-        "name",
-        "size",
-    ],
-    "required_for_create": ["name", "offering"],
+    "attribute_param_names": ["description"],
+    "required_for_create": ["offering"],
     "termination_attributes_map": {},
     "resolvers": {
         "customer": {
@@ -520,7 +485,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "image": {
@@ -533,7 +498,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "availability_zone": {
@@ -546,7 +511,7 @@ RUNNER_CONTEXT = {
                     "target_key": "tenant_uuid",
                 }
             ],
-            "is_list": False,
+            "is_list": None,
             "list_item_keys": {},
         },
         "offering": {
