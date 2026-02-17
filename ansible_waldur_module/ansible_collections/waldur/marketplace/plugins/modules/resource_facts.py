@@ -170,6 +170,10 @@ options:
     description: Runtime state
     type: str
     required: false
+  scope:
+    description: Filter by scope URL.
+    type: str
+    required: false
   service_manager_uuid:
     description: Service manager UUID
     type: str
@@ -1690,6 +1694,7 @@ ARGUMENT_SPEC = {
     "query": {"type": "str"},
     "restrict_member_access": {"type": "bool"},
     "runtime_state": {"type": "str"},
+    "scope": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
     "state": {
         "type": "list",
@@ -1744,6 +1749,7 @@ RUNNER_CONTEXT = {
         "query",
         "restrict_member_access",
         "runtime_state",
+        "scope",
         "service_manager_uuid",
         "state",
         "usage_based",

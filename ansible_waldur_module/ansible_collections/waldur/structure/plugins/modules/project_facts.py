@@ -37,6 +37,10 @@ options:
     description: The name or UUID of the parent customer.
     type: str
     required: false
+  accounting_is_running:
+    description: Filter by whether accounting is running.
+    type: bool
+    required: false
   backend_id:
     description: Filter by backend id.
     type: str
@@ -91,6 +95,10 @@ options:
     required: false
   slug:
     description: Slug
+    type: str
+    required: false
+  user_uuid:
+    description: Filter by user UUID.
     type: str
     required: false
 requirements:
@@ -335,6 +343,7 @@ ARGUMENT_SPEC = {
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
     "customer": {"type": "str"},
+    "accounting_is_running": {"type": "bool"},
     "backend_id": {"type": "str"},
     "can_admin": {"type": "bool"},
     "can_manage": {"type": "bool"},
@@ -349,6 +358,7 @@ ARGUMENT_SPEC = {
     "modified": {"type": "str"},
     "query": {"type": "str"},
     "slug": {"type": "str"},
+    "user_uuid": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -365,6 +375,7 @@ RUNNER_CONTEXT = {
     },
     "many": False,
     "inferred_filter_params": [
+        "accounting_is_running",
         "backend_id",
         "can_admin",
         "can_manage",
@@ -379,6 +390,7 @@ RUNNER_CONTEXT = {
         "modified",
         "query",
         "slug",
+        "user_uuid",
     ],
 }
 
