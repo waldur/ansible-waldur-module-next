@@ -608,6 +608,11 @@ EXAMPLES = """
         enable_display_of_order_actions_for_service_provider: true
         slurm_periodic_policy_enabled: false
         auto_approve_marketplace_script: true
+        keycloak_enabled: true
+        keycloak_base_group: string-value
+        keycloak_sync_frequency: 123
+        keycloak_group_name_template: string-value
+        keycloak_username_label: ''
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
         disabled_resource_actions:
@@ -748,6 +753,11 @@ EXAMPLES = """
         enable_display_of_order_actions_for_service_provider: true
         slurm_periodic_policy_enabled: false
         auto_approve_marketplace_script: true
+        keycloak_enabled: true
+        keycloak_base_group: string-value
+        keycloak_sync_frequency: 123
+        keycloak_group_name_template: string-value
+        keycloak_username_label: ''
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
         disabled_resource_actions:
@@ -1591,6 +1601,31 @@ resource:
           type: bool
           returned: always
           sample: true
+        keycloak_enabled:
+          description: If set to True, Keycloak group management is enabled for this offering.
+          type: bool
+          returned: always
+          sample: true
+        keycloak_base_group:
+          description: 'Root parent group in Keycloak under which offering groups are created. Groups are organized as: {base_group}/{offering_slug}/{role_group}. If empty, offering groups are created at the realm root.'
+          type: str
+          returned: always
+          sample: string-value
+        keycloak_sync_frequency:
+          description: Frequency in minutes for syncing Keycloak group memberships.
+          type: int
+          returned: always
+          sample: 123
+        keycloak_group_name_template:
+          description: 'Template for generating Keycloak group names. Uses $variable syntax (e.g. $offering_uuid_$role_name). Allowed variables: offering_uuid, offering_name, offering_slug, resource_uuid, resource_name, resource_slug, project_uuid, project_name, project_slug, organization_uuid, organization_name, organization_slug, role_name, scope_id.'
+          type: str
+          returned: always
+          sample: string-value
+        keycloak_username_label:
+          description: Custom label for the username field when inviting external users (e.g. 'Civil code', 'CUID'). If empty, defaults to 'Username'.
+          type: str
+          returned: always
+          sample: ''
         highlight_backend_id_display:
           description: Defines if backend_id should be shown more prominently by the UI
           type: bool
