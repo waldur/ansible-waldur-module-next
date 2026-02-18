@@ -80,10 +80,13 @@ options:
     type: dict
     required: false
     description:
-    - Server group policy determining the rules for scheduling servers in this group
+    - "affinity \u2014 all instances are placed on the same hypervisor. anti-affinity \u2014 all instances are placed on different hypervisors. soft-affinity \u2014 instances are placed on the same hypervisor if possible, but not enforced. soft-anti-affinity \u2014 instances are placed on different hypervisors if possible, but not enforced."
     - This attribute cannot be updated.
     choices:
     - affinity
+    - anti-affinity
+    - soft-affinity
+    - soft-anti-affinity
     - ''
 requirements:
 - python >= 3.9
@@ -275,7 +278,7 @@ resource:
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     policy:
-      description: Server group policy determining the rules for scheduling servers in this group
+      description: "affinity \u2014 all instances are placed on the same hypervisor. anti-affinity \u2014 all instances are placed on different hypervisors. soft-affinity \u2014 instances are placed on the same hypervisor if possible, but not enforced. soft-anti-affinity \u2014 instances are placed on different hypervisors if possible, but not enforced."
       type: str
       returned: always
       sample: null
@@ -395,7 +398,16 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str"},
     "project": {"type": "str"},
     "description": {"type": "str"},
-    "policy": {"type": "dict", "choices": ["affinity", ""]},
+    "policy": {
+        "type": "dict",
+        "choices": [
+            "affinity",
+            "anti-affinity",
+            "soft-affinity",
+            "soft-anti-affinity",
+            "",
+        ],
+    },
 }
 
 RUNNER_CONTEXT = {
