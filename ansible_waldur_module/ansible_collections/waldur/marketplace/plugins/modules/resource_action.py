@@ -369,12 +369,12 @@ resource:
           returned: always
           sample: string-value
     is_usage_based:
-      description: Is usage based
+      description: Returns True if the resource has usage-based components that track variable consumption.
       type: bool
       returned: always
       sample: true
     is_limit_based:
-      description: Is limit based
+      description: Returns True if the resource has limit-based components with user-adjustable quotas.
       type: bool
       returned: always
       sample: true
@@ -389,7 +389,7 @@ resource:
       returned: always
       sample: string-value
     current_usages:
-      description: Current usages
+      description: Dictionary mapping component types to their latest reported usage amounts.
       type: dict
       returned: always
       sample: {}
@@ -430,7 +430,7 @@ resource:
       returned: always
       sample: alice
     limit_usage:
-      description: Limit usage
+      description: Dictionary mapping limit-based component types to their consumed usage. For monthly periods, maps from current_usages; for longer periods, aggregates historical usage.
       type: dict
       returned: always
       sample: {}
