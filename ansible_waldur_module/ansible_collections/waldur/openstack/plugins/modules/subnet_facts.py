@@ -114,15 +114,6 @@ options:
     type: list
     required: false
     elements: str
-    choices:
-    - CREATING
-    - CREATION_SCHEDULED
-    - DELETING
-    - DELETION_SCHEDULED
-    - ERRED
-    - OK
-    - UPDATE_SCHEDULED
-    - UPDATING
   uuid:
     description: UUID
     type: str
@@ -445,19 +436,7 @@ ARGUMENT_SPEC = {
     "rbac_only": {"type": "bool"},
     "service_settings_name": {"type": "str"},
     "service_settings_uuid": {"type": "str"},
-    "state": {
-        "type": "list",
-        "choices": [
-            "CREATING",
-            "CREATION_SCHEDULED",
-            "DELETING",
-            "DELETION_SCHEDULED",
-            "ERRED",
-            "OK",
-            "UPDATE_SCHEDULED",
-            "UPDATING",
-        ],
-    },
+    "state": {"type": "list"},
     "uuid": {"type": "str"},
 }
 

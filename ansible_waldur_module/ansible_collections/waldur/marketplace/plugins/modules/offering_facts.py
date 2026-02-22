@@ -130,12 +130,6 @@ options:
     type: list
     required: false
     elements: str
-    choices:
-    - Active
-    - Archived
-    - Draft
-    - Paused
-    - Unavailable
   tag:
     description: Tag UUID (OR logic)
     type: list
@@ -1625,10 +1619,7 @@ ARGUMENT_SPEC = {
     "scope_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
     "shared": {"type": "bool"},
-    "state": {
-        "type": "list",
-        "choices": ["Active", "Archived", "Draft", "Paused", "Unavailable"],
-    },
+    "state": {"type": "list"},
     "tag": {"type": "list"},
     "tag_name": {"type": "list"},
     "tag_names_and": {"type": "str"},
