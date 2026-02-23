@@ -566,6 +566,7 @@ EXAMPLES = """
         enable_provider_consumer_messaging: true
         notify_about_provider_consumer_messages: true
         restrict_deletion_with_active_resources: true
+        resource_name_pattern: string-value
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -711,6 +712,7 @@ EXAMPLES = """
         enable_provider_consumer_messaging: true
         notify_about_provider_consumer_messages: true
         restrict_deletion_with_active_resources: true
+        resource_name_pattern: string-value
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -1396,6 +1398,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        resource_name_pattern:
+          description: 'Python format string for generating resource names. Available variables: {customer_name}, {customer_slug}, {project_name}, {project_slug}, {offering_name}, {offering_slug}, {plan_name}, {counter}, {attributes[KEY]}.'
+          type: str
+          returned: always
+          sample: string-value
         default_internal_network_mtu:
           description: If set, it will be used as a default MTU for the first network in a tenant
           type: int
