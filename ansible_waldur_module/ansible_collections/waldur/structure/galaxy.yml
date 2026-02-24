@@ -1,6 +1,6 @@
 namespace: waldur
 name: structure
-version: 8.0.5-dev.20260224143626
+version: 8.0.5-dev.20260224175500
 readme: README.md
 authors:
 - Waldur Team <info@waldur.com>
