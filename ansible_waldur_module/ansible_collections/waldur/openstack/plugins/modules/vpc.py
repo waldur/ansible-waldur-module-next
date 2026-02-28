@@ -585,6 +585,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "project": {
             "url": "/api/projects/",
@@ -598,6 +599,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
@@ -605,6 +607,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
     },
     "resolver_order": ["project", "offering", "customer"],

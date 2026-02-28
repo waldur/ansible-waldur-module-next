@@ -480,9 +480,9 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
+        "type",
         "availability_zone",
         "image",
-        "type",
         "description",
         "name",
         "size",
@@ -496,6 +496,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "project": {
             "url": "/api/projects/",
@@ -509,6 +510,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "type": {
             "url": "/api/openstack-volume-types/",
@@ -522,6 +524,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "image": {
             "url": "/api/openstack-images/",
@@ -535,6 +538,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "availability_zone": {
             "url": "/api/openstack-volume-availability-zones/",
@@ -548,6 +552,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
@@ -555,6 +560,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
     },
     "resolver_order": [

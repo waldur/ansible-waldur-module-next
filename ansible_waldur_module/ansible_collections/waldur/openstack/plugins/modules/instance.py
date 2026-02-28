@@ -1278,14 +1278,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "data_volume_type",
-        "security_groups",
-        "availability_zone",
         "server_group",
         "image",
-        "flavor",
-        "system_volume_type",
         "ssh_public_key",
+        "availability_zone",
+        "system_volume_type",
+        "flavor",
+        "data_volume_type",
+        "security_groups",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
@@ -1316,6 +1316,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "project": {
             "url": "/api/projects/",
@@ -1329,6 +1330,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "flavor": {
             "url": "/api/openstack-flavors/",
@@ -1342,6 +1344,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "image": {
             "url": "/api/openstack-images/",
@@ -1355,6 +1358,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "system_volume_type": {
             "url": "/api/openstack-volume-types/",
@@ -1368,6 +1372,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "data_volume_type": {
             "url": "/api/openstack-volume-types/",
@@ -1381,6 +1386,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "security_groups": {
             "url": "/api/openstack-security-groups/",
@@ -1394,6 +1400,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": True,
             "list_item_keys": {"create": "url", "update_action": None},
+            "object_item_keys": {},
         },
         "availability_zone": {
             "url": "/api/openstack-instance-availability-zones/",
@@ -1407,6 +1414,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "subnet": {
             "url": "/api/openstack-subnets/",
@@ -1420,6 +1428,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "ssh_public_key": {
             "url": "/api/keys/",
@@ -1427,6 +1436,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "server_group": {
             "url": "/api/openstack-server-groups/",
@@ -1440,6 +1450,7 @@ RUNNER_CONTEXT = {
             ],
             "is_list": False,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
@@ -1447,6 +1458,7 @@ RUNNER_CONTEXT = {
             "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
+            "object_item_keys": {},
         },
     },
     "resolver_order": [
