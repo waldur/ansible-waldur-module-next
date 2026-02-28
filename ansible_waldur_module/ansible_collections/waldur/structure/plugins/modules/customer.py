@@ -189,7 +189,7 @@ options:
     required: false
     description: Bank account
   country:
-    type: dict
+    type: str
     required: false
     description: Country code (ISO 3166-1 alpha-2)
     choices:
@@ -1009,7 +1009,7 @@ ARGUMENT_SPEC = {
     "longitude": {"type": "float"},
     "bank_account": {"type": "str"},
     "country": {
-        "type": "dict",
+        "type": "str",
         "choices": [
             "AW",
             "AF",

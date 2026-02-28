@@ -85,7 +85,7 @@ options:
     required: false
     description: Project end date. Setting this field requires DELETE_PROJECT permission.
   oecd_fos_2007_code:
-    type: dict
+    type: str
     required: false
     description: Oecd fos 2007 code
     choices:
@@ -518,7 +518,7 @@ ARGUMENT_SPEC = {
     "start_date": {"type": "str"},
     "end_date": {"type": "str"},
     "oecd_fos_2007_code": {
-        "type": "dict",
+        "type": "str",
         "choices": [
             "1.1",
             "1.2",

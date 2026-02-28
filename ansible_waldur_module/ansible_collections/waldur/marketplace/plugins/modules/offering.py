@@ -199,7 +199,7 @@ options:
     - Longitude
     - This attribute cannot be updated.
   country:
-    type: dict
+    type: str
     required: false
     description:
     - Country code (ISO 3166-1 alpha-2)
@@ -2456,7 +2456,7 @@ ARGUMENT_SPEC = {
     "latitude": {"type": "float"},
     "longitude": {"type": "float"},
     "country": {
-        "type": "dict",
+        "type": "str",
         "choices": [
             "AW",
             "AF",

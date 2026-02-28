@@ -257,7 +257,7 @@ EXAMPLES = """
       image: Image name or UUID
       security_groups:
       - Security groups name or UUID
-      server_group: string-value
+      server_group: Server group name or UUID
       ports:
       - fixed_ips:
         - ip_address: 192.168.42.50
@@ -1278,13 +1278,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "ssh_public_key",
-        "availability_zone",
-        "image",
-        "system_volume_type",
-        "security_groups",
-        "flavor",
         "data_volume_type",
+        "security_groups",
+        "availability_zone",
+        "server_group",
+        "image",
+        "flavor",
+        "system_volume_type",
+        "ssh_public_key",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
@@ -1292,7 +1293,6 @@ RUNNER_CONTEXT = {
         "floating_ips",
         "name",
         "ports",
-        "server_group",
         "system_volume_size",
         "user_data",
     ],
@@ -1428,6 +1428,19 @@ RUNNER_CONTEXT = {
             "is_list": False,
             "list_item_keys": {},
         },
+        "server_group": {
+            "url": "/api/openstack-server-groups/",
+            "error_message": None,
+            "filter_by": [
+                {
+                    "source_param": "offering",
+                    "source_key": "scope_uuid",
+                    "target_key": "tenant_uuid",
+                }
+            ],
+            "is_list": False,
+            "list_item_keys": {},
+        },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": "Offering '{value}' not found.",
@@ -1446,6 +1459,7 @@ RUNNER_CONTEXT = {
         "availability_zone",
         "subnet",
         "ssh_public_key",
+        "server_group",
         "customer",
         "offering",
     ],

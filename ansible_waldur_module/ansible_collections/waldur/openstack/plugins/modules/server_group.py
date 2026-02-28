@@ -77,7 +77,7 @@ options:
     - Description
     - This attribute cannot be updated.
   policy:
-    type: dict
+    type: str
     required: false
     description:
     - "affinity \u2014 all instances are placed on the same hypervisor. anti-affinity \u2014 all instances are placed on different hypervisors. soft-affinity \u2014 instances are placed on the same hypervisor if possible, but not enforced. soft-anti-affinity \u2014 instances are placed on different hypervisors if possible, but not enforced."
@@ -399,7 +399,7 @@ ARGUMENT_SPEC = {
     "project": {"type": "str"},
     "description": {"type": "str"},
     "policy": {
-        "type": "dict",
+        "type": "str",
         "choices": [
             "affinity",
             "anti-affinity",
