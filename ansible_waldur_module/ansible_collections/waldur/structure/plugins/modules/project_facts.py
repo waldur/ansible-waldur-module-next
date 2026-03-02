@@ -98,7 +98,7 @@ options:
     type: str
     required: false
   user_uuid:
-    description: Filter by user UUID.
+    description: Filter projects where the given user has a role.
     type: str
     required: false
 requirements:
