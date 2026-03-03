@@ -481,8 +481,8 @@ RUNNER_CONTEXT = {
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
         "availability_zone",
-        "image",
         "type",
+        "image",
         "description",
         "name",
         "size",
