@@ -683,6 +683,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        offering_user_auto_deletion:
+          description: If set to True, offering users will be automatically marked for deletion by the cleanup task when users lose project access. If False (default), deletion must be triggered manually by the service provider.
+          type: bool
+          returned: always
+          sample: false
         max_resource_termination_offset_in_days:
           description: Maximum resource termination offset in days
           type: int
