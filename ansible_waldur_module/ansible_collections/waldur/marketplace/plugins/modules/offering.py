@@ -954,6 +954,16 @@ resource:
               type: str
               returned: always
               sample: string-value
+            cpu_arch:
+              description: CPU architecture of the partition (e.g., x86_64/amd/zen3)
+              type: str
+              returned: always
+              sample: string-value
+            gpu_arch:
+              description: GPU architecture of the partition (e.g., nvidia/cc90, amd/gfx90a)
+              type: str
+              returned: always
+              sample: string-value
     partitions:
       description: A list of partitions items.
       type: list
@@ -967,6 +977,16 @@ resource:
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         partition_name:
           description: Name of the SLURM partition
+          type: str
+          returned: always
+          sample: string-value
+        cpu_arch:
+          description: CPU architecture of the partition (e.g., x86_64/amd/zen3)
+          type: str
+          returned: always
+          sample: string-value
+        gpu_arch:
+          description: GPU architecture of the partition (e.g., nvidia/cc90, amd/gfx90a)
           type: str
           returned: always
           sample: string-value
