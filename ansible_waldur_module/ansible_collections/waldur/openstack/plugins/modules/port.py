@@ -415,6 +415,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    marketplace_offering_type:
+      description: Marketplace offering type
+      type: str
+      returned: always
+      sample: string-value
     marketplace_offering_plugin_options:
       description: Marketplace offering plugin options
       type: dict

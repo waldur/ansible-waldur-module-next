@@ -1047,6 +1047,11 @@ resource:
               type: str
               returned: always
               sample: string-value
+            marketplace_offering_type:
+              description: Marketplace offering type
+              type: str
+              returned: always
+              sample: string-value
             marketplace_offering_plugin_options:
               description: Marketplace offering plugin options
               type: dict
@@ -1168,6 +1173,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    marketplace_offering_type:
+      description: Marketplace offering type
+      type: str
+      returned: always
+      sample: string-value
     marketplace_offering_plugin_options:
       description: Marketplace offering plugin options
       type: dict
@@ -1278,14 +1288,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "system_volume_type",
-        "flavor",
-        "security_groups",
-        "availability_zone",
-        "server_group",
         "data_volume_type",
         "ssh_public_key",
+        "server_group",
+        "image",
+        "system_volume_type",
+        "availability_zone",
+        "security_groups",
+        "flavor",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",

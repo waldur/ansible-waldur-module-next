@@ -342,6 +342,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    marketplace_offering_type:
+      description: Marketplace offering type
+      type: str
+      returned: always
+      sample: string-value
     marketplace_offering_plugin_options:
       description: Marketplace offering plugin options
       type: dict
@@ -479,7 +484,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["instance", "volume", "project", "tenant", "customer"],
+    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
 }
 
 

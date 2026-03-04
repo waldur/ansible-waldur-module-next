@@ -384,6 +384,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    marketplace_offering_type:
+      description: Marketplace offering type
+      type: str
+      returned: always
+      sample: string-value
     marketplace_offering_plugin_options:
       description: Marketplace offering plugin options
       type: dict
@@ -480,9 +485,9 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "type",
         "image",
         "availability_zone",
+        "type",
         "description",
         "name",
         "size",
