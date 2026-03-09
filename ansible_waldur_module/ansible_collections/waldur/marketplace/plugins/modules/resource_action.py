@@ -162,6 +162,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    provider_description:
+      description: Provider description
+      type: str
+      returned: always
+      sample: string-value
     category_title:
       description: Category title
       type: str
@@ -563,6 +568,11 @@ resource:
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         provider_slug:
           description: Provider slug
+          type: str
+          returned: always
+          sample: string-value
+        provider_description:
+          description: Provider description
           type: str
           returned: always
           sample: string-value
@@ -1000,6 +1010,11 @@ resource:
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         provider_slug:
           description: Provider slug
+          type: str
+          returned: always
+          sample: string-value
+        provider_description:
+          description: Provider description
           type: str
           returned: always
           sample: string-value
