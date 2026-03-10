@@ -82,6 +82,18 @@ options:
     description:
     - Privacy policy link
     - This attribute cannot be updated.
+  helpdesk_url:
+    type: str
+    required: false
+    description:
+    - Helpdesk url
+    - This attribute cannot be updated.
+  documentation_url:
+    type: str
+    required: false
+    description:
+    - Documentation url
+    - This attribute cannot be updated.
   access_url:
     type: str
     required: false
@@ -511,6 +523,8 @@ EXAMPLES = """
       description: A sample description created by Ansible.
       full_description: string-value
       privacy_policy_link: https://api.example.com/api/privacy-policy-link/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      helpdesk_url: https://api.example.com/api/helpdesk-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      documentation_url: https://api.example.com/api/documentation-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       access_url: https://api.example.com/api/access-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       customer: Customer name or UUID
       category: Category name or UUID
@@ -658,6 +672,8 @@ EXAMPLES = """
       description: A sample description created by Ansible.
       full_description: string-value
       privacy_policy_link: https://api.example.com/api/privacy-policy-link/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      helpdesk_url: https://api.example.com/api/helpdesk-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      documentation_url: https://api.example.com/api/documentation-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       access_url: https://api.example.com/api/access-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       customer: Customer name or UUID
       category: Category name or UUID
@@ -850,6 +866,16 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/privacy-policy-link/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    helpdesk_url:
+      description: Helpdesk URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/helpdesk-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    documentation_url:
+      description: Documentation URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/documentation-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     access_url:
       description: Publicly accessible offering access URL
       type: str
@@ -2463,6 +2489,8 @@ ARGUMENT_SPEC = {
     "description": {"type": "str"},
     "full_description": {"type": "str"},
     "privacy_policy_link": {"type": "str"},
+    "helpdesk_url": {"type": "str"},
+    "documentation_url": {"type": "str"},
     "access_url": {"type": "str"},
     "customer": {"type": "str"},
     "category": {"type": "str"},
@@ -2771,8 +2799,10 @@ RUNNER_CONTEXT = {
         "country",
         "datacite_doi",
         "description",
+        "documentation_url",
         "full_description",
         "getting_started",
+        "helpdesk_url",
         "image",
         "integration_guide",
         "latitude",

@@ -233,6 +233,16 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/privacy-policy-link/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    helpdesk_url:
+      description: Helpdesk URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/helpdesk-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    documentation_url:
+      description: Documentation URL URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/documentation-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     access_url:
       description: Publicly accessible offering access URL
       type: str
