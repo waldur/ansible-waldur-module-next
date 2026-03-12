@@ -137,6 +137,10 @@ options:
         type: str
         required: false
         description: Port URL
+      port_security_enabled:
+        type: bool
+        required: false
+        description: If True, security groups and rules will be applied to this port
   floating_ips:
     type: list
     required: false
@@ -264,6 +268,7 @@ EXAMPLES = """
           subnet_id: string-value
         subnet: Subnet name or UUID
         port: string-value
+        port_security_enabled: true
       floating_ips:
       - url: string-value
         ip_address: 192.168.42.50
@@ -1288,14 +1293,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "data_volume_type",
-        "security_groups",
-        "system_volume_type",
-        "availability_zone",
-        "server_group",
         "flavor",
+        "image",
+        "server_group",
+        "system_volume_type",
+        "data_volume_type",
+        "availability_zone",
         "ssh_public_key",
+        "security_groups",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",

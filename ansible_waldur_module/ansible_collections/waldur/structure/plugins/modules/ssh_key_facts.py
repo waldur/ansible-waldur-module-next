@@ -37,6 +37,10 @@ options:
     description: Created after
     type: str
     required: false
+  created_before:
+    description: Created before
+    type: str
+    required: false
   fingerprint_md5:
     description: Filter by fingerprint md5.
     type: str
@@ -55,6 +59,10 @@ options:
     required: false
   modified:
     description: Modified after
+    type: str
+    required: false
+  modified_before:
+    description: Modified before
     type: str
     required: false
   user_uuid:
@@ -150,11 +158,13 @@ ARGUMENT_SPEC = {
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
     "created": {"type": "str"},
+    "created_before": {"type": "str"},
     "fingerprint_md5": {"type": "str"},
     "fingerprint_sha256": {"type": "str"},
     "fingerprint_sha512": {"type": "str"},
     "is_shared": {"type": "bool"},
     "modified": {"type": "str"},
+    "modified_before": {"type": "str"},
     "user_uuid": {"type": "str"},
     "uuid": {"type": "str"},
 }
@@ -168,11 +178,13 @@ RUNNER_CONTEXT = {
     "many": False,
     "inferred_filter_params": [
         "created",
+        "created_before",
         "fingerprint_md5",
         "fingerprint_sha256",
         "fingerprint_sha512",
         "is_shared",
         "modified",
+        "modified_before",
         "user_uuid",
         "uuid",
     ],

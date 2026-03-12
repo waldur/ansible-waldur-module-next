@@ -61,6 +61,10 @@ options:
     description: Created after
     type: str
     required: false
+  created_before:
+    description: Created before
+    type: str
+    required: false
   customer_abbreviation:
     description: Customer abbreviation
     type: str
@@ -87,6 +91,10 @@ options:
     required: false
   modified:
     description: Modified after
+    type: str
+    required: false
+  modified_before:
+    description: Modified before
     type: str
     required: false
   query:
@@ -353,6 +361,7 @@ ARGUMENT_SPEC = {
     "can_manage": {"type": "bool"},
     "conceal_finished_projects": {"type": "bool"},
     "created": {"type": "str"},
+    "created_before": {"type": "str"},
     "customer_abbreviation": {"type": "str"},
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
@@ -360,6 +369,7 @@ ARGUMENT_SPEC = {
     "include_terminated": {"type": "bool"},
     "is_removed": {"type": "bool"},
     "modified": {"type": "str"},
+    "modified_before": {"type": "str"},
     "query": {"type": "str"},
     "slug": {"type": "str"},
     "user_uuid": {"type": "str"},
@@ -386,6 +396,7 @@ RUNNER_CONTEXT = {
         "can_manage",
         "conceal_finished_projects",
         "created",
+        "created_before",
         "customer_abbreviation",
         "customer_name",
         "customer_native_name",
@@ -393,6 +404,7 @@ RUNNER_CONTEXT = {
         "include_terminated",
         "is_removed",
         "modified",
+        "modified_before",
         "query",
         "slug",
         "user_uuid",

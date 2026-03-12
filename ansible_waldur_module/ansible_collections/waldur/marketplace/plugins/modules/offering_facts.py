@@ -69,6 +69,10 @@ options:
     description: Created after
     type: str
     required: false
+  created_before:
+    description: Created before
+    type: str
+    required: false
   description:
     description: Description contains
     type: str
@@ -87,6 +91,10 @@ options:
     required: false
   modified:
     description: Modified after
+    type: str
+    required: false
+  modified_before:
+    description: Modified before
     type: str
     required: false
   organization_group_uuid:
@@ -1645,11 +1653,13 @@ ARGUMENT_SPEC = {
     "category_group_uuid": {"type": "str"},
     "category_uuid": {"type": "str"},
     "created": {"type": "str"},
+    "created_before": {"type": "str"},
     "description": {"type": "str"},
     "has_active_terms_of_service": {"type": "bool"},
     "has_terms_of_service": {"type": "bool"},
     "keyword": {"type": "str"},
     "modified": {"type": "str"},
+    "modified_before": {"type": "str"},
     "organization_group_uuid": {"type": "str"},
     "parent_uuid": {"type": "str"},
     "project_uuid": {"type": "str"},
@@ -1692,12 +1702,14 @@ RUNNER_CONTEXT = {
         "category_group_uuid",
         "category_uuid",
         "created",
+        "created_before",
         "customer",
         "description",
         "has_active_terms_of_service",
         "has_terms_of_service",
         "keyword",
         "modified",
+        "modified_before",
         "organization_group_uuid",
         "parent_uuid",
         "project_uuid",

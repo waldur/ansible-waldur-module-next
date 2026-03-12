@@ -49,12 +49,20 @@ options:
     description: Created after
     type: str
     required: false
+  created_before:
+    description: Created before
+    type: str
+    required: false
   customer_uuid:
     description: Customer UUID
     type: str
     required: false
   modified:
     description: Modified after
+    type: str
+    required: false
+  modified_before:
+    description: Modified before
     type: str
     required: false
   offering:
@@ -591,8 +599,10 @@ ARGUMENT_SPEC = {
     "can_approve_as_provider": {"type": "bool"},
     "category_uuid": {"type": "str"},
     "created": {"type": "str"},
+    "created_before": {"type": "str"},
     "customer_uuid": {"type": "str"},
     "modified": {"type": "str"},
+    "modified_before": {"type": "str"},
     "offering": {"type": "str"},
     "offering_slug": {"type": "list"},
     "offering_type": {"type": "list"},
@@ -621,8 +631,10 @@ RUNNER_CONTEXT = {
         "can_approve_as_provider",
         "category_uuid",
         "created",
+        "created_before",
         "customer_uuid",
         "modified",
+        "modified_before",
         "offering",
         "offering_slug",
         "offering_type",

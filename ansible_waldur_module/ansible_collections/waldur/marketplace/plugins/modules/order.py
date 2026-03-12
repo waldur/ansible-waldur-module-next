@@ -279,6 +279,7 @@ EXAMPLES = """
             subnet_id: string-value
           subnet: https://api.example.com/api/subnet/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
           port: https://api.example.com/api/port/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+          port_security_enabled: true
         floating_ips:
         - url: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
           ip_address: 192.168.42.50

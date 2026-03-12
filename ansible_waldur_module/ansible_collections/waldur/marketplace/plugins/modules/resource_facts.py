@@ -53,6 +53,10 @@ options:
     description: Created after
     type: str
     required: false
+  created_before:
+    description: Created before
+    type: str
+    required: false
   customer:
     description: Customer URL
     type: str
@@ -87,6 +91,10 @@ options:
     required: false
   modified:
     description: Modified after
+    type: str
+    required: false
+  modified_before:
+    description: Modified before
     type: str
     required: false
   offering:
@@ -1653,6 +1661,7 @@ ARGUMENT_SPEC = {
     "category_uuid": {"type": "str"},
     "component_count": {"type": "float"},
     "created": {"type": "str"},
+    "created_before": {"type": "str"},
     "customer": {"type": "str"},
     "customer_uuid": {"type": "str"},
     "downscaled": {"type": "bool"},
@@ -1662,6 +1671,7 @@ ARGUMENT_SPEC = {
     "limit_based": {"type": "bool"},
     "limit_component_count": {"type": "float"},
     "modified": {"type": "str"},
+    "modified_before": {"type": "str"},
     "offering": {"type": "str"},
     "offering_billable": {"type": "bool"},
     "offering_shared": {"type": "bool"},
@@ -1705,6 +1715,7 @@ RUNNER_CONTEXT = {
         "category_uuid",
         "component_count",
         "created",
+        "created_before",
         "customer",
         "customer_uuid",
         "downscaled",
@@ -1714,6 +1725,7 @@ RUNNER_CONTEXT = {
         "limit_based",
         "limit_component_count",
         "modified",
+        "modified_before",
         "offering",
         "offering_billable",
         "offering_shared",
