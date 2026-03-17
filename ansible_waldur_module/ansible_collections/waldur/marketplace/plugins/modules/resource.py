@@ -309,6 +309,11 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01'
+    project_effective_end_date:
+      description: Effective project end date including grace period. After this date, resources will be terminated.
+      type: str
+      returned: always
+      sample: '2023-10-01'
     project_end_date_requested_by:
       description: Project end date requested by URL
       type: str

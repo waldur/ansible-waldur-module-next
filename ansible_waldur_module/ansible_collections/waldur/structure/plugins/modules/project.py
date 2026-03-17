@@ -423,6 +423,16 @@ resource:
       type: int
       returned: always
       sample: 123
+    effective_end_date:
+      description: Effective end date including grace period. After this date, project resources will be terminated.
+      type: str
+      returned: always
+      sample: '2023-10-01'
+    is_in_grace_period:
+      description: True if the project is past its end date but still within the grace period.
+      type: bool
+      returned: always
+      sample: true
     user_email_patterns:
       description: User email patterns
       type: str
