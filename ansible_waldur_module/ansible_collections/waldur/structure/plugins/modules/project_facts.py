@@ -241,6 +241,11 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/users/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    end_date_updated_at:
+      description: Timestamp of the last end_date change.
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
     oecd_fos_2007_code:
       description: Oecd fos 2007 code
       type: str
