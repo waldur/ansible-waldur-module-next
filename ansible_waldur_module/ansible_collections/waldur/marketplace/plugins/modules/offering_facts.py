@@ -700,6 +700,26 @@ resource:
           type: int
           returned: always
           sample: 123
+        prepaid_duration_step:
+          description: Step size in months for the initial prepaid duration at order creation. If set, only multiples of this value (starting from min_prepaid_duration) are valid. Defaults to 1 (any value between min and max).
+          type: int
+          returned: always
+          sample: 123
+        min_renewal_duration:
+          description: Minimum number of months allowed for a renewal.
+          type: int
+          returned: always
+          sample: 123
+        max_renewal_duration:
+          description: Maximum number of months allowed for a renewal.
+          type: int
+          returned: always
+          sample: 123
+        renewal_duration_step:
+          description: Step size in months for renewal. Only multiples of this value (starting from min_renewal_duration) are valid. Defaults to 1.
+          type: int
+          returned: always
+          sample: 123
     plugin_options:
       description: Plugin options
       type: dict

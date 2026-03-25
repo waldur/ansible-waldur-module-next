@@ -1,6 +1,6 @@
 namespace: waldur
 name: openstack
-version: 8.0.7-rc.13-dev.20260325082934
+version: 8.0.7-rc.13-dev.20260325185301
 readme: README.md
 authors:
 - Waldur Team <info@waldur.com>
