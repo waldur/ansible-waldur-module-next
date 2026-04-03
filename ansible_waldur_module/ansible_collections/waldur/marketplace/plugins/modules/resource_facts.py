@@ -160,6 +160,10 @@ options:
     description: Search by resource UUID, name, slug, backend ID, effective ID, IPs or hypervisor
     type: str
     required: false
+  resource_attributes:
+    description: Resource attributes (JSON)
+    type: str
+    required: false
   restrict_member_access:
     description: Restrict member access
     type: bool
@@ -1712,6 +1716,7 @@ ARGUMENT_SPEC = {
     "project_name": {"type": "str"},
     "provider_uuid": {"type": "str"},
     "query": {"type": "str"},
+    "resource_attributes": {"type": "str"},
     "restrict_member_access": {"type": "bool"},
     "runtime_state": {"type": "str"},
     "scope": {"type": "str"},
@@ -1766,6 +1771,7 @@ RUNNER_CONTEXT = {
         "project_name",
         "provider_uuid",
         "query",
+        "resource_attributes",
         "restrict_member_access",
         "runtime_state",
         "scope",
