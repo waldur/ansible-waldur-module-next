@@ -2436,6 +2436,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    effective_available_limits:
+      description: A list of effective available limits items.
+      type: list
+      returned: always
+      sample: []
     compliance_checklist:
       description: Compliance checklist URL
       type: str
