@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, archived, backend_id, bank_account, bank_name, blocked, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, phone_number, postal, project_metadata_checklist, registration_code, slug, sponsor_number, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -448,6 +448,30 @@ options:
     type: str
     required: false
     description: Comma-separated list of notification email addresses
+  city:
+    type: str
+    required: false
+    description: City
+  parish:
+    type: str
+    required: false
+    description: Parish
+  street:
+    type: str
+    required: false
+    description: Street
+  house_nr:
+    type: str
+    required: false
+    description: House nr
+  apartment_nr:
+    type: str
+    required: false
+    description: Apartment nr
+  household:
+    type: str
+    required: false
+    description: Household
 requirements:
 - python >= 3.9
 
@@ -459,7 +483,7 @@ EXAMPLES = """
   tasks:
   - name: Add customer (CountryEnum)
     waldur.structure.customer:
-      state: present
+      state: OK
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -498,12 +522,18 @@ EXAMPLES = """
       bank_account: string-value
       country: {}
       notification_emails: alice@example.com
+      city: string-value
+      parish: string-value
+      street: string-value
+      house_nr: string-value
+      apartment_nr: string-value
+      household: string-value
 - name: Create a new customer (BlankEnum)
   hosts: localhost
   tasks:
   - name: Add customer (BlankEnum)
     waldur.structure.customer:
-      state: present
+      state: OK
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -542,6 +572,12 @@ EXAMPLES = """
       bank_account: string-value
       country: {}
       notification_emails: alice@example.com
+      city: string-value
+      parish: string-value
+      street: string-value
+      house_nr: string-value
+      apartment_nr: string-value
+      household: string-value
 - name: Remove an existing customer
   hosts: localhost
   tasks:
@@ -816,6 +852,41 @@ resource:
       type: str
       returned: always
       sample: alice@example.com
+    city:
+      description: City
+      type: str
+      returned: always
+      sample: string-value
+    state:
+      description: State
+      type: str
+      returned: always
+      sample: OK
+    parish:
+      description: Parish
+      type: str
+      returned: always
+      sample: string-value
+    street:
+      description: Street
+      type: str
+      returned: always
+      sample: string-value
+    house_nr:
+      description: House nr
+      type: str
+      returned: always
+      sample: string-value
+    apartment_nr:
+      description: Apartment nr
+      type: str
+      returned: always
+      sample: string-value
+    household:
+      description: Household
+      type: str
+      returned: always
+      sample: string-value
     payment_profiles:
       description: A list of payment profiles items.
       type: list
@@ -1265,6 +1336,12 @@ ARGUMENT_SPEC = {
         ],
     },
     "notification_emails": {"type": "str"},
+    "city": {"type": "str"},
+    "parish": {"type": "str"},
+    "street": {"type": "str"},
+    "house_nr": {"type": "str"},
+    "apartment_nr": {"type": "str"},
+    "household": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -1284,11 +1361,13 @@ RUNNER_CONTEXT = {
         "accounting_start_date",
         "address",
         "agreement_number",
+        "apartment_nr",
         "archived",
         "backend_id",
         "bank_account",
         "bank_name",
         "blocked",
+        "city",
         "contact_details",
         "country",
         "default_tax_percent",
@@ -1298,6 +1377,8 @@ RUNNER_CONTEXT = {
         "email",
         "grace_period_days",
         "homepage",
+        "house_nr",
+        "household",
         "image",
         "latitude",
         "longitude",
@@ -1305,12 +1386,15 @@ RUNNER_CONTEXT = {
         "name",
         "native_name",
         "notification_emails",
+        "parish",
         "phone_number",
         "postal",
         "project_metadata_checklist",
         "registration_code",
         "slug",
         "sponsor_number",
+        "state",
+        "street",
         "user_affiliations",
         "user_email_patterns",
         "user_identity_sources",
@@ -1323,11 +1407,13 @@ RUNNER_CONTEXT = {
         "accounting_start_date",
         "address",
         "agreement_number",
+        "apartment_nr",
         "archived",
         "backend_id",
         "bank_account",
         "bank_name",
         "blocked",
+        "city",
         "contact_details",
         "country",
         "default_tax_percent",
@@ -1337,6 +1423,8 @@ RUNNER_CONTEXT = {
         "email",
         "grace_period_days",
         "homepage",
+        "house_nr",
+        "household",
         "image",
         "latitude",
         "longitude",
@@ -1344,12 +1432,15 @@ RUNNER_CONTEXT = {
         "name",
         "native_name",
         "notification_emails",
+        "parish",
         "phone_number",
         "postal",
         "project_metadata_checklist",
         "registration_code",
         "slug",
         "sponsor_number",
+        "state",
+        "street",
         "user_affiliations",
         "user_email_patterns",
         "user_identity_sources",

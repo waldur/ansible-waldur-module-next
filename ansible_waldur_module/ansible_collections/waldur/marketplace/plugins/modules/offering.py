@@ -592,6 +592,7 @@ EXAMPLES = """
         max_security_groups: 123
         storage_mode: fixed
         snapshot_size_limit_gb: 123
+        lbaas_enabled: true
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -745,6 +746,7 @@ EXAMPLES = """
         max_security_groups: 123
         storage_mode: fixed
         snapshot_size_limit_gb: 123
+        lbaas_enabled: true
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -1514,6 +1516,11 @@ resource:
           type: int
           returned: always
           sample: 123
+        lbaas_enabled:
+          description: If True, Octavia LBaaS (load balancers) is intended to be available for tenants from this offering.
+          type: bool
+          returned: always
+          sample: true
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str

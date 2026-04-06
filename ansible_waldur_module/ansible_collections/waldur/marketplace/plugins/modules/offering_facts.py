@@ -881,6 +881,11 @@ resource:
           type: int
           returned: always
           sample: 123
+        lbaas_enabled:
+          description: If True, Octavia LBaaS (load balancers) is intended to be available for tenants from this offering.
+          type: bool
+          returned: always
+          sample: true
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str
