@@ -428,6 +428,11 @@ resource:
       type: int
       returned: always
       sample: 123
+    customer_grace_period_days:
+      description: Grace period days set at the customer (organization) level. Used as default when project-level is not set.
+      type: int
+      returned: always
+      sample: 123
     effective_end_date:
       description: Effective end date including grace period. After this date, project resources will be terminated.
       type: str
