@@ -133,6 +133,10 @@ options:
     description: Shared
     type: bool
     required: false
+  slug:
+    description: Slug
+    type: str
+    required: false
   state:
     description: Offering state
     type: list
@@ -1699,6 +1703,7 @@ ARGUMENT_SPEC = {
     "scope_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
     "shared": {"type": "bool"},
+    "slug": {"type": "str"},
     "state": {"type": "list"},
     "tag": {"type": "list"},
     "tag_name": {"type": "list"},
@@ -1749,6 +1754,7 @@ RUNNER_CONTEXT = {
         "scope_uuid",
         "service_manager_uuid",
         "shared",
+        "slug",
         "state",
         "tag",
         "tag_name",

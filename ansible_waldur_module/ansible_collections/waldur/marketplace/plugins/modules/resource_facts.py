@@ -180,6 +180,10 @@ options:
     description: Service manager UUID
     type: str
     required: false
+  slug:
+    description: Slug
+    type: str
+    required: false
   state:
     description: Resource state
     type: list
@@ -1721,6 +1725,7 @@ ARGUMENT_SPEC = {
     "runtime_state": {"type": "str"},
     "scope": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
+    "slug": {"type": "str"},
     "state": {"type": "list"},
     "usage_based": {"type": "bool"},
     "visible_to_providers": {"type": "bool"},
@@ -1776,6 +1781,7 @@ RUNNER_CONTEXT = {
         "runtime_state",
         "scope",
         "service_manager_uuid",
+        "slug",
         "state",
         "usage_based",
         "visible_to_providers",

@@ -115,6 +115,10 @@ options:
     description: Service manager UUID
     type: str
     required: false
+  slug:
+    description: Slug
+    type: str
+    required: false
   state:
     description: Order state
     type: list
@@ -615,6 +619,7 @@ ARGUMENT_SPEC = {
     "resource_name": {"type": "str"},
     "resource_uuid": {"type": "str"},
     "service_manager_uuid": {"type": "str"},
+    "slug": {"type": "str"},
     "state": {"type": "list"},
     "type": {"type": "list"},
 }
@@ -647,6 +652,7 @@ RUNNER_CONTEXT = {
         "resource_name",
         "resource_uuid",
         "service_manager_uuid",
+        "slug",
         "state",
         "type",
     ],
