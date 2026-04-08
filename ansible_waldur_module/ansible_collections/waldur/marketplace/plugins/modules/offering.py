@@ -2146,6 +2146,16 @@ resource:
               type: int
               returned: always
               sample: 123
+            discounted_price:
+              description: Discounted price
+              type: str
+              returned: always
+              sample: '12.34'
+            discount_description:
+              description: Discount description
+              type: str
+              returned: always
+              sample: string-value
         prices:
           description: Prices
           type: dict
