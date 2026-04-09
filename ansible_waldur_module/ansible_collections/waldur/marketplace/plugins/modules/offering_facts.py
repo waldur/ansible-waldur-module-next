@@ -1398,7 +1398,7 @@ resource:
       description: Scope name
       type: str
       returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      sample: string-value
     scope_state:
       description: Scope state
       type: str

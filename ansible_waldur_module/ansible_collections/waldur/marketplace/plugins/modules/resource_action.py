@@ -676,6 +676,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        output_updated_at:
+          description: Output updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         marketplace_resource_uuid:
           description: Marketplace resource UUID
           type: str
@@ -691,6 +696,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        error_updated_at:
+          description: Error updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         callback_url:
           description: Callback URL URL
           type: str
@@ -1118,6 +1128,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        output_updated_at:
+          description: Output updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         marketplace_resource_uuid:
           description: Marketplace resource UUID
           type: str
@@ -1133,6 +1148,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        error_updated_at:
+          description: Error updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         callback_url:
           description: Callback URL URL
           type: str
