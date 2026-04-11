@@ -458,6 +458,77 @@ resource:
       type: str
       returned: always
       sample: null
+    affiliated_organizations:
+      description: A list of affiliated organizations items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        code:
+          description: Unique short identifier, e.g. CERN, EMBL.
+          type: str
+          returned: always
+          sample: string-value
+        abbreviation:
+          description: Abbreviation
+          type: str
+          returned: always
+          sample: string-value
+        description:
+          description: Description
+          type: str
+          returned: always
+          sample: A sample description created by Ansible.
+        email:
+          description: Email
+          type: str
+          returned: always
+          sample: alice@example.com
+        homepage:
+          description: Homepage URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        country:
+          description: Country
+          type: str
+          returned: always
+          sample: string-value
+        address:
+          description: Address
+          type: str
+          returned: always
+          sample: string-value
+        created:
+          description: Created
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        modified:
+          description: Modified
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        projects_count:
+          description: Number of active projects affiliated with this organization
+          type: int
+          returned: always
+          sample: 123
     project_credit:
       description: Project credit
       type: float

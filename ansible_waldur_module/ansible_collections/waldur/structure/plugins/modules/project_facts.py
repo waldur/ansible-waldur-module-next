@@ -41,6 +41,15 @@ options:
     description: Filter by whether accounting is running.
     type: bool
     required: false
+  affiliated_organization_name:
+    description: Affiliated organization name
+    type: str
+    required: false
+  affiliated_organization_uuid:
+    description: Affiliated organization UUID
+    type: list
+    required: false
+    elements: str
   backend_id:
     description: Filter by backend id.
     type: str
@@ -80,6 +89,10 @@ options:
   description:
     description: Description
     type: str
+    required: false
+  has_affiliated_organization:
+    description: Filter projects that have at least one affiliated organization.
+    type: bool
     required: false
   include_terminated:
     description: Include soft-deleted (terminated) projects. Only available to staff and support users, or users with organizational roles who can see their terminated projects.
@@ -331,6 +344,77 @@ resource:
       type: str
       returned: always
       sample: null
+    affiliated_organizations:
+      description: A list of affiliated organizations items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        url:
+          description: URL URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-project
+        code:
+          description: Unique short identifier, e.g. CERN, EMBL.
+          type: str
+          returned: always
+          sample: string-value
+        abbreviation:
+          description: Abbreviation
+          type: str
+          returned: always
+          sample: string-value
+        description:
+          description: Description
+          type: str
+          returned: always
+          sample: A sample description created by Ansible.
+        email:
+          description: Email
+          type: str
+          returned: always
+          sample: alice@example.com
+        homepage:
+          description: Homepage URL
+          type: str
+          returned: always
+          sample: https://api.example.com/api/homepage/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        country:
+          description: Country
+          type: str
+          returned: always
+          sample: string-value
+        address:
+          description: Address
+          type: str
+          returned: always
+          sample: string-value
+        created:
+          description: Created
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        modified:
+          description: Modified
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        projects_count:
+          description: Number of active projects affiliated with this organization
+          type: int
+          returned: always
+          sample: 123
     project_credit:
       description: Project credit
       type: float
@@ -376,6 +460,8 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "accounting_is_running": {"type": "bool"},
+    "affiliated_organization_name": {"type": "str"},
+    "affiliated_organization_uuid": {"type": "list"},
     "backend_id": {"type": "str"},
     "can_admin": {"type": "bool"},
     "can_manage": {"type": "bool"},
@@ -386,6 +472,7 @@ ARGUMENT_SPEC = {
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
     "description": {"type": "str"},
+    "has_affiliated_organization": {"type": "bool"},
     "include_terminated": {"type": "bool"},
     "is_removed": {"type": "bool"},
     "modified": {"type": "str"},
@@ -411,6 +498,8 @@ RUNNER_CONTEXT = {
     "many": False,
     "inferred_filter_params": [
         "accounting_is_running",
+        "affiliated_organization_name",
+        "affiliated_organization_uuid",
         "backend_id",
         "can_admin",
         "can_manage",
@@ -421,6 +510,7 @@ RUNNER_CONTEXT = {
         "customer_name",
         "customer_native_name",
         "description",
+        "has_affiliated_organization",
         "include_terminated",
         "is_removed",
         "modified",
