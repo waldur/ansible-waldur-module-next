@@ -2183,9 +2183,9 @@ resource:
           sample: string-value
         minimal_price:
           description: Minimal price
-          type: float
+          type: str
           returned: always
-          sample: 123.45
+          sample: string-value
     screenshots:
       description: A list of screenshots items.
       type: list
