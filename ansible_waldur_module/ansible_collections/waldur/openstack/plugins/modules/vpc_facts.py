@@ -243,7 +243,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     availability_zone:
       description: Optional availability group. Will be used for all instances provisioned in this tenant
       type: str

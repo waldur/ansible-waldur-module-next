@@ -261,7 +261,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     tenant:
       description: Tenant URL
       type: str

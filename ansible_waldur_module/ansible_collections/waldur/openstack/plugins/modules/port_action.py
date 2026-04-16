@@ -247,7 +247,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     fixed_ips:
       description: A list of fixed ips items.
       type: list

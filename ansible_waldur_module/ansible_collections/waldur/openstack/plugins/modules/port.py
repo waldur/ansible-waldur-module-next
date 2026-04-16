@@ -289,7 +289,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     fixed_ips:
       description: A list of fixed ips items.
       type: list
@@ -580,7 +580,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
+    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "composite_keys": None,
     "wait_config": {

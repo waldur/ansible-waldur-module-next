@@ -264,7 +264,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     start_time:
       description: Start time
       type: str
@@ -798,7 +798,7 @@ resource:
               description: Access URL
               type: str
               returned: always
-              sample: string-value
+              sample: null
             tenant:
               description: Tenant URL
               type: str

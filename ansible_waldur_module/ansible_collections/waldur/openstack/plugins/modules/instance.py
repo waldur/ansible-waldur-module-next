@@ -431,7 +431,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     start_time:
       description: Start time
       type: str
@@ -965,7 +965,7 @@ resource:
               description: Access URL
               type: str
               returned: always
-              sample: string-value
+              sample: null
             tenant:
               description: Tenant URL
               type: str
@@ -1293,14 +1293,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "availability_zone",
-        "ssh_public_key",
         "data_volume_type",
+        "server_group",
         "security_groups",
         "flavor",
-        "server_group",
-        "image",
+        "availability_zone",
         "system_volume_type",
+        "ssh_public_key",
+        "image",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",

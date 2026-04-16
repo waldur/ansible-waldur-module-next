@@ -276,7 +276,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     source_snapshot:
       description: Snapshot that this volume was created from, if any
       type: str

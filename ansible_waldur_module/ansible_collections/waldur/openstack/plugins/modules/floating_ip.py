@@ -250,7 +250,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     runtime_state:
       description: Runtime state
       type: str

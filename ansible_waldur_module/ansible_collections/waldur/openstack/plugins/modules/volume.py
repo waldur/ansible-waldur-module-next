@@ -268,7 +268,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     source_snapshot:
       description: Snapshot that this volume was created from, if any
       type: str
@@ -485,9 +485,9 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
+        "availability_zone",
         "image",
         "type",
-        "availability_zone",
         "description",
         "name",
         "size",

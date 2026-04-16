@@ -264,7 +264,7 @@ resource:
       description: Access URL
       type: str
       returned: always
-      sample: string-value
+      sample: null
     tenant:
       description: OpenStack tenant this network belongs to
       type: str
