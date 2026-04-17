@@ -1235,6 +1235,11 @@ resource:
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        offering_uuid:
+          description: Offering UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         billing_type:
           description: Billing type
           type: str
