@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -472,6 +472,10 @@ options:
     type: str
     required: false
     description: Household
+  project_slug_template:
+    type: str
+    required: false
+    description: 'Template for project slugs. Supports: {customer_slug}, {project_name}, {year}, {month}, {counter}, {counter_padded}. Default: slugified project name'
 requirements:
 - python >= 3.9
 
@@ -528,6 +532,7 @@ EXAMPLES = """
       house_nr: string-value
       apartment_nr: string-value
       household: string-value
+      project_slug_template: string-value
 - name: Create a new customer (BlankEnum)
   hosts: localhost
   tasks:
@@ -578,6 +583,7 @@ EXAMPLES = """
       house_nr: string-value
       apartment_nr: string-value
       household: string-value
+      project_slug_template: string-value
 - name: Remove an existing customer
   hosts: localhost
   tasks:
@@ -884,6 +890,11 @@ resource:
       sample: string-value
     household:
       description: Household
+      type: str
+      returned: always
+      sample: string-value
+    project_slug_template:
+      description: 'Template for project slugs. Supports: {customer_slug}, {project_name}, {year}, {month}, {counter}, {counter_padded}. Default: slugified project name'
       type: str
       returned: always
       sample: string-value
@@ -1342,6 +1353,7 @@ ARGUMENT_SPEC = {
     "house_nr": {"type": "str"},
     "apartment_nr": {"type": "str"},
     "household": {"type": "str"},
+    "project_slug_template": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -1390,6 +1402,7 @@ RUNNER_CONTEXT = {
         "phone_number",
         "postal",
         "project_metadata_checklist",
+        "project_slug_template",
         "registration_code",
         "slug",
         "sponsor_number",
@@ -1436,6 +1449,7 @@ RUNNER_CONTEXT = {
         "phone_number",
         "postal",
         "project_metadata_checklist",
+        "project_slug_template",
         "registration_code",
         "slug",
         "sponsor_number",
