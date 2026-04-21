@@ -69,10 +69,6 @@ options:
     description: User UUID
     type: str
     required: false
-  uuid:
-    description: UUID
-    type: str
-    required: false
 requirements:
 - python >= 3.9
 
@@ -166,7 +162,6 @@ ARGUMENT_SPEC = {
     "modified": {"type": "str"},
     "modified_before": {"type": "str"},
     "user_uuid": {"type": "str"},
-    "uuid": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -186,7 +181,6 @@ RUNNER_CONTEXT = {
         "modified",
         "modified_before",
         "user_uuid",
-        "uuid",
     ],
 }
 

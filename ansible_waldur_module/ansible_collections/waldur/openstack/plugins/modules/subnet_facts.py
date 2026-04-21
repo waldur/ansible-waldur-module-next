@@ -114,10 +114,6 @@ options:
     type: list
     required: false
     elements: str
-  uuid:
-    description: UUID
-    type: str
-    required: false
 requirements:
 - python >= 3.9
 
@@ -442,7 +438,6 @@ ARGUMENT_SPEC = {
     "service_settings_name": {"type": "str"},
     "service_settings_uuid": {"type": "str"},
     "state": {"type": "list"},
-    "uuid": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -489,7 +484,6 @@ RUNNER_CONTEXT = {
         "service_settings_uuid",
         "state",
         "tenant",
-        "uuid",
     ],
 }
 

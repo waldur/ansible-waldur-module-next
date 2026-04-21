@@ -118,10 +118,6 @@ options:
     type: list
     required: false
     elements: str
-  uuid:
-    description: UUID
-    type: str
-    required: false
 requirements:
 - python >= 3.9
 
@@ -465,7 +461,6 @@ ARGUMENT_SPEC = {
     "snapshot": {"type": "str"},
     "snapshot_uuid": {"type": "str"},
     "state": {"type": "list"},
-    "uuid": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -513,7 +508,6 @@ RUNNER_CONTEXT = {
         "snapshot_uuid",
         "state",
         "tenant",
-        "uuid",
     ],
 }
 

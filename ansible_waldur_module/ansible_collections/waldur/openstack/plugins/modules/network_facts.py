@@ -106,10 +106,6 @@ options:
     description: Filter by type.
     type: str
     required: false
-  uuid:
-    description: UUID
-    type: str
-    required: false
 requirements:
 - python >= 3.9
 
@@ -488,7 +484,6 @@ ARGUMENT_SPEC = {
     "service_settings_uuid": {"type": "str"},
     "state": {"type": "list"},
     "type": {"type": "str"},
-    "uuid": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -533,7 +528,6 @@ RUNNER_CONTEXT = {
         "state",
         "tenant",
         "type",
-        "uuid",
     ],
 }
 
