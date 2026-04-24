@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
+description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
 author: Waldur Team
 options:
   access_token:
@@ -169,6 +169,10 @@ options:
     type: str
     required: false
     description: List of allowed identity sources (identity providers).
+  science_sub_domain:
+    type: str
+    required: false
+    description: Science sub domain
 requirements:
 - python >= 3.9
 
@@ -200,6 +204,7 @@ EXAMPLES = """
       user_email_patterns: alice@example.com
       user_affiliations: null
       user_identity_sources: null
+      science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (BlankEnum)
   hosts: localhost
   tasks:
@@ -225,6 +230,7 @@ EXAMPLES = """
       user_email_patterns: alice@example.com
       user_affiliations: null
       user_identity_sources: null
+      science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (NullEnum)
   hosts: localhost
   tasks:
@@ -250,6 +256,7 @@ EXAMPLES = """
       user_email_patterns: alice@example.com
       user_affiliations: null
       user_identity_sources: null
+      science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Remove an existing project
   hosts: localhost
   tasks:
@@ -529,6 +536,36 @@ resource:
           type: int
           returned: always
           sample: 123
+    science_sub_domain:
+      description: Science sub domain
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    science_sub_domain_name:
+      description: Science sub domain name
+      type: str
+      returned: always
+      sample: string-value
+    science_sub_domain_code:
+      description: Sub-domain code (e.g. '1.1'). Auto-derived from domain code if left blank.
+      type: str
+      returned: always
+      sample: string-value
+    science_domain_uuid:
+      description: Science domain UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    science_domain_name:
+      description: Science domain name
+      type: str
+      returned: always
+      sample: string-value
+    science_domain_code:
+      description: Domain code (e.g. '1'). Auto-derived if left blank.
+      type: str
+      returned: always
+      sample: string-value
     project_credit:
       description: Project credit
       type: float
@@ -665,6 +702,7 @@ ARGUMENT_SPEC = {
     "user_email_patterns": {"type": "str"},
     "user_affiliations": {"type": "str"},
     "user_identity_sources": {"type": "str"},
+    "science_sub_domain": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -690,6 +728,7 @@ RUNNER_CONTEXT = {
         "kind",
         "name",
         "oecd_fos_2007_code",
+        "science_sub_domain",
         "slug",
         "staff_notes",
         "start_date",
@@ -709,6 +748,7 @@ RUNNER_CONTEXT = {
         "kind",
         "name",
         "oecd_fos_2007_code",
+        "science_sub_domain",
         "slug",
         "staff_notes",
         "start_date",

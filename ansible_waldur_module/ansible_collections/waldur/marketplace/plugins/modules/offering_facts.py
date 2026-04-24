@@ -895,6 +895,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        usage_poll_interval_minutes:
+          description: 'Interval in minutes between usage polling for this offering (default: 60)'
+          type: int
+          returned: always
+          sample: 123
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str

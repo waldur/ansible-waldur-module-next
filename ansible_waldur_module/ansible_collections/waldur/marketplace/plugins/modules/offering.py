@@ -593,6 +593,7 @@ EXAMPLES = """
         storage_mode: fixed
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
+        usage_poll_interval_minutes: 123
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -747,6 +748,7 @@ EXAMPLES = """
         storage_mode: fixed
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
+        usage_poll_interval_minutes: 123
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -1526,6 +1528,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        usage_poll_interval_minutes:
+          description: 'Interval in minutes between usage polling for this offering (default: 60)'
+          type: int
+          returned: always
+          sample: 123
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str

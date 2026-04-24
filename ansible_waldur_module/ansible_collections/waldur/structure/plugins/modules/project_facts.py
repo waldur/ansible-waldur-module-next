@@ -114,6 +114,14 @@ options:
     description: Filter by name, slug, UUID, backend ID or resource effective ID
     type: str
     required: false
+  science_domain_uuid:
+    description: Science domain UUID
+    type: str
+    required: false
+  science_sub_domain_uuid:
+    description: Science sub-domain UUID
+    type: str
+    required: false
   slug:
     description: Slug
     type: str
@@ -415,6 +423,36 @@ resource:
           type: int
           returned: always
           sample: 123
+    science_sub_domain:
+      description: Science sub domain
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    science_sub_domain_name:
+      description: Science sub domain name
+      type: str
+      returned: always
+      sample: string-value
+    science_sub_domain_code:
+      description: Sub-domain code (e.g. '1.1'). Auto-derived from domain code if left blank.
+      type: str
+      returned: always
+      sample: string-value
+    science_domain_uuid:
+      description: Science domain UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    science_domain_name:
+      description: Science domain name
+      type: str
+      returned: always
+      sample: string-value
+    science_domain_code:
+      description: Domain code (e.g. '1'). Auto-derived if left blank.
+      type: str
+      returned: always
+      sample: string-value
     project_credit:
       description: Project credit
       type: float
@@ -478,6 +516,8 @@ ARGUMENT_SPEC = {
     "modified": {"type": "str"},
     "modified_before": {"type": "str"},
     "query": {"type": "str"},
+    "science_domain_uuid": {"type": "str"},
+    "science_sub_domain_uuid": {"type": "str"},
     "slug": {"type": "str"},
     "user_uuid": {"type": "str"},
     "user_uuid_with_active_role": {"type": "str"},
@@ -516,6 +556,8 @@ RUNNER_CONTEXT = {
         "modified",
         "modified_before",
         "query",
+        "science_domain_uuid",
+        "science_sub_domain_uuid",
         "slug",
         "user_uuid",
         "user_uuid_with_active_role",
