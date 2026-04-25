@@ -434,6 +434,11 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01'
+    project_is_in_grace_period:
+      description: True if the project is past its end date but still within the grace period.
+      type: bool
+      returned: always
+      sample: true
     project_end_date_requested_by:
       description: Project end date requested by URL
       type: str
