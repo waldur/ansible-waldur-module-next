@@ -490,27 +490,6 @@ resource:
           type: bool
           returned: always
           sample: true
-    roles:
-      description: A list of roles items.
-      type: list
-      returned: always
-      sample: []
-      contains:
-        uuid:
-          description: UUID
-          type: str
-          returned: always
-          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          description: Name
-          type: str
-          returned: always
-          sample: My-Awesome-offering
-        url:
-          description: URL URL
-          type: str
-          returned: always
-          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     customer:
       description: Customer URL
       type: str
@@ -832,6 +811,16 @@ resource:
           sample: true
         create_orders_on_resource_option_change:
           description: If set to True, create orders when options of related resources are changed.
+          type: bool
+          returned: always
+          sample: true
+        enable_resource_projects:
+          description: Enable sub-project management within resources.
+          type: bool
+          returned: always
+          sample: true
+        create_orders_on_resource_project_change:
+          description: If set to True, create orders when resource projects are created, updated or deleted.
           type: bool
           returned: always
           sample: true
@@ -1615,6 +1604,16 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    profile_uuid:
+      description: Profile UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    profile_name:
+      description: Profile name
+      type: str
+      returned: always
+      sample: string-value
     user_has_consent:
       description: User has consent
       type: bool

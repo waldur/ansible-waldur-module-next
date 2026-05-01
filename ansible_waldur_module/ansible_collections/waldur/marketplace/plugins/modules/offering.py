@@ -581,6 +581,8 @@ EXAMPLES = """
         require_purchase_order_upload: true
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
+        enable_resource_projects: true
+        create_orders_on_resource_project_change: true
         can_restore_resource: true
         enable_provider_consumer_messaging: true
         notify_about_provider_consumer_messages: true
@@ -736,6 +738,8 @@ EXAMPLES = """
         require_purchase_order_upload: true
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
+        enable_resource_projects: true
+        create_orders_on_resource_project_change: true
         can_restore_resource: true
         enable_provider_consumer_messaging: true
         notify_about_provider_consumer_messages: true
@@ -1123,27 +1127,6 @@ resource:
           type: bool
           returned: always
           sample: true
-    roles:
-      description: A list of roles items.
-      type: list
-      returned: always
-      sample: []
-      contains:
-        uuid:
-          description: UUID
-          type: str
-          returned: always
-          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        name:
-          description: Name
-          type: str
-          returned: always
-          sample: My-Awesome-Resource
-        url:
-          description: URL URL
-          type: str
-          returned: always
-          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     customer:
       description: Customer URL
       type: str
@@ -1465,6 +1448,16 @@ resource:
           sample: true
         create_orders_on_resource_option_change:
           description: If set to True, create orders when options of related resources are changed.
+          type: bool
+          returned: always
+          sample: true
+        enable_resource_projects:
+          description: Enable sub-project management within resources.
+          type: bool
+          returned: always
+          sample: true
+        create_orders_on_resource_project_change:
+          description: If set to True, create orders when resource projects are created, updated or deleted.
           type: bool
           returned: always
           sample: true
@@ -2475,6 +2468,16 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    profile_uuid:
+      description: Profile UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    profile_name:
+      description: Profile name
+      type: str
+      returned: always
+      sample: string-value
     integration_status:
       description: A list of integration status items.
       type: list
