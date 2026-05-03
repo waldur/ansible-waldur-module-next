@@ -33,6 +33,10 @@ options:
     description: The name or UUID of the image.
     type: str
     required: true
+  is_rescue_image:
+    description: Filter to images usable as Nova rescue images.
+    type: bool
+    required: false
   offering_uuid:
     description: Offering UUID
     type: str
@@ -124,6 +128,21 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
+    hw_rescue_device:
+      description: Glance hw_rescue_device property (cdrom/disk/floppy).
+      type: str
+      returned: always
+      sample: string-value
+    hw_rescue_bus:
+      description: Glance hw_rescue_bus property (scsi/virtio/ide/usb).
+      type: str
+      returned: always
+      sample: string-value
+    is_rescue_image:
+      description: Is rescue image
+      type: bool
+      returned: always
+      sample: true
 
 """
 
@@ -131,6 +150,7 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str", "required": True},
+    "is_rescue_image": {"type": "bool"},
     "offering_uuid": {"type": "str"},
     "settings": {"type": "str"},
     "settings_uuid": {"type": "str"},
@@ -147,6 +167,7 @@ RUNNER_CONTEXT = {
     "resolvers": {},
     "many": False,
     "inferred_filter_params": [
+        "is_rescue_image",
         "offering_uuid",
         "settings",
         "settings_uuid",
