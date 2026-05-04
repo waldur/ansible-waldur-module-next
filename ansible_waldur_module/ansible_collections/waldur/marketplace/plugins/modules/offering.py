@@ -582,6 +582,7 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
         can_restore_resource: true
         enable_provider_consumer_messaging: true
@@ -734,6 +735,7 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
         can_restore_resource: true
         enable_provider_consumer_messaging: true
@@ -1443,6 +1445,11 @@ resource:
           sample: true
         enable_resource_projects:
           description: Enable sub-project management within resources.
+          type: bool
+          returned: always
+          sample: true
+        resource_projects_limits_required:
+          description: If set to True, every limit-billing component declared by the offering must have a value when creating or updating a resource project. Use this for backends that reject projects without resource quotas (e.g. the rancher-keycloak-operator's project-level resourceQuota.limit cap).
           type: bool
           returned: always
           sample: true

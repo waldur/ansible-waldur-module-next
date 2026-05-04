@@ -819,6 +819,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        resource_projects_limits_required:
+          description: If set to True, every limit-billing component declared by the offering must have a value when creating or updating a resource project. Use this for backends that reject projects without resource quotas (e.g. the rancher-keycloak-operator's project-level resourceQuota.limit cap).
+          type: bool
+          returned: always
+          sample: true
         create_orders_on_resource_project_change:
           description: If set to True, create orders when resource projects are created, updated or deleted.
           type: bool
