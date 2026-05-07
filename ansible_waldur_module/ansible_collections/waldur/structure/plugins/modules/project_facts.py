@@ -41,12 +41,12 @@ options:
     description: Filter by whether accounting is running.
     type: bool
     required: false
-  affiliated_organization_name:
-    description: Affiliated organization name
+  affiliation_name:
+    description: Affiliation name
     type: str
     required: false
-  affiliated_organization_uuid:
-    description: Affiliated organization UUID
+  affiliation_uuid:
+    description: Affiliation UUID
     type: list
     required: false
     elements: str
@@ -90,8 +90,8 @@ options:
     description: Description
     type: str
     required: false
-  has_affiliated_organization:
-    description: Filter projects that have at least one affiliated organization.
+  has_affiliation:
+    description: Filter projects that have an affiliation.
     type: bool
     required: false
   include_terminated:
@@ -352,11 +352,11 @@ resource:
       type: str
       returned: always
       sample: null
-    affiliated_organizations:
-      description: A list of affiliated organizations items.
-      type: list
+    affiliation:
+      description: Affiliation
+      type: dict
       returned: always
-      sample: []
+      sample: {}
       contains:
         uuid:
           description: UUID
@@ -498,8 +498,8 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "accounting_is_running": {"type": "bool"},
-    "affiliated_organization_name": {"type": "str"},
-    "affiliated_organization_uuid": {"type": "list"},
+    "affiliation_name": {"type": "str"},
+    "affiliation_uuid": {"type": "list"},
     "backend_id": {"type": "str"},
     "can_admin": {"type": "bool"},
     "can_manage": {"type": "bool"},
@@ -510,7 +510,7 @@ ARGUMENT_SPEC = {
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
     "description": {"type": "str"},
-    "has_affiliated_organization": {"type": "bool"},
+    "has_affiliation": {"type": "bool"},
     "include_terminated": {"type": "bool"},
     "is_removed": {"type": "bool"},
     "modified": {"type": "str"},
@@ -538,8 +538,8 @@ RUNNER_CONTEXT = {
     "many": False,
     "inferred_filter_params": [
         "accounting_is_running",
-        "affiliated_organization_name",
-        "affiliated_organization_uuid",
+        "affiliation_name",
+        "affiliation_uuid",
         "backend_id",
         "can_admin",
         "can_manage",
@@ -550,7 +550,7 @@ RUNNER_CONTEXT = {
         "customer_name",
         "customer_native_name",
         "description",
-        "has_affiliated_organization",
+        "has_affiliation",
         "include_terminated",
         "is_removed",
         "modified",

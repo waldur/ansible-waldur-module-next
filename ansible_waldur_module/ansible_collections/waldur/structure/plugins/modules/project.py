@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
+description: 'When the resource already exists, the following fields can be updated: affiliation_uuid, backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
 author: Waldur Team
 options:
   access_token:
@@ -169,6 +169,10 @@ options:
     type: str
     required: false
     description: List of allowed identity sources (identity providers).
+  affiliation_uuid:
+    type: str
+    required: false
+    description: Affiliation uuid
   science_sub_domain:
     type: str
     required: false
@@ -204,6 +208,7 @@ EXAMPLES = """
       user_email_patterns: alice@example.com
       user_affiliations: null
       user_identity_sources: null
+      affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (BlankEnum)
   hosts: localhost
@@ -230,6 +235,7 @@ EXAMPLES = """
       user_email_patterns: alice@example.com
       user_affiliations: null
       user_identity_sources: null
+      affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (NullEnum)
   hosts: localhost
@@ -256,6 +262,7 @@ EXAMPLES = """
       user_email_patterns: alice@example.com
       user_affiliations: null
       user_identity_sources: null
+      affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Remove an existing project
   hosts: localhost
@@ -465,11 +472,11 @@ resource:
       type: str
       returned: always
       sample: null
-    affiliated_organizations:
-      description: A list of affiliated organizations items.
-      type: list
+    affiliation:
+      description: Affiliation
+      type: dict
       returned: always
-      sample: []
+      sample: {}
       contains:
         uuid:
           description: UUID
@@ -702,6 +709,7 @@ ARGUMENT_SPEC = {
     "user_email_patterns": {"type": "str"},
     "user_affiliations": {"type": "str"},
     "user_identity_sources": {"type": "str"},
+    "affiliation_uuid": {"type": "str"},
     "science_sub_domain": {"type": "str"},
 }
 
@@ -719,6 +727,7 @@ RUNNER_CONTEXT = {
     "model_param_names": [
         "customer",
         "type",
+        "affiliation_uuid",
         "backend_id",
         "description",
         "end_date",
@@ -738,6 +747,7 @@ RUNNER_CONTEXT = {
     ],
     "path_param_maps": {},
     "update_fields": [
+        "affiliation_uuid",
         "backend_id",
         "customer",
         "description",
