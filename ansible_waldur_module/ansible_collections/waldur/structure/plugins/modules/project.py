@@ -543,6 +543,21 @@ resource:
           type: int
           returned: always
           sample: 123
+    affiliation_uuid:
+      description: Affiliation UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    affiliation_name:
+      description: Affiliation name
+      type: str
+      returned: always
+      sample: string-value
+    affiliation_code:
+      description: Unique short identifier, e.g. CERN, EMBL.
+      type: str
+      returned: always
+      sample: string-value
     science_sub_domain:
       description: Science sub domain
       type: str
