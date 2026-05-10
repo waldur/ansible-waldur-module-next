@@ -582,6 +582,7 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        auto_ok_resource_projects: true
         resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
         can_restore_resource: true
@@ -735,6 +736,7 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        auto_ok_resource_projects: true
         resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
         can_restore_resource: true
@@ -1445,6 +1447,11 @@ resource:
           sample: true
         enable_resource_projects:
           description: Enable sub-project management within resources.
+          type: bool
+          returned: always
+          sample: true
+        auto_ok_resource_projects:
+          description: If set to True, newly-created resource projects are immediately transitioned from CREATING to OK on save, bypassing the provider/site-agent reconciliation callback. Use for offerings that have no external backend to reconcile against.
           type: bool
           returned: always
           sample: true

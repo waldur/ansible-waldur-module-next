@@ -819,6 +819,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        auto_ok_resource_projects:
+          description: If set to True, newly-created resource projects are immediately transitioned from CREATING to OK on save, bypassing the provider/site-agent reconciliation callback. Use for offerings that have no external backend to reconcile against.
+          type: bool
+          returned: always
+          sample: true
         resource_projects_limits_required:
           description: If set to True, every limit-billing component declared by the offering must have a value when creating or updating a resource project. Use this for backends that reject projects without resource quotas (e.g. the rancher-keycloak-operator's project-level resourceQuota.limit cap).
           type: bool
