@@ -498,6 +498,12 @@ options:
     description:
     - Compliance checklist
     - This attribute cannot be updated.
+  offering_group:
+    type: str
+    required: false
+    description:
+    - Offering group
+    - This attribute cannot be updated.
   limits:
     type: dict
     required: false
@@ -663,6 +669,7 @@ EXAMPLES = """
       image: string-value
       backend_metadata: null
       compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      offering_group: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       limits: {}
 - name: Create a new offering (BlankEnum)
   hosts: localhost
@@ -817,6 +824,7 @@ EXAMPLES = """
       image: string-value
       backend_metadata: null
       compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      offering_group: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       limits: {}
 - name: Remove an existing offering
   hosts: localhost
@@ -2457,6 +2465,21 @@ resource:
       type: str
       returned: always
       sample: string-value
+    offering_group:
+      description: Offering group URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/offering-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    offering_group_uuid:
+      description: Offering group UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    offering_group_title:
+      description: Offering group title
+      type: str
+      returned: always
+      sample: string-value
     integration_status:
       description: A list of integration status items.
       type: list
@@ -2815,6 +2838,7 @@ ARGUMENT_SPEC = {
     "image": {"type": "str"},
     "backend_metadata": {"type": "str"},
     "compliance_checklist": {"type": "str"},
+    "offering_group": {"type": "str"},
     "limits": {"type": "dict"},
 }
 
@@ -2853,6 +2877,7 @@ RUNNER_CONTEXT = {
         "limits",
         "longitude",
         "name",
+        "offering_group",
         "options",
         "plans",
         "plugin_options",

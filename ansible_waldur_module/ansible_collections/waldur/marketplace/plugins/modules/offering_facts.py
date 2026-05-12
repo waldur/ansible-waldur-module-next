@@ -97,6 +97,10 @@ options:
     description: Modified before
     type: str
     required: false
+  offering_group_uuid:
+    description: Offering group UUID
+    type: str
+    required: false
   organization_group_uuid:
     description: Organization group UUID
     type: str
@@ -1599,6 +1603,21 @@ resource:
       type: str
       returned: always
       sample: string-value
+    offering_group:
+      description: Offering group URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/offering-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    offering_group_uuid:
+      description: Offering group UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    offering_group_title:
+      description: Offering group title
+      type: str
+      returned: always
+      sample: string-value
     user_has_consent:
       description: User has consent
       type: bool
@@ -1698,6 +1717,7 @@ ARGUMENT_SPEC = {
     "keyword": {"type": "str"},
     "modified": {"type": "str"},
     "modified_before": {"type": "str"},
+    "offering_group_uuid": {"type": "str"},
     "organization_group_uuid": {"type": "str"},
     "parent_uuid": {"type": "str"},
     "project_uuid": {"type": "str"},
@@ -1749,6 +1769,7 @@ RUNNER_CONTEXT = {
         "keyword",
         "modified",
         "modified_before",
+        "offering_group_uuid",
         "organization_group_uuid",
         "parent_uuid",
         "project_uuid",
