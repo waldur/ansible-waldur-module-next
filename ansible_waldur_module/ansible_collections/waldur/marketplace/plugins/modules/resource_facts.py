@@ -1078,6 +1078,21 @@ resource:
           type: str
           returned: always
           sample: string-value
+        auto_approved:
+          description: Auto approved
+          type: bool
+          returned: always
+          sample: true
+        auto_approved_by_rule_uuid:
+          description: Auto approved by rule UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        auto_approved_cost_limit_snapshot:
+          description: Auto approved cost limit snapshot
+          type: str
+          returned: always
+          sample: '12.34'
         issue:
           description: Issue
           type: dict
@@ -1530,6 +1545,21 @@ resource:
           type: str
           returned: always
           sample: string-value
+        auto_approved:
+          description: Auto approved
+          type: bool
+          returned: always
+          sample: true
+        auto_approved_by_rule_uuid:
+          description: Auto approved by rule UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        auto_approved_cost_limit_snapshot:
+          description: Auto approved cost limit snapshot
+          type: str
+          returned: always
+          sample: '12.34'
         issue:
           description: Issue
           type: dict
