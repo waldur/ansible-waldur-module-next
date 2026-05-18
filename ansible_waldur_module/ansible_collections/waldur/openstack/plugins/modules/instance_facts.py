@@ -941,6 +941,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    config_drive:
+      description: Force config drive on or off for this instance. If null, the tenant-wide default from service settings is used.
+      type: bool
+      returned: always
+      sample: true
     runtime_state:
       description: Runtime state
       type: str

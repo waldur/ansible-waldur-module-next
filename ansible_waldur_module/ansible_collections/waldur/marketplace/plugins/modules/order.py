@@ -292,6 +292,7 @@ EXAMPLES = """
         user_data: "#cloud-config\npackages:\n  - nginx"
         availability_zone: https://api.example.com/api/availability-zone/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         connect_directly_to_external_network: true
+        config_drive: true
         data_volumes:
         - size: 100
           volume_type: https://api.example.com/api/volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/

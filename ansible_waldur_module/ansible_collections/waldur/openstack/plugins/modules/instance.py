@@ -208,6 +208,12 @@ options:
     description:
     - If True, instance will be connected directly to external network
     - This attribute cannot be updated.
+  config_drive:
+    type: bool
+    required: false
+    description:
+    - Force config drive on or off for this instance. If null, the tenant-wide default from service settings is used.
+    - This attribute cannot be updated.
   data_volumes:
     type: list
     required: false
@@ -281,6 +287,7 @@ EXAMPLES = """
       user_data: "#cloud-config\npackages:\n  - nginx"
       availability_zone: Availability zone name or UUID
       connect_directly_to_external_network: true
+      config_drive: true
       data_volumes:
       - size: 100
         volume_type: string-value
@@ -1112,6 +1119,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    config_drive:
+      description: Force config drive on or off for this instance. If null, the tenant-wide default from service settings is used.
+      type: bool
+      returned: always
+      sample: true
     runtime_state:
       description: Runtime state
       type: str
@@ -1277,6 +1289,7 @@ ARGUMENT_SPEC = {
     "user_data": {"type": "str"},
     "availability_zone": {"type": "str"},
     "connect_directly_to_external_network": {"type": "bool"},
+    "config_drive": {"type": "bool"},
     "data_volumes": {"type": "list"},
     "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
     "delete_volumes": {"type": "bool"},
@@ -1293,14 +1306,15 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "server_group",
-        "data_volume_type",
         "image",
         "system_volume_type",
+        "flavor",
+        "data_volume_type",
+        "ssh_public_key",
         "security_groups",
         "availability_zone",
-        "ssh_public_key",
-        "flavor",
+        "server_group",
+        "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
