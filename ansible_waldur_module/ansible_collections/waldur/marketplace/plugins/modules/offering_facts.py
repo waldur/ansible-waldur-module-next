@@ -1628,6 +1628,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    config_drive_default:
+      description: Config drive default
+      type: bool
+      returned: always
+      sample: true
     google_calendar_is_public:
       description: Google calendar is public
       type: bool
