@@ -69,9 +69,17 @@ options:
     description: Downscaled
     type: bool
     required: false
+  flavor_name:
+    description: Flavor name
+    type: str
+    required: false
   has_terminate_date:
     description: Has termination date
     type: bool
+    required: false
+  image_name:
+    description: Image name
+    type: str
     required: false
   is_attached:
     description: Filter by attached state
@@ -1758,7 +1766,9 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str"},
     "customer_uuid": {"type": "str"},
     "downscaled": {"type": "bool"},
+    "flavor_name": {"type": "str"},
     "has_terminate_date": {"type": "bool"},
+    "image_name": {"type": "str"},
     "is_attached": {"type": "bool"},
     "lexis_links_supported": {"type": "bool"},
     "limit_based": {"type": "bool"},
@@ -1814,7 +1824,9 @@ RUNNER_CONTEXT = {
         "customer",
         "customer_uuid",
         "downscaled",
+        "flavor_name",
         "has_terminate_date",
+        "image_name",
         "is_attached",
         "lexis_links_supported",
         "limit_based",
