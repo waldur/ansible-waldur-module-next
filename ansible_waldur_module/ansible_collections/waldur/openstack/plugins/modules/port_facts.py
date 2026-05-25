@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the port.
     type: str
-    required: true
+    required: false
   admin_state_up:
     description: Filter by admin state up.
     type: bool
@@ -111,10 +111,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single port.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a port.
+  type: list
+  returned: always
+  elements: dict
   contains:
     url:
       description: URL URL
@@ -417,7 +418,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "admin_state_up": {"type": "bool"},
     "backend_id": {"type": "str"},
     "device_id": {"type": "str"},
@@ -440,7 +441,7 @@ RUNNER_CONTEXT = {
     "retrieve_url": "/api/openstack-ports/{uuid}/",
     "identifier_param": "name",
     "resolvers": {},
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "admin_state_up",
         "backend_id",

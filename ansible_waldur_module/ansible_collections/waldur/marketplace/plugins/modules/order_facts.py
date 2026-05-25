@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the order.
     type: str
-    required: true
+    required: false
   can_approve_as_consumer:
     description: Can approve as consumer
     type: bool
@@ -155,10 +155,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single order.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a order.
+  type: list
+  returned: always
+  elements: dict
   contains:
     offering:
       description: Offering URL
@@ -627,7 +628,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "can_approve_as_consumer": {"type": "bool"},
     "can_approve_as_provider": {"type": "bool"},
     "category_uuid": {"type": "str"},
@@ -660,7 +661,7 @@ RUNNER_CONTEXT = {
     "retrieve_url": "/api/marketplace-orders/{uuid}/",
     "identifier_param": "name",
     "resolvers": {},
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "can_approve_as_consumer",
         "can_approve_as_provider",

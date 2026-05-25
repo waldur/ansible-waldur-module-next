@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the instance.
     type: str
-    required: true
+    required: false
   tenant:
     description: The name or UUID of the parent tenant.
     type: str
@@ -131,10 +131,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single instance.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a instance.
+  type: list
+  returned: always
+  elements: dict
   contains:
     url:
       description: URL URL
@@ -1063,7 +1064,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "tenant": {"type": "str"},
     "customer": {"type": "str"},
     "project": {"type": "str"},
@@ -1106,7 +1107,7 @@ RUNNER_CONTEXT = {
             "filter_key": "project_uuid",
         },
     },
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "attach_volume_uuid",
         "availability_zone_name",

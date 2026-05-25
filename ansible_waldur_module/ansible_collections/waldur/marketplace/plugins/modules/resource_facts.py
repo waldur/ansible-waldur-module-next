@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the resource.
     type: str
-    required: true
+    required: false
   project:
     description: The name or UUID of the parent project.
     type: str
@@ -232,10 +232,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single resource.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a resource.
+  type: list
+  returned: always
+  elements: dict
   contains:
     offering:
       description: Offering URL
@@ -1756,7 +1757,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "project": {"type": "str"},
     "backend_id": {"type": "str"},
     "category_uuid": {"type": "str"},
@@ -1814,7 +1815,7 @@ RUNNER_CONTEXT = {
             "filter_key": "project_uuid",
         }
     },
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "backend_id",
         "category_uuid",

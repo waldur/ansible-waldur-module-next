@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the flavor.
     type: str
-    required: true
+    required: false
   cores:
     description: Filter by cores.
     type: int
@@ -115,10 +115,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single flavor.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a flavor.
+  type: list
+  returned: always
+  elements: dict
   contains:
     url:
       description: URL URL
@@ -171,7 +172,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "cores": {"type": "int"},
     "cores__gte": {"type": "int"},
     "cores__lte": {"type": "int"},
@@ -195,7 +196,7 @@ RUNNER_CONTEXT = {
     "retrieve_url": "/api/openstack-flavors/{uuid}/",
     "identifier_param": "name",
     "resolvers": {},
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "cores",
         "cores__gte",

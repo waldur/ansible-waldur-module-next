@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the offering.
     type: str
-    required: true
+    required: false
   customer:
     description: The name or UUID of the parent customer.
     type: str
@@ -204,10 +204,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single offering.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a offering.
+  type: list
+  returned: always
+  elements: dict
   contains:
     url:
       description: URL URL
@@ -1710,7 +1711,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "customer": {"type": "str"},
     "accessible_via_calls": {"type": "bool"},
     "allowed_customer_uuid": {"type": "str"},
@@ -1761,7 +1762,7 @@ RUNNER_CONTEXT = {
             "filter_key": "customer_uuid",
         }
     },
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "accessible_via_calls",
         "allowed_customer_uuid",

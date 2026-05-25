@@ -32,7 +32,7 @@ options:
   name:
     description: The name or UUID of the image.
     type: str
-    required: true
+    required: false
   is_rescue_image:
     description: Filter to images usable as Nova rescue images.
     type: bool
@@ -83,10 +83,11 @@ EXAMPLES = """
 """
 
 RETURN = """
-resource:
-  description: A dictionary representing the facts of a single image.
-  type: dict
-  returned: on success
+resources:
+  description: A list of dictionaries, where each dictionary represents a image.
+  type: list
+  returned: always
+  elements: dict
   contains:
     url:
       description: URL URL
@@ -149,7 +150,7 @@ resource:
 ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
-    "name": {"type": "str", "required": True},
+    "name": {"type": "str"},
     "is_rescue_image": {"type": "bool"},
     "offering_uuid": {"type": "str"},
     "settings": {"type": "str"},
@@ -165,7 +166,7 @@ RUNNER_CONTEXT = {
     "retrieve_url": "/api/openstack-images/{uuid}/",
     "identifier_param": "name",
     "resolvers": {},
-    "many": False,
+    "many": True,
     "inferred_filter_params": [
         "is_rescue_image",
         "offering_uuid",
