@@ -1088,6 +1088,11 @@ resource:
           type: str
           returned: always
           sample: Backend ID
+        expose_inference_playground:
+          description: Show an in-browser inference playground action for resources of this offering (for offerings whose resources expose an OpenAI-compatible endpoint).
+          type: bool
+          returned: always
+          sample: false
         disabled_resource_actions:
           description: List of disabled marketplace resource actions for this offering.
           type: list

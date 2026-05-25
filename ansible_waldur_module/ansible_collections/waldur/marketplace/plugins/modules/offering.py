@@ -642,6 +642,7 @@ EXAMPLES = """
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
+        expose_inference_playground: false
         disabled_resource_actions:
         - string-value
       vendor_details: string-value
@@ -797,6 +798,7 @@ EXAMPLES = """
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
+        expose_inference_playground: false
         disabled_resource_actions:
         - string-value
       vendor_details: string-value
@@ -1723,6 +1725,11 @@ resource:
           type: str
           returned: always
           sample: Backend ID
+        expose_inference_playground:
+          description: Show an in-browser inference playground action for resources of this offering (for offerings whose resources expose an OpenAI-compatible endpoint).
+          type: bool
+          returned: always
+          sample: false
         disabled_resource_actions:
           description: List of disabled marketplace resource actions for this offering.
           type: list
