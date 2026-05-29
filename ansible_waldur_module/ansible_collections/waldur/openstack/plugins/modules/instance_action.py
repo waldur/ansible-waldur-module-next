@@ -435,10 +435,10 @@ resource:
               returned: always
               sample: ingress
             protocol:
-              description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+              description: 'Network protocol: ''tcp'', ''udp'', ''icmp'', empty (any) or an IANA protocol number 0-255 (e.g. ''112'' for VRRP).'
               type: str
               returned: always
-              sample: null
+              sample: string-value
             from_port:
               description: Starting port number in the range (1-65535)
               type: int
@@ -821,10 +821,10 @@ resource:
                   returned: always
                   sample: ingress
                 protocol:
-                  description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+                  description: 'Network protocol: ''tcp'', ''udp'', ''icmp'', empty (any) or an IANA protocol number 0-255 (e.g. ''112'' for VRRP).'
                   type: str
                   returned: always
-                  sample: null
+                  sample: string-value
                 from_port:
                   description: Starting port number in the range (1-65535)
                   type: int

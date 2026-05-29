@@ -619,10 +619,10 @@ resource:
               returned: always
               sample: ingress
             protocol:
-              description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+              description: 'Network protocol: ''tcp'', ''udp'', ''icmp'', empty (any) or an IANA protocol number 0-255 (e.g. ''112'' for VRRP).'
               type: str
               returned: always
-              sample: null
+              sample: string-value
             from_port:
               description: Starting port number in the range (1-65535)
               type: int
@@ -1005,10 +1005,10 @@ resource:
                   returned: always
                   sample: ingress
                 protocol:
-                  description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+                  description: 'Network protocol: ''tcp'', ''udp'', ''icmp'', empty (any) or an IANA protocol number 0-255 (e.g. ''112'' for VRRP).'
                   type: str
                   returned: always
-                  sample: null
+                  sample: string-value
                 from_port:
                   description: Starting port number in the range (1-65535)
                   type: int
@@ -1306,14 +1306,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "system_volume_type",
-        "ssh_public_key",
-        "server_group",
-        "image",
-        "data_volume_type",
-        "security_groups",
-        "flavor",
         "availability_zone",
+        "flavor",
+        "image",
+        "ssh_public_key",
+        "system_volume_type",
+        "server_group",
+        "security_groups",
+        "data_volume_type",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",

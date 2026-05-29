@@ -151,12 +151,7 @@ options:
           protocol:
             type: str
             required: false
-            choices:
-            - tcp
-            - udp
-            - icmp
-            - ''
-            description: The network protocol (TCP, UDP, ICMP, or empty for any protocol)
+            description: 'Network protocol: ''tcp'', ''udp'', ''icmp'', empty (any) or an IANA protocol number 0-255 (e.g. ''112'' for VRRP).'
           from_port:
             type: int
             required: false

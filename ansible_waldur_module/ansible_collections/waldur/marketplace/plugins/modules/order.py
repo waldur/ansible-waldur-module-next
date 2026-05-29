@@ -240,7 +240,7 @@ EXAMPLES = """
           rules:
           - ethertype: IPv4
             direction: ingress
-            protocol: null
+            protocol: string-value
             from_port: 8080
             to_port: 8080
             cidr: 192.168.1.0/24
