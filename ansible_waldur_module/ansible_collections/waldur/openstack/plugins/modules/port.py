@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: port
 short_description: Manage OpenStack Ports in Waldur.
-description: 'When the resource already exists, the following fields can be updated: security_groups.'
+description: 'When the resource already exists, the following fields can be updated: allowed_address_pairs, security_groups.'
 author: Waldur Team
 options:
   access_token:
@@ -83,9 +83,7 @@ options:
   allowed_address_pairs:
     type: list
     required: false
-    description:
-    - Allowed address pairs
-    - This attribute cannot be updated.
+    description: Allowed address pairs
   target_tenant:
     type: str
     required: false
@@ -154,6 +152,16 @@ EXAMPLES = """
       name: My-Awesome-OpenStack-port
       security_groups:
       - web-server-sg
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+- name: Update OpenStack port - set allowed address pairs
+  hosts: localhost
+  tasks:
+  - name: Update OpenStack port
+    waldur.openstack.port:
+      state: present
+      name: My-Awesome-OpenStack-port
+      allowed_address_pairs: []
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
 
@@ -540,7 +548,16 @@ RUNNER_CONTEXT = {
             "wrap_in_object": True,
             "idempotency_keys": [],
             "defaults_map": {},
-        }
+        },
+        "set_allowed_address_pairs": {
+            "path": "/api/openstack-ports/{uuid}/set_allowed_address_pairs/",
+            "param": "allowed_address_pairs",
+            "compare_key": "allowed_address_pairs",
+            "maps_to": None,
+            "wrap_in_object": True,
+            "idempotency_keys": ["ip_address", "mac_address"],
+            "defaults_map": {},
+        },
     },
     "resolvers": {
         "tenant": {

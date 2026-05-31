@@ -370,6 +370,16 @@ resource:
           type: str
           returned: always
           sample: string-value
+        source_tenant_uuid:
+          description: Source tenant UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        source_tenant_name:
+          description: Source tenant name
+          type: str
+          returned: always
+          sample: string-value
         target_tenant:
           description: Target tenant URL
           type: str
@@ -380,6 +390,16 @@ resource:
           type: str
           returned: always
           sample: string-value
+        target_label:
+          description: Target label
+          type: str
+          returned: always
+          sample: string-value
+        direction:
+          description: Direction
+          type: str
+          returned: always
+          sample: outbound
         backend_id:
           description: Backend ID
           type: str
