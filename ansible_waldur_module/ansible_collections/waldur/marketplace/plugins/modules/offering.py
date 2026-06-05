@@ -642,6 +642,7 @@ EXAMPLES = """
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
+        require_effective_id_for_highlighted_display: false
         expose_inference_playground: false
         disabled_resource_actions:
         - string-value
@@ -798,6 +799,7 @@ EXAMPLES = """
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
+        require_effective_id_for_highlighted_display: false
         expose_inference_playground: false
         disabled_resource_actions:
         - string-value
@@ -1725,6 +1727,11 @@ resource:
           type: str
           returned: always
           sample: Backend ID
+        require_effective_id_for_highlighted_display:
+          description: If set to True, highlighted backend ID display is only shown when the resource has an effective_id.
+          type: bool
+          returned: always
+          sample: false
         expose_inference_playground:
           description: Show an in-browser inference playground action for resources of this offering (for offerings whose resources expose an OpenAI-compatible endpoint).
           type: bool
