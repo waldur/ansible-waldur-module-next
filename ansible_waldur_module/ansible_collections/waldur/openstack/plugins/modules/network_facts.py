@@ -349,6 +349,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        port_security_enabled:
+          description: Port security enabled
+          type: bool
+          returned: always
+          sample: true
     mtu:
       description: The maximum transmission unit (MTU) value to address fragmentation.
       type: int
@@ -425,6 +430,11 @@ resources:
           type: str
           returned: always
           sample: '2023-10-01T12:00:00Z'
+    port_security_enabled:
+      description: Default port_security_enabled for ports on this network. When False, ports created on this network inherit disabled port security unless explicitly overridden.
+      type: bool
+      returned: always
+      sample: true
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str

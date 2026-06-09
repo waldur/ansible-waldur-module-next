@@ -329,6 +329,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    port_security_enabled:
+      description: Port security enabled
+      type: bool
+      returned: always
+      sample: true
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str

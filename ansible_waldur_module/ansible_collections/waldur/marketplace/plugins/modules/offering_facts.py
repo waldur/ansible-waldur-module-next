@@ -954,6 +954,31 @@ resources:
           type: int
           returned: always
           sample: 6000
+        initial_rolegroup_number:
+          description: GLAuth initial gid for role-aware groups (one per (resource|resource-project, role) tuple). Must leave at least 50000 gids of headroom above initial_usergroup_number to avoid collisions.
+          type: int
+          returned: always
+          sample: 60000
+        resource_role_map:
+          description: 'Mapping of Waldur role names (on Resource scope) to emitted role tokens used in group name rendering. Roles outside the map are skipped. Example: {"PI": "admin", "Member": "member"}.'
+          type: dict
+          returned: always
+          sample: {}
+        resource_project_role_map:
+          description: Mapping of Waldur role names (on ResourceProject scope) to emitted role tokens. Same semantics as resource_role_map.
+          type: dict
+          returned: always
+          sample: {}
+        resource_role_group_template:
+          description: 'string.Template for resource-scope role group names. Variables: ${role_name}, ${resource_slug}, ${customer_slug}, ${project_slug}.'
+          type: str
+          returned: always
+          sample: ${resource_slug}_${role_name}
+        resource_project_role_group_template:
+          description: string.Template for resource-project-scope role group names. Adds ${rp_uuid}, ${rp_uuid_short}, ${project_name} to the variables available for resource-scope templates.
+          type: str
+          returned: always
+          sample: ${resource_slug}_${rp_uuid_short}_${role_name}
         username_anonymized_prefix:
           description: GLAuth prefix for anonymized usernames
           type: str
