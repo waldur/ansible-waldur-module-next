@@ -1836,9 +1836,20 @@ resource:
           sample: string-value
         environ:
           description: Script environment variables
-          type: dict
+          type: list
           returned: always
-          sample: {}
+          sample: []
+          contains:
+            name:
+              description: Name
+              type: str
+              returned: always
+              sample: My-Awesome-Resource
+            value:
+              description: Value
+              type: str
+              returned: always
+              sample: string-value
         create:
           description: Script for resource creation
           type: str
