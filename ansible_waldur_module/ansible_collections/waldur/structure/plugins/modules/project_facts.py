@@ -309,9 +309,9 @@ resource:
       sample: true
     termination_metadata:
       description: Metadata about project termination (read-only)
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     staff_notes:
       description: Internal notes visible only to staff and support users (HTML content will be sanitized)
       type: str
@@ -339,19 +339,19 @@ resource:
       sample: true
     user_email_patterns:
       description: User email patterns
-      type: str
+      type: dict
       returned: always
       sample: alice@example.com
     user_affiliations:
       description: User affiliations
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     user_identity_sources:
       description: List of allowed identity sources (identity providers).
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     affiliation:
       description: Affiliation
       type: dict

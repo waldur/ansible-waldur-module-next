@@ -101,15 +101,15 @@ options:
     required: false
     description: Number of extra days after project end date before resources are terminated
   user_email_patterns:
-    type: str
+    type: dict
     required: false
     description: User email patterns
   user_affiliations:
-    type: str
+    type: dict
     required: false
     description: User affiliations
   user_identity_sources:
-    type: str
+    type: dict
     required: false
     description: List of allowed identity sources (identity providers).
   slug:
@@ -502,8 +502,8 @@ EXAMPLES = """
       project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       grace_period_days: 123
       user_email_patterns: alice@example.com
-      user_affiliations: null
-      user_identity_sources: null
+      user_affiliations: {}
+      user_identity_sources: {}
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -553,8 +553,8 @@ EXAMPLES = """
       project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       grace_period_days: 123
       user_email_patterns: alice@example.com
-      user_affiliations: null
-      user_identity_sources: null
+      user_affiliations: {}
+      user_identity_sources: {}
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -735,19 +735,19 @@ resource:
       sample: 123
     user_email_patterns:
       description: User email patterns
-      type: str
+      type: dict
       returned: always
       sample: alice@example.com
     user_affiliations:
       description: User affiliations
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     user_identity_sources:
       description: List of allowed identity sources (identity providers).
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     default_affiliations:
       description: Affiliations offered to project creators of this organization.
       type: list
@@ -1139,9 +1139,9 @@ ARGUMENT_SPEC = {
     "max_service_accounts": {"type": "int"},
     "project_metadata_checklist": {"type": "str"},
     "grace_period_days": {"type": "int"},
-    "user_email_patterns": {"type": "str"},
-    "user_affiliations": {"type": "str"},
-    "user_identity_sources": {"type": "str"},
+    "user_email_patterns": {"type": "dict"},
+    "user_affiliations": {"type": "dict"},
+    "user_identity_sources": {"type": "dict"},
     "slug": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},

@@ -114,7 +114,7 @@ options:
     - Required when C(state) is 'present'.
     - This attribute cannot be updated.
   attributes:
-    type: str
+    type: dict
     required: false
     description:
     - Attributes
@@ -475,7 +475,7 @@ options:
     - Backend id
     - This attribute cannot be updated.
   backend_id_rules:
-    type: str
+    type: dict
     required: false
     description:
     - 'Validation rules for resource backend_id: format regex and uniqueness scope.'
@@ -487,7 +487,7 @@ options:
     - Image
     - This attribute cannot be updated.
   backend_metadata:
-    type: str
+    type: dict
     required: false
     description:
     - Backend metadata
@@ -534,7 +534,7 @@ EXAMPLES = """
       access_url: https://api.example.com/api/access-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       customer: Customer name or UUID
       category: Category name or UUID
-      attributes: null
+      attributes: {}
       options:
         order:
         - string-value
@@ -672,9 +672,9 @@ EXAMPLES = """
       longitude: 123.45
       country: {}
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      backend_id_rules: null
+      backend_id_rules: {}
       image: string-value
-      backend_metadata: null
+      backend_metadata: {}
       compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       offering_group: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       limits: {}
@@ -696,7 +696,7 @@ EXAMPLES = """
       access_url: https://api.example.com/api/access-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       customer: Customer name or UUID
       category: Category name or UUID
-      attributes: null
+      attributes: {}
       options:
         order:
         - string-value
@@ -834,9 +834,9 @@ EXAMPLES = """
       longitude: 123.45
       country: {}
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-      backend_id_rules: null
+      backend_id_rules: {}
       image: string-value
-      backend_metadata: null
+      backend_metadata: {}
       compliance_checklist: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       offering_group: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       limits: {}
@@ -973,14 +973,14 @@ resource:
               sample: A sample description created by Ansible.
         enabled_cpu_family:
           description: 'List of enabled CPU families: [''x86_64'', ''aarch64'']'
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         enabled_cpu_microarchitectures:
           description: 'List of enabled CPU microarchitectures: [''generic'', ''zen3'']'
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         package_count:
           description: Package count
           type: int
@@ -1836,9 +1836,9 @@ resource:
           sample: string-value
         environ:
           description: Script environment variables
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         create:
           description: Script for resource creation
           type: str
@@ -2382,9 +2382,9 @@ resource:
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     backend_id_rules:
       description: 'Validation rules for resource backend_id: format regex and uniqueness scope.'
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     organization_groups:
       description: A list of organization groups items.
       type: list
@@ -2479,9 +2479,9 @@ resource:
       sample: string-value
     backend_metadata:
       description: Backend metadata
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     has_compliance_requirements:
       description: Has compliance requirements
       type: bool
@@ -2610,7 +2610,7 @@ ARGUMENT_SPEC = {
     "access_url": {"type": "str"},
     "customer": {"type": "str"},
     "category": {"type": "str"},
-    "attributes": {"type": "str"},
+    "attributes": {"type": "dict"},
     "options": {"type": "dict"},
     "resource_options": {"type": "dict"},
     "components": {"type": "list"},
@@ -2883,9 +2883,9 @@ ARGUMENT_SPEC = {
         ],
     },
     "backend_id": {"type": "str"},
-    "backend_id_rules": {"type": "str"},
+    "backend_id_rules": {"type": "dict"},
     "image": {"type": "str"},
-    "backend_metadata": {"type": "str"},
+    "backend_metadata": {"type": "dict"},
     "compliance_checklist": {"type": "str"},
     "offering_group": {"type": "str"},
     "limits": {"type": "dict"},

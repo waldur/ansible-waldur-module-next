@@ -1136,9 +1136,9 @@ resource:
       sample: string-value
     action_details:
       description: Details about ongoing or completed actions
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     tenant_uuid:
       description: UUID of the OpenStack tenant
       type: str
@@ -1306,14 +1306,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "system_volume_type",
-        "data_volume_type",
-        "flavor",
-        "ssh_public_key",
-        "server_group",
         "availability_zone",
         "security_groups",
+        "data_volume_type",
+        "ssh_public_key",
+        "flavor",
+        "system_volume_type",
+        "server_group",
+        "image",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",

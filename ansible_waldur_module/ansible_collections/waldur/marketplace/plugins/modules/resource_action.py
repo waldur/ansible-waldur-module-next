@@ -144,9 +144,9 @@ resource:
       sample: true
     offering_plugin_options:
       description: Public data used by specific plugin, such as storage mode for OpenStack.
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     provider_name:
       description: Provider name
       type: str
@@ -502,9 +502,9 @@ resource:
       sample: string-value
     options:
       description: Options
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     available_actions:
       description: A list of available actions items.
       type: list
@@ -568,9 +568,9 @@ resource:
           sample: true
         offering_plugin_options:
           description: Public data used by specific plugin, such as storage mode for OpenStack.
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         provider_name:
           description: Provider name
           type: str
@@ -633,9 +633,9 @@ resource:
           sample: string-value
         attributes:
           description: Attributes
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         limits:
           description: Limits
           type: dict
@@ -1035,9 +1035,9 @@ resource:
           sample: true
         offering_plugin_options:
           description: Public data used by specific plugin, such as storage mode for OpenStack.
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         provider_name:
           description: Provider name
           type: str
@@ -1100,9 +1100,9 @@ resource:
           sample: string-value
         attributes:
           description: Attributes
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         limits:
           description: Limits
           type: dict

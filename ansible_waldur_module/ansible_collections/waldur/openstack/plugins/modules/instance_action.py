@@ -965,9 +965,9 @@ resource:
       sample: string-value
     action_details:
       description: Details about ongoing or completed actions
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     tenant_uuid:
       description: UUID of the OpenStack tenant
       type: str

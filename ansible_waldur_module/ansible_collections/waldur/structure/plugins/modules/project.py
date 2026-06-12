@@ -158,15 +158,15 @@ options:
     required: false
     description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
   user_email_patterns:
-    type: str
+    type: dict
     required: false
     description: User email patterns
   user_affiliations:
-    type: str
+    type: dict
     required: false
     description: User affiliations
   user_identity_sources:
-    type: str
+    type: dict
     required: false
     description: List of allowed identity sources (identity providers).
   affiliation_uuid:
@@ -206,8 +206,8 @@ EXAMPLES = """
       staff_notes: string-value
       grace_period_days: 123
       user_email_patterns: alice@example.com
-      user_affiliations: null
-      user_identity_sources: null
+      user_affiliations: {}
+      user_identity_sources: {}
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (BlankEnum)
@@ -233,8 +233,8 @@ EXAMPLES = """
       staff_notes: string-value
       grace_period_days: 123
       user_email_patterns: alice@example.com
-      user_affiliations: null
-      user_identity_sources: null
+      user_affiliations: {}
+      user_identity_sources: {}
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (NullEnum)
@@ -260,8 +260,8 @@ EXAMPLES = """
       staff_notes: string-value
       grace_period_days: 123
       user_email_patterns: alice@example.com
-      user_affiliations: null
-      user_identity_sources: null
+      user_affiliations: {}
+      user_identity_sources: {}
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Remove an existing project
@@ -429,9 +429,9 @@ resource:
       sample: true
     termination_metadata:
       description: Metadata about project termination (read-only)
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     staff_notes:
       description: Internal notes visible only to staff and support users (HTML content will be sanitized)
       type: str
@@ -459,19 +459,19 @@ resource:
       sample: true
     user_email_patterns:
       description: User email patterns
-      type: str
+      type: dict
       returned: always
       sample: alice@example.com
     user_affiliations:
       description: User affiliations
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     user_identity_sources:
       description: List of allowed identity sources (identity providers).
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     affiliation:
       description: Affiliation
       type: dict
@@ -721,9 +721,9 @@ ARGUMENT_SPEC = {
     "kind": {"type": "str", "choices": ["default", "course", "public"]},
     "staff_notes": {"type": "str"},
     "grace_period_days": {"type": "int"},
-    "user_email_patterns": {"type": "str"},
-    "user_affiliations": {"type": "str"},
-    "user_identity_sources": {"type": "str"},
+    "user_email_patterns": {"type": "dict"},
+    "user_affiliations": {"type": "dict"},
+    "user_identity_sources": {"type": "dict"},
     "affiliation_uuid": {"type": "str"},
     "science_sub_domain": {"type": "str"},
 }

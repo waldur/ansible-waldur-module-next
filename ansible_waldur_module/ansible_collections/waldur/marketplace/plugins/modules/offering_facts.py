@@ -325,14 +325,14 @@ resources:
               sample: A sample description created by Ansible.
         enabled_cpu_family:
           description: 'List of enabled CPU families: [''x86_64'', ''aarch64'']'
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         enabled_cpu_microarchitectures:
           description: 'List of enabled CPU microarchitectures: [''generic'', ''zen3'']'
-          type: str
+          type: dict
           returned: always
-          sample: null
+          sample: {}
         package_count:
           description: Package count
           type: int
@@ -1604,9 +1604,9 @@ resources:
       sample: string-value
     backend_metadata:
       description: Backend metadata
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     has_compliance_requirements:
       description: Has compliance requirements
       type: bool

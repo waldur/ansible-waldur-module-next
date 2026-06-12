@@ -291,9 +291,9 @@ resources:
       sample: true
     metadata:
       description: Metadata
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     image:
       description: Image that this volume was created from, if any
       type: str
@@ -346,9 +346,9 @@ resources:
       sample: string-value
     action_details:
       description: Action details
-      type: str
+      type: dict
       returned: always
-      sample: null
+      sample: {}
     instance:
       description: Instance that this volume is attached to, if any
       type: str
