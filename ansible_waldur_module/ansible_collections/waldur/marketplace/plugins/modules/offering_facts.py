@@ -864,6 +864,16 @@ resources:
           type: str
           returned: always
           sample: string-value
+        resource_slug_template:
+          description: 'Template for resource slugs, overriding the default 10-character slugified name. Available variables: {customer_slug}, {project_slug}, {project_name}, {offering_slug}, {year}, {month}, {counter}, {counter_padded}. Default: slugified resource name (max 10 characters).'
+          type: str
+          returned: always
+          sample: string-value
+        resource_slug_max_length:
+          description: Maximum length of auto-generated resource slugs derived from the resource name, overriding the default of 10 characters (up to 40). Ignored when a resource slug template is set.
+          type: int
+          returned: always
+          sample: 123
         default_internal_network_mtu:
           description: If set, it will be used as a default MTU for the first network in a tenant
           type: int
