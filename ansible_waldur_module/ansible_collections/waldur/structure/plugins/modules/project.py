@@ -412,6 +412,32 @@ resource:
       type: int
       returned: always
       sample: 123
+    project_metadata:
+      description: Answers to the customer's project-metadata checklist (read-only).
+      type: list
+      returned: always
+      sample: []
+      contains:
+        question_uuid:
+          description: Question UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        question:
+          description: Question description.
+          type: str
+          returned: always
+          sample: string-value
+        question_type:
+          description: Question type
+          type: str
+          returned: always
+          sample: string-value
+        answer:
+          description: Human-readable answer value; select-type option UUIDs are resolved to their labels.
+          type: dict
+          returned: always
+          sample: {}
     max_service_accounts:
       description: Maximum number of service accounts allowed
       type: int
