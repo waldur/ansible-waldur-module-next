@@ -456,8 +456,18 @@ resources:
       type: str
       returned: always
       sample: string-value
+    created_by_organization_country:
+      description: Created by organization country
+      type: str
+      returned: always
+      sample: string-value
     created_by_organization_registry_code:
       description: Company registration code of the user's organization, if known
+      type: str
+      returned: always
+      sample: string-value
+    created_by_organization_vat_code:
+      description: VAT code of the user's organization
       type: str
       returned: always
       sample: string-value
