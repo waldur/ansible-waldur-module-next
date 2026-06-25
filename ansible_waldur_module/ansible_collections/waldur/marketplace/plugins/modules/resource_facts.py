@@ -972,6 +972,11 @@ resources:
           type: str
           returned: always
           sample: string-value
+        created_by_organization_address:
+          description: Postal address of the user's organization
+          type: str
+          returned: always
+          sample: string-value
         customer_name:
           description: Customer name
           type: str
@@ -1446,6 +1451,11 @@ resources:
           sample: string-value
         created_by_organization_vat_code:
           description: VAT code of the user's organization
+          type: str
+          returned: always
+          sample: string-value
+        created_by_organization_address:
+          description: Postal address of the user's organization
           type: str
           returned: always
           sample: string-value
