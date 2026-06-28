@@ -583,6 +583,8 @@ EXAMPLES = """
         maximal_resource_count_per_project: 123
         unique_resource_per_attribute: string-value
         required_team_role_for_provisioning: string-value
+        restricted_to_roles:
+        - string-value
         enable_purchase_order_upload: true
         require_purchase_order_upload: true
         conceal_billing_data: true
@@ -747,6 +749,8 @@ EXAMPLES = """
         maximal_resource_count_per_project: 123
         unique_resource_per_attribute: string-value
         required_team_role_for_provisioning: string-value
+        restricted_to_roles:
+        - string-value
         enable_purchase_order_upload: true
         require_purchase_order_upload: true
         conceal_billing_data: true
@@ -1451,6 +1455,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        restricted_to_roles:
+          description: List of project or organization role names (e.g. 'PROJECT.MANAGER') allowed to view and order this offering. When set, the offering is hidden from the catalog for other users and they cannot create orders for it. Whether their orders skip consumer review still depends on the role having the order-approval permission.
+          type: list
+          returned: always
+          sample: []
         enable_purchase_order_upload:
           description: If set to True, users will be able to upload purchase orders.
           type: bool
