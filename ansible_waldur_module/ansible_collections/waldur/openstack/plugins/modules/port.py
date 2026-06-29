@@ -325,6 +325,11 @@ resource:
       returned: always
       sample: []
       contains:
+        ip_address:
+          description: IP address
+          type: str
+          returned: always
+          sample: 192.168.42.0/24
         mac_address:
           description: Mac address
           type: str
@@ -597,7 +602,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["security_groups", "network", "target_tenant", "tenant"],
+    "resolver_order": ["network", "security_groups", "target_tenant", "tenant"],
     "resource_detail_path": "/api/openstack-ports/{uuid}/",
     "composite_keys": None,
     "wait_config": {

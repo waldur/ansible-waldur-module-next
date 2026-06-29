@@ -826,6 +826,11 @@ resource:
           returned: always
           sample: []
           contains:
+            ip_address:
+              description: IP address
+              type: str
+              returned: always
+              sample: 192.168.42.0/24
             mac_address:
               description: Mac address
               type: str
@@ -1306,14 +1311,14 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "data_volume_type",
-        "availability_zone",
-        "server_group",
-        "security_groups",
-        "flavor",
-        "system_volume_type",
         "ssh_public_key",
+        "server_group",
+        "data_volume_type",
+        "security_groups",
+        "system_volume_type",
+        "availability_zone",
+        "flavor",
+        "image",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",

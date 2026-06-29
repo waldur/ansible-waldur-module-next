@@ -649,6 +649,11 @@ resources:
           returned: always
           sample: []
           contains:
+            ip_address:
+              description: IP address
+              type: str
+              returned: always
+              sample: 192.168.42.0/24
             mac_address:
               description: Mac address
               type: str
