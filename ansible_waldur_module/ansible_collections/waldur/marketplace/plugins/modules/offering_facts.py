@@ -804,6 +804,11 @@ resources:
           type: list
           returned: always
           sample: []
+        auto_approve_for_roles:
+          description: List of project or organization role names (e.g. 'PROJECT.MANAGER') whose orders skip consumer review for this offering. The creator must hold the role on the target project or its organization. Independent of restricted_to_roles (which governs visibility/ordering) and of the ORDER.APPROVE permission. Provider review and purchase-order requirements still apply. Only staff can change this option.
+          type: list
+          returned: always
+          sample: []
         enable_purchase_order_upload:
           description: If set to True, users will be able to upload purchase orders.
           type: bool

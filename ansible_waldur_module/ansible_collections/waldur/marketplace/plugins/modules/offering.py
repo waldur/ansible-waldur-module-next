@@ -585,6 +585,8 @@ EXAMPLES = """
         required_team_role_for_provisioning: string-value
         restricted_to_roles:
         - string-value
+        auto_approve_for_roles:
+        - string-value
         enable_purchase_order_upload: true
         require_purchase_order_upload: true
         conceal_billing_data: true
@@ -750,6 +752,8 @@ EXAMPLES = """
         unique_resource_per_attribute: string-value
         required_team_role_for_provisioning: string-value
         restricted_to_roles:
+        - string-value
+        auto_approve_for_roles:
         - string-value
         enable_purchase_order_upload: true
         require_purchase_order_upload: true
@@ -1457,6 +1461,11 @@ resource:
           sample: string-value
         restricted_to_roles:
           description: List of project or organization role names (e.g. 'PROJECT.MANAGER') allowed to view and order this offering. When set, the offering is hidden from the catalog for other users and they cannot create orders for it. Whether their orders skip consumer review still depends on the role having the order-approval permission.
+          type: list
+          returned: always
+          sample: []
+        auto_approve_for_roles:
+          description: List of project or organization role names (e.g. 'PROJECT.MANAGER') whose orders skip consumer review for this offering. The creator must hold the role on the target project or its organization. Independent of restricted_to_roles (which governs visibility/ordering) and of the ORDER.APPROVE permission. Provider review and purchase-order requirements still apply. Only staff can change this option.
           type: list
           returned: always
           sample: []
