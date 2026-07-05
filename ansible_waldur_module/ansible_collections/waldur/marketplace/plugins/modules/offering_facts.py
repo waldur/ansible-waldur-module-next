@@ -1327,21 +1327,16 @@ resources:
               type: str
               returned: always
               sample: '12.34'
-            discount_threshold:
-              description: Minimum amount to be eligible for discount.
-              type: int
-              returned: always
-              sample: 123
-            discount_rate:
-              description: Discount rate in percentage.
-              type: int
-              returned: always
-              sample: 123
-            discounted_price:
-              description: Discounted price
+            discount_formula:
+              description: 'Volume discount formula evaluated with the billed quantity bound to `usage`; returns a discount percentage (clamped to 0-100). Empty means no discount. Example: ''10 if usage >= 100 else 0''.'
               type: str
               returned: always
-              sample: '12.34'
+              sample: string-value
+            discount_aggregation:
+              description: Whether the volume discount is computed on a single resource's usage or aggregated across all of the customer's resources of this offering.
+              type: str
+              returned: always
+              sample: resource
             discount_description:
               description: Discount description
               type: str

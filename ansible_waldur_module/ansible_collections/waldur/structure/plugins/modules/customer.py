@@ -1046,6 +1046,11 @@ resource:
       type: float
       returned: always
       sample: 123.45
+    has_affiliate_links:
+      description: Has affiliate links
+      type: bool
+      returned: always
+      sample: true
     is_service_provider:
       description: Is service provider
       type: bool
