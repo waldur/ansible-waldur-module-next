@@ -610,6 +610,7 @@ EXAMPLES = """
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
         usage_poll_interval_minutes: 123
+        billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -778,6 +779,7 @@ EXAMPLES = """
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
         usage_poll_interval_minutes: 123
+        billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -1584,6 +1586,11 @@ resource:
           type: int
           returned: always
           sample: 123
+        billing_source:
+          description: 'Source for OpenStack instance compute ComponentUsage: ''quota'' (flavor-derived Nova quota, default) or ''placement'' (Placement allocations; also bills VGPU/PCI/custom resource classes).'
+          type: str
+          returned: always
+          sample: quota
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str

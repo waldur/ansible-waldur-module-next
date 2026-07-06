@@ -924,6 +924,11 @@ resources:
           type: int
           returned: always
           sample: 123
+        billing_source:
+          description: 'Source for OpenStack instance compute ComponentUsage: ''quota'' (flavor-derived Nova quota, default) or ''placement'' (Placement allocations; also bills VGPU/PCI/custom resource classes).'
+          type: str
+          returned: always
+          sample: quota
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str
