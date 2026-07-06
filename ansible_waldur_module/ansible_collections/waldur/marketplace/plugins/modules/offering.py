@@ -618,16 +618,18 @@ EXAMPLES = """
         homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
-        initial_primarygroup_number: 5000
-        initial_uidnumber: 5000
-        initial_usergroup_number: 6000
-        initial_rolegroup_number: 60000
+        enable_posix_account: true
         resource_role_map: {}
         resource_project_role_map: {}
         resource_role_group_template: ${resource_slug}_${role_name}
         resource_project_role_group_template: ${resource_slug}_${rp_uuid_short}_${role_name}
         username_anonymized_prefix: waldur_
         username_generation_policy: service_provider
+        login_shell: /bin/bash
+        uid_source: pool
+        gid_source: pool
+        emit_display_name: false
+        emit_waldur_username: false
         enable_issues_for_membership_changes: true
         deployment_mode: self_managed
         flavors_regex: string-value
@@ -787,16 +789,18 @@ EXAMPLES = """
         homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
-        initial_primarygroup_number: 5000
-        initial_uidnumber: 5000
-        initial_usergroup_number: 6000
-        initial_rolegroup_number: 60000
+        enable_posix_account: true
         resource_role_map: {}
         resource_project_role_map: {}
         resource_role_group_template: ${resource_slug}_${role_name}
         resource_project_role_group_template: ${resource_slug}_${rp_uuid_short}_${role_name}
         username_anonymized_prefix: waldur_
         username_generation_policy: service_provider
+        login_shell: /bin/bash
+        uid_source: pool
+        gid_source: pool
+        emit_display_name: false
+        emit_waldur_username: false
         enable_issues_for_membership_changes: true
         deployment_mode: self_managed
         flavors_regex: string-value
@@ -1626,26 +1630,11 @@ resource:
           type: str
           returned: always
           sample: string-value
-        initial_primarygroup_number:
-          description: GLAuth initial primary group number
-          type: int
+        enable_posix_account:
+          description: Manage a POSIX/LDAP account (UID, GID, home directory, login shell and GLAuth exposure) for this offering's users. Disable for offerings that only need a username.
+          type: bool
           returned: always
-          sample: 5000
-        initial_uidnumber:
-          description: GLAuth initial uidnumber
-          type: int
-          returned: always
-          sample: 5000
-        initial_usergroup_number:
-          description: GLAuth initial usergroup number
-          type: int
-          returned: always
-          sample: 6000
-        initial_rolegroup_number:
-          description: GLAuth initial gid for role-aware groups (one per (resource|resource-project, role) tuple). Must leave at least 50000 gids of headroom above initial_usergroup_number to avoid collisions.
-          type: int
-          returned: always
-          sample: 60000
+          sample: true
         resource_role_map:
           description: 'Mapping of Waldur role names (on Resource scope) to emitted role tokens used in group name rendering. Roles outside the map are skipped. Example: {"PI": "admin", "Member": "member"}.'
           type: dict
@@ -1676,6 +1665,31 @@ resource:
           type: str
           returned: always
           sample: service_provider
+        login_shell:
+          description: Default login shell assigned to GLAuth/LDAP accounts.
+          type: str
+          returned: always
+          sample: /bin/bash
+        uid_source:
+          description: 'Where each offering user''s UID comes from: allocated from the POSIX ID pool (default), or taken from the user''s uid_number attribute (e.g. an OIDC claim). Pair ''user_attribute'' with a GID-only pool to avoid UID collisions.'
+          type: str
+          returned: always
+          sample: pool
+        gid_source:
+          description: 'Where each offering user''s primary GID comes from: the POSIX ID pool (default), or the user''s primary_gid attribute.'
+          type: str
+          returned: always
+          sample: pool
+        emit_display_name:
+          description: Emit the user's full name as a GLAuth displayName custom attribute (rendered to LDAP displayName).
+          type: bool
+          returned: always
+          sample: false
+        emit_waldur_username:
+          description: Emit the Waldur username as a GLAuth waldurUsername custom attribute, alongside the generated POSIX login name.
+          type: bool
+          returned: always
+          sample: false
         enable_issues_for_membership_changes:
           description: Enable issues for membership changes
           type: bool
