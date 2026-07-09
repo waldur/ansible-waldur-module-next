@@ -469,6 +469,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    usage_limit_restriction:
+      description: Which restriction (paused or downscaled) was automatically applied because reported usage reached a component limit. Empty when no such restriction is active. Used so the automatic lift never clears a restriction that was set for another reason.
+      type: str
+      returned: always
+      sample: paused
     endpoints:
       description: A list of endpoints items.
       type: list

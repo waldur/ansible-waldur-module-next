@@ -579,6 +579,7 @@ EXAMPLES = """
         disable_autoapprove: true
         supports_downscaling: true
         supports_pausing: true
+        action_on_usage_limit: null
         minimal_team_count_for_provisioning: 123
         maximal_resource_count_per_project: 123
         unique_resource_per_attribute: string-value
@@ -750,6 +751,7 @@ EXAMPLES = """
         disable_autoapprove: true
         supports_downscaling: true
         supports_pausing: true
+        action_on_usage_limit: null
         minimal_team_count_for_provisioning: 123
         maximal_resource_count_per_project: 123
         unique_resource_per_attribute: string-value
@@ -1445,6 +1447,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        action_on_usage_limit:
+          description: If set to 'pause' or 'downscale', resources are automatically paused or downscaled when reported usage in the current period reaches a component's limit_amount, and the restriction is lifted when usage drops below the limit again (e.g. a new billing period or a raised limit).
+          type: str
+          returned: always
+          sample: null
         minimal_team_count_for_provisioning:
           description: Minimal team count required for provisioning of resources
           type: int

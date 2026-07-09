@@ -779,6 +779,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        action_on_usage_limit:
+          description: If set to 'pause' or 'downscale', resources are automatically paused or downscaled when reported usage in the current period reaches a component's limit_amount, and the restriction is lifted when usage drops below the limit again (e.g. a new billing period or a raised limit).
+          type: str
+          returned: always
+          sample: null
         minimal_team_count_for_provisioning:
           description: Minimal team count required for provisioning of resources
           type: int
