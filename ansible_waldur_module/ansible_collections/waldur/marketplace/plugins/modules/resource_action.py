@@ -298,7 +298,12 @@ resource:
       returned: always
       sample: '2023-10-01'
     project_effective_end_date:
-      description: Effective project end date including grace period. After this date, resources will be terminated.
+      description: "Effective project end date including grace period. After this date, resources are terminated, except resources of offerings that disable the grace period \u2014 those are terminated on the raw project end date."
+      type: str
+      returned: always
+      sample: '2023-10-01'
+    resource_effective_end_date:
+      description: 'The date this resource is scheduled to terminate: the earliest of its own end date and the project-driven termination date (the raw project end date if the offering disables the grace period, otherwise the effective with-grace end date).'
       type: str
       returned: always
       sample: '2023-10-01'

@@ -579,6 +579,7 @@ EXAMPLES = """
         disable_autoapprove: true
         supports_downscaling: true
         supports_pausing: true
+        disable_grace_period: true
         action_on_usage_limit: null
         minimal_team_count_for_provisioning: 123
         maximal_resource_count_per_project: 123
@@ -751,6 +752,7 @@ EXAMPLES = """
         disable_autoapprove: true
         supports_downscaling: true
         supports_pausing: true
+        disable_grace_period: true
         action_on_usage_limit: null
         minimal_team_count_for_provisioning: 123
         maximal_resource_count_per_project: 123
@@ -1444,6 +1446,11 @@ resource:
           sample: true
         supports_pausing:
           description: If set to True, it will be possible to pause resources
+          type: bool
+          returned: always
+          sample: true
+        disable_grace_period:
+          description: If set to True, this offering's resources ignore the project grace period and are terminated on the project end date. Only staff can change this option.
           type: bool
           returned: always
           sample: true
