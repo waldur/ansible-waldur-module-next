@@ -43,7 +43,6 @@ options:
     - restart
     - pull
     - unlink
-    - diagnose_connectivity
   tenant:
     description: The name or UUID of the parent tenant for filtering.
     type: str
@@ -122,18 +121,6 @@ EXAMPLES = """
       customer: Parent Customer Name or UUID
       project: Parent Project Name or UUID
       action: unlink
-- name: Perform 'diagnose_connectivity' action on a OpenStack instance
-  hosts: localhost
-  tasks:
-  - name: Trigger diagnose_connectivity
-    waldur.openstack.instance_action:
-      name: My-Target-OpenStack-instance
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com
-      tenant: Parent Tenant Name or UUID
-      customer: Parent Customer Name or UUID
-      project: Parent Project Name or UUID
-      action: diagnose_connectivity
 
 """
 
@@ -655,11 +642,6 @@ resource:
           returned: always
           sample: []
           contains:
-            ip_address:
-              description: IP address
-              type: str
-              returned: always
-              sample: 192.168.42.0/24
             mac_address:
               description: Mac address
               type: str
@@ -1102,14 +1084,7 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "action": {
         "type": "str",
-        "choices": [
-            "start",
-            "stop",
-            "restart",
-            "pull",
-            "unlink",
-            "diagnose_connectivity",
-        ],
+        "choices": ["start", "stop", "restart", "pull", "unlink"],
         "required": True,
     },
     "tenant": {"type": "str"},
@@ -1147,7 +1122,6 @@ RUNNER_CONTEXT = {
         "restart": "/api/openstack-instances/{uuid}/restart/",
         "pull": "/api/openstack-instances/{uuid}/pull/",
         "unlink": "/api/openstack-instances/{uuid}/unlink/",
-        "diagnose_connectivity": "/api/openstack-instances/{uuid}/diagnose_connectivity/",
     },
 }
 

@@ -310,12 +310,7 @@ resource:
       returned: always
       sample: '2023-10-01'
     project_effective_end_date:
-      description: "Effective project end date including grace period. After this date, resources are terminated, except resources of offerings that disable the grace period \u2014 those are terminated on the raw project end date."
-      type: str
-      returned: always
-      sample: '2023-10-01'
-    resource_effective_end_date:
-      description: 'The date this resource is scheduled to terminate: the earliest of its own end date and the project-driven termination date (the raw project end date if the offering disables the grace period, otherwise the effective with-grace end date).'
+      description: Effective project end date including grace period. After this date, resources will be terminated.
       type: str
       returned: always
       sample: '2023-10-01'
@@ -467,7 +462,7 @@ resource:
       returned: always
       sample: alice
     limit_usage:
-      description: Dictionary mapping limit-based component types to their consumed usage. Sums the ComponentUsage rows of the component's current period (the monthly billing period unless the component defines a longer limit_period), i.e. the period's high-watermark rather than the instantaneous current_usages value.
+      description: Dictionary mapping limit-based component types to their consumed usage. For monthly periods, maps from current_usages; for longer periods, aggregates historical usage.
       type: dict
       returned: always
       sample: {}
@@ -486,11 +481,6 @@ resource:
       type: bool
       returned: always
       sample: true
-    usage_limit_restriction:
-      description: Which restriction (paused or downscaled) was automatically applied because reported usage reached a component limit. Empty when no such restriction is active. Used so the automatic lift never clears a restriction that was set for another reason.
-      type: str
-      returned: always
-      sample: paused
     endpoints:
       description: A list of endpoints items.
       type: list
@@ -838,23 +828,8 @@ resource:
           type: str
           returned: always
           sample: string-value
-        created_by_organization_country:
-          description: Created by organization country
-          type: str
-          returned: always
-          sample: string-value
         created_by_organization_registry_code:
           description: Company registration code of the user's organization, if known
-          type: str
-          returned: always
-          sample: string-value
-        created_by_organization_vat_code:
-          description: VAT code of the user's organization
-          type: str
-          returned: always
-          sample: string-value
-        created_by_organization_address:
-          description: Postal address of the user's organization
           type: str
           returned: always
           sample: string-value
@@ -1320,23 +1295,8 @@ resource:
           type: str
           returned: always
           sample: string-value
-        created_by_organization_country:
-          description: Created by organization country
-          type: str
-          returned: always
-          sample: string-value
         created_by_organization_registry_code:
           description: Company registration code of the user's organization, if known
-          type: str
-          returned: always
-          sample: string-value
-        created_by_organization_vat_code:
-          description: VAT code of the user's organization
-          type: str
-          returned: always
-          sample: string-value
-        created_by_organization_address:
-          description: Postal address of the user's organization
           type: str
           returned: always
           sample: string-value

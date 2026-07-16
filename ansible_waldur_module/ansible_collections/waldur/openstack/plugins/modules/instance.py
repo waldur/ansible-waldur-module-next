@@ -102,11 +102,16 @@ options:
     description: List of security groups to apply to the instance
     elements: str
   server_group:
-    type: str
+    type: dict
     required: false
     description:
     - Server group for instance scheduling policy
     - This attribute cannot be updated.
+    suboptions:
+      url:
+        type: str
+        required: true
+        description: URL URL
   ports:
     type: list
     required: false
@@ -267,7 +272,8 @@ EXAMPLES = """
       image: Image name or UUID
       security_groups:
       - Security groups name or UUID
-      server_group: Server group name or UUID
+      server_group:
+        url: string-value
       ports:
       - fixed_ips:
         - ip_address: 192.168.42.50
@@ -826,11 +832,6 @@ resource:
           returned: always
           sample: []
           contains:
-            ip_address:
-              description: IP address
-              type: str
-              returned: always
-              sample: 192.168.42.0/24
             mac_address:
               description: Mac address
               type: str
@@ -1283,7 +1284,7 @@ ARGUMENT_SPEC = {
     "flavor": {"type": "str"},
     "image": {"type": "str"},
     "security_groups": {"type": "list"},
-    "server_group": {"type": "str"},
+    "server_group": {"type": "dict"},
     "ports": {"type": "list"},
     "floating_ips": {"type": "list"},
     "system_volume_size": {"type": "int"},
@@ -1311,14 +1312,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "system_volume_type",
-        "ssh_public_key",
-        "availability_zone",
-        "data_volume_type",
-        "security_groups",
         "image",
+        "ssh_public_key",
+        "system_volume_type",
+        "availability_zone",
+        "security_groups",
         "flavor",
-        "server_group",
+        "data_volume_type",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",
@@ -1327,6 +1327,7 @@ RUNNER_CONTEXT = {
         "floating_ips",
         "name",
         "ports",
+        "server_group",
         "system_volume_size",
         "user_data",
     ],
@@ -1472,20 +1473,6 @@ RUNNER_CONTEXT = {
             "list_item_keys": {},
             "object_item_keys": {},
         },
-        "server_group": {
-            "url": "/api/openstack-server-groups/",
-            "error_message": None,
-            "filter_by": [
-                {
-                    "source_param": "offering",
-                    "source_key": "scope_uuid",
-                    "target_key": "tenant_uuid",
-                }
-            ],
-            "is_list": False,
-            "list_item_keys": {},
-            "object_item_keys": {"create": "url"},
-        },
         "offering": {
             "url": "/api/marketplace-public-offerings/",
             "error_message": "Offering '{value}' not found.",
@@ -1505,7 +1492,6 @@ RUNNER_CONTEXT = {
         "availability_zone",
         "subnet",
         "ssh_public_key",
-        "server_group",
         "customer",
         "offering",
     ],

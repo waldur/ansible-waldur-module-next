@@ -74,11 +74,6 @@ options:
     description: Created before
     type: str
     required: false
-  current_user_has_role:
-    description: Multiple values may be separated by commas.
-    type: list
-    required: false
-    elements: str
   customer_abbreviation:
     description: Customer abbreviation
     type: str
@@ -552,7 +547,6 @@ ARGUMENT_SPEC = {
     "conceal_finished_projects": {"type": "bool"},
     "created": {"type": "str"},
     "created_before": {"type": "str"},
-    "current_user_has_role": {"type": "list"},
     "customer_abbreviation": {"type": "str"},
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
@@ -593,7 +587,6 @@ RUNNER_CONTEXT = {
         "conceal_finished_projects",
         "created",
         "created_before",
-        "current_user_has_role",
         "customer_abbreviation",
         "customer_name",
         "customer_native_name",
