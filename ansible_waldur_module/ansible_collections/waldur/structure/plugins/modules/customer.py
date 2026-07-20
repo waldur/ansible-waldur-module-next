@@ -101,17 +101,17 @@ options:
     required: false
     description: Number of extra days after project end date before resources are terminated
   user_email_patterns:
-    type: dict
+    type: list
     required: false
     description: User email patterns
   user_affiliations:
-    type: dict
+    type: list
     required: false
     description: User affiliations
   user_identity_sources:
-    type: dict
+    type: list
     required: false
-    description: List of allowed identity sources (identity providers).
+    description: User identity sources
   slug:
     type: str
     required: false
@@ -501,9 +501,12 @@ EXAMPLES = """
       max_service_accounts: 123
       project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       grace_period_days: 123
-      user_email_patterns: alice@example.com
-      user_affiliations: {}
-      user_identity_sources: {}
+      user_email_patterns:
+      - alice@example.com
+      user_affiliations:
+      - string-value
+      user_identity_sources:
+      - string-value
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -552,9 +555,12 @@ EXAMPLES = """
       max_service_accounts: 123
       project_metadata_checklist: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       grace_period_days: 123
-      user_email_patterns: alice@example.com
-      user_affiliations: {}
-      user_identity_sources: {}
+      user_email_patterns:
+      - alice@example.com
+      user_affiliations:
+      - string-value
+      user_identity_sources:
+      - string-value
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -734,20 +740,20 @@ resource:
       returned: always
       sample: 123
     user_email_patterns:
-      description: User email patterns
-      type: dict
+      description: A list of user email patterns items.
+      type: list
       returned: always
-      sample: alice@example.com
+      sample: []
     user_affiliations:
-      description: User affiliations
-      type: dict
+      description: A list of user affiliations items.
+      type: list
       returned: always
-      sample: {}
+      sample: []
     user_identity_sources:
-      description: List of allowed identity sources (identity providers).
-      type: dict
+      description: A list of user identity sources items.
+      type: list
       returned: always
-      sample: {}
+      sample: []
     default_affiliations:
       description: Affiliations offered to project creators of this organization.
       type: list
@@ -1046,6 +1052,11 @@ resource:
       type: float
       returned: always
       sample: 123.45
+    has_affiliate_links:
+      description: Has affiliate links
+      type: bool
+      returned: always
+      sample: true
     is_service_provider:
       description: Is service provider
       type: bool
@@ -1139,9 +1150,9 @@ ARGUMENT_SPEC = {
     "max_service_accounts": {"type": "int"},
     "project_metadata_checklist": {"type": "str"},
     "grace_period_days": {"type": "int"},
-    "user_email_patterns": {"type": "dict"},
-    "user_affiliations": {"type": "dict"},
-    "user_identity_sources": {"type": "dict"},
+    "user_email_patterns": {"type": "list"},
+    "user_affiliations": {"type": "list"},
+    "user_identity_sources": {"type": "list"},
     "slug": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},

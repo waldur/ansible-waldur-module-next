@@ -579,10 +579,16 @@ EXAMPLES = """
         disable_autoapprove: true
         supports_downscaling: true
         supports_pausing: true
+        disable_grace_period: true
+        action_on_usage_limit: null
         minimal_team_count_for_provisioning: 123
         maximal_resource_count_per_project: 123
         unique_resource_per_attribute: string-value
         required_team_role_for_provisioning: string-value
+        restricted_to_roles:
+        - string-value
+        auto_approve_for_roles:
+        - string-value
         enable_purchase_order_upload: true
         require_purchase_order_upload: true
         conceal_billing_data: true
@@ -606,6 +612,7 @@ EXAMPLES = """
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
         usage_poll_interval_minutes: 123
+        billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -613,16 +620,18 @@ EXAMPLES = """
         homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
-        initial_primarygroup_number: 5000
-        initial_uidnumber: 5000
-        initial_usergroup_number: 6000
-        initial_rolegroup_number: 60000
+        enable_posix_account: true
         resource_role_map: {}
         resource_project_role_map: {}
         resource_role_group_template: ${resource_slug}_${role_name}
         resource_project_role_group_template: ${resource_slug}_${rp_uuid_short}_${role_name}
         username_anonymized_prefix: waldur_
         username_generation_policy: service_provider
+        login_shell: /bin/bash
+        uid_source: pool
+        gid_source: pool
+        emit_display_name: false
+        emit_waldur_username: false
         enable_issues_for_membership_changes: true
         deployment_mode: self_managed
         flavors_regex: string-value
@@ -743,10 +752,16 @@ EXAMPLES = """
         disable_autoapprove: true
         supports_downscaling: true
         supports_pausing: true
+        disable_grace_period: true
+        action_on_usage_limit: null
         minimal_team_count_for_provisioning: 123
         maximal_resource_count_per_project: 123
         unique_resource_per_attribute: string-value
         required_team_role_for_provisioning: string-value
+        restricted_to_roles:
+        - string-value
+        auto_approve_for_roles:
+        - string-value
         enable_purchase_order_upload: true
         require_purchase_order_upload: true
         conceal_billing_data: true
@@ -770,6 +785,7 @@ EXAMPLES = """
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
         usage_poll_interval_minutes: 123
+        billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
         heappe_url: string-value
@@ -777,16 +793,18 @@ EXAMPLES = """
         homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
-        initial_primarygroup_number: 5000
-        initial_uidnumber: 5000
-        initial_usergroup_number: 6000
-        initial_rolegroup_number: 60000
+        enable_posix_account: true
         resource_role_map: {}
         resource_project_role_map: {}
         resource_role_group_template: ${resource_slug}_${role_name}
         resource_project_role_group_template: ${resource_slug}_${rp_uuid_short}_${role_name}
         username_anonymized_prefix: waldur_
         username_generation_policy: service_provider
+        login_shell: /bin/bash
+        uid_source: pool
+        gid_source: pool
+        emit_display_name: false
+        emit_waldur_username: false
         enable_issues_for_membership_changes: true
         deployment_mode: self_managed
         flavors_regex: string-value
@@ -938,6 +956,27 @@ resource:
           type: str
           returned: always
           sample: string-value
+    default_access_subnets:
+      description: A list of default access subnets items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        inet:
+          description: Inet
+          type: str
+          returned: always
+          sample: string-value
+        description:
+          description: Description
+          type: str
+          returned: always
+          sample: A sample description created by Ansible.
     software_catalogs:
       description: A list of software catalogs items.
       type: list
@@ -1431,6 +1470,16 @@ resource:
           type: bool
           returned: always
           sample: true
+        disable_grace_period:
+          description: If set to True, this offering's resources ignore the project grace period and are terminated on the project end date. Only staff can change this option.
+          type: bool
+          returned: always
+          sample: true
+        action_on_usage_limit:
+          description: If set to 'pause' or 'downscale', resources are automatically paused or downscaled when reported usage in the current period reaches a component's limit_amount, and the restriction is lifted when usage drops below the limit again (e.g. a new billing period or a raised limit).
+          type: str
+          returned: always
+          sample: null
         minimal_team_count_for_provisioning:
           description: Minimal team count required for provisioning of resources
           type: int
@@ -1451,6 +1500,16 @@ resource:
           type: str
           returned: always
           sample: string-value
+        restricted_to_roles:
+          description: List of project or organization role names (e.g. 'PROJECT.MANAGER') allowed to view and order this offering. When set, the offering is hidden from the catalog for other users and they cannot create orders for it. Whether their orders skip consumer review still depends on the role having the order-approval permission.
+          type: list
+          returned: always
+          sample: []
+        auto_approve_for_roles:
+          description: List of project or organization role names (e.g. 'PROJECT.MANAGER') whose orders skip consumer review for this offering. The creator must hold the role on the target project or its organization. Independent of restricted_to_roles (which governs visibility/ordering) and of the ORDER.APPROVE permission. Provider review and purchase-order requirements still apply. Only staff can change this option.
+          type: list
+          returned: always
+          sample: []
         enable_purchase_order_upload:
           description: If set to True, users will be able to upload purchase orders.
           type: bool
@@ -1566,6 +1625,11 @@ resource:
           type: int
           returned: always
           sample: 123
+        billing_source:
+          description: 'Source for OpenStack instance compute ComponentUsage: ''quota'' (flavor-derived Nova quota, default) or ''placement'' (Placement allocations; also bills VGPU/PCI/custom resource classes).'
+          type: str
+          returned: always
+          sample: quota
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str
@@ -1601,26 +1665,11 @@ resource:
           type: str
           returned: always
           sample: string-value
-        initial_primarygroup_number:
-          description: GLAuth initial primary group number
-          type: int
+        enable_posix_account:
+          description: Manage a POSIX/LDAP account (UID, GID, home directory, login shell and GLAuth exposure) for this offering's users. Disable for offerings that only need a username.
+          type: bool
           returned: always
-          sample: 5000
-        initial_uidnumber:
-          description: GLAuth initial uidnumber
-          type: int
-          returned: always
-          sample: 5000
-        initial_usergroup_number:
-          description: GLAuth initial usergroup number
-          type: int
-          returned: always
-          sample: 6000
-        initial_rolegroup_number:
-          description: GLAuth initial gid for role-aware groups (one per (resource|resource-project, role) tuple). Must leave at least 50000 gids of headroom above initial_usergroup_number to avoid collisions.
-          type: int
-          returned: always
-          sample: 60000
+          sample: true
         resource_role_map:
           description: 'Mapping of Waldur role names (on Resource scope) to emitted role tokens used in group name rendering. Roles outside the map are skipped. Example: {"PI": "admin", "Member": "member"}.'
           type: dict
@@ -1651,6 +1700,31 @@ resource:
           type: str
           returned: always
           sample: service_provider
+        login_shell:
+          description: Default login shell assigned to GLAuth/LDAP accounts.
+          type: str
+          returned: always
+          sample: /bin/bash
+        uid_source:
+          description: 'Where each offering user''s UID comes from: allocated from the POSIX ID pool (default), or taken from the user''s uid_number attribute (e.g. an OIDC claim). Pair ''user_attribute'' with a GID-only pool to avoid UID collisions.'
+          type: str
+          returned: always
+          sample: pool
+        gid_source:
+          description: 'Where each offering user''s primary GID comes from: the POSIX ID pool (default), or the user''s primary_gid attribute.'
+          type: str
+          returned: always
+          sample: pool
+        emit_display_name:
+          description: Emit the user's full name as a GLAuth displayName custom attribute (rendered to LDAP displayName).
+          type: bool
+          returned: always
+          sample: false
+        emit_waldur_username:
+          description: Emit the Waldur username as a GLAuth waldurUsername custom attribute, alongside the generated POSIX login name.
+          type: bool
+          returned: always
+          sample: false
         enable_issues_for_membership_changes:
           description: Enable issues for membership changes
           type: bool
@@ -2202,21 +2276,16 @@ resource:
               type: str
               returned: always
               sample: '12.34'
-            discount_threshold:
-              description: Minimum amount to be eligible for discount.
-              type: int
-              returned: always
-              sample: 123
-            discount_rate:
-              description: Discount rate in percentage.
-              type: int
-              returned: always
-              sample: 123
-            discounted_price:
-              description: Discounted price
+            discount_formula:
+              description: 'Volume discount formula evaluated with the billed quantity bound to `usage`; returns a discount percentage (clamped to 0-100). Empty means no discount. Example: ''10 if usage >= 100 else 0''.'
               type: str
               returned: always
-              sample: '12.34'
+              sample: string-value
+            discount_aggregation:
+              description: Whether the volume discount is computed on a single resource's usage or aggregated across all of the customer's resources of this offering.
+              type: str
+              returned: always
+              sample: resource
             discount_description:
               description: Discount description
               type: str

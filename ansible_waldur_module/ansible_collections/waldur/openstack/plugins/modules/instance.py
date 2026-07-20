@@ -199,7 +199,7 @@ options:
     type: str
     required: false
     description:
-    - Additional data that will be added to instance on provisioning
+    - "Cloud-init user data passed to the instance on provisioning. SECURITY: this value is stored and transmitted in plain text \u2014 it is kept unencrypted in Waldur's database, forwarded to OpenStack where any process on the instance can read it via the metadata service, and it may appear in logs. Do NOT put unencrypted secrets (passwords, private keys, API tokens) here; reference a secrets manager or inject them through an encrypted channel instead."
     - This attribute cannot be updated.
   availability_zone:
     type: str
@@ -476,7 +476,7 @@ resource:
       returned: always
       sample: 20480
     user_data:
-      description: Additional data that will be added to instance on provisioning
+      description: "Cloud-init user data passed to the instance on provisioning. SECURITY: this value is stored and transmitted in plain text \u2014 it is kept unencrypted in Waldur's database, forwarded to OpenStack where any process on the instance can read it via the metadata service, and it may appear in logs. Do NOT put unencrypted secrets (passwords, private keys, API tokens) here; reference a secrets manager or inject them through an encrypted channel instead."
       type: str
       returned: always
       sample: "#cloud-config\npackages:\n  - nginx"
@@ -832,6 +832,11 @@ resource:
           returned: always
           sample: []
           contains:
+            ip_address:
+              description: IP address
+              type: str
+              returned: always
+              sample: 192.168.42.0/24
             mac_address:
               description: Mac address
               type: str
@@ -1312,13 +1317,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "data_volume_type",
-        "image",
-        "ssh_public_key",
-        "availability_zone",
         "security_groups",
-        "system_volume_type",
+        "ssh_public_key",
         "flavor",
+        "system_volume_type",
+        "data_volume_type",
+        "availability_zone",
+        "image",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",

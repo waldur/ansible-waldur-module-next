@@ -158,17 +158,17 @@ options:
     required: false
     description: Number of extra days after project end date before resources are terminated. Overrides customer-level setting.
   user_email_patterns:
-    type: dict
+    type: list
     required: false
     description: User email patterns
   user_affiliations:
-    type: dict
+    type: list
     required: false
     description: User affiliations
   user_identity_sources:
-    type: dict
+    type: list
     required: false
-    description: List of allowed identity sources (identity providers).
+    description: User identity sources
   affiliation_uuid:
     type: str
     required: false
@@ -205,9 +205,12 @@ EXAMPLES = """
       kind: default
       staff_notes: string-value
       grace_period_days: 123
-      user_email_patterns: alice@example.com
-      user_affiliations: {}
-      user_identity_sources: {}
+      user_email_patterns:
+      - alice@example.com
+      user_affiliations:
+      - string-value
+      user_identity_sources:
+      - string-value
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (BlankEnum)
@@ -232,9 +235,12 @@ EXAMPLES = """
       kind: default
       staff_notes: string-value
       grace_period_days: 123
-      user_email_patterns: alice@example.com
-      user_affiliations: {}
-      user_identity_sources: {}
+      user_email_patterns:
+      - alice@example.com
+      user_affiliations:
+      - string-value
+      user_identity_sources:
+      - string-value
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (NullEnum)
@@ -259,9 +265,12 @@ EXAMPLES = """
       kind: default
       staff_notes: string-value
       grace_period_days: 123
-      user_email_patterns: alice@example.com
-      user_affiliations: {}
-      user_identity_sources: {}
+      user_email_patterns:
+      - alice@example.com
+      user_affiliations:
+      - string-value
+      user_identity_sources:
+      - string-value
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Remove an existing project
@@ -484,20 +493,20 @@ resource:
       returned: always
       sample: true
     user_email_patterns:
-      description: User email patterns
-      type: dict
+      description: A list of user email patterns items.
+      type: list
       returned: always
-      sample: alice@example.com
+      sample: []
     user_affiliations:
-      description: User affiliations
-      type: dict
+      description: A list of user affiliations items.
+      type: list
       returned: always
-      sample: {}
+      sample: []
     user_identity_sources:
-      description: List of allowed identity sources (identity providers).
-      type: dict
+      description: A list of user identity sources items.
+      type: list
       returned: always
-      sample: {}
+      sample: []
     affiliation:
       description: Affiliation
       type: dict
@@ -747,9 +756,9 @@ ARGUMENT_SPEC = {
     "kind": {"type": "str", "choices": ["default", "course", "public"]},
     "staff_notes": {"type": "str"},
     "grace_period_days": {"type": "int"},
-    "user_email_patterns": {"type": "dict"},
-    "user_affiliations": {"type": "dict"},
-    "user_identity_sources": {"type": "dict"},
+    "user_email_patterns": {"type": "list"},
+    "user_affiliations": {"type": "list"},
+    "user_identity_sources": {"type": "list"},
     "affiliation_uuid": {"type": "str"},
     "science_sub_domain": {"type": "str"},
 }
