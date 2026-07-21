@@ -444,9 +444,9 @@ resource:
           sample: string-value
         answer:
           description: Human-readable answer value; select-type option UUIDs are resolved to their labels.
-          type: dict
+          type: str
           returned: always
-          sample: {}
+          sample: null
     max_service_accounts:
       description: Maximum number of service accounts allowed
       type: int
