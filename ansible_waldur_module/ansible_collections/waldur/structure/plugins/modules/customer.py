@@ -1024,9 +1024,9 @@ resource:
               sample: string-value
             contract_sum:
               description: Contract sum
-              type: int
+              type: str
               returned: always
-              sample: 123
+              sample: string-value
         payment_type:
           description: Payment type
           type: str
@@ -1044,14 +1044,14 @@ resource:
           sample: true
     customer_credit:
       description: Customer credit
-      type: float
+      type: str
       returned: always
-      sample: 123.45
+      sample: string-value
     customer_unallocated_credit:
       description: Customer unallocated credit
-      type: float
+      type: str
       returned: always
-      sample: 123.45
+      sample: string-value
     has_affiliate_links:
       description: Has affiliate links
       type: bool
