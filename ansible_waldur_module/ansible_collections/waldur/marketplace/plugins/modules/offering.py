@@ -594,6 +594,9 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        enable_resource_access_subnets: true
+        conceal_subnet_restricted_resources: true
+        resource_projects_limit_policy: null
         auto_ok_resource_projects: true
         resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
@@ -767,6 +770,9 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        enable_resource_access_subnets: true
+        conceal_subnet_restricted_resources: true
+        resource_projects_limit_policy: null
         auto_ok_resource_projects: true
         resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
@@ -1535,6 +1541,21 @@ resource:
           type: bool
           returned: always
           sample: true
+        enable_resource_access_subnets:
+          description: If set to True, an Access subnets tab is shown on resource detail pages, letting consumers curate the IPs allowed to reach the backend entity. The list is advisory data for external firewalls.
+          type: bool
+          returned: always
+          sample: true
+        conceal_subnet_restricted_resources:
+          description: If set to True, a resource of this offering that has access subnets is hidden from the consumer API unless the caller's IP is in the resource's allow-list. Staff and support are exempt; resources without any subnet stay visible.
+          type: bool
+          returned: always
+          sample: true
+        resource_projects_limit_policy:
+          description: 'How parent resource limits are enforced on child resource projects: ''none'' (accepted as-is, default), ''per_project'' (each resource project limit must be within the parent resource limit), or ''aggregate'' (the sum of all resource project limits must be within the parent limit).'
+          type: str
+          returned: always
+          sample: null
         auto_ok_resource_projects:
           description: If set to True, newly-created resource projects are immediately transitioned from CREATING to OK on save, bypassing the provider/site-agent reconciliation callback. Use for offerings that have no external backend to reconcile against.
           type: bool
