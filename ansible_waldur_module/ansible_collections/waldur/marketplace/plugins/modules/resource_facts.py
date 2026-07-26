@@ -1796,6 +1796,11 @@ resources:
           type: int
           returned: always
           sample: 123
+    has_api_keys:
+      description: Whether the resource owns any API keys, so the portal can offer key management without knowing which backend serves the resource.
+      type: bool
+      returned: always
+      sample: '********'
 
 """
 
