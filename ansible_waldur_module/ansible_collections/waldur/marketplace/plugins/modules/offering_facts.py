@@ -869,6 +869,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        enable_membership_sync_status:
+          description: 'Enable per-member sync status reporting by the site agent: team views show whether each role grant has propagated to the provider backend, and providers can trigger a resync.'
+          type: bool
+          returned: always
+          sample: true
         enable_resource_access_subnets:
           description: If set to True, an Access subnets tab is shown on resource detail pages, letting consumers curate the IPs allowed to reach the backend entity. The list is advisory data for external firewalls.
           type: bool

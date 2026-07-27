@@ -594,6 +594,7 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        enable_membership_sync_status: true
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -770,6 +771,7 @@ EXAMPLES = """
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
         enable_resource_projects: true
+        enable_membership_sync_status: true
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -1538,6 +1540,11 @@ resource:
           sample: true
         enable_resource_projects:
           description: Enable sub-project management within resources.
+          type: bool
+          returned: always
+          sample: true
+        enable_membership_sync_status:
+          description: 'Enable per-member sync status reporting by the site agent: team views show whether each role grant has propagated to the provider backend, and providers can trigger a resync.'
           type: bool
           returned: always
           sample: true
