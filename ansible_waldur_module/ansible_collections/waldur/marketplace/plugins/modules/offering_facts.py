@@ -515,11 +515,118 @@ resources:
           type: str
           returned: always
           sample: string-value
+        qos_options:
+          description: A list of qos options items.
+          type: list
+          returned: always
+          sample: []
+          contains:
+            uuid:
+              description: UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            qos:
+              description: Qos
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            qos_name:
+              description: Qos name
+              type: str
+              returned: always
+              sample: string-value
+            is_default:
+              description: Default QOS for this partition (seeds SLURM DefaultQOS).
+              type: bool
+              returned: always
+              sample: true
         req_resv:
           description: Require reservation for job allocation
           type: bool
           returned: always
           sample: true
+    qos_profiles:
+      description: A list of qos profiles items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          description: Name of the SLURM QOS.
+          type: str
+          returned: always
+          sample: My-Awesome-offering
+        description:
+          description: Description
+          type: str
+          returned: always
+          sample: A sample description created by Ansible.
+        max_nodes:
+          description: Maximum nodes per job
+          type: int
+          returned: always
+          sample: 123
+        min_nodes:
+          description: Minimum nodes per job
+          type: int
+          returned: always
+          sample: 123
+        default_time:
+          description: Default time limit in minutes
+          type: int
+          returned: always
+          sample: 123
+        max_time:
+          description: Maximum wall time in minutes
+          type: int
+          returned: always
+          sample: 123
+        grace_time:
+          description: Preemption grace time in seconds
+          type: int
+          returned: always
+          sample: 123
+        priority:
+          description: Scheduling priority
+          type: int
+          returned: always
+          sample: 123
+        grp_tres:
+          description: Aggregate TRES the QOS may allocate at once (GrpTRES)
+          type: str
+          returned: always
+          sample: string-value
+        max_tres_per_job:
+          description: Max TRES per job (MaxTRESPerJob)
+          type: str
+          returned: always
+          sample: string-value
+        max_tres_per_node:
+          description: Max TRES per node (MaxTRESPerNode)
+          type: str
+          returned: always
+          sample: string-value
+        max_tres_per_user:
+          description: Max TRES per user (MaxTRESPerUser)
+          type: str
+          returned: always
+          sample: string-value
+        min_tres_per_job:
+          description: Min TRES per job (MinTRESPerJob)
+          type: str
+          returned: always
+          sample: string-value
+        flags:
+          description: Comma-separated QOS flags (e.g. DenyOnLimit, OverPartQOS)
+          type: str
+          returned: always
+          sample: string-value
     customer:
       description: Customer URL
       type: str
@@ -1186,6 +1293,11 @@ resources:
           sample: true
         slurm_periodic_policy_enabled:
           description: Enable SLURM periodic usage policy configuration. When enabled, allows configuring QoS-based threshold enforcement, carryover logic, and fairshare decay for site-agent managed SLURM offerings.
+          type: bool
+          returned: always
+          sample: false
+        enforce_qos:
+          description: "When enabled, the site agent enforces the offering's QoS selection by granting the chosen QoS on the SLURM association (QosLevel/DefaultQOS). When disabled (default), QoS is informational only \u2014 profiles are shown and the selection is recorded on the resource, but the agent does not touch SLURM QoS. The agent config may override this per deployment."
           type: bool
           returned: always
           sample: false
