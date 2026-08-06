@@ -42,7 +42,7 @@ options:
     type: bool
     required: false
   accessible_via_calls:
-    description: Accessible via calls
+    description: 'Deprecated: offerings accepted on an active call, regardless of whether a proposal can actually be submitted for them. Use open_for_proposals instead.'
     type: bool
     required: false
   allowed_customer_uuid:
@@ -67,6 +67,10 @@ options:
     required: false
   category_uuid:
     description: Category UUID
+    type: str
+    required: false
+  consumer_customer_uuid:
+    description: Consumer customer UUID
     type: str
     required: false
   created:
@@ -104,6 +108,10 @@ options:
   offering_group_uuid:
     description: Offering group UUID
     type: str
+    required: false
+  open_for_proposals:
+    description: 'Offerings that can be requested through a call right now: accepted on an active call with a round that is open, and covered by a resource template when the call defines any.'
+    type: bool
     required: false
   organization_group_uuid:
     description: Organization group UUID
@@ -1861,6 +1869,11 @@ resources:
       type: bool
       returned: always
       sample: true
+    open_for_proposals:
+      description: Open for proposals
+      type: bool
+      returned: always
+      sample: true
     config_drive_default:
       description: Config drive default
       type: bool
@@ -1948,6 +1961,7 @@ ARGUMENT_SPEC = {
     "can_create_offering_user": {"type": "bool"},
     "category_group_uuid": {"type": "str"},
     "category_uuid": {"type": "str"},
+    "consumer_customer_uuid": {"type": "str"},
     "created": {"type": "str"},
     "created_before": {"type": "str"},
     "description": {"type": "str"},
@@ -1957,6 +1971,7 @@ ARGUMENT_SPEC = {
     "modified": {"type": "str"},
     "modified_before": {"type": "str"},
     "offering_group_uuid": {"type": "str"},
+    "open_for_proposals": {"type": "bool"},
     "organization_group_uuid": {"type": "str"},
     "parent_uuid": {"type": "str"},
     "project_uuid": {"type": "str"},
@@ -2000,6 +2015,7 @@ RUNNER_CONTEXT = {
         "can_create_offering_user",
         "category_group_uuid",
         "category_uuid",
+        "consumer_customer_uuid",
         "created",
         "created_before",
         "customer",
@@ -2010,6 +2026,7 @@ RUNNER_CONTEXT = {
         "modified",
         "modified_before",
         "offering_group_uuid",
+        "open_for_proposals",
         "organization_group_uuid",
         "parent_uuid",
         "project_uuid",
