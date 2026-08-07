@@ -956,6 +956,11 @@ resource:
           type: str
           returned: always
           sample: https://api.example.com/api/provider-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        provider_message_updated_at:
+          description: Provider message updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         consumer_message:
           description: Consumer message
           type: str
@@ -966,6 +971,11 @@ resource:
           type: str
           returned: always
           sample: https://api.example.com/api/consumer-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_message_updated_at:
+          description: Consumer message updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         consumer_rejection_comment:
           description: Consumer rejection comment
           type: str
@@ -1438,6 +1448,11 @@ resource:
           type: str
           returned: always
           sample: https://api.example.com/api/provider-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        provider_message_updated_at:
+          description: Provider message updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         consumer_message:
           description: Consumer message
           type: str
@@ -1448,6 +1463,11 @@ resource:
           type: str
           returned: always
           sample: https://api.example.com/api/consumer-message-attachment/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        consumer_message_updated_at:
+          description: Consumer message updated at
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
         consumer_rejection_comment:
           description: Consumer rejection comment
           type: str
