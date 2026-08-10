@@ -593,6 +593,7 @@ EXAMPLES = """
         require_purchase_order_upload: true
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
+        enable_resource_end_date_change_requests: true
         enable_resource_projects: true
         enable_membership_sync_status: true
         enable_resource_access_subnets: true
@@ -771,6 +772,7 @@ EXAMPLES = """
         require_purchase_order_upload: true
         conceal_billing_data: true
         create_orders_on_resource_option_change: true
+        enable_resource_end_date_change_requests: true
         enable_resource_projects: true
         enable_membership_sync_status: true
         enable_resource_access_subnets: true
@@ -1644,6 +1646,11 @@ resource:
           sample: true
         create_orders_on_resource_option_change:
           description: If set to True, create orders when options of related resources are changed.
+          type: bool
+          returned: always
+          sample: true
+        enable_resource_end_date_change_requests:
+          description: If set to True, users without RESOURCE.SET_END_DATE can request an end date change, and holders of that permission approve or reject. Approval writes the date directly; no order is created. Requests are published as events so an external approval system can decide instead. Not applicable to prepaid offerings, which extend through renewal instead.
           type: bool
           returned: always
           sample: true
