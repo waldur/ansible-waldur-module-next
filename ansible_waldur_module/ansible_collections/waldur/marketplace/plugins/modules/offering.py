@@ -1028,14 +1028,14 @@ resource:
               sample: A sample description created by Ansible.
         enabled_cpu_family:
           description: 'List of enabled CPU families: [''x86_64'', ''aarch64'']'
-          type: dict
+          type: list
           returned: always
-          sample: {}
+          sample: []
         enabled_cpu_microarchitectures:
           description: 'List of enabled CPU microarchitectures: [''generic'', ''zen3'']'
-          type: dict
+          type: list
           returned: always
-          sample: {}
+          sample: []
         package_count:
           description: Package count
           type: int
