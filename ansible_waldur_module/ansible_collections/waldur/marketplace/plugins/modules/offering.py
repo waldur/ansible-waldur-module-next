@@ -668,6 +668,7 @@ EXAMPLES = """
         expose_inference_playground: false
         disabled_resource_actions:
         - string-value
+        show_ssh_key_loss_warning: false
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -847,6 +848,7 @@ EXAMPLES = """
         expose_inference_playground: false
         disabled_resource_actions:
         - string-value
+        show_ssh_key_loss_warning: false
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -2014,6 +2016,11 @@ resource:
           type: list
           returned: always
           sample: []
+        show_ssh_key_loss_warning:
+          description: Show a warning about unrecoverable loss of the SSH private key on the OpenStack instance order form.
+          type: bool
+          returned: always
+          sample: false
     secret_options:
       description: Secret options
       type: dict

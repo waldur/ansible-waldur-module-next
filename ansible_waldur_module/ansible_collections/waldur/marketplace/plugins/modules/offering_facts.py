@@ -1344,6 +1344,11 @@ resources:
           type: list
           returned: always
           sample: []
+        show_ssh_key_loss_warning:
+          description: Show a warning about unrecoverable loss of the SSH private key on the OpenStack instance order form.
+          type: bool
+          returned: always
+          sample: false
     state:
       description: State
       type: str
