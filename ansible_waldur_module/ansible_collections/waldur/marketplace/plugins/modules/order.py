@@ -101,17 +101,6 @@ options:
     description:
     - Request comment
     - This attribute cannot be updated.
-  type:
-    type: str
-    required: false
-    description:
-    - Type
-    - This attribute cannot be updated.
-    choices:
-    - Create
-    - Update
-    - Terminate
-    - Restore
   start_date:
     type: str
     required: false
@@ -148,7 +137,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -170,7 +158,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -191,7 +178,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -212,7 +198,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -250,7 +235,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -300,7 +284,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -325,7 +308,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -346,7 +328,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -372,7 +353,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -393,7 +373,6 @@ EXAMPLES = """
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       request_comment: string-value
-      type: Create
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
@@ -945,7 +924,6 @@ ARGUMENT_SPEC = {
     "accepting_terms_of_service": {"type": "bool"},
     "callback_url": {"type": "str"},
     "request_comment": {"type": "str"},
-    "type": {"type": "str", "choices": ["Create", "Update", "Terminate", "Restore"]},
     "start_date": {"type": "str"},
     "slug": {"type": "str"},
 }
@@ -972,7 +950,6 @@ RUNNER_CONTEXT = {
         "request_comment",
         "slug",
         "start_date",
-        "type",
     ],
     "path_param_maps": {},
     "update_fields": ["attributes", "limits", "start_date"],
