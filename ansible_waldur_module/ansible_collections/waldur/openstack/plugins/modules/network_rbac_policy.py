@@ -77,6 +77,7 @@ options:
     choices:
     - access_as_shared
     - access_as_external
+    default: access_as_shared
 requirements:
 - python >= 3.9
 
@@ -219,6 +220,7 @@ ARGUMENT_SPEC = {
     "policy_type": {
         "type": "str",
         "choices": ["access_as_shared", "access_as_external"],
+        "default": "access_as_shared",
     },
 }
 
@@ -263,7 +265,7 @@ RUNNER_CONTEXT = {
     },
     "resolver_order": ["tenant", "target_tenant", "network"],
     "resource_detail_path": "/api/openstack-network-rbac-policies/{uuid}/",
-    "composite_keys": ["network", "target_tenant"],
+    "composite_keys": ["network", "target_tenant", "policy_type"],
 }
 
 
