@@ -311,26 +311,6 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
-- name: Create a new order (SlurmInvoicesSlurmPackage)
-  hosts: localhost
-  tasks:
-  - name: Add order (SlurmInvoicesSlurmPackage)
-    waldur.marketplace.order:
-      state: present
-      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
-      api_url: https://waldur.example.com
-      offering: Offering name or UUID
-      plan: https://api.example.com/api/plan/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      attributes:
-        name: My-Awesome-order
-        description: A sample description created by Ansible.
-      limits: {}
-      accepting_terms_of_service: true
-      callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
-      request_comment: string-value
-      start_date: '2023-10-01'
-      slug: string-value
-      project: Project name or UUID
 - name: Create a new order (VMwareVirtualMachine)
   hosts: localhost
   tasks:
