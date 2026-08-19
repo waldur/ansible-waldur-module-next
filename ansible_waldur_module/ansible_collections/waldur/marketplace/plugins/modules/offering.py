@@ -2553,6 +2553,21 @@ resource:
       type: str
       returned: always
       sample: string-value
+    scope_resource:
+      description: Scope resource URL
+      type: str
+      returned: always
+      sample: https://api.example.com/api/scope-resource/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    scope_resource_uuid:
+      description: Scope resource UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    scope_resource_name:
+      description: Scope resource name
+      type: str
+      returned: always
+      sample: string-value
     files:
       description: A list of files items.
       type: list
