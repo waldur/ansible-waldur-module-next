@@ -1318,10 +1318,10 @@ RUNNER_CONTEXT = {
     "update_fields": ["description", "name"],
     "attribute_param_names": [
         "flavor",
-        "image",
-        "ssh_public_key",
         "data_volume_type",
+        "image",
         "availability_zone",
+        "ssh_public_key",
         "system_volume_type",
         "security_groups",
         "config_drive",
