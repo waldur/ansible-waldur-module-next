@@ -1889,6 +1889,11 @@ resources:
       type: bool
       returned: always
       sample: true
+    user_has_offering_user:
+      description: User has offering user
+      type: bool
+      returned: always
+      sample: true
     is_accessible:
       description: Is accessible
       type: bool
