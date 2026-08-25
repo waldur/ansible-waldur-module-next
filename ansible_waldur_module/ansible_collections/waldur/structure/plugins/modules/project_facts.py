@@ -227,11 +227,6 @@ resource:
       type: bool
       returned: always
       sample: true
-    display_credit_reports:
-      description: Show credit and usage analytics widgets on this project's dashboard.
-      type: bool
-      returned: always
-      sample: true
     created:
       description: Created
       type: str

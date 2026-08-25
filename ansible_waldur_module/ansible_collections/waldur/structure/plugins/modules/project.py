@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: affiliation_uuid, backend_id, customer, description, display_credit_reports, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
+description: 'When the resource already exists, the following fields can be updated: affiliation_uuid, backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
 author: Waldur Team
 options:
   access_token:
@@ -68,10 +68,6 @@ options:
     type: str
     required: false
     description: Project description (HTML content will be sanitized)
-  display_credit_reports:
-    type: bool
-    required: false
-    description: Show credit and usage analytics widgets on this project's dashboard.
   type:
     type: str
     required: false
@@ -199,7 +195,6 @@ EXAMPLES = """
       slug: string-value
       customer: Customer name or UUID
       description: A sample description created by Ansible.
-      display_credit_reports: true
       type: Type name or UUID
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       start_date: '2023-10-01'
@@ -230,7 +225,6 @@ EXAMPLES = """
       slug: string-value
       customer: Customer name or UUID
       description: A sample description created by Ansible.
-      display_credit_reports: true
       type: Type name or UUID
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       start_date: '2023-10-01'
@@ -261,7 +255,6 @@ EXAMPLES = """
       slug: string-value
       customer: Customer name or UUID
       description: A sample description created by Ansible.
-      display_credit_reports: true
       type: Type name or UUID
       backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       start_date: '2023-10-01'
@@ -355,11 +348,6 @@ resource:
       sample: A sample description created by Ansible.
     customer_display_billing_info_in_projects:
       description: Customer display billing info in projects
-      type: bool
-      returned: always
-      sample: true
-    display_credit_reports:
-      description: Show credit and usage analytics widgets on this project's dashboard.
       type: bool
       returned: always
       sample: true
@@ -710,7 +698,6 @@ ARGUMENT_SPEC = {
     "customer": {"type": "str"},
     "slug": {"type": "str"},
     "description": {"type": "str"},
-    "display_credit_reports": {"type": "bool"},
     "type": {"type": "str"},
     "backend_id": {"type": "str"},
     "start_date": {"type": "str"},
@@ -793,7 +780,6 @@ RUNNER_CONTEXT = {
         "affiliation_uuid",
         "backend_id",
         "description",
-        "display_credit_reports",
         "end_date",
         "grace_period_days",
         "image",
@@ -815,7 +801,6 @@ RUNNER_CONTEXT = {
         "backend_id",
         "customer",
         "description",
-        "display_credit_reports",
         "end_date",
         "grace_period_days",
         "image",
