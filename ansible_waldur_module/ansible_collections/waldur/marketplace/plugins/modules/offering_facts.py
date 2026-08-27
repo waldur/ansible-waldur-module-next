@@ -1349,6 +1349,16 @@ resources:
           type: bool
           returned: always
           sample: false
+    can_update_integration:
+      description: Can update integration
+      type: bool
+      returned: always
+      sample: true
+    can_update_options:
+      description: Can update options
+      type: bool
+      returned: always
+      sample: true
     state:
       description: State
       type: str

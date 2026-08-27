@@ -2264,6 +2264,16 @@ resource:
       type: dict
       returned: always
       sample: {}
+    can_update_integration:
+      description: Can update integration
+      type: bool
+      returned: always
+      sample: true
+    can_update_options:
+      description: Can update options
+      type: bool
+      returned: always
+      sample: true
     state:
       description: State
       type: str
