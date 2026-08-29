@@ -1060,6 +1060,11 @@ resource:
                   type: str
                   returned: always
                   sample: https://api.example.com/api/remote-group/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+            instance_count:
+              description: Number of instances the security group is attached to. It is annotated by the security group endpoints only, so it is null when the group is rendered as a nested object.
+              type: int
+              returned: always
+              sample: 123
             marketplace_offering_uuid:
               description: Marketplace offering UUID
               type: str
@@ -1317,13 +1322,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "data_volume_type",
-        "image",
-        "system_volume_type",
-        "flavor",
         "security_groups",
-        "availability_zone",
         "ssh_public_key",
+        "image",
+        "data_volume_type",
+        "availability_zone",
+        "flavor",
+        "system_volume_type",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",
