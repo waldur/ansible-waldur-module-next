@@ -304,6 +304,11 @@ resource:
       type: str
       returned: always
       sample: string-value
+    project_start_date:
+      description: Project start date
+      type: str
+      returned: always
+      sample: '2023-10-01'
     project_end_date:
       description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
       type: str
