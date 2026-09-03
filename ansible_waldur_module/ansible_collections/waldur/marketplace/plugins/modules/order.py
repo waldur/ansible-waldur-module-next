@@ -280,6 +280,7 @@ EXAMPLES = """
         data_volumes:
         - size: 100
           volume_type: https://api.example.com/api/volume-type/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        metadata: {}
       limits: {}
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/

@@ -235,6 +235,12 @@ options:
         type: str
         required: false
         description: Volume type URL
+  metadata:
+    type: dict
+    required: false
+    description:
+    - Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+    - This attribute cannot be updated.
   termination_action:
     type: str
     required: false
@@ -297,6 +303,7 @@ EXAMPLES = """
       data_volumes:
       - size: 100
         volume_type: string-value
+      metadata: {}
 - name: Remove an existing instance
   hosts: localhost
   tasks:
@@ -1175,6 +1182,11 @@ resource:
       type: list
       returned: always
       sample: []
+    metadata:
+      description: Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+      type: dict
+      returned: always
+      sample: {}
     rancher_cluster:
       description: Rancher cluster
       type: dict
@@ -1307,6 +1319,7 @@ ARGUMENT_SPEC = {
     "connect_directly_to_external_network": {"type": "bool"},
     "config_drive": {"type": "bool"},
     "data_volumes": {"type": "list"},
+    "metadata": {"type": "dict"},
     "termination_action": {"type": "str", "choices": ["destroy", "force_destroy"]},
     "delete_volumes": {"type": "bool"},
     "release_floating_ips": {"type": "bool"},
@@ -1322,19 +1335,20 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "system_volume_type",
+        "ssh_public_key",
         "image",
         "security_groups",
-        "data_volume_type",
-        "ssh_public_key",
-        "availability_zone",
         "flavor",
+        "availability_zone",
+        "system_volume_type",
+        "data_volume_type",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",
         "data_volumes",
         "description",
         "floating_ips",
+        "metadata",
         "name",
         "ports",
         "server_group",

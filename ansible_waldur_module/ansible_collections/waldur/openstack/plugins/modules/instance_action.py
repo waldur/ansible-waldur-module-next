@@ -985,6 +985,11 @@ resource:
       type: list
       returned: always
       sample: []
+    metadata:
+      description: Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+      type: dict
+      returned: always
+      sample: {}
     rancher_cluster:
       description: Rancher cluster
       type: dict
