@@ -679,6 +679,7 @@ EXAMPLES = """
         article_code: string-value
         max_amount: 123
         archived: true
+        billing_mode: inherit
         unit_price: '12.34'
         unit: month
         backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -859,6 +860,7 @@ EXAMPLES = """
         article_code: string-value
         max_amount: 123
         archived: true
+        billing_mode: inherit
         unit_price: '12.34'
         unit: month
         backend_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -2345,6 +2347,11 @@ resource:
           type: bool
           returned: always
           sample: true
+        billing_mode:
+          description: How the offering's builtin components are billed under this plan. Custom components keep their own accounting type.
+          type: str
+          returned: always
+          sample: inherit
         is_active:
           description: Is active
           type: bool
@@ -2433,10 +2440,25 @@ resource:
               returned: always
               sample: My-Awesome-Resource
             measured_unit:
-              description: Unit of measurement, for example, GB.
+              description: Measured unit
               type: str
               returned: always
               sample: string-value
+            billing_type:
+              description: Billing type
+              type: str
+              returned: always
+              sample: fixed
+            is_prepaid:
+              description: Is prepaid
+              type: bool
+              returned: always
+              sample: true
+            limit_period:
+              description: Limit period
+              type: str
+              returned: always
+              sample: month
             amount:
               description: Amount
               type: int

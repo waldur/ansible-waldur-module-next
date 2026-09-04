@@ -406,12 +406,12 @@ resource:
           returned: always
           sample: string-value
     is_usage_based:
-      description: Returns True if the resource has usage-based components that track variable consumption.
+      description: Returns True if the resource bills any component by usage under its plan.
       type: bool
       returned: always
       sample: true
     is_limit_based:
-      description: Returns True if the resource has limit-based components with user-adjustable quotas.
+      description: Returns True if the resource bills any component on user-adjustable limits under its plan.
       type: bool
       returned: always
       sample: true
@@ -918,6 +918,16 @@ resource:
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        old_plan_billing_mode:
+          description: Old plan billing mode
+          type: str
+          returned: always
+          sample: string-value
+        new_plan_billing_mode:
+          description: New plan billing mode
+          type: str
+          returned: always
+          sample: string-value
         old_cost_estimate:
           description: Old cost estimate
           type: float
@@ -1410,6 +1420,16 @@ resource:
           type: str
           returned: always
           sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        old_plan_billing_mode:
+          description: Old plan billing mode
+          type: str
+          returned: always
+          sample: string-value
+        new_plan_billing_mode:
+          description: New plan billing mode
+          type: str
+          returned: always
+          sample: string-value
         old_cost_estimate:
           description: Old cost estimate
           type: float

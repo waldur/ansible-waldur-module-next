@@ -745,6 +745,16 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    old_plan_billing_mode:
+      description: Old plan billing mode
+      type: str
+      returned: always
+      sample: string-value
+    new_plan_billing_mode:
+      description: New plan billing mode
+      type: str
+      returned: always
+      sample: string-value
     old_cost_estimate:
       description: Old cost estimate
       type: float

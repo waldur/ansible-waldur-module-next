@@ -1430,6 +1430,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        billing_mode:
+          description: How the offering's builtin components are billed under this plan. Custom components keep their own accounting type.
+          type: str
+          returned: always
+          sample: inherit
         is_active:
           description: Is active
           type: bool
@@ -1518,10 +1523,25 @@ resources:
               returned: always
               sample: My-Awesome-offering
             measured_unit:
-              description: Unit of measurement, for example, GB.
+              description: Measured unit
               type: str
               returned: always
               sample: string-value
+            billing_type:
+              description: Billing type
+              type: str
+              returned: always
+              sample: fixed
+            is_prepaid:
+              description: Is prepaid
+              type: bool
+              returned: always
+              sample: true
+            limit_period:
+              description: Limit period
+              type: str
+              returned: always
+              sample: month
             amount:
               description: Amount
               type: int
