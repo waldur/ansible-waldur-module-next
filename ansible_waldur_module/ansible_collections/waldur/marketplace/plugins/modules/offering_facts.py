@@ -237,6 +237,11 @@ resources:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
+    billing_period_applies:
+      description: Per plan billing mode, whether a plan's billing period changes what is invoiced. False means every component of this offering would price a quantity of its own under that mode, so the period is inert on the invoice.
+      type: dict
+      returned: always
+      sample: {}
     name:
       description: Name
       type: str
