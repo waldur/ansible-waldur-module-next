@@ -362,6 +362,21 @@ resources:
       type: bool
       returned: always
       sample: true
+    router:
+      description: 'Router to attach the subnet to. Optional: when omitted Waldur picks a router of the tenant itself. Cannot be changed here afterwards -- use the router''s add/remove interface actions.'
+      type: str
+      returned: always
+      sample: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    router_name:
+      description: Router name
+      type: str
+      returned: always
+      sample: string-value
+    router_uuid:
+      description: Router UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str

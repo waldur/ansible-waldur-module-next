@@ -1629,6 +1629,11 @@ resource:
           sample: null
         limit_amount:
           description: Limit amount
+          type: float
+          returned: always
+          sample: 123.45
+        limit_decimal_places:
+          description: Number of decimal places accepted for this component's limit. 0 keeps the limit integer-only.
           type: int
           returned: always
           sample: 123
@@ -1639,19 +1644,19 @@ resource:
           sample: string-value
         max_value:
           description: Max value
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         min_value:
           description: Min value
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         max_available_limit:
           description: Max available limit
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         is_boolean:
           description: Is boolean
           type: bool
@@ -1659,9 +1664,9 @@ resource:
           sample: true
         default_limit:
           description: Default limit
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         factor:
           description: Factor
           type: int

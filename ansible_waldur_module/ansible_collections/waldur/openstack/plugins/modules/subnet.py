@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: subnet
 short_description: Manage OpenStack subnets in Waldur.
-description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, name.'
+description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, name, router.'
 author: Waldur Team
 options:
   access_token:
@@ -100,6 +100,10 @@ options:
     type: list
     required: false
     description: Host routes
+  router:
+    type: str
+    required: false
+    description: 'Router to attach the subnet to. Optional: when omitted Waldur picks a router of the tenant itself. Cannot be changed here afterwards -- use the router''s add/remove interface actions.'
 requirements:
 - python >= 3.9
 
@@ -128,6 +132,7 @@ EXAMPLES = """
       host_routes:
       - destination: string-value
         nexthop: null
+      router: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
 - name: Create a new OpenStack subnet
   hosts: localhost
   tasks:
@@ -150,6 +155,7 @@ EXAMPLES = """
       host_routes:
       - destination: string-value
         nexthop: null
+      router: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
 - name: Remove an existing OpenStack subnet
   hosts: localhost
   tasks:
@@ -386,6 +392,21 @@ resource:
       type: bool
       returned: always
       sample: true
+    router:
+      description: 'Router to attach the subnet to. Optional: when omitted Waldur picks a router of the tenant itself. Cannot be changed here afterwards -- use the router''s add/remove interface actions.'
+      type: str
+      returned: always
+      sample: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    router_name:
+      description: Router name
+      type: str
+      returned: always
+      sample: string-value
+    router_uuid:
+      description: Router UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str
@@ -488,6 +509,7 @@ ARGUMENT_SPEC = {
     "allocation_pools": {"type": "list"},
     "dns_nameservers": {"type": "list"},
     "host_routes": {"type": "list"},
+    "router": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -515,6 +537,7 @@ RUNNER_CONTEXT = {
         "gateway_ip",
         "host_routes",
         "name",
+        "router",
     ],
     "path_param_maps": {"create": {"uuid": "network"}},
     "update_fields": [
@@ -526,6 +549,7 @@ RUNNER_CONTEXT = {
         "gateway_ip",
         "host_routes",
         "name",
+        "router",
     ],
     "update_actions": {},
     "resolvers": {

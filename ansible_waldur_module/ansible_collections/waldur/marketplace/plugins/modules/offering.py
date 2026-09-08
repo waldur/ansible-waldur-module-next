@@ -551,13 +551,14 @@ EXAMPLES = """
         measured_unit: string-value
         unit_factor: 123
         limit_period: null
-        limit_amount: 123
+        limit_amount: 123.45
+        limit_decimal_places: 123
         article_code: string-value
-        max_value: 123
-        min_value: 123
-        max_available_limit: 123
+        max_value: 123.45
+        min_value: 123.45
+        max_available_limit: 123.45
         is_boolean: true
-        default_limit: 123
+        default_limit: 123.45
         is_prepaid: true
         overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         min_prepaid_duration: 123
@@ -732,13 +733,14 @@ EXAMPLES = """
         measured_unit: string-value
         unit_factor: 123
         limit_period: null
-        limit_amount: 123
+        limit_amount: 123.45
+        limit_decimal_places: 123
         article_code: string-value
-        max_value: 123
-        min_value: 123
-        max_available_limit: 123
+        max_value: 123.45
+        min_value: 123.45
+        max_available_limit: 123.45
         is_boolean: true
-        default_limit: 123
+        default_limit: 123.45
         is_prepaid: true
         overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         min_prepaid_duration: 123
@@ -1449,6 +1451,11 @@ resource:
           sample: null
         limit_amount:
           description: Limit amount
+          type: float
+          returned: always
+          sample: 123.45
+        limit_decimal_places:
+          description: Number of decimal places accepted for this component's limit. 0 keeps the limit integer-only.
           type: int
           returned: always
           sample: 123
@@ -1459,19 +1466,19 @@ resource:
           sample: string-value
         max_value:
           description: Max value
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         min_value:
           description: Min value
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         max_available_limit:
           description: Max available limit
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         is_boolean:
           description: Is boolean
           type: bool
@@ -1479,9 +1486,9 @@ resource:
           sample: true
         default_limit:
           description: Default limit
-          type: int
+          type: float
           returned: always
-          sample: 123
+          sample: 123.45
         factor:
           description: Factor
           type: int
