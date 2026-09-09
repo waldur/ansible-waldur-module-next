@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: subnet
 short_description: Manage OpenStack subnets in Waldur.
-description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, name, router.'
+description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, name, router, skip_router_connection.'
 author: Waldur Team
 options:
   access_token:
@@ -104,6 +104,11 @@ options:
     type: str
     required: false
     description: 'Router to attach the subnet to. Optional: when omitted Waldur picks a router of the tenant itself. Cannot be changed here afterwards -- use the router''s add/remove interface actions.'
+  skip_router_connection:
+    type: bool
+    required: false
+    description: 'Create the subnet without attaching it to a router. Off by default, so an omitted field behaves exactly as before: Waldur attaches the subnet to a router of the tenant.'
+    default: false
 requirements:
 - python >= 3.9
 
@@ -133,6 +138,7 @@ EXAMPLES = """
       - destination: string-value
         nexthop: null
       router: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      skip_router_connection: false
 - name: Create a new OpenStack subnet
   hosts: localhost
   tasks:
@@ -156,6 +162,7 @@ EXAMPLES = """
       - destination: string-value
         nexthop: null
       router: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      skip_router_connection: false
 - name: Remove an existing OpenStack subnet
   hosts: localhost
   tasks:
@@ -510,6 +517,7 @@ ARGUMENT_SPEC = {
     "dns_nameservers": {"type": "list"},
     "host_routes": {"type": "list"},
     "router": {"type": "str"},
+    "skip_router_connection": {"type": "bool", "default": False},
 }
 
 RUNNER_CONTEXT = {
@@ -538,6 +546,7 @@ RUNNER_CONTEXT = {
         "host_routes",
         "name",
         "router",
+        "skip_router_connection",
     ],
     "path_param_maps": {"create": {"uuid": "network"}},
     "update_fields": [
@@ -550,6 +559,7 @@ RUNNER_CONTEXT = {
         "host_routes",
         "name",
         "router",
+        "skip_router_connection",
     ],
     "update_actions": {},
     "resolvers": {
