@@ -568,6 +568,7 @@ EXAMPLES = """
         max_renewal_duration: 123
         renewal_duration_step: 123
       plugin_options:
+        account_scope: offering
         auto_approve_remote_orders: true
         resource_expiration_threshold: 30
         service_provider_can_create_offering_user: true
@@ -750,6 +751,7 @@ EXAMPLES = """
         max_renewal_duration: 123
         renewal_duration_step: 123
       plugin_options:
+        account_scope: offering
         auto_approve_remote_orders: true
         resource_expiration_threshold: 30
         service_provider_can_create_offering_user: true
@@ -1556,6 +1558,11 @@ resource:
       returned: always
       sample: {}
       contains:
+        account_scope:
+          description: Where this offering's accounts are held, overriding the service provider's own account_scope. 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings. Omit to inherit.
+          type: str
+          returned: always
+          sample: offering
         auto_approve_remote_orders:
           description: If set to True, an order can be processed without approval
           type: bool

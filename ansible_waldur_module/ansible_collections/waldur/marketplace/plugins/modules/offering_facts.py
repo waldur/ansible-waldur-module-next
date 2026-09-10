@@ -880,6 +880,11 @@ resources:
       returned: always
       sample: {}
       contains:
+        account_scope:
+          description: Where this offering's accounts are held, overriding the service provider's own account_scope. 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings. Omit to inherit.
+          type: str
+          returned: always
+          sample: offering
         auto_approve_remote_orders:
           description: If set to True, an order can be processed without approval
           type: bool
