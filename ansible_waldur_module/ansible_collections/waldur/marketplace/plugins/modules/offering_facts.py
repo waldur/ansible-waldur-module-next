@@ -242,6 +242,11 @@ resources:
       type: dict
       returned: always
       sample: {}
+    billing_mode_components:
+      description: 'Per plan billing mode, every component of this offering as a plan in that mode would bill it: billing type, measured unit, prepaid flag and limit period.'
+      type: dict
+      returned: always
+      sample: {}
     name:
       description: Name
       type: str
