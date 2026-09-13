@@ -1557,6 +1557,11 @@ resource:
           type: int
           returned: always
           sample: 123
+    limit_precision_advisory:
+      description: Limit precision advisory
+      type: str
+      returned: always
+      sample: string-value
     plugin_options:
       description: Plugin options
       type: dict
