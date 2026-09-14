@@ -298,7 +298,7 @@ resource:
       returned: always
       sample: 123
     project_metadata:
-      description: Answers to the customer's project-metadata checklist (read-only).
+      description: 'Answers to the customer''s project-metadata checklist (read-only): the latest answer per question.'
       type: list
       returned: always
       sample: []
@@ -323,6 +323,11 @@ resource:
           type: str
           returned: always
           sample: null
+        modified:
+          description: When this answer was last saved.
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
     max_service_accounts:
       description: Maximum number of service accounts allowed
       type: int
