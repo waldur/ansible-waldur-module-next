@@ -825,6 +825,11 @@ resource:
           type: int
           returned: always
           sample: 123
+    is_service_provider_manager_only:
+      description: True when the requesting user's only link to this organization is a role on its service provider. Such a row carries only identity fields.
+      type: bool
+      returned: always
+      sample: true
     name:
       description: Name
       type: str
