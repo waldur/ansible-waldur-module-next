@@ -1879,7 +1879,7 @@ resource:
           returned: always
           sample: ${resource_slug}_${rp_uuid_short}_${role_name}
         username_anonymized_prefix:
-          description: GLAuth prefix for anonymized usernames
+          description: Prefix for anonymized usernames; the name is the prefix followed by the account's POSIX UID
           type: str
           returned: always
           sample: waldur_
