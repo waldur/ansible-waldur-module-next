@@ -1015,6 +1015,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        enable_resource_limit_change_requests:
+          description: If set to True, users who cannot change resource limits directly (RESOURCE.SET_LIMITS together with ORDER.CREATE) can request a limit change, and holders of RESOURCE.SET_LIMITS approve or reject. Approval submits an update order for the requested limits.
+          type: bool
+          returned: always
+          sample: true
         enable_resource_projects:
           description: Enable sub-project management within resources.
           type: bool
