@@ -623,6 +623,7 @@ EXAMPLES = """
         billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
+        heappe_identifier: string-value
         heappe_url: string-value
         heappe_username: string-value
         homedir_prefix: /home/
@@ -807,6 +808,7 @@ EXAMPLES = """
         billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
+        heappe_identifier: string-value
         heappe_url: string-value
         heappe_username: string-value
         homedir_prefix: /home/
@@ -1832,6 +1834,11 @@ resource:
           sample: string-value
         heappe_local_base_path:
           description: HEAppE local base path
+          type: str
+          returned: always
+          sample: string-value
+        heappe_identifier:
+          description: Identifier of the HEAppE instance this offering targets, e.g. 'it4i-heappe-prod'. Lets providers with multiple HEAppE deployments disambiguate which one a given offering uses.
           type: str
           returned: always
           sample: string-value
