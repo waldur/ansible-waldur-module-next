@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: subnet
 short_description: Manage OpenStack subnets in Waldur.
-description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, name, router, skip_router_connection.'
+description: 'When the resource already exists, the following fields can be updated: allocation_pools, cidr, description, disable_gateway, dns_nameservers, gateway_ip, host_routes, ipv6_address_mode, ipv6_ra_mode, name, router, skip_router_connection.'
 author: Waldur Team
 options:
   access_token:
@@ -92,6 +92,22 @@ options:
     type: list
     required: false
     description: Allocation pools
+  ipv6_ra_mode:
+    type: str
+    required: false
+    description: How the router advertises an IPv6 subnet. Set at creation only; null for an IPv4 subnet.
+    choices:
+    - slaac
+    - dhcpv6-stateful
+    - dhcpv6-stateless
+  ipv6_address_mode:
+    type: str
+    required: false
+    description: How instances on an IPv6 subnet get their address. Set at creation only; null for an IPv4 subnet.
+    choices:
+    - slaac
+    - dhcpv6-stateful
+    - dhcpv6-stateless
   dns_nameservers:
     type: list
     required: false
@@ -127,11 +143,39 @@ EXAMPLES = """
       name: My-Awesome-OpenStack-subnet
       description: A sample description created by Ansible.
       cidr: 192.168.1.0/24
-      gateway_ip: 192.168.1.1
+      gateway_ip: {}
       disable_gateway: 192.168.1.1
       allocation_pools:
       - start: null
         end: null
+      ipv6_ra_mode: null
+      ipv6_address_mode: null
+      dns_nameservers:
+      - null
+      host_routes:
+      - destination: string-value
+        nexthop: null
+      router: https://api.example.com/api/router/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+      skip_router_connection: false
+- name: Create a new OpenStack subnet
+  hosts: localhost
+  tasks:
+  - name: Add OpenStack subnet
+    waldur.openstack.subnet:
+      state: present
+      access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
+      api_url: https://waldur.example.com
+      network: Network name or UUID
+      name: My-Awesome-OpenStack-subnet
+      description: A sample description created by Ansible.
+      cidr: 192.168.1.0/24
+      gateway_ip: {}
+      disable_gateway: 192.168.1.1
+      allocation_pools:
+      - start: null
+        end: null
+      ipv6_ra_mode: null
+      ipv6_address_mode: null
       dns_nameservers:
       - null
       host_routes:
@@ -339,6 +383,16 @@ resource:
       type: int
       returned: always
       sample: 123
+    ipv6_ra_mode:
+      description: How the router advertises an IPv6 subnet. Set at creation only; null for an IPv4 subnet.
+      type: str
+      returned: always
+      sample: null
+    ipv6_address_mode:
+      description: How instances on an IPv6 subnet get their address. Set at creation only; null for an IPv4 subnet.
+      type: str
+      returned: always
+      sample: null
     enable_dhcp:
       description: If True, DHCP service will be enabled on this subnet
       type: bool
@@ -490,6 +544,14 @@ ARGUMENT_SPEC = {
     "gateway_ip": {"type": "str"},
     "disable_gateway": {"type": "bool"},
     "allocation_pools": {"type": "list"},
+    "ipv6_ra_mode": {
+        "type": "str",
+        "choices": ["slaac", "dhcpv6-stateful", "dhcpv6-stateless"],
+    },
+    "ipv6_address_mode": {
+        "type": "str",
+        "choices": ["slaac", "dhcpv6-stateful", "dhcpv6-stateless"],
+    },
     "dns_nameservers": {"type": "list"},
     "host_routes": {"type": "list"},
     "router": {"type": "str"},
@@ -520,6 +582,8 @@ RUNNER_CONTEXT = {
         "dns_nameservers",
         "gateway_ip",
         "host_routes",
+        "ipv6_address_mode",
+        "ipv6_ra_mode",
         "name",
         "router",
         "skip_router_connection",
@@ -533,6 +597,8 @@ RUNNER_CONTEXT = {
         "dns_nameservers",
         "gateway_ip",
         "host_routes",
+        "ipv6_address_mode",
+        "ipv6_ra_mode",
         "name",
         "router",
         "skip_router_connection",

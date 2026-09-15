@@ -314,7 +314,7 @@ resources:
           returned: always
           sample: A sample description created by Ansible.
         cidr:
-          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
+          description: Network address in CIDR format (e.g. 192.168.0.0/24 or 2001:db8::/64)
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -344,6 +344,16 @@ resources:
           type: int
           returned: always
           sample: 123
+        ipv6_ra_mode:
+          description: Ipv6 ra mode
+          type: str
+          returned: always
+          sample: null
+        ipv6_address_mode:
+          description: Ipv6 address mode
+          type: str
+          returned: always
+          sample: null
         enable_dhcp:
           description: If True, DHCP service will be enabled on this subnet
           type: bool

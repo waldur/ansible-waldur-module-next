@@ -771,7 +771,7 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
+          description: Network address in CIDR format (e.g. 192.168.0.0/24 or 2001:db8::/64)
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -829,7 +829,7 @@ resource:
           returned: always
           sample: string-value
         subnet_cidr:
-          description: IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
+          description: Network address in CIDR format (e.g. 192.168.0.0/24 or 2001:db8::/64)
           type: str
           returned: always
           sample: 192.168.1.0/24
@@ -1335,13 +1335,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "image",
-        "security_groups",
-        "ssh_public_key",
-        "data_volume_type",
-        "availability_zone",
         "system_volume_type",
+        "data_volume_type",
+        "ssh_public_key",
+        "security_groups",
+        "image",
         "flavor",
+        "availability_zone",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",

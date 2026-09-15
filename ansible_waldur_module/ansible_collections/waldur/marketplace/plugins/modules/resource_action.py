@@ -686,6 +686,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        resource_end_date:
+          description: Resource end date
+          type: str
+          returned: always
+          sample: '2023-10-01'
         cost:
           description: Cost
           type: str
@@ -917,7 +922,18 @@ resource:
           returned: always
           sample: string-value
         old_cost_estimate:
-          description: Old cost estimate
+          description: 'The old-limits estimate, snapshotted by init_cost() at creation.
+
+
+            Must not recompute live: _compute_old_cost_estimate() prices from
+
+            "today", which keeps advancing on every read while `cost` stays fixed
+
+            from creation -- the shown cost change would grow the longer an order
+
+            sits unread. Orders that predate this field have no snapshot, so they
+
+            fall back to the live computation rather than a wrong zero.'
           type: float
           returned: always
           sample: 123.45
@@ -1188,6 +1204,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        resource_end_date:
+          description: Resource end date
+          type: str
+          returned: always
+          sample: '2023-10-01'
         cost:
           description: Cost
           type: str
@@ -1419,7 +1440,18 @@ resource:
           returned: always
           sample: string-value
         old_cost_estimate:
-          description: Old cost estimate
+          description: 'The old-limits estimate, snapshotted by init_cost() at creation.
+
+
+            Must not recompute live: _compute_old_cost_estimate() prices from
+
+            "today", which keeps advancing on every read while `cost` stays fixed
+
+            from creation -- the shown cost change would grow the longer an order
+
+            sits unread. Orders that predate this field have no snapshot, so they
+
+            fall back to the live computation rather than a wrong zero.'
           type: float
           returned: always
           sample: 123.45
@@ -1721,6 +1753,172 @@ resource:
       type: bool
       returned: always
       sample: '********'
+    offering_account_settings:
+      description: Offering account settings
+      type: dict
+      returned: always
+      sample: {}
+      contains:
+        account_scope:
+          description: Account scope
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        username_generation_policy:
+          description: Username generation policy
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        username_anonymized_prefix:
+          description: Username anonymized prefix
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        homedir_prefix:
+          description: Homedir prefix
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        login_shell:
+          description: Login shell
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list

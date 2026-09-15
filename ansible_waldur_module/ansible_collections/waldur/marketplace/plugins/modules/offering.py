@@ -568,7 +568,11 @@ EXAMPLES = """
         max_renewal_duration: 123
         renewal_duration_step: 123
       plugin_options:
-        account_scope: offering
+        account_scope: null
+        username_generation_policy: null
+        username_anonymized_prefix: string-value
+        homedir_prefix: string-value
+        login_shell: string-value
         auto_approve_remote_orders: true
         resource_expiration_threshold: 30
         service_provider_can_create_offering_user: true
@@ -626,7 +630,6 @@ EXAMPLES = """
         heappe_url: string-value
         heappe_username: string-value
         heappe_identifier: string-value
-        homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
         enable_posix_account: true
@@ -634,9 +637,6 @@ EXAMPLES = """
         resource_project_role_map: {}
         resource_role_group_template: ${resource_slug}_${role_name}
         resource_project_role_group_template: ${resource_slug}_${rp_uuid_short}_${role_name}
-        username_anonymized_prefix: waldur_
-        username_generation_policy: service_provider
-        login_shell: /bin/bash
         uid_source: pool
         gid_source: pool
         emit_display_name: false
@@ -753,7 +753,11 @@ EXAMPLES = """
         max_renewal_duration: 123
         renewal_duration_step: 123
       plugin_options:
-        account_scope: offering
+        account_scope: null
+        username_generation_policy: null
+        username_anonymized_prefix: string-value
+        homedir_prefix: string-value
+        login_shell: string-value
         auto_approve_remote_orders: true
         resource_expiration_threshold: 30
         service_provider_can_create_offering_user: true
@@ -811,7 +815,6 @@ EXAMPLES = """
         heappe_url: string-value
         heappe_username: string-value
         heappe_identifier: string-value
-        homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
         enable_posix_account: true
@@ -819,9 +822,6 @@ EXAMPLES = """
         resource_project_role_map: {}
         resource_role_group_template: ${resource_slug}_${role_name}
         resource_project_role_group_template: ${resource_slug}_${rp_uuid_short}_${role_name}
-        username_anonymized_prefix: waldur_
-        username_generation_policy: service_provider
-        login_shell: /bin/bash
         uid_source: pool
         gid_source: pool
         emit_display_name: false
@@ -1573,10 +1573,30 @@ resource:
       sample: {}
       contains:
         account_scope:
-          description: Where this offering's accounts are held, overriding the service provider's own account_scope. 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings. Omit to inherit.
+          description: 'Where accounts are held: ''offering'' keeps one account per offering (the historical behaviour); ''provider'' shares one account per user across the provider''s offerings.'
           type: str
           returned: always
-          sample: offering
+          sample: null
+        username_generation_policy:
+          description: How the usernames of offering users are generated.
+          type: str
+          returned: always
+          sample: null
+        username_anonymized_prefix:
+          description: Prefix for anonymized usernames; the name is the prefix followed by the account's POSIX UID.
+          type: str
+          returned: always
+          sample: string-value
+        homedir_prefix:
+          description: Prefix of each account's home directory; the username follows.
+          type: str
+          returned: always
+          sample: string-value
+        login_shell:
+          description: Login shell assigned to GLAuth/LDAP accounts.
+          type: str
+          returned: always
+          sample: string-value
         auto_approve_remote_orders:
           description: If set to True, an order can be processed without approval
           type: bool
@@ -1852,11 +1872,6 @@ resource:
           type: str
           returned: always
           sample: string-value
-        homedir_prefix:
-          description: GLAuth homedir prefix
-          type: str
-          returned: always
-          sample: /home/
         scratch_project_directory:
           description: HEAppE scratch project directory
           type: str
@@ -1892,21 +1907,6 @@ resource:
           type: str
           returned: always
           sample: ${resource_slug}_${rp_uuid_short}_${role_name}
-        username_anonymized_prefix:
-          description: Prefix for anonymized usernames; the name is the prefix followed by the account's POSIX UID
-          type: str
-          returned: always
-          sample: waldur_
-        username_generation_policy:
-          description: GLAuth username generation policy
-          type: str
-          returned: always
-          sample: service_provider
-        login_shell:
-          description: Default login shell assigned to GLAuth/LDAP accounts.
-          type: str
-          returned: always
-          sample: /bin/bash
         uid_source:
           description: 'Where each offering user''s UID comes from: allocated from the POSIX ID pool (default), or taken from the user''s uid_number attribute (e.g. an OIDC claim). Pair ''user_attribute'' with a GID-only pool to avoid UID collisions.'
           type: str
@@ -2077,6 +2077,172 @@ resource:
           type: bool
           returned: always
           sample: false
+    account_settings:
+      description: Account settings
+      type: dict
+      returned: always
+      sample: {}
+      contains:
+        account_scope:
+          description: Account scope
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        username_generation_policy:
+          description: Username generation policy
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        username_anonymized_prefix:
+          description: Username anonymized prefix
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        homedir_prefix:
+          description: Homedir prefix
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
+        login_shell:
+          description: Login shell
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            value:
+              description: The value the setting resolves to.
+              type: str
+              returned: always
+              sample: string-value
+            source:
+              description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+              type: str
+              returned: always
+              sample: offering
+            inherited:
+              description: 'What the setting resolves to without the offering''s own value: the service provider''s, else the built-in default. Removing the offering''s override leads to it.'
+              type: dict
+              returned: always
+              sample: {}
+              contains:
+                value:
+                  description: The value the setting resolves to.
+                  type: str
+                  returned: always
+                  sample: string-value
+                source:
+                  description: 'Where the value comes from: the offering''s own plugin option, the service provider''s account options, or the built-in default.'
+                  type: str
+                  returned: always
+                  sample: offering
     secret_options:
       description: Secret options
       type: dict

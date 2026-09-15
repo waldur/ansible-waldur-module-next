@@ -311,6 +311,11 @@ resources:
       type: str
       returned: always
       sample: string-value
+    resource_end_date:
+      description: Resource end date
+      type: str
+      returned: always
+      sample: '2023-10-01'
     cost:
       description: Cost
       type: str
@@ -542,7 +547,18 @@ resources:
       returned: always
       sample: string-value
     old_cost_estimate:
-      description: Old cost estimate
+      description: 'The old-limits estimate, snapshotted by init_cost() at creation.
+
+
+        Must not recompute live: _compute_old_cost_estimate() prices from
+
+        "today", which keeps advancing on every read while `cost` stays fixed
+
+        from creation -- the shown cost change would grow the longer an order
+
+        sits unread. Orders that predate this field have no snapshot, so they
+
+        fall back to the live computation rather than a wrong zero.'
       type: float
       returned: always
       sample: 123.45

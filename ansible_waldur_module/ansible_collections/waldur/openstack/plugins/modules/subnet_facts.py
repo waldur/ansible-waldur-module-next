@@ -326,6 +326,16 @@ resources:
       type: int
       returned: always
       sample: 123
+    ipv6_ra_mode:
+      description: How the router advertises an IPv6 subnet. Set at creation only; null for an IPv4 subnet.
+      type: str
+      returned: always
+      sample: null
+    ipv6_address_mode:
+      description: How instances on an IPv6 subnet get their address. Set at creation only; null for an IPv4 subnet.
+      type: str
+      returned: always
+      sample: null
     enable_dhcp:
       description: If True, DHCP service will be enabled on this subnet
       type: bool
