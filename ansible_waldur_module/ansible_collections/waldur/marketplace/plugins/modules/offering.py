@@ -623,9 +623,9 @@ EXAMPLES = """
         billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
-        heappe_identifier: string-value
         heappe_url: string-value
         heappe_username: string-value
+        heappe_identifier: string-value
         homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
@@ -808,9 +808,9 @@ EXAMPLES = """
         billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
-        heappe_identifier: string-value
         heappe_url: string-value
         heappe_username: string-value
+        heappe_identifier: string-value
         homedir_prefix: /home/
         scratch_project_directory: string-value
         project_permanent_directory: string-value
@@ -1837,11 +1837,6 @@ resource:
           type: str
           returned: always
           sample: string-value
-        heappe_identifier:
-          description: Identifier of the HEAppE instance this offering targets, e.g. 'it4i-heappe-prod'. Lets providers with multiple HEAppE deployments disambiguate which one a given offering uses.
-          type: str
-          returned: always
-          sample: string-value
         heappe_url:
           description: HEAppE url
           type: str
@@ -1849,6 +1844,11 @@ resource:
           sample: string-value
         heappe_username:
           description: HEAppE username
+          type: str
+          returned: always
+          sample: string-value
+        heappe_identifier:
+          description: Identifier of the HEAppE instance this offering targets, e.g. 'it4i-heappe-prod'. Lets providers with multiple HEAppE deployments disambiguate which one a given offering uses.
           type: str
           returned: always
           sample: string-value
