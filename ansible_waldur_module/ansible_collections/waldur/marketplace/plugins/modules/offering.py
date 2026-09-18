@@ -603,6 +603,7 @@ EXAMPLES = """
         enable_resource_limit_change_requests: true
         enable_resource_projects: true
         enable_membership_sync_status: true
+        enable_scim_entitlements: true
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -788,6 +789,7 @@ EXAMPLES = """
         enable_resource_limit_change_requests: true
         enable_resource_projects: true
         enable_membership_sync_status: true
+        enable_scim_entitlements: true
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -1734,6 +1736,11 @@ resource:
           sample: true
         enable_membership_sync_status:
           description: 'Enable per-member sync status reporting by the site agent: team views show whether each role grant has propagated to the provider backend, and providers can trigger a resync.'
+          type: bool
+          returned: always
+          sample: true
+        enable_scim_entitlements:
+          description: Include this offering in outbound SCIM user entitlement sync. When unset or false, SSH access endpoints on this offering are not pushed to the remote SCIM service even if SCIM_MEMBERSHIP_SYNC_ENABLED is on.
           type: bool
           returned: always
           sample: true
