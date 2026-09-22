@@ -1335,11 +1335,11 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
+        "image",
         "ssh_public_key",
         "flavor",
         "security_groups",
         "availability_zone",
-        "image",
         "data_volume_type",
         "system_volume_type",
         "config_drive",
