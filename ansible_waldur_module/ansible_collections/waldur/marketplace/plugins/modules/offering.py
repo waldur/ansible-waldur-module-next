@@ -576,6 +576,7 @@ EXAMPLES = """
         auto_approve_remote_orders: true
         resource_expiration_threshold: 30
         service_provider_can_create_offering_user: true
+        uses_robot_accounts: true
         offering_user_auto_deletion: false
         max_resource_termination_offset_in_days: 123
         default_resource_termination_offset_in_days: 123
@@ -762,6 +763,7 @@ EXAMPLES = """
         auto_approve_remote_orders: true
         resource_expiration_threshold: 30
         service_provider_can_create_offering_user: true
+        uses_robot_accounts: true
         offering_user_auto_deletion: false
         max_resource_termination_offset_in_days: 123
         default_resource_termination_offset_in_days: 123
@@ -1611,6 +1613,11 @@ resource:
           sample: 30
         service_provider_can_create_offering_user:
           description: Service provider can create offering user
+          type: bool
+          returned: always
+          sample: true
+        uses_robot_accounts:
+          description: This offering's identity model is per-resource robot accounts rather than automatic offering users. Unset means false. Cannot be combined with service_provider_can_create_offering_user. Does not block creating robot accounts on offerings that use offering users.
           type: bool
           returned: always
           sample: true

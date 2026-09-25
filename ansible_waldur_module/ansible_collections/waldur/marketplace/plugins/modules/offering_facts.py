@@ -925,6 +925,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        uses_robot_accounts:
+          description: This offering's identity model is per-resource robot accounts rather than automatic offering users. Unset means false. Cannot be combined with service_provider_can_create_offering_user. Does not block creating robot accounts on offerings that use offering users.
+          type: bool
+          returned: always
+          sample: true
         offering_user_auto_deletion:
           description: If set to True, offering users will be automatically marked for deletion by the cleanup task when users lose project access. If False (default), deletion must be triggered manually by the service provider.
           type: bool
