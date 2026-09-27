@@ -3045,6 +3045,32 @@ resource:
       type: str
       returned: always
       sample: https://api.example.com/api/compliance-checklist/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    compliance_checklist_details:
+      description: Compliance checklist details
+      type: dict
+      returned: always
+      sample: {}
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        name:
+          description: Name
+          type: str
+          returned: always
+          sample: My-Awesome-Resource
+        description:
+          description: Description
+          type: str
+          returned: always
+          sample: A sample description created by Ansible.
+        questions_count:
+          description: Questions count
+          type: int
+          returned: always
+          sample: 123
     profile_uuid:
       description: Profile UUID
       type: str
