@@ -286,6 +286,9 @@ EXAMPLES = """
         template: https://api.example.com/api/template/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         cluster: https://api.example.com/api/cluster/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         datastore: https://api.example.com/api/datastore/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        folder: https://api.example.com/api/folder/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        networks:
+        - url: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
       limits: {}
       accepting_terms_of_service: true
       callback_url: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
