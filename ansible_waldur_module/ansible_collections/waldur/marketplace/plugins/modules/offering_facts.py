@@ -366,6 +366,11 @@ resources:
               type: str
               returned: always
               sample: A sample description created by Ansible.
+            supports_cpu_target_restrictions:
+              description: Supports CPU target restrictions
+              type: bool
+              returned: always
+              sample: true
         enabled_cpu_family:
           description: 'List of enabled CPU families: [''x86_64'', ''aarch64'']'
           type: list
