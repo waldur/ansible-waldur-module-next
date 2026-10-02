@@ -667,6 +667,7 @@ EXAMPLES = """
         enable_display_of_order_actions_for_service_provider: true
         slurm_periodic_policy_enabled: false
         enforce_qos: false
+        enable_api_key_provisioning: '********'
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
@@ -675,6 +676,7 @@ EXAMPLES = """
         disabled_resource_actions:
         - string-value
         show_ssh_key_loss_warning: false
+        hide_api_keys_tab: '********'
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -854,6 +856,7 @@ EXAMPLES = """
         enable_display_of_order_actions_for_service_provider: true
         slurm_periodic_policy_enabled: false
         enforce_qos: false
+        enable_api_key_provisioning: '********'
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
@@ -862,6 +865,7 @@ EXAMPLES = """
         disabled_resource_actions:
         - string-value
         show_ssh_key_loss_warning: false
+        hide_api_keys_tab: '********'
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -2061,6 +2065,11 @@ resource:
           type: bool
           returned: always
           sample: false
+        enable_api_key_provisioning:
+          description: 'Declares that the site agent can govern resource API keys one by one: request, assign, limit, pause, resume and delete them. Without it a resource''s keys can only be revealed and rotated. Nothing checks the claim: turn it on only if the agent''s backend supports per-key commands (such as the Envoy AI Gateway); on one that does not (such as Ceph S3) every such command errs.'
+          type: bool
+          returned: always
+          sample: '********'
         auto_approve_marketplace_script:
           description: If set to False, all orders require manual provider approval, including for service provider owners and staff
           type: bool
@@ -2096,6 +2105,11 @@ resource:
           type: bool
           returned: always
           sample: false
+        hide_api_keys_tab:
+          description: Hide the API keys tab on resources of this offering.
+          type: bool
+          returned: always
+          sample: '********'
     account_settings:
       description: Account settings
       type: dict

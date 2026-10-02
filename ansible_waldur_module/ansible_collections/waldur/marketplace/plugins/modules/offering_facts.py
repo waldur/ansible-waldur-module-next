@@ -1370,6 +1370,11 @@ resources:
           type: bool
           returned: always
           sample: false
+        enable_api_key_provisioning:
+          description: 'Declares that the site agent can govern resource API keys one by one: request, assign, limit, pause, resume and delete them. Without it a resource''s keys can only be revealed and rotated. Nothing checks the claim: turn it on only if the agent''s backend supports per-key commands (such as the Envoy AI Gateway); on one that does not (such as Ceph S3) every such command errs.'
+          type: bool
+          returned: always
+          sample: '********'
         auto_approve_marketplace_script:
           description: If set to False, all orders require manual provider approval, including for service provider owners and staff
           type: bool
@@ -1405,6 +1410,11 @@ resources:
           type: bool
           returned: always
           sample: false
+        hide_api_keys_tab:
+          description: Hide the API keys tab on resources of this offering.
+          type: bool
+          returned: always
+          sample: '********'
     account_settings:
       description: Account settings
       type: dict
