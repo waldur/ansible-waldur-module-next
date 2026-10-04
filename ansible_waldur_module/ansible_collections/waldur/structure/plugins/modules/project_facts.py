@@ -540,6 +540,11 @@ resource:
           type: str
           returned: always
           sample: '12.34'
+    has_metrics:
+      description: Has metrics
+      type: bool
+      returned: always
+      sample: true
 
 """
 

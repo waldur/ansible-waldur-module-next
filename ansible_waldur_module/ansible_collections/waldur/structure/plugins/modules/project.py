@@ -664,6 +664,11 @@ resource:
           type: str
           returned: always
           sample: '12.34'
+    has_metrics:
+      description: Has metrics
+      type: bool
+      returned: always
+      sample: true
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
