@@ -447,6 +447,11 @@ resource:
       type: bool
       returned: always
       sample: false
+    is_managed:
+      description: 'False for an OpenStack project that Waldur does not manage but that shares networks with managed tenants. Waldur only reads such a project: it holds no credentials for it and never provisions, pulls with tenant credentials, bills or deletes it.'
+      type: bool
+      returned: always
+      sample: true
     marketplace_offering_uuid:
       description: Marketplace offering UUID
       type: str

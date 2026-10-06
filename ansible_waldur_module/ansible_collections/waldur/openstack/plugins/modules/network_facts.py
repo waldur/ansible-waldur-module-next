@@ -277,6 +277,11 @@ resources:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    tenant_is_managed:
+      description: False when the network belongs to an OpenStack project that Waldur does not manage and only reaches tenants through an RBAC share.
+      type: bool
+      returned: always
+      sample: true
     is_external:
       description: Defines whether this network is external (public) or internal (private)
       type: bool
