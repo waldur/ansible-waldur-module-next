@@ -280,6 +280,11 @@ resources:
       type: str
       returned: always
       sample: string-value
+    tenant_is_managed:
+      description: False when the subnet's network belongs to an OpenStack project that Waldur does not manage and only reaches tenants through an RBAC share.
+      type: bool
+      returned: always
+      sample: true
     network:
       description: Network to which this subnet belongs
       type: str
