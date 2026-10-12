@@ -109,7 +109,7 @@ options:
     type: str
     required: false
     description:
-    - URL-friendly identifier. Only editable by staff users.
+    - Slug of the new resource. Used when the caller is staff or holds RESOURCE.SET_SLUG on the project, the offering or their organizations; otherwise ignored.
     - This attribute cannot be updated.
 requirements:
 - python >= 3.9

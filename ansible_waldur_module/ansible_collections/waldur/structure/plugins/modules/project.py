@@ -63,7 +63,7 @@ options:
   slug:
     type: str
     required: false
-    description: URL-friendly identifier. Only editable by staff users.
+    description: URL-friendly identifier. Editable by staff; on create also by holders of PROJECT.SET_SLUG on the organization, otherwise ignored.
   description:
     type: str
     required: false
@@ -307,7 +307,7 @@ resource:
       returned: always
       sample: My-Awesome-Resource
     slug:
-      description: URL-friendly identifier. Only editable by staff users.
+      description: URL-friendly identifier. Editable by staff; on create also by holders of PROJECT.SET_SLUG on the organization, otherwise ignored.
       type: str
       returned: always
       sample: string-value

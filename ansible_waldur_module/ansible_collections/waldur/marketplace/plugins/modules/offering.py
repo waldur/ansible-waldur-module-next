@@ -605,6 +605,8 @@ EXAMPLES = """
         enable_resource_projects: true
         enable_membership_sync_status: true
         enable_scim_entitlements: true
+        scim_login_nodes:
+        - string-value
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -794,6 +796,8 @@ EXAMPLES = """
         enable_resource_projects: true
         enable_membership_sync_status: true
         enable_scim_entitlements: true
+        scim_login_nodes:
+        - string-value
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -1756,10 +1760,15 @@ resource:
           returned: always
           sample: true
         enable_scim_entitlements:
-          description: Include this offering in outbound SCIM user entitlement sync. When unset or false, SSH access endpoints on this offering are not pushed to the remote SCIM service even if SCIM_MEMBERSHIP_SYNC_ENABLED is on.
+          description: Include this offering in outbound SCIM user entitlement sync. Login hosts are read from scim_login_nodes. When unset or false, this offering is not pushed to the remote SCIM service even if SCIM_MEMBERSHIP_SYNC_ENABLED is on.
           type: bool
           returned: always
           sample: true
+        scim_login_nodes:
+          description: 'Bare hostnames of login nodes included in outbound SCIM entitlements when enable_scim_entitlements is set. Each entry is a DNS hostname only (for example login.example.org): stored lowercased, with no ssh:// URL, user@host, or host:port. These are not access links and do not appear in the resource access dropdown.'
+          type: list
+          returned: always
+          sample: []
         enable_resource_access_subnets:
           description: If set to True, an Access subnets tab is shown on resource detail pages, letting consumers curate the IPs allowed to reach the backend entity. The list is advisory data for external firewalls.
           type: bool
@@ -2283,12 +2292,12 @@ resource:
       sample: '********'
       contains:
         order_notification_emails:
-          description: Email addresses notified about every new order for this offering, regardless of whether the order needs approval. Intended for provider-side mailboxes which do not belong to a Waldur user, so these addresses are notified even if a user with the same address disabled notifications. At most 10 addresses.
+          description: Email addresses notified about every new order for this offering, once the consumer side has approved it, or when it is placed if it needs no consumer approval. Provider approval is not awaited. Intended for provider-side mailboxes which do not belong to a Waldur user, so these addresses are notified even if a user with the same address disabled notifications. At most 10 addresses.
           type: list
           returned: always
           sample: []
         order_notification_roles:
-          description: List of organization or offering role names (e.g. 'CUSTOMER.OWNER', 'OFFERING.MANAGER') whose holders are notified about every new order for this offering, regardless of whether the order needs approval. Names are resolved on the provider organization and on the offering itself. Users who disabled notifications in their profile are skipped. At most 10 names.
+          description: List of organization or offering role names (e.g. 'CUSTOMER.OWNER', 'OFFERING.MANAGER') whose holders are notified about every new order for this offering, once the consumer side has approved it, or when it is placed if it needs no consumer approval. Provider approval is not awaited. Names are resolved on the provider organization and on the offering itself. Users who disabled notifications in their profile are skipped. At most 10 names.
           type: list
           returned: always
           sample: []
