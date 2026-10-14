@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, is_private_person, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -80,6 +80,10 @@ options:
     type: str
     required: false
     description: Default tax percent
+  is_private_person:
+    type: bool
+    required: false
+    description: Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
   accounting_start_date:
     type: str
     required: false
@@ -496,6 +500,7 @@ EXAMPLES = """
       archived: true
       display_billing_info_in_projects: true
       default_tax_percent: '12.34'
+      is_private_person: true
       accounting_start_date: '2023-10-01T12:00:00Z'
       sponsor_number: 123
       max_service_accounts: 123
@@ -550,6 +555,7 @@ EXAMPLES = """
       archived: true
       display_billing_info_in_projects: true
       default_tax_percent: '12.34'
+      is_private_person: true
       accounting_start_date: '2023-10-01T12:00:00Z'
       sponsor_number: 123
       max_service_accounts: 123
@@ -699,6 +705,26 @@ resource:
       type: str
       returned: always
       sample: '12.34'
+    is_private_person:
+      description: Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
+      type: bool
+      returned: always
+      sample: true
+    vat_code_verified:
+      description: Whether the EU VIES service confirmed the current VAT number.
+      type: bool
+      returned: always
+      sample: true
+    vat_percent:
+      description: VAT percent calculated from EU VAT rules, when VAT taxation is on.
+      type: str
+      returned: always
+      sample: '12.34'
+    vat_rule:
+      description: Which EU VAT rule picked vat_percent, or why it cannot be calculated.
+      type: str
+      returned: always
+      sample: string-value
     accounting_start_date:
       description: Accounting start date
       type: str
@@ -1155,6 +1181,7 @@ ARGUMENT_SPEC = {
     "archived": {"type": "bool"},
     "display_billing_info_in_projects": {"type": "bool"},
     "default_tax_percent": {"type": "str"},
+    "is_private_person": {"type": "bool"},
     "accounting_start_date": {"type": "str"},
     "sponsor_number": {"type": "int"},
     "max_service_accounts": {"type": "int"},
@@ -1484,6 +1511,7 @@ RUNNER_CONTEXT = {
         "house_nr",
         "household",
         "image",
+        "is_private_person",
         "latitude",
         "longitude",
         "max_service_accounts",
@@ -1531,6 +1559,7 @@ RUNNER_CONTEXT = {
         "house_nr",
         "household",
         "image",
+        "is_private_person",
         "latitude",
         "longitude",
         "max_service_accounts",
