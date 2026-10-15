@@ -1931,6 +1931,11 @@ resource:
                   type: str
                   returned: always
                   sample: offering
+    display_limits:
+      description: 'Resource option values shown as the limits of usage-based components. Display only: not stored in limits, billed or enforced.'
+      type: dict
+      returned: always
+      sample: {}
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list

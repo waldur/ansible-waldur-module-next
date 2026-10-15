@@ -2060,6 +2060,11 @@ resources:
                   type: str
                   returned: always
                   sample: offering
+    display_limits:
+      description: 'Resource option values shown as the limits of usage-based components. Display only: not stored in limits, billed or enforced.'
+      type: dict
+      returned: always
+      sample: {}
 
 """
 
