@@ -645,7 +645,7 @@ resources:
           description: URL of the access endpoint
           type: str
           returned: always
-          sample: string-value
+          sample: https://api.example.com/api/url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     error_message:
       description: Error message
       type: str
