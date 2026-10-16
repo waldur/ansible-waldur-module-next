@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, is_private_person, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, invoice_emails, is_private_person, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -452,6 +452,10 @@ options:
     type: str
     required: false
     description: Comma-separated list of notification email addresses
+  invoice_emails:
+    type: str
+    required: false
+    description: Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
   city:
     type: str
     required: false
@@ -534,6 +538,7 @@ EXAMPLES = """
       bank_account: string-value
       country: {}
       notification_emails: alice@example.com
+      invoice_emails: alice@example.com
       city: string-value
       parish: string-value
       street: string-value
@@ -589,6 +594,7 @@ EXAMPLES = """
       bank_account: string-value
       country: {}
       notification_emails: alice@example.com
+      invoice_emails: alice@example.com
       city: string-value
       parish: string-value
       street: string-value
@@ -963,6 +969,11 @@ resource:
       sample: null
     notification_emails:
       description: Comma-separated list of notification email addresses
+      type: str
+      returned: always
+      sample: alice@example.com
+    invoice_emails:
+      description: Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
       type: str
       returned: always
       sample: alice@example.com
@@ -1466,6 +1477,7 @@ ARGUMENT_SPEC = {
         ],
     },
     "notification_emails": {"type": "str"},
+    "invoice_emails": {"type": "str"},
     "city": {"type": "str"},
     "parish": {"type": "str"},
     "street": {"type": "str"},
@@ -1511,6 +1523,7 @@ RUNNER_CONTEXT = {
         "house_nr",
         "household",
         "image",
+        "invoice_emails",
         "is_private_person",
         "latitude",
         "longitude",
@@ -1559,6 +1572,7 @@ RUNNER_CONTEXT = {
         "house_nr",
         "household",
         "image",
+        "invoice_emails",
         "is_private_person",
         "latitude",
         "longitude",
