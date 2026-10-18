@@ -1590,7 +1590,7 @@ resource:
       sample: {}
       contains:
         account_scope:
-          description: 'Where accounts are held: ''offering'' keeps one account per offering (the historical behaviour); ''provider'' shares one account per user across the provider''s offerings.'
+          description: 'Where accounts are held: ''offering'' keeps one account per offering (the historical behavior); ''provider'' shares one account per user across the provider''s offerings.'
           type: str
           returned: always
           sample: null
