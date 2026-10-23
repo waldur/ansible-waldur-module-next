@@ -476,6 +476,11 @@ resource:
       type: dict
       returned: always
       sample: {}
+    prepaid_total_component_types:
+      description: Component types whose limit_usage covers the whole subscription, so the UI shows their limit as the monthly limit times the months ordered. Empty unless the offering shows prepaid limits as a total (display_prepaid_limits_as_total).
+      type: list
+      returned: always
+      sample: []
     downscaled:
       description: Downscaled
       type: bool

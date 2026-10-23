@@ -1435,6 +1435,11 @@ resources:
           type: bool
           returned: always
           sample: '********'
+        display_prepaid_limits_as_total:
+          description: If set to True, the UI shows each prepaid component as the total for the whole subscription (the monthly amount times the months ordered) instead of a monthly amount, and the resource's limit_usage sums its usage over the whole subscription. Ordering and billing do not change.
+          type: bool
+          returned: always
+          sample: true
     account_settings:
       description: Account settings
       type: dict
