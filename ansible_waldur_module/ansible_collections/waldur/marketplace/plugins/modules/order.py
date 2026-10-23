@@ -111,6 +111,12 @@ options:
     description:
     - Slug of the new resource. Used when the caller is staff or holds RESOURCE.SET_SLUG on the project, the offering or their organizations; otherwise ignored.
     - This attribute cannot be updated.
+  spending_limits:
+    type: dict
+    required: false
+    description:
+    - 'Spending limits of the new resource on its usage-based components, per period: {component_type: {period: amount}}. Only the periods each component offers are accepted, up to their maximum.'
+    - This attribute cannot be updated.
 requirements:
 - python >= 3.9
 
@@ -137,6 +143,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Create a new order (MarketplaceOpenPortalRemote)
   hosts: localhost
   tasks:
@@ -157,6 +164,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Create a new order (OpenStackTenant)
   hosts: localhost
   tasks:
@@ -194,6 +202,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Create a new order (OpenStackInstance)
   hosts: localhost
   tasks:
@@ -244,6 +253,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Create a new order (OpenStackVolume)
   hosts: localhost
   tasks:
@@ -268,6 +278,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Create a new order (VMwareVirtualMachine)
   hosts: localhost
   tasks:
@@ -296,6 +307,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Create a new order (GenericOrderAttributes)
   hosts: localhost
   tasks:
@@ -316,6 +328,7 @@ EXAMPLES = """
       start_date: '2023-10-01'
       slug: string-value
       project: Project name or UUID
+      spending_limits: {}
 - name: Remove an existing order
   hosts: localhost
   tasks:
@@ -892,6 +905,7 @@ ARGUMENT_SPEC = {
     "request_comment": {"type": "str"},
     "start_date": {"type": "str"},
     "slug": {"type": "str"},
+    "spending_limits": {"type": "dict"},
 }
 
 RUNNER_CONTEXT = {
@@ -915,6 +929,7 @@ RUNNER_CONTEXT = {
         "plan",
         "request_comment",
         "slug",
+        "spending_limits",
         "start_date",
     ],
     "path_param_maps": {},

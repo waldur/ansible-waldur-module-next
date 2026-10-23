@@ -484,6 +484,57 @@ resource:
       type: str
       returned: always
       sample: null
+    usage_limit_resumes_at:
+      description: When the spending limits that restrict the resource reset and the restriction lifts. Empty when no spending limit restricts the resource, or when a limit-based component's limit does too.
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
+    spending_limits:
+      description: Spending limits on usage-based components, per period. Changed with the set_spending_limits action.
+      type: dict
+      returned: always
+      sample: {}
+    spending_limit_status:
+      description: A list of spending limit status items.
+      type: list
+      returned: always
+      sample: []
+      contains:
+        component_type:
+          description: Component type
+          type: str
+          returned: always
+          sample: string-value
+        period:
+          description: Period
+          type: str
+          returned: always
+          sample: day
+        limit:
+          description: Limit
+          type: float
+          returned: always
+          sample: 123.45
+        used:
+          description: Usage reported in the current period.
+          type: float
+          returned: always
+          sample: 123.45
+        resets_at:
+          description: When the current period ends and its usage starts from zero.
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
+        reached:
+          description: Reached
+          type: bool
+          returned: always
+          sample: true
+        last_reported_at:
+          description: When usage of the component was last reported.
+          type: str
+          returned: always
+          sample: '2023-10-01T12:00:00Z'
     endpoints:
       description: A list of endpoints items.
       type: list
@@ -1687,6 +1738,11 @@ resource:
           type: float
           returned: always
           sample: 123.45
+        spending_limit_periods:
+          description: Periods (day, week, month, quarter, year) for which customers can set a spending limit on this usage-based component. Day and week need the integration to report usage per day. Empty when customers cannot set spending limits.
+          type: dict
+          returned: always
+          sample: {}
         factor:
           description: Factor
           type: int

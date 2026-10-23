@@ -260,7 +260,7 @@ resource:
       description: The public IPv4 address of the floating IP
       type: str
       returned: always
-      sample: null
+      sample: 192.168.1.100
     backend_network_id:
       description: ID of network in OpenStack where this floating IP is allocated
       type: str

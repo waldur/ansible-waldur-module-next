@@ -728,7 +728,7 @@ resource:
           description: The public IPv4 address of the floating IP
           type: str
           returned: always
-          sample: null
+          sample: 192.168.1.100
         port_fixed_ips:
           description: A list of port fixed ips items.
           type: list
@@ -1335,13 +1335,13 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["description", "name"],
     "attribute_param_names": [
-        "security_groups",
-        "system_volume_type",
-        "image",
-        "availability_zone",
         "flavor",
         "data_volume_type",
+        "system_volume_type",
+        "availability_zone",
         "ssh_public_key",
+        "security_groups",
+        "image",
         "config_drive",
         "connect_directly_to_external_network",
         "data_volume_size",

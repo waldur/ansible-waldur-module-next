@@ -546,7 +546,7 @@ resources:
           description: The public IPv4 address of the floating IP
           type: str
           returned: always
-          sample: null
+          sample: 192.168.1.100
         port_fixed_ips:
           description: A list of port fixed ips items.
           type: list

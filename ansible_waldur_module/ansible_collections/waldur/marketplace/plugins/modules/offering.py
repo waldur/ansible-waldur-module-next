@@ -559,6 +559,7 @@ EXAMPLES = """
         max_available_limit: 123.45
         is_boolean: true
         default_limit: 123.45
+        spending_limit_periods: {}
         is_prepaid: true
         overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         min_prepaid_duration: 123
@@ -670,6 +671,8 @@ EXAMPLES = """
         slurm_periodic_policy_enabled: false
         enforce_qos: false
         enable_api_key_provisioning: '********'
+        api_key_limits: '********'
+        api_key_daily_usage: '********'
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
@@ -750,6 +753,7 @@ EXAMPLES = """
         max_available_limit: 123.45
         is_boolean: true
         default_limit: 123.45
+        spending_limit_periods: {}
         is_prepaid: true
         overage_component: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         min_prepaid_duration: 123
@@ -861,6 +865,8 @@ EXAMPLES = """
         slurm_periodic_policy_enabled: false
         enforce_qos: false
         enable_api_key_provisioning: '********'
+        api_key_limits: '********'
+        api_key_daily_usage: '********'
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
@@ -1517,6 +1523,11 @@ resource:
           type: float
           returned: always
           sample: 123.45
+        spending_limit_periods:
+          description: Periods (day, week, month, quarter, year) for which customers can set a spending limit on this usage-based component. Day and week need the integration to report usage per day. Empty when customers cannot set spending limits.
+          type: dict
+          returned: always
+          sample: {}
         factor:
           description: Factor
           type: int
@@ -2076,6 +2087,16 @@ resource:
           sample: false
         enable_api_key_provisioning:
           description: 'Declares that the site agent can govern resource API keys one by one: request, assign, limit, pause, resume and delete them. Without it a resource''s keys can only be revealed and rotated. Nothing checks the claim: turn it on only if the agent''s backend supports per-key commands (such as the Envoy AI Gateway); on one that does not (such as Ceph S3) every such command errs.'
+          type: bool
+          returned: always
+          sample: '********'
+        api_key_limits:
+          description: Lets consumers set spending limits on API keys one by one. On unless set to false; needs enable_api_key_provisioning. Turned off, no new key limit is accepted, and limits keys already hold stay until cleared.
+          type: bool
+          returned: always
+          sample: '********'
+        api_key_daily_usage:
+          description: 'Declares that the site agent reports each API key''s usage per day. Only then are keys offered limits other than month: the day and week periods, and the quarter and year, that a component offers to resources. Off unless set; needs enable_api_key_provisioning. Nothing checks the claim: turn it on only if the agent reports per-key daily usage, or those limits are never reached.'
           type: bool
           returned: always
           sample: '********'
