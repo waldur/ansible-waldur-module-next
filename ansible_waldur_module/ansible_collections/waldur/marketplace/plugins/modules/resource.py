@@ -497,7 +497,7 @@ resource:
       returned: always
       sample: null
     usage_limit_resumes_at:
-      description: When the spending limits that restrict the resource reset and the restriction lifts. Empty when no spending limit restricts the resource, or when a limit-based component's limit does too.
+      description: 'When the spending limits that restrict the resource reset and the restriction lifts. Empty when no spending limit restricts the resource, when a limit-based component''s limit does too, or while a reached total limit holds it: a total never resets, so the restriction lifts only when that limit is raised or cleared.'
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
@@ -533,7 +533,7 @@ resource:
           returned: always
           sample: 123.45
         resets_at:
-          description: When the current period ends and its usage starts from zero.
+          description: When the current period ends and its usage starts from zero. Null for total, which never resets.
           type: str
           returned: always
           sample: '2023-10-01T12:00:00Z'
@@ -1751,7 +1751,7 @@ resource:
           returned: always
           sample: 123.45
         spending_limit_periods:
-          description: Periods (day, week, month, quarter, year) for which customers can set a spending limit on this usage-based component. Day and week need the integration to report usage per day. Empty when customers cannot set spending limits.
+          description: Periods (day, week, month, quarter, year, total) for which customers can set a spending limit on this usage-based component; total counts all the usage since the resource started and never resets. Day and week need the integration to report usage per day. Empty when customers cannot set spending limits.
           type: dict
           returned: always
           sample: {}

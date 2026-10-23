@@ -1524,7 +1524,7 @@ resource:
           returned: always
           sample: 123.45
         spending_limit_periods:
-          description: Periods (day, week, month, quarter, year) for which customers can set a spending limit on this usage-based component. Day and week need the integration to report usage per day. Empty when customers cannot set spending limits.
+          description: Periods (day, week, month, quarter, year, total) for which customers can set a spending limit on this usage-based component; total counts all the usage since the resource started and never resets. Day and week need the integration to report usage per day. Empty when customers cannot set spending limits.
           type: dict
           returned: always
           sample: {}
@@ -2096,7 +2096,7 @@ resource:
           returned: always
           sample: '********'
         api_key_daily_usage:
-          description: 'Declares that the site agent reports each API key''s usage per day. Only then are keys offered limits other than month: the day and week periods, and the quarter and year, that a component offers to resources. Off unless set; needs enable_api_key_provisioning. Nothing checks the claim: turn it on only if the agent reports per-key daily usage, or those limits are never reached.'
+          description: 'Declares that the site agent reports each API key''s usage per day. Only then are keys offered the day and week periods, and the quarter and year, that a component offers to resources; month, and total where the component offers it, are offered without it, as they need no usage per day. Off unless set; needs enable_api_key_provisioning. Nothing checks the claim: turn it on only if the agent reports per-key daily usage, or those limits are never reached.'
           type: bool
           returned: always
           sample: '********'
