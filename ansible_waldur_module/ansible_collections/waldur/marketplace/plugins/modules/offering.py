@@ -3178,16 +3178,6 @@ resource:
           type: str
           returned: always
           sample: string-value
-    google_calendar_is_public:
-      description: Google calendar is public
-      type: bool
-      returned: always
-      sample: true
-    google_calendar_link:
-      description: Get the Google Calendar link for an offering.
-      type: str
-      returned: always
-      sample: string-value
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list

@@ -2222,16 +2222,6 @@ resources:
       type: bool
       returned: always
       sample: true
-    google_calendar_is_public:
-      description: Google calendar is public
-      type: bool
-      returned: always
-      sample: true
-    google_calendar_link:
-      description: Get the Google Calendar link for an offering.
-      type: str
-      returned: always
-      sample: string-value
     promotion_campaigns:
       description: A list of promotion campaigns items.
       type: list
