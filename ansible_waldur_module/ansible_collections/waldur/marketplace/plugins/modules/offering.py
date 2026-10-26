@@ -629,6 +629,10 @@ EXAMPLES = """
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
         usage_poll_interval_minutes: 123
+        instance_metrics_enabled: true
+        instance_metrics:
+        - vm.cpu.utilization
+        instance_metrics_poll_interval_minutes: 123
         billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
@@ -824,6 +828,10 @@ EXAMPLES = """
         snapshot_size_limit_gb: 123
         lbaas_enabled: true
         usage_poll_interval_minutes: 123
+        instance_metrics_enabled: true
+        instance_metrics:
+        - vm.cpu.utilization
+        instance_metrics_poll_interval_minutes: 123
         billing_source: quota
         heappe_cluster_id: string-value
         heappe_local_base_path: string-value
@@ -1884,6 +1892,21 @@ resource:
           sample: true
         usage_poll_interval_minutes:
           description: 'Interval in minutes between usage polling for this offering (default: 60)'
+          type: int
+          returned: always
+          sample: 123
+        instance_metrics_enabled:
+          description: Collect custom metrics of the instances in tenants of this offering and show them to their projects.
+          type: bool
+          returned: always
+          sample: true
+        instance_metrics:
+          description: Instance and volume metrics shown to projects; empty shows all of them.
+          type: list
+          returned: always
+          sample: []
+        instance_metrics_poll_interval_minutes:
+          description: 'Minutes between custom metrics polls of each instance in tenants of this offering (default: 360).'
           type: int
           returned: always
           sample: 123

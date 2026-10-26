@@ -1180,6 +1180,21 @@ resources:
           type: int
           returned: always
           sample: 123
+        instance_metrics_enabled:
+          description: Collect custom metrics of the instances in tenants of this offering and show them to their projects.
+          type: bool
+          returned: always
+          sample: true
+        instance_metrics:
+          description: Instance and volume metrics shown to projects; empty shows all of them.
+          type: list
+          returned: always
+          sample: []
+        instance_metrics_poll_interval_minutes:
+          description: 'Minutes between custom metrics polls of each instance in tenants of this offering (default: 360).'
+          type: int
+          returned: always
+          sample: 123
         billing_source:
           description: 'Source for OpenStack instance compute ComponentUsage: ''quota'' (flavor-derived Nova quota, default) or ''placement'' (Placement allocations; also bills VGPU/PCI/custom resource classes).'
           type: str
