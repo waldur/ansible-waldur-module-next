@@ -323,6 +323,31 @@ resource:
           type: str
           returned: always
           sample: null
+        min_value:
+          description: Min value
+          type: str
+          returned: always
+          sample: '12.34'
+        max_value:
+          description: Max value
+          type: str
+          returned: always
+          sample: '12.34'
+        likert_scale_length:
+          description: Likert scale length
+          type: int
+          returned: always
+          sample: 123
+        likert_low_label:
+          description: Likert low label
+          type: str
+          returned: always
+          sample: string-value
+        likert_high_label:
+          description: Likert high label
+          type: str
+          returned: always
+          sample: string-value
         modified:
           description: When this answer was last saved.
           type: str
