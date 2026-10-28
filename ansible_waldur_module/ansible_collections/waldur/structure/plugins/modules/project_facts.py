@@ -131,6 +131,10 @@ options:
     description: Slug
     type: str
     required: false
+  user_role:
+    description: Role name or UUID; narrows user_uuid_with_active_role to that role.
+    type: str
+    required: false
   user_uuid:
     description: Filter by user UUID.
     type: str
@@ -601,6 +605,7 @@ ARGUMENT_SPEC = {
     "science_domain_uuid": {"type": "str"},
     "science_sub_domain_uuid": {"type": "str"},
     "slug": {"type": "str"},
+    "user_role": {"type": "str"},
     "user_uuid": {"type": "str"},
     "user_uuid_with_active_role": {"type": "str"},
 }
@@ -642,6 +647,7 @@ RUNNER_CONTEXT = {
         "science_domain_uuid",
         "science_sub_domain_uuid",
         "slug",
+        "user_role",
         "user_uuid",
         "user_uuid_with_active_role",
     ],
