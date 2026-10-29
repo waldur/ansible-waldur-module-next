@@ -1355,6 +1355,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        max_tres_mins_per_job:
+          description: Max TRES-minutes per job (MaxTRESMinsPerJob)
+          type: str
+          returned: always
+          sample: string-value
         flags:
           description: Comma-separated QOS flags (e.g. DenyOnLimit, OverPartQOS)
           type: str
