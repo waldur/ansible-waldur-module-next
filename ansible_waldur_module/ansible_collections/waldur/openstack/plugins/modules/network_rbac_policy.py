@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: network_rbac_policy
 short_description: Manage OpenStack Network RBAC policies in Waldur.
-description: 'When the resource already exists, the following fields can be updated: network, policy_type, target_tenant.'
+description: ''
 author: Waldur Team
 options:
   access_token:
@@ -73,7 +73,9 @@ options:
   policy_type:
     type: str
     required: false
-    description: Type of access granted - either shared access or external network access
+    description:
+    - Type of access granted - either shared access or external network access
+    - This attribute cannot be updated.
     choices:
     - access_as_shared
     - access_as_external
@@ -236,12 +238,12 @@ RUNNER_CONTEXT = {
     "list_path": "/api/openstack-network-rbac-policies/",
     "create_path": "/api/openstack-network-rbac-policies/",
     "destroy_path": "/api/openstack-network-rbac-policies/{uuid}/",
-    "update_path": "/api/openstack-network-rbac-policies/{uuid}/",
+    "update_path": None,
     "retrieve_path": "/api/openstack-network-rbac-policies/{uuid}/",
     "required_for_create": ["network", "target_tenant"],
     "model_param_names": ["target_tenant", "network", "policy_type"],
     "path_param_maps": {},
-    "update_fields": ["network", "policy_type", "target_tenant"],
+    "update_fields": [],
     "update_actions": {},
     "resolvers": {
         "tenant": {

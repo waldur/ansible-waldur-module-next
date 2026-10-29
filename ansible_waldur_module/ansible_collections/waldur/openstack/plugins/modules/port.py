@@ -80,12 +80,6 @@ options:
     description:
     - MAC address of the port
     - This attribute cannot be updated.
-  allowed_address_pairs:
-    type: list
-    required: false
-    description:
-    - Allowed address pairs
-    - This attribute cannot be updated.
   target_tenant:
     type: str
     required: false
@@ -128,9 +122,6 @@ EXAMPLES = """
       - ip_address: 192.168.42.50
         subnet_id: string-value
       mac_address: 00:1B:44:11:3A:B7
-      allowed_address_pairs:
-      - ip_address: 192.168.42.0/24
-        mac_address: 00:1B:44:11:3A:B7
       target_tenant: Target tenant name or UUID
       network: Network name or UUID
       port_security_enabled: true
@@ -505,7 +496,6 @@ ARGUMENT_SPEC = {
     "description": {"type": "str"},
     "fixed_ips": {"type": "list"},
     "mac_address": {"type": "str"},
-    "allowed_address_pairs": {"type": "list"},
     "target_tenant": {"type": "str"},
     "network": {"type": "str"},
     "port_security_enabled": {"type": "bool"},
@@ -527,7 +517,6 @@ RUNNER_CONTEXT = {
         "network",
         "security_groups",
         "target_tenant",
-        "allowed_address_pairs",
         "description",
         "fixed_ips",
         "mac_address",
