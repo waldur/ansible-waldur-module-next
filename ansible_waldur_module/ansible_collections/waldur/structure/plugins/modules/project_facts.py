@@ -417,6 +417,21 @@ resource:
       type: list
       returned: always
       sample: []
+    user_nationalities:
+      description: Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+      type: list
+      returned: always
+      sample: []
+    user_organization_types:
+      description: Allowed organization type URNs (SCHAC). User must match one.
+      type: list
+      returned: always
+      sample: []
+    user_assurance_levels:
+      description: Required assurance URIs (REFEDS). User must have all of these.
+      type: list
+      returned: always
+      sample: []
     affiliation:
       description: Affiliation
       type: dict

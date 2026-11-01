@@ -466,6 +466,11 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
+    terminated_at:
+      description: When the resource was terminated. Unlike end_date, which is the planned date, this is the moment it happened. It stays set during a restore and is cleared once the resource is OK again, so check the state before reading it as the end of a live resource. Empty if the date is not known.
+      type: str
+      returned: always
+      sample: '2023-10-01T12:00:00Z'
     username:
       description: Username
       type: str

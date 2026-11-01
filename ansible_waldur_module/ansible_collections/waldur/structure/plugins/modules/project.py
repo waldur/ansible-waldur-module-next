@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: project
 short_description: Manage project resources.
-description: 'When the resource already exists, the following fields can be updated: affiliation_uuid, backend_id, customer, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_email_patterns, user_identity_sources.'
+description: 'When the resource already exists, the following fields can be updated: affiliation_uuid, backend_id, description, end_date, grace_period_days, image, is_industry, kind, name, oecd_fos_2007_code, science_sub_domain, slug, staff_notes, start_date, type, user_affiliations, user_assurance_levels, user_email_patterns, user_identity_sources, user_nationalities, user_organization_types.'
 author: Waldur Team
 options:
   access_token:
@@ -169,6 +169,18 @@ options:
     type: list
     required: false
     description: User identity sources
+  user_nationalities:
+    type: list
+    required: false
+    description: Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+  user_organization_types:
+    type: list
+    required: false
+    description: Allowed organization type URNs (SCHAC). User must match one.
+  user_assurance_levels:
+    type: list
+    required: false
+    description: Required assurance URIs (REFEDS). User must have all of these.
   affiliation_uuid:
     type: str
     required: false
@@ -211,6 +223,12 @@ EXAMPLES = """
       - string-value
       user_identity_sources:
       - string-value
+      user_nationalities:
+      - string-value
+      user_organization_types:
+      - string-value
+      user_assurance_levels:
+      - string-value
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (BlankEnum)
@@ -241,6 +259,12 @@ EXAMPLES = """
       - string-value
       user_identity_sources:
       - string-value
+      user_nationalities:
+      - string-value
+      user_organization_types:
+      - string-value
+      user_assurance_levels:
+      - string-value
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 - name: Create a new project (NullEnum)
@@ -270,6 +294,12 @@ EXAMPLES = """
       user_affiliations:
       - string-value
       user_identity_sources:
+      - string-value
+      user_nationalities:
+      - string-value
+      user_organization_types:
+      - string-value
+      user_assurance_levels:
       - string-value
       affiliation_uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567890
       science_sub_domain: a1b2c3d4-e5f6-7890-abcd-ef1234567890
@@ -537,6 +567,21 @@ resource:
       type: list
       returned: always
       sample: []
+    user_nationalities:
+      description: Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+      type: list
+      returned: always
+      sample: []
+    user_organization_types:
+      description: Allowed organization type URNs (SCHAC). User must match one.
+      type: list
+      returned: always
+      sample: []
+    user_assurance_levels:
+      description: Required assurance URIs (REFEDS). User must have all of these.
+      type: list
+      returned: always
+      sample: []
     affiliation:
       description: Affiliation
       type: dict
@@ -794,6 +839,9 @@ ARGUMENT_SPEC = {
     "user_email_patterns": {"type": "list"},
     "user_affiliations": {"type": "list"},
     "user_identity_sources": {"type": "list"},
+    "user_nationalities": {"type": "list"},
+    "user_organization_types": {"type": "list"},
+    "user_assurance_levels": {"type": "list"},
     "affiliation_uuid": {"type": "str"},
     "science_sub_domain": {"type": "str"},
 }
@@ -827,14 +875,16 @@ RUNNER_CONTEXT = {
         "staff_notes",
         "start_date",
         "user_affiliations",
+        "user_assurance_levels",
         "user_email_patterns",
         "user_identity_sources",
+        "user_nationalities",
+        "user_organization_types",
     ],
     "path_param_maps": {},
     "update_fields": [
         "affiliation_uuid",
         "backend_id",
-        "customer",
         "description",
         "end_date",
         "grace_period_days",
@@ -849,8 +899,11 @@ RUNNER_CONTEXT = {
         "start_date",
         "type",
         "user_affiliations",
+        "user_assurance_levels",
         "user_email_patterns",
         "user_identity_sources",
+        "user_nationalities",
+        "user_organization_types",
     ],
     "update_actions": {},
     "resolvers": {

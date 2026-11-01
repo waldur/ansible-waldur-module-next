@@ -17,7 +17,7 @@ DOCUMENTATION = """
 ---
 module: customer
 short_description: Manage customer resources.
-description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, invoice_emails, is_private_person, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_email_patterns, user_identity_sources, vat_code.'
+description: 'When the resource already exists, the following fields can be updated: abbreviation, access_subnets, accounting_start_date, address, agreement_number, apartment_nr, archived, backend_id, bank_account, bank_name, blocked, city, contact_details, country, default_tax_percent, description, display_billing_info_in_projects, domain, email, grace_period_days, homepage, house_nr, household, image, invoice_emails, is_private_person, latitude, longitude, max_service_accounts, name, native_name, notification_emails, parish, phone_number, postal, project_metadata_checklist, project_slug_template, registration_code, slug, sponsor_number, state, street, user_affiliations, user_assurance_levels, user_email_patterns, user_identity_sources, user_nationalities, user_organization_types, vat_code.'
 author: Waldur Team
 options:
   access_token:
@@ -116,6 +116,18 @@ options:
     type: list
     required: false
     description: User identity sources
+  user_nationalities:
+    type: list
+    required: false
+    description: Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+  user_organization_types:
+    type: list
+    required: false
+    description: Allowed organization type URNs (SCHAC). User must match one.
+  user_assurance_levels:
+    type: list
+    required: false
+    description: Required assurance URIs (REFEDS). User must have all of these.
   slug:
     type: str
     required: false
@@ -516,6 +528,12 @@ EXAMPLES = """
       - string-value
       user_identity_sources:
       - string-value
+      user_nationalities:
+      - string-value
+      user_organization_types:
+      - string-value
+      user_assurance_levels:
+      - string-value
       name: My-Awesome-customer
       slug: string-value
       native_name: string-value
@@ -571,6 +589,12 @@ EXAMPLES = """
       user_affiliations:
       - string-value
       user_identity_sources:
+      - string-value
+      user_nationalities:
+      - string-value
+      user_organization_types:
+      - string-value
+      user_assurance_levels:
       - string-value
       name: My-Awesome-customer
       slug: string-value
@@ -783,6 +807,21 @@ resource:
       sample: []
     user_identity_sources:
       description: A list of user identity sources items.
+      type: list
+      returned: always
+      sample: []
+    user_nationalities:
+      description: Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+      type: list
+      returned: always
+      sample: []
+    user_organization_types:
+      description: Allowed organization type URNs (SCHAC). User must match one.
+      type: list
+      returned: always
+      sample: []
+    user_assurance_levels:
+      description: Required assurance URIs (REFEDS). User must have all of these.
       type: list
       returned: always
       sample: []
@@ -1201,6 +1240,9 @@ ARGUMENT_SPEC = {
     "user_email_patterns": {"type": "list"},
     "user_affiliations": {"type": "list"},
     "user_identity_sources": {"type": "list"},
+    "user_nationalities": {"type": "list"},
+    "user_organization_types": {"type": "list"},
+    "user_assurance_levels": {"type": "list"},
     "slug": {"type": "str"},
     "native_name": {"type": "str"},
     "abbreviation": {"type": "str"},
@@ -1542,8 +1584,11 @@ RUNNER_CONTEXT = {
         "state",
         "street",
         "user_affiliations",
+        "user_assurance_levels",
         "user_email_patterns",
         "user_identity_sources",
+        "user_nationalities",
+        "user_organization_types",
         "vat_code",
     ],
     "path_param_maps": {},
@@ -1591,8 +1636,11 @@ RUNNER_CONTEXT = {
         "state",
         "street",
         "user_affiliations",
+        "user_assurance_levels",
         "user_email_patterns",
         "user_identity_sources",
+        "user_nationalities",
+        "user_organization_types",
         "vat_code",
     ],
     "update_actions": {},
