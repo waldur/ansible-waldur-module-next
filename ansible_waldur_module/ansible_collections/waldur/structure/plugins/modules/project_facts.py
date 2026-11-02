@@ -132,7 +132,7 @@ options:
     type: str
     required: false
   user_role:
-    description: Role name or UUID; narrows user_uuid_with_active_role to that role.
+    description: Role name or UUID; narrows user_uuid_with_active_role to that role and its organization copies.
     type: str
     required: false
   user_uuid:
