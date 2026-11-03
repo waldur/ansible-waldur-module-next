@@ -673,10 +673,15 @@ EXAMPLES = """
         account_name_generation_policy: null
         enable_display_of_order_actions_for_service_provider: true
         slurm_periodic_policy_enabled: false
+        slurm_maintenance_sync_enabled: false
         enforce_qos: false
         enable_api_key_provisioning: '********'
         api_key_limits: '********'
         api_key_daily_usage: '********'
+        firecrest_api_url: https://api.example.com/api/firecrest-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        firecrest_system_name: string-value
+        slurm_monitor_api_url: https://api.example.com/api/slurm-monitor-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        slurm_monitor_cluster_name: string-value
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
@@ -872,10 +877,15 @@ EXAMPLES = """
         account_name_generation_policy: null
         enable_display_of_order_actions_for_service_provider: true
         slurm_periodic_policy_enabled: false
+        slurm_maintenance_sync_enabled: false
         enforce_qos: false
         enable_api_key_provisioning: '********'
         api_key_limits: '********'
         api_key_daily_usage: '********'
+        firecrest_api_url: https://api.example.com/api/firecrest-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        firecrest_system_name: string-value
+        slurm_monitor_api_url: https://api.example.com/api/slurm-monitor-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        slurm_monitor_cluster_name: string-value
         auto_approve_marketplace_script: true
         highlight_backend_id_display: false
         backend_id_display_label: Backend ID
@@ -2110,6 +2120,11 @@ resource:
           type: bool
           returned: always
           sample: false
+        slurm_maintenance_sync_enabled:
+          description: 'When enabled, the site agent turns published maintenance announcements for this offering into Slurm MAINT reservations (full outage: all nodes; partial outage: the named partitions), so the scheduler holds back jobs that would run into them, and imports maintenance reservations made on the cluster as draft announcements.'
+          type: bool
+          returned: always
+          sample: false
         enforce_qos:
           description: "When enabled, the site agent enforces the offering's QoS selection by granting the chosen QoS on the SLURM association (QosLevel/DefaultQOS). When disabled (default), QoS is informational only \u2014 profiles are shown and the selection is recorded on the resource, but the agent does not touch SLURM QoS. The agent config may override this per deployment."
           type: bool
@@ -2130,6 +2145,26 @@ resource:
           type: bool
           returned: always
           sample: '********'
+        firecrest_api_url:
+          description: FirecREST v2 API URL users of this SLURM offering work through (jobs, files, cluster status). Must also be listed in the FIRECREST_ALLOWED_API_URLS setting. Leave empty to disable the HPC workspace.
+          type: str
+          returned: always
+          sample: https://api.example.com/api/firecrest-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        firecrest_system_name:
+          description: Name of the cluster in FirecREST's systems list.
+          type: str
+          returned: always
+          sample: string-value
+        slurm_monitor_api_url:
+          description: slurm-monitor API URL (ending in /api/v2) with the cluster's per-job samples (GPU, CPU, memory over time). Must also be listed in the SLURM_MONITOR_ALLOWED_API_URLS setting. Leave empty to hide job performance.
+          type: str
+          returned: always
+          sample: https://api.example.com/api/slurm-monitor-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+        slurm_monitor_cluster_name:
+          description: Name of the cluster in slurm-monitor (Sonar's cluster name).
+          type: str
+          returned: always
+          sample: string-value
         auto_approve_marketplace_script:
           description: If set to False, all orders require manual provider approval, including for service provider owners and staff
           type: bool
