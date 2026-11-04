@@ -2146,7 +2146,7 @@ resource:
           returned: always
           sample: '********'
         firecrest_api_url:
-          description: FirecREST v2 API URL users of this SLURM offering work through (jobs, files, cluster status). Must also be listed in the FIRECREST_ALLOWED_API_URLS setting. Leave empty to disable the HPC workspace.
+          description: FirecREST v2 API URL users of this SLURM offering work through (jobs, files, cluster status). Must also be listed in the FIRECREST_ALLOWED_API_URLS setting. Leave empty to run no jobs through Waldur; with a slurm-monitor URL the workspace is then read-only.
           type: str
           returned: always
           sample: https://api.example.com/api/firecrest-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
@@ -2156,7 +2156,7 @@ resource:
           returned: always
           sample: string-value
         slurm_monitor_api_url:
-          description: slurm-monitor API URL (ending in /api/v2) with the cluster's per-job samples (GPU, CPU, memory over time). Must also be listed in the SLURM_MONITOR_ALLOWED_API_URLS setting. Leave empty to hide job performance.
+          description: 'slurm-monitor API URL (ending in /api/v2) with the cluster''s per-job samples (GPU, CPU, memory over time). Must also be listed in the SLURM_MONITOR_ALLOWED_API_URLS setting. Leave empty to hide job performance. Without FirecREST, the allocations get a read-only workspace from it: jobs, their performance, job statistics and software.'
           type: str
           returned: always
           sample: https://api.example.com/api/slurm-monitor-api-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
