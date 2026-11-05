@@ -93,7 +93,7 @@ options:
     type: str
     required: false
     description:
-    - Callback url
+    - 'Sent by a Waldur that orders from this one through a remote offering: its public order pull endpoint (.../api/remote-waldur-api/pull_order/<its order uuid>). No other URL is accepted. Not stored: order callbacks are off.'
     - This attribute cannot be updated.
   request_comment:
     type: str
@@ -542,11 +542,6 @@ resource:
       type: str
       returned: always
       sample: '2023-10-01T12:00:00Z'
-    callback_url:
-      description: Callback URL URL
-      type: str
-      returned: always
-      sample: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
     completed_at:
       description: Completed at
       type: str

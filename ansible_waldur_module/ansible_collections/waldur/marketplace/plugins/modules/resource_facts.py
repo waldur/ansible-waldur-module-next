@@ -933,11 +933,6 @@ resources:
           type: str
           returned: always
           sample: '2023-10-01T12:00:00Z'
-        callback_url:
-          description: Callback URL URL
-          type: str
-          returned: always
-          sample: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         completed_at:
           description: Completed at
           type: str
@@ -1451,11 +1446,6 @@ resources:
           type: str
           returned: always
           sample: '2023-10-01T12:00:00Z'
-        callback_url:
-          description: Callback URL URL
-          type: str
-          returned: always
-          sample: https://api.example.com/api/callback-url/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
         completed_at:
           description: Completed at
           type: str
