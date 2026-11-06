@@ -106,6 +106,11 @@ resources:
       type: str
       returned: always
       sample: https://api.example.com/api/settings/a1b2c3d4-e5f6-7890-abcd-ef1234567890/
+    is_public:
+      description: Whether every project of the cloud may use the volume type. Cinder gives a private type only to the projects it is assigned to.
+      type: bool
+      returned: always
+      sample: true
 
 """
 
