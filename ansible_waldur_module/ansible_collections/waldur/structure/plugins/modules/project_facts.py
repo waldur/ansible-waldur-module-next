@@ -589,6 +589,47 @@ resource:
       type: bool
       returned: always
       sample: true
+    awarded_proposal:
+      description: Awarded proposal
+      type: dict
+      returned: always
+      sample: {}
+      contains:
+        proposal_uuid:
+          description: Proposal UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        proposal_name:
+          description: Proposal name
+          type: str
+          returned: always
+          sample: string-value
+        call_uuid:
+          description: Call UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        call_name:
+          description: Call name
+          type: str
+          returned: always
+          sample: string-value
+        round_uuid:
+          description: Round UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        round_name:
+          description: Round name
+          type: str
+          returned: always
+          sample: string-value
+        can_read:
+          description: 'Whether the viewer may open the proposal: its team and the call''s overseers do; a collaborator added to the project later sees only where it came from.'
+          type: bool
+          returned: always
+          sample: true
 
 """
 

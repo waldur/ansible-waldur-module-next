@@ -1104,6 +1104,52 @@ resource:
               type: str
               returned: always
               sample: string-value
+        award:
+          description: Award
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            proposal_uuid:
+              description: Proposal UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            proposal_name:
+              description: Proposal name
+              type: str
+              returned: always
+              sample: string-value
+            call_uuid:
+              description: Call UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            call_name:
+              description: Call name
+              type: str
+              returned: always
+              sample: string-value
+            round_name:
+              description: Round name
+              type: str
+              returned: always
+              sample: string-value
+            awarded_limits:
+              description: What the award grants on the order's offering.
+              type: dict
+              returned: always
+              sample: {}
+            requested_limits:
+              description: What the applicant asked for; null for an item the call manager added.
+              type: dict
+              returned: always
+              sample: {}
+            can_read:
+              description: Whether the viewer may open the proposal.
+              type: bool
+              returned: always
+              sample: true
     creation_order:
       description: Creation order
       type: dict
@@ -1617,6 +1663,52 @@ resource:
               type: str
               returned: always
               sample: string-value
+        award:
+          description: Award
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            proposal_uuid:
+              description: Proposal UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            proposal_name:
+              description: Proposal name
+              type: str
+              returned: always
+              sample: string-value
+            call_uuid:
+              description: Call UUID
+              type: str
+              returned: always
+              sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            call_name:
+              description: Call name
+              type: str
+              returned: always
+              sample: string-value
+            round_name:
+              description: Round name
+              type: str
+              returned: always
+              sample: string-value
+            awarded_limits:
+              description: What the award grants on the order's offering.
+              type: dict
+              returned: always
+              sample: {}
+            requested_limits:
+              description: What the applicant asked for; null for an item the call manager added.
+              type: dict
+              returned: always
+              sample: {}
+            can_read:
+              description: Whether the viewer may open the proposal.
+              type: bool
+              returned: always
+              sample: true
     service_settings_uuid:
       description: Service settings UUID
       type: str
