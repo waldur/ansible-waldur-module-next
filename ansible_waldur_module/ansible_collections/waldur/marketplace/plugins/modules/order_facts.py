@@ -57,6 +57,10 @@ options:
     description: Customer UUID
     type: str
     required: false
+  from_award:
+    description: Placed by a proposal's award
+    type: bool
+    required: false
   modified:
     description: Modified after
     type: str
@@ -727,6 +731,7 @@ ARGUMENT_SPEC = {
     "created": {"type": "str"},
     "created_before": {"type": "str"},
     "customer_uuid": {"type": "str"},
+    "from_award": {"type": "bool"},
     "modified": {"type": "str"},
     "modified_before": {"type": "str"},
     "offering": {"type": "str"},
@@ -761,6 +766,7 @@ RUNNER_CONTEXT = {
         "created",
         "created_before",
         "customer_uuid",
+        "from_award",
         "modified",
         "modified_before",
         "offering",
