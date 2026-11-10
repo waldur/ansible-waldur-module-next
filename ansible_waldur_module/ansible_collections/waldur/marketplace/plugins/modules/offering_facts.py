@@ -1485,6 +1485,11 @@ resources:
           type: bool
           returned: always
           sample: true
+        show_order_period_totals:
+          description: 'If set to True, the UI can show each limit-based component of a resource for the whole order period: the usage summed since the resource was created against the current limit times the months of the order. Ordering, billing and enforcement do not change.'
+          type: bool
+          returned: always
+          sample: true
     account_settings:
       description: Account settings
       type: dict

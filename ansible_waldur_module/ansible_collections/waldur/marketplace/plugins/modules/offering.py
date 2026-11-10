@@ -692,6 +692,7 @@ EXAMPLES = """
         show_ssh_key_loss_warning: false
         hide_api_keys_tab: '********'
         display_prepaid_limits_as_total: true
+        show_order_period_totals: true
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -896,6 +897,7 @@ EXAMPLES = """
         show_ssh_key_loss_warning: false
         hide_api_keys_tab: '********'
         display_prepaid_limits_as_total: true
+        show_order_period_totals: true
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -2207,6 +2209,11 @@ resource:
           sample: '********'
         display_prepaid_limits_as_total:
           description: If set to True, the UI shows each prepaid component as the total for the whole subscription (the monthly amount times the months ordered) instead of a monthly amount, and the resource's limit_usage sums its usage over the whole subscription. Ordering and billing do not change.
+          type: bool
+          returned: always
+          sample: true
+        show_order_period_totals:
+          description: 'If set to True, the UI can show each limit-based component of a resource for the whole order period: the usage summed since the resource was created against the current limit times the months of the order. Ordering, billing and enforcement do not change.'
           type: bool
           returned: always
           sample: true
