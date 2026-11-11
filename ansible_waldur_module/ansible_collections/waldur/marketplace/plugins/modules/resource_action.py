@@ -1901,6 +1901,11 @@ resource:
       type: bool
       returned: always
       sample: '********'
+    api_key_counts:
+      description: 'How many keys the resource has in each state, deleted ones left out, as {state: count}. States with no keys are absent.'
+      type: dict
+      returned: always
+      sample: '********'
     offering_account_settings:
       description: Offering account settings
       type: dict
