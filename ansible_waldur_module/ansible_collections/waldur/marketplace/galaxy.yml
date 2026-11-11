@@ -1,6 +1,6 @@
 namespace: waldur
 name: marketplace
-version: 8.1.4-dev.20261111004445
+version: 8.1.4-dev.20261111054426
 readme: README.md
 authors:
 - Waldur Team <info@waldur.com>
