@@ -1051,12 +1051,12 @@ resources:
           returned: always
           sample: true
         enable_resource_end_date_change_requests:
-          description: If set to True, users without RESOURCE.SET_END_DATE can request an end date change, and holders of that permission approve or reject. Approval writes the date directly; no order is created. Requests are published as events so an external approval system can decide instead. Not applicable to prepaid offerings, which extend through renewal instead.
+          description: If set to True, users with RESOURCE.REQUEST_END_DATE_CHANGE and without RESOURCE.SET_END_DATE can request an end date change, and holders of RESOURCE.SET_END_DATE approve or reject. Approval writes the date directly; no order is created. Requests are published as events so an external approval system can decide instead. Not applicable to prepaid offerings, which extend through renewal instead.
           type: bool
           returned: always
           sample: true
         enable_resource_limit_change_requests:
-          description: If set to True, users who cannot change resource limits directly (RESOURCE.SET_LIMITS together with ORDER.CREATE) can request a limit change, and holders of RESOURCE.SET_LIMITS approve or reject. Approval submits an update order for the requested limits.
+          description: If set to True, users with RESOURCE.REQUEST_LIMITS_CHANGE who cannot change resource limits directly (RESOURCE.SET_LIMITS together with ORDER.CREATE) can request a limit change, and holders of RESOURCE.SET_LIMITS approve or reject. Approval submits an update order for the requested limits.
           type: bool
           returned: always
           sample: true
