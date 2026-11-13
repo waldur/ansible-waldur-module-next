@@ -935,6 +935,11 @@ resources:
           type: int
           returned: always
           sample: 30
+        resource_expiration_reminders:
+          description: Days before a resource's end date on which its users are reminded, by email and on the dashboard. When empty or unset, the email goes out 7 days and 1 day before the end, and the dashboard follows USER_ACTIONS_DEFAULT_EXPIRATION_REMINDERS. Only staff can change it.
+          type: list
+          returned: always
+          sample: []
         service_provider_can_create_offering_user:
           description: Service provider can create offering user
           type: bool
