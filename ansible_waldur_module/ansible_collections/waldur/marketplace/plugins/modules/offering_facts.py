@@ -1410,6 +1410,16 @@ resources:
           type: bool
           returned: always
           sample: false
+        enable_s3_browser:
+          description: Lets consumers browse, download from and manage the buckets of an S3 resource in HomePort, through one of its API keys. Mastermind signs the S3 calls itself, so it must reach the resource's s3_endpoint, and staff must list that host in S3_BROWSER_ALLOWED_ENDPOINTS.
+          type: bool
+          returned: always
+          sample: true
+        s3_browser_flavor:
+          description: 'The kind of S3 gateway behind the resources, which decides what the bucket browser reads and shows: bucket sizes only on Ceph, and on Garage none of the versioning, ACL, policy, lock, encryption or tag details it does not implement. ''generic'' (the default) asks for every detail and hides those the gateway refuses.'
+          type: str
+          returned: always
+          sample: generic
         enable_api_key_provisioning:
           description: 'Declares that the site agent can govern resource API keys one by one: request, assign, limit, pause, resume and delete them. Without it a resource''s keys can only be revealed and rotated. Nothing checks the claim: turn it on only if the agent''s backend supports per-key commands (such as the Envoy AI Gateway); on one that does not (such as Ceph S3) every such command errs.'
           type: bool
