@@ -41,6 +41,10 @@ options:
     description: Filter by whether accounting is running.
     type: bool
     required: false
+  active_during:
+    description: 'Return projects active during a year (YYYY) or a month (YYYY-MM): started on or before the period''s last day (start date, or creation date when there is none) and with no end date or one after the period''s first day.'
+    type: str
+    required: false
   affiliation_name:
     description: Affiliation name
     type: str
@@ -95,8 +99,24 @@ options:
     description: Description
     type: str
     required: false
+  end_date_after:
+    description: Return projects whose end date is on or after the given date.
+    type: str
+    required: false
+  end_date_before:
+    description: Return projects whose end date is on or before the given date.
+    type: str
+    required: false
+  ended:
+    description: 'true: projects whose end date is today or earlier. false: projects with no end date or one after today.'
+    type: bool
+    required: false
   has_affiliation:
     description: Filter projects that have an affiliation.
+    type: bool
+    required: false
+  in_grace:
+    description: 'true: projects that have ended but whose end date plus grace period (the project''s, else the organization''s, else none) is after today. false: all other projects.'
     type: bool
     required: false
   include_terminated:
@@ -130,6 +150,18 @@ options:
   slug:
     description: Slug
     type: str
+    required: false
+  start_date_after:
+    description: Return projects whose start date is on or after the given date.
+    type: str
+    required: false
+  start_date_before:
+    description: Return projects whose start date is on or before the given date.
+    type: str
+    required: false
+  started:
+    description: 'true: projects with no start date or one not after today. false: projects whose start date is after today.'
+    type: bool
     required: false
   user_role:
     description: Role name or UUID; narrows user_uuid_with_active_role to that role and its organization copies.
@@ -639,6 +671,7 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "customer": {"type": "str"},
     "accounting_is_running": {"type": "bool"},
+    "active_during": {"type": "str"},
     "affiliation_name": {"type": "str"},
     "affiliation_uuid": {"type": "list"},
     "backend_id": {"type": "str"},
@@ -652,7 +685,11 @@ ARGUMENT_SPEC = {
     "customer_name": {"type": "str"},
     "customer_native_name": {"type": "str"},
     "description": {"type": "str"},
+    "end_date_after": {"type": "str"},
+    "end_date_before": {"type": "str"},
+    "ended": {"type": "bool"},
     "has_affiliation": {"type": "bool"},
+    "in_grace": {"type": "bool"},
     "include_terminated": {"type": "bool"},
     "is_removed": {"type": "bool"},
     "modified": {"type": "str"},
@@ -661,6 +698,9 @@ ARGUMENT_SPEC = {
     "science_domain_uuid": {"type": "str"},
     "science_sub_domain_uuid": {"type": "str"},
     "slug": {"type": "str"},
+    "start_date_after": {"type": "str"},
+    "start_date_before": {"type": "str"},
+    "started": {"type": "bool"},
     "user_role": {"type": "str"},
     "user_uuid": {"type": "str"},
     "user_uuid_with_active_role": {"type": "str"},
@@ -681,6 +721,7 @@ RUNNER_CONTEXT = {
     "many": False,
     "inferred_filter_params": [
         "accounting_is_running",
+        "active_during",
         "affiliation_name",
         "affiliation_uuid",
         "backend_id",
@@ -694,7 +735,11 @@ RUNNER_CONTEXT = {
         "customer_name",
         "customer_native_name",
         "description",
+        "end_date_after",
+        "end_date_before",
+        "ended",
         "has_affiliation",
+        "in_grace",
         "include_terminated",
         "is_removed",
         "modified",
@@ -703,6 +748,9 @@ RUNNER_CONTEXT = {
         "science_domain_uuid",
         "science_sub_domain_uuid",
         "slug",
+        "start_date_after",
+        "start_date_before",
+        "started",
         "user_role",
         "user_uuid",
         "user_uuid_with_active_role",
