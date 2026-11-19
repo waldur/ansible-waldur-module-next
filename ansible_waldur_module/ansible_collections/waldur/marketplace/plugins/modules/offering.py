@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -138,6 +138,12 @@ options:
     - Components
     - This attribute cannot be updated.
   plugin_options:
+    type: dict
+    required: false
+    description:
+    - ''
+    - This attribute cannot be updated.
+  agent_configuration:
     type: dict
     required: false
     description:
@@ -623,6 +629,7 @@ EXAMPLES = """
         resource_name_pattern: string-value
         resource_slug_template: string-value
         resource_slug_max_length: 123
+        pre_flight_check_enabled: true
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -697,6 +704,15 @@ EXAMPLES = """
         hide_api_keys_tab: '********'
         display_prepaid_limits_as_total: true
         show_order_period_totals: true
+      agent_configuration:
+        order_processing_backend: string-value
+        membership_sync_backend: string-value
+        reporting_backend: string-value
+        username_management_backend: string-value
+        custom_backends:
+        - string-value
+        backend_settings: {}
+        backend_components: {}
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -832,6 +848,7 @@ EXAMPLES = """
         resource_name_pattern: string-value
         resource_slug_template: string-value
         resource_slug_max_length: 123
+        pre_flight_check_enabled: true
         default_internal_network_mtu: 123
         max_instances: 123
         max_volumes: 123
@@ -906,6 +923,15 @@ EXAMPLES = """
         hide_api_keys_tab: '********'
         display_prepaid_limits_as_total: true
         show_order_period_totals: true
+      agent_configuration:
+        order_processing_backend: string-value
+        membership_sync_backend: string-value
+        reporting_backend: string-value
+        username_management_backend: string-value
+        custom_backends:
+        - string-value
+        backend_settings: {}
+        backend_components: {}
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -1885,6 +1911,11 @@ resource:
           type: int
           returned: always
           sample: 123
+        pre_flight_check_enabled:
+          description: Check the tenant's quotas before an instance is ordered
+          type: bool
+          returned: always
+          sample: true
         default_internal_network_mtu:
           description: If set, it will be used as a default MTU for the first network in a tenant
           type: int
@@ -2509,6 +2540,11 @@ resource:
           type: str
           returned: always
           sample: string-value
+        resource_options_handler:
+          description: Script run when a resource's options change
+          type: str
+          returned: always
+          sample: string-value
         api_url:
           description: API URL
           type: str
@@ -2644,6 +2680,47 @@ resource:
           type: str
           returned: always
           sample: sd
+    agent_configuration:
+      description: Agent configuration
+      type: dict
+      returned: always
+      sample: {}
+      contains:
+        order_processing_backend:
+          description: Order processing backend
+          type: str
+          returned: always
+          sample: string-value
+        membership_sync_backend:
+          description: Membership sync backend
+          type: str
+          returned: always
+          sample: string-value
+        reporting_backend:
+          description: Reporting backend
+          type: str
+          returned: always
+          sample: string-value
+        username_management_backend:
+          description: Username management backend
+          type: str
+          returned: always
+          sample: string-value
+        custom_backends:
+          description: Backends that are not in the plugin catalog, such as a site's own plugin. Their settings and components are not validated.
+          type: list
+          returned: always
+          sample: []
+        backend_settings:
+          description: Backend settings
+          type: dict
+          returned: always
+          sample: {}
+        backend_components:
+          description: Backend components
+          type: dict
+          returned: always
+          sample: {}
     service_attributes:
       description: Service attributes
       type: dict
@@ -3321,6 +3398,7 @@ ARGUMENT_SPEC = {
     "resource_options": {"type": "dict"},
     "components": {"type": "list"},
     "plugin_options": {"type": "dict"},
+    "agent_configuration": {"type": "dict"},
     "vendor_details": {"type": "str"},
     "getting_started": {"type": "str"},
     "integration_guide": {"type": "str"},
@@ -3612,6 +3690,7 @@ RUNNER_CONTEXT = {
         "category",
         "customer",
         "access_url",
+        "agent_configuration",
         "attributes",
         "backend_id",
         "backend_id_rules",

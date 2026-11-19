@@ -8,4 +8,6 @@ action_groups:
   - order_facts
   - resource
   - resource_action
+  - resource_api_key_facts
+  - resource_api_key_reveal
   - resource_facts

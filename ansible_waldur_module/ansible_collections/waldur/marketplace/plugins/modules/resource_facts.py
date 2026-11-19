@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -2274,7 +2274,9 @@ RUNNER_CONTEXT = {
     "resource_type": "resource",
     "list_url": "/api/marketplace-resources/",
     "retrieve_url": "/api/marketplace-resources/{uuid}/",
+    "retrieve_method": "GET",
     "identifier_param": "name",
+    "name_lookup": True,
     "resolvers": {
         "project": {
             "url": "/api/projects/",

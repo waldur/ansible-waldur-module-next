@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -484,7 +484,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
+    "resolver_order": ["instance", "volume", "project", "tenant", "customer"],
 }
 
 

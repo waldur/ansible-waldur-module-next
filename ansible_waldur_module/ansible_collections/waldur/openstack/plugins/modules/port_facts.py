@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -106,7 +106,7 @@ EXAMPLES = """
     register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: resource_info.ports
+      var: resource_info.resources
 
 """
 
@@ -444,7 +444,9 @@ RUNNER_CONTEXT = {
     "resource_type": "port",
     "list_url": "/api/openstack-ports/",
     "retrieve_url": "/api/openstack-ports/{uuid}/",
+    "retrieve_method": "GET",
     "identifier_param": "name",
+    "name_lookup": True,
     "resolvers": {},
     "many": True,
     "inferred_filter_params": [

@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -138,7 +138,7 @@ EXAMPLES = """
     register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: resource_info.volumes
+      var: resource_info.resources
 
 """
 
@@ -468,7 +468,9 @@ RUNNER_CONTEXT = {
     "resource_type": "volume",
     "list_url": "/api/openstack-volumes/",
     "retrieve_url": "/api/openstack-volumes/{uuid}/",
+    "retrieve_method": "GET",
     "identifier_param": "name",
+    "name_lookup": True,
     "resolvers": {
         "tenant": {
             "url": "/api/openstack-tenants/",

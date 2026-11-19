@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -211,7 +211,7 @@ EXAMPLES = """
     register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: resource_info.offerings
+      var: resource_info.resources
 
 """
 
@@ -1150,6 +1150,11 @@ resources:
           type: int
           returned: always
           sample: 123
+        pre_flight_check_enabled:
+          description: Check the tenant's quotas before an instance is ordered
+          type: bool
+          returned: always
+          sample: true
         default_internal_network_mtu:
           description: If set, it will be used as a default MTU for the first network in a tenant
           type: int
@@ -2395,7 +2400,9 @@ RUNNER_CONTEXT = {
     "resource_type": "offering",
     "list_url": "/api/marketplace-public-offerings/",
     "retrieve_url": "/api/marketplace-public-offerings/{uuid}/",
+    "retrieve_method": "GET",
     "identifier_param": "name",
+    "name_lookup": True,
     "resolvers": {
         "customer": {
             "url": "/api/customers/",

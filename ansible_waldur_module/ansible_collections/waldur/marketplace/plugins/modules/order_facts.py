@@ -21,7 +21,7 @@ description: ''
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -30,7 +30,7 @@ options:
     required: true
     type: str
   name:
-    description: The name or UUID of the order.
+    description: The UUID of the order.
     type: str
     required: false
   can_approve_as_consumer:
@@ -148,13 +148,13 @@ EXAMPLES = """
   tasks:
   - name: Get facts about a specific order
     waldur.marketplace.order_facts:
-      name: My Resource Name
+      name: a1b2c3d4e5f647a8b9c0d1e2f3a4b5c6
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
   - name: Print the retrieved resource facts
     ansible.builtin.debug:
-      var: resource_info.orders
+      var: resource_info.resources
 
 """
 
@@ -756,7 +756,9 @@ RUNNER_CONTEXT = {
     "resource_type": "order",
     "list_url": "/api/marketplace-orders/",
     "retrieve_url": "/api/marketplace-orders/{uuid}/",
+    "retrieve_method": "GET",
     "identifier_param": "name",
+    "name_lookup": False,
     "resolvers": {},
     "many": True,
     "inferred_filter_params": [

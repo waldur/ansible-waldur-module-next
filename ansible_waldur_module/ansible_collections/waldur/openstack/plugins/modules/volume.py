@@ -21,7 +21,7 @@ description: 'When the resource already exists, the following fields can be upda
 author: Waldur Team
 options:
   access_token:
-    description: An access token.
+    description: 'An access token: either a user''s API token or a personal access token. A personal access token (prefixed with C(w_)) is sent as a Bearer token.'
     required: true
     type: str
     no_log: true
@@ -485,9 +485,9 @@ RUNNER_CONTEXT = {
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "image",
-        "type",
         "availability_zone",
+        "type",
+        "image",
         "description",
         "name",
         "size",
