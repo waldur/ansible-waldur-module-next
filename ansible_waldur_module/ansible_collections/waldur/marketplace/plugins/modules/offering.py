@@ -616,6 +616,7 @@ EXAMPLES = """
         enable_scim_entitlements: true
         scim_login_nodes:
         - string-value
+        scim_login_port: 8080
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -835,6 +836,7 @@ EXAMPLES = """
         enable_scim_entitlements: true
         scim_login_nodes:
         - string-value
+        scim_login_port: 8080
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
@@ -1846,6 +1848,11 @@ resource:
           type: list
           returned: always
           sample: []
+        scim_login_port:
+          description: SSH port clients should use for every host in scim_login_nodes. When unset, clients use port 22. Outbound SCIM entitlements carry the hostname only and ignore this value.
+          type: int
+          returned: always
+          sample: 8080
         enable_resource_access_subnets:
           description: If set to True, an Access subnets tab is shown on resource detail pages, letting consumers curate the IPs allowed to reach the backend entity. The list is advisory data for external firewalls.
           type: bool
