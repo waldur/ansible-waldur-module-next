@@ -62,12 +62,12 @@ options:
     type: str
     required: true
     description: The parent tenant name or UUID.
-  customer:
-    description: The name or UUID of the parent customer for filtering.
-    type: str
-    required: false
   project:
     description: The name or UUID of the parent project for filtering.
+    type: str
+    required: false
+  customer:
+    description: The name or UUID of the parent customer for filtering.
     type: str
     required: false
   router:
@@ -414,8 +414,8 @@ ARGUMENT_SPEC = {
     "name": {"type": "str"},
     "uuid": {"type": "str"},
     "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str"},
     "project": {"type": "str"},
+    "customer": {"type": "str"},
     "router": {"type": "str"},
     "description": {"type": "dict"},
 }
@@ -424,9 +424,9 @@ RUNNER_CONTEXT = {
     "resource_type": "OpenStack floating IP",
     "check_url": "/api/openstack-floating-ips/",
     "check_filter_keys": {
-        "tenant": "tenant_uuid",
-        "customer": "customer_uuid",
         "project": "project_uuid",
+        "customer": "customer_uuid",
+        "tenant": "tenant_uuid",
     },
     "name_query_param": "name_exact",
     "list_path": "/api/openstack-floating-ips/",
@@ -450,18 +450,6 @@ RUNNER_CONTEXT = {
         }
     },
     "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -474,8 +462,20 @@ RUNNER_CONTEXT = {
             ],
             "name_query_param": "name_exact",
         },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
     },
-    "resolver_order": ["tenant", "project", "customer"],
+    "resolver_order": ["project", "tenant", "customer"],
     "resource_detail_path": "/api/openstack-floating-ips/{uuid}/",
     "composite_keys": None,
     "wait_config": {

@@ -48,16 +48,16 @@ options:
     description: Device path on the instance (e.g., /dev/vdb). Defaults to auto-discovery by the backend.
     type: string
     required: false
-  tenant:
-    description: The name or UUID of the parent tenant for filtering.
+  project:
+    description: The name or UUID of the parent project for filtering.
     type: str
     required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
     required: false
-  project:
-    description: The name or UUID of the parent project for filtering.
+  tenant:
+    description: The name or UUID of the parent tenant for filtering.
     type: str
     required: false
 requirements:
@@ -76,9 +76,9 @@ EXAMPLES = """
       instance: My-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: My-Parent-Tenant
-      customer: My-Parent-Customer
       project: My-Parent-Project
+      customer: My-Parent-Customer
+      tenant: My-Parent-Tenant
       device: string-value
 - name: Detach a volume from a instance
   hosts: localhost
@@ -90,9 +90,9 @@ EXAMPLES = """
       instance: My-instance
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
-      tenant: My-Parent-Tenant
-      customer: My-Parent-Customer
       project: My-Parent-Project
+      customer: My-Parent-Customer
+      tenant: My-Parent-Tenant
 
 """
 
@@ -421,9 +421,9 @@ ARGUMENT_SPEC = {
     "volume": {"type": "str", "required": True},
     "instance": {"type": "str", "required": True},
     "device": {"type": "string"},
-    "tenant": {"type": "str"},
-    "customer": {"type": "str"},
     "project": {"type": "str"},
+    "customer": {"type": "str"},
+    "tenant": {"type": "str"},
 }
 
 RUNNER_CONTEXT = {
@@ -435,18 +435,6 @@ RUNNER_CONTEXT = {
     "link_check_key": "instance",
     "link_param_names": ["device"],
     "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -457,6 +445,18 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
+        },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
             "name_query_param": "name_exact",
         },
         "instance": {
@@ -484,7 +484,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["volume", "instance", "project", "tenant", "customer"],
+    "resolver_order": ["project", "instance", "volume", "customer", "tenant"],
 }
 
 

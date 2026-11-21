@@ -480,14 +480,14 @@ RUNNER_CONTEXT = {
     "offering_type": "OpenStack.Volume",
     "marketplace_resource_check_url": "/api/marketplace-resources/",
     "check_url": "/api/openstack-volumes/",
-    "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
+    "check_filter_keys": {"project": "project_uuid", "customer": "customer_uuid"},
     "name_query_param": "name_exact",
     "update_url": None,
     "update_fields": ["bootable", "description", "name"],
     "attribute_param_names": [
-        "image",
-        "type",
         "availability_zone",
+        "type",
+        "image",
         "description",
         "name",
         "size",
@@ -495,14 +495,6 @@ RUNNER_CONTEXT = {
     "required_for_create": ["name", "offering"],
     "termination_attributes_map": {},
     "resolvers": {
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": None,
-            "filter_by": [],
-            "is_list": None,
-            "list_item_keys": {},
-            "object_item_keys": {},
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -513,6 +505,14 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "is_list": None,
+            "list_item_keys": {},
+            "object_item_keys": {},
+        },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
             "is_list": None,
             "list_item_keys": {},
             "object_item_keys": {},

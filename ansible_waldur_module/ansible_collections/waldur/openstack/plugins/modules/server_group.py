@@ -62,12 +62,12 @@ options:
     type: str
     required: true
     description: The parent tenant name or UUID.
-  customer:
-    description: The name or UUID of the parent customer for filtering.
-    type: str
-    required: false
   project:
     description: The name or UUID of the parent project for filtering.
+    type: str
+    required: false
+  customer:
+    description: The name or UUID of the parent customer for filtering.
     type: str
     required: false
   description:
@@ -400,8 +400,8 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "uuid": {"type": "str"},
     "tenant": {"type": "str", "required": True},
-    "customer": {"type": "str"},
     "project": {"type": "str"},
+    "customer": {"type": "str"},
     "description": {"type": "str"},
     "policy": {
         "type": "str",
@@ -419,9 +419,9 @@ RUNNER_CONTEXT = {
     "resource_type": "OpenStack server group",
     "check_url": "/api/openstack-server-groups/",
     "check_filter_keys": {
-        "tenant": "tenant_uuid",
-        "customer": "customer_uuid",
         "project": "project_uuid",
+        "customer": "customer_uuid",
+        "tenant": "tenant_uuid",
     },
     "name_query_param": "name_exact",
     "list_path": "/api/openstack-server-groups/",
@@ -435,18 +435,6 @@ RUNNER_CONTEXT = {
     "update_fields": [],
     "update_actions": {},
     "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -459,8 +447,20 @@ RUNNER_CONTEXT = {
             ],
             "name_query_param": "name_exact",
         },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
     },
-    "resolver_order": ["tenant", "project", "customer"],
+    "resolver_order": ["project", "tenant", "customer"],
     "resource_detail_path": "/api/openstack-server-groups/{uuid}/",
     "composite_keys": None,
     "wait_config": {

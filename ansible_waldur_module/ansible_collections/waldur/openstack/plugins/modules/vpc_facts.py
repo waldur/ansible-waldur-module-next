@@ -33,12 +33,12 @@ options:
     description: The name or UUID of the vpc.
     type: str
     required: false
-  customer:
-    description: The name or UUID of the parent customer.
-    type: str
-    required: false
   project:
     description: The name or UUID of the parent project.
+    type: str
+    required: false
+  customer:
+    description: The name or UUID of the parent customer.
     type: str
     required: false
   backend_id:
@@ -98,8 +98,8 @@ EXAMPLES = """
   - name: Get facts about a specific vpc
     waldur.openstack.vpc_facts:
       name: My Resource Name
-      customer: Customer name or UUID
       project: Project name or UUID
+      customer: Customer name or UUID
       access_token: b83557fd8e2066e98f27dee8f3b3433cdc4183ce
       api_url: https://waldur.example.com
     register: resource_info
@@ -374,8 +374,8 @@ ARGUMENT_SPEC = {
     "access_token": {"type": "str", "no_log": True, "required": True},
     "api_url": {"type": "str", "required": True},
     "name": {"type": "str"},
-    "customer": {"type": "str"},
     "project": {"type": "str"},
+    "customer": {"type": "str"},
     "backend_id": {"type": "str"},
     "can_manage": {"type": "bool"},
     "customer_abbreviation": {"type": "str"},
@@ -397,15 +397,15 @@ RUNNER_CONTEXT = {
     "identifier_param": "name",
     "name_lookup": True,
     "resolvers": {
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": "Customer '{value}' not found.",
-            "filter_key": "customer_uuid",
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": "Project '{value}' not found.",
             "filter_key": "project_uuid",
+        },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": "Customer '{value}' not found.",
+            "filter_key": "customer_uuid",
         },
     },
     "many": True,

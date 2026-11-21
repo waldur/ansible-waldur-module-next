@@ -818,6 +818,11 @@ resources:
           type: float
           returned: always
           sample: 123.45
+        limit_increase_only:
+          description: If set, a consumer cannot lower this component's limit below the resource's current limit.
+          type: bool
+          returned: always
+          sample: true
         is_boolean:
           description: Is boolean
           type: bool

@@ -58,12 +58,12 @@ options:
     description: The UUID of the marketplace resource. Use this to identify a specific resource for modification or deletion.
     type: str
     required: false
-  customer:
-    description: The name or UUID of the parent customer for filtering.
-    type: str
-    required: false
   project:
     description: The name or UUID of the parent project for filtering.
+    type: str
+    required: false
+  customer:
+    description: The name or UUID of the parent customer for filtering.
     type: str
     required: false
   limits:
@@ -1832,6 +1832,11 @@ resource:
           type: float
           returned: always
           sample: 123.45
+        limit_increase_only:
+          description: If set, a consumer cannot lower this component's limit below the resource's current limit.
+          type: bool
+          returned: always
+          sample: true
         is_boolean:
           description: Is boolean
           type: bool
@@ -2125,8 +2130,8 @@ ARGUMENT_SPEC = {
     "interval": {"type": "int", "default": 20},
     "name": {"type": "str"},
     "uuid": {"type": "str"},
-    "customer": {"type": "str"},
     "project": {"type": "str"},
+    "customer": {"type": "str"},
     "limits": {"type": "dict"},
     "options": {"type": "dict"},
 }
@@ -2134,7 +2139,7 @@ ARGUMENT_SPEC = {
 RUNNER_CONTEXT = {
     "resource_type": "marketplace resource",
     "check_url": "/api/marketplace-resources/",
-    "check_filter_keys": {"customer": "customer_uuid", "project": "project_uuid"},
+    "check_filter_keys": {"project": "project_uuid", "customer": "customer_uuid"},
     "name_query_param": "name_exact",
     "list_path": "/api/marketplace-resources/",
     "create_path": None,
@@ -2166,12 +2171,6 @@ RUNNER_CONTEXT = {
         },
     },
     "resolvers": {
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -2182,6 +2181,12 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
+        },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
             "name_query_param": "name_exact",
         },
     },

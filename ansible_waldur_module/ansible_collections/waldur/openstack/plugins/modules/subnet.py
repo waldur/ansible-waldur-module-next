@@ -60,16 +60,16 @@ options:
     type: str
     required: true
     description: The parent network name or UUID.
-  tenant:
-    description: The name or UUID of the parent tenant for filtering.
+  project:
+    description: The name or UUID of the parent project for filtering.
     type: str
     required: false
   customer:
     description: The name or UUID of the parent customer for filtering.
     type: str
     required: false
-  project:
-    description: The name or UUID of the parent project for filtering.
+  tenant:
+    description: The name or UUID of the parent tenant for filtering.
     type: str
     required: false
   description:
@@ -541,9 +541,9 @@ ARGUMENT_SPEC = {
     "name": {"type": "str", "required": True},
     "uuid": {"type": "str"},
     "network": {"type": "str", "required": True},
-    "tenant": {"type": "str"},
-    "customer": {"type": "str"},
     "project": {"type": "str"},
+    "customer": {"type": "str"},
+    "tenant": {"type": "str"},
     "description": {"type": "str"},
     "cidr": {"type": "str"},
     "gateway_ip": {"type": "str"},
@@ -567,9 +567,9 @@ RUNNER_CONTEXT = {
     "resource_type": "OpenStack subnet",
     "check_url": "/api/openstack-subnets/",
     "check_filter_keys": {
-        "tenant": "tenant_uuid",
-        "customer": "customer_uuid",
         "project": "project_uuid",
+        "customer": "customer_uuid",
+        "tenant": "tenant_uuid",
         "network": "network_uuid",
     },
     "name_query_param": "name_exact",
@@ -610,18 +610,6 @@ RUNNER_CONTEXT = {
     ],
     "update_actions": {},
     "resolvers": {
-        "tenant": {
-            "url": "/api/openstack-tenants/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
-        "customer": {
-            "url": "/api/customers/",
-            "error_message": None,
-            "filter_by": [],
-            "name_query_param": "name_exact",
-        },
         "project": {
             "url": "/api/projects/",
             "error_message": None,
@@ -632,6 +620,18 @@ RUNNER_CONTEXT = {
                     "target_key": "customer",
                 }
             ],
+            "name_query_param": "name_exact",
+        },
+        "customer": {
+            "url": "/api/customers/",
+            "error_message": None,
+            "filter_by": [],
+            "name_query_param": "name_exact",
+        },
+        "tenant": {
+            "url": "/api/openstack-tenants/",
+            "error_message": None,
+            "filter_by": [],
             "name_query_param": "name_exact",
         },
         "network": {
@@ -647,7 +647,7 @@ RUNNER_CONTEXT = {
             "name_query_param": "name_exact",
         },
     },
-    "resolver_order": ["network", "project", "tenant", "customer"],
+    "resolver_order": ["project", "network", "customer", "tenant"],
     "resource_detail_path": "/api/openstack-subnets/{uuid}/",
     "composite_keys": None,
     "wait_config": {

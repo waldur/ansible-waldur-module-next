@@ -563,6 +563,7 @@ EXAMPLES = """
         max_value: 123.45
         min_value: 123.45
         max_available_limit: 123.45
+        limit_increase_only: true
         is_boolean: true
         default_limit: 123.45
         spending_limit_periods: {}
@@ -783,6 +784,7 @@ EXAMPLES = """
         max_value: 123.45
         min_value: 123.45
         max_available_limit: 123.45
+        limit_increase_only: true
         is_boolean: true
         default_limit: 123.45
         spending_limit_periods: {}
@@ -1576,6 +1578,11 @@ resource:
           type: float
           returned: always
           sample: 123.45
+        limit_increase_only:
+          description: If set, a consumer cannot lower this component's limit below the resource's current limit.
+          type: bool
+          returned: always
+          sample: true
         is_boolean:
           description: Is boolean
           type: bool
