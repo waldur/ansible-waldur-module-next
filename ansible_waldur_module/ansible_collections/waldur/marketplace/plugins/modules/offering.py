@@ -715,6 +715,13 @@ EXAMPLES = """
         - string-value
         backend_settings: {}
         backend_components: {}
+        event_settings:
+          stomp_enabled: true
+          stomp_membership_sync_enabled: true
+          stomp_ws_host: string-value
+          stomp_ws_port: 8080
+          stomp_ws_path: string-value
+          websocket_use_tls: true
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -936,6 +943,13 @@ EXAMPLES = """
         - string-value
         backend_settings: {}
         backend_components: {}
+        event_settings:
+          stomp_enabled: true
+          stomp_membership_sync_enabled: true
+          stomp_ws_host: string-value
+          stomp_ws_port: 8080
+          stomp_ws_path: string-value
+          websocket_use_tls: true
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -2735,6 +2749,42 @@ resource:
           type: dict
           returned: always
           sample: {}
+        event_settings:
+          description: Event settings
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            stomp_enabled:
+              description: Stomp enabled
+              type: bool
+              returned: always
+              sample: true
+            stomp_membership_sync_enabled:
+              description: Use STOMP for membership sync; the agent follows stomp_enabled when this is unset.
+              type: bool
+              returned: always
+              sample: true
+            stomp_ws_host:
+              description: Stomp ws host
+              type: str
+              returned: always
+              sample: string-value
+            stomp_ws_port:
+              description: Stomp ws port
+              type: int
+              returned: always
+              sample: 8080
+            stomp_ws_path:
+              description: Stomp ws path
+              type: str
+              returned: always
+              sample: string-value
+            websocket_use_tls:
+              description: Websocket use tls
+              type: bool
+              returned: always
+              sample: true
     service_attributes:
       description: Service attributes
       type: dict
