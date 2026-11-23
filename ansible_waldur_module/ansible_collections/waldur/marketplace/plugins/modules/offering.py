@@ -722,6 +722,11 @@ EXAMPLES = """
           stomp_ws_port: 8080
           stomp_ws_path: string-value
           websocket_use_tls: true
+        agent_settings:
+          resource_import_enabled: true
+          username_reconciliation_enabled: true
+          preserve_unmanaged_backend_users: true
+          omit_anomalous_usage_components: true
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -950,6 +955,11 @@ EXAMPLES = """
           stomp_ws_port: 8080
           stomp_ws_path: string-value
           websocket_use_tls: true
+        agent_settings:
+          resource_import_enabled: true
+          username_reconciliation_enabled: true
+          preserve_unmanaged_backend_users: true
+          omit_anomalous_usage_components: true
       vendor_details: string-value
       getting_started: string-value
       integration_guide: string-value
@@ -2782,6 +2792,32 @@ resource:
               sample: string-value
             websocket_use_tls:
               description: Websocket use tls
+              type: bool
+              returned: always
+              sample: true
+        agent_settings:
+          description: Agent settings
+          type: dict
+          returned: always
+          sample: {}
+          contains:
+            resource_import_enabled:
+              description: Import resources found on the backend into Waldur.
+              type: bool
+              returned: always
+              sample: true
+            username_reconciliation_enabled:
+              description: Periodically reconcile usernames from the backend.
+              type: bool
+              returned: always
+              sample: true
+            preserve_unmanaged_backend_users:
+              description: Membership sync keeps backend users Waldur has never known as offering users, instead of removing every user not on the resource team.
+              type: bool
+              returned: always
+              sample: true
+            omit_anomalous_usage_components:
+              description: Report usage without a decreasing component instead of withholding the whole report.
               type: bool
               returned: always
               sample: true
