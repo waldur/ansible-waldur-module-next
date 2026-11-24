@@ -439,7 +439,7 @@ resources:
       returned: always
       sample: '2023-10-01'
     project_end_date:
-      description: The date is inclusive. Once reached, all project resource will be scheduled for termination.
+      description: The project's resources are scheduled for termination on this date plus the grace period, if one is configured. Offerings that disable the grace period terminate them on this date.
       type: str
       returned: always
       sample: '2023-10-01'
@@ -581,7 +581,7 @@ resources:
           returned: always
           sample: string-value
     end_date:
-      description: The date is inclusive. Once reached, a resource will be scheduled for termination.
+      description: The resource is scheduled for termination on this date, so the day before is the last full day of use.
       type: str
       returned: always
       sample: '2023-10-01'

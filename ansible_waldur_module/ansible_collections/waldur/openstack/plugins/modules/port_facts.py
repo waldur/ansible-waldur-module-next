@@ -74,7 +74,7 @@ options:
     type: str
     required: false
   query:
-    description: Search by name, MAC address or backend ID
+    description: Search by name, MAC address, backend ID, fixed IP, floating IP or its mapped public IP
     type: str
     required: false
   status:
@@ -315,6 +315,27 @@ resources:
       returned: always
       sample:
       - 8.8.8.8
+    floating_ip_addresses:
+      description: Floating IPs associated with the port, with the public IP each one is mapped to, if any
+      type: list
+      returned: always
+      sample: []
+      contains:
+        uuid:
+          description: UUID
+          type: str
+          returned: always
+          sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        address:
+          description: The public IPv4 address of the floating IP
+          type: str
+          returned: always
+          sample: 192.168.1.100
+        external_address:
+          description: Optional address that maps to floating IP's address in external networks
+          type: str
+          returned: always
+          sample: null
     device_id:
       description: ID of device (instance, router etc) to which this port is connected
       type: str
