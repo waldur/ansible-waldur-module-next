@@ -1865,6 +1865,11 @@ resources:
       type: str
       returned: always
       sample: string-value
+    customer_abbreviation:
+      description: Customer abbreviation
+      type: str
+      returned: always
+      sample: string-value
     user_requires_reconsent:
       description: Check if the current user needs to re-consent for this resource's offering.
       type: bool
