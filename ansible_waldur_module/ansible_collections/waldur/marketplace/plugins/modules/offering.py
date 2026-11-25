@@ -3422,6 +3422,21 @@ resource:
       type: str
       returned: always
       sample: string-value
+    template_uuid:
+      description: Template UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    template_name:
+      description: Template name
+      type: str
+      returned: always
+      sample: string-value
+    template_version:
+      description: Template version
+      type: int
+      returned: always
+      sample: 123
     integration_status:
       description: A list of integration status items.
       type: list
