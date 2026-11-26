@@ -645,6 +645,11 @@ resources:
       type: str
       returned: always
       sample: '12.34'
+    option_secrets:
+      description: 'Of the order''s resource: whether each secret option of the offering is set, by option name. Never the value.'
+      type: dict
+      returned: always
+      sample: '********'
     issue:
       description: Issue
       type: dict
