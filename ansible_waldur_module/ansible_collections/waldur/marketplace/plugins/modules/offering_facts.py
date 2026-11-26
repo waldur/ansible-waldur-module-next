@@ -1110,6 +1110,11 @@ resources:
           type: str
           returned: always
           sample: null
+        renewal_limit_decrease_policy:
+          description: 'What a renewal that only lowers prepaid limits does with the value already paid for the rest of the current term: ''no_credit'' (the lower limits apply at once and the extension starts at the current end date, default) or ''stretch_paid_term'' (the value is spread over the lower limits, so the paid-up period lasts longer, and the extension starts when it runs out). Neither refunds or credits anything.'
+          type: str
+          returned: always
+          sample: null
         auto_ok_resource_projects:
           description: If set to True, newly-created resource projects are immediately transitioned from CREATING to OK on save, bypassing the provider/site-agent reconciliation callback. Use for offerings that have no external backend to reconcile against.
           type: bool

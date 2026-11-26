@@ -621,6 +621,7 @@ EXAMPLES = """
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
+        renewal_limit_decrease_policy: null
         auto_ok_resource_projects: true
         resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
@@ -854,6 +855,7 @@ EXAMPLES = """
         enable_resource_access_subnets: true
         conceal_subnet_restricted_resources: true
         resource_projects_limit_policy: null
+        renewal_limit_decrease_policy: null
         auto_ok_resource_projects: true
         resource_projects_limits_required: true
         create_orders_on_resource_project_change: true
@@ -1896,6 +1898,11 @@ resource:
           sample: true
         resource_projects_limit_policy:
           description: 'How parent resource limits are enforced on child resource projects: ''none'' (accepted as-is, default), ''per_project'' (each resource project limit must be within the parent resource limit), or ''aggregate'' (the sum of all resource project limits must be within the parent limit).'
+          type: str
+          returned: always
+          sample: null
+        renewal_limit_decrease_policy:
+          description: 'What a renewal that only lowers prepaid limits does with the value already paid for the rest of the current term: ''no_credit'' (the lower limits apply at once and the extension starts at the current end date, default) or ''stretch_paid_term'' (the value is spread over the lower limits, so the paid-up period lasts longer, and the extension starts when it runs out). Neither refunds or credits anything.'
           type: str
           returned: always
           sample: null
