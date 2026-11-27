@@ -85,6 +85,10 @@ options:
     description: Filter by attached state
     type: bool
     required: false
+  is_in_grace_period:
+    description: In the offering-resolved grace period
+    type: bool
+    required: false
   lexis_links_supported:
     description: LEXIS links supported
     type: bool
@@ -449,15 +453,25 @@ resources:
       returned: always
       sample: '2023-10-01'
     resource_effective_end_date:
-      description: 'The date this resource is scheduled to terminate: the earliest of its own end date and the project-driven termination date (the raw project end date if the offering disables the grace period, otherwise the effective with-grace end date).'
+      description: 'The date this resource is scheduled to terminate: the earliest of its own end date and the project end date, each plus the grace length the offering resolves. Unset offering grace keeps a resource end date as a hard stop and inherits the project grace. grace_period_days 0, and disable_grace_period, use the raw project end date.'
       type: str
       returned: always
       sample: '2023-10-01'
     project_is_in_grace_period:
-      description: True if the project is past its end date but still within the grace period.
+      description: True if the project is past its end date but still within the organization and project grace period. This is the project clock. is_in_grace_period is the clock this resource's offering resolves.
       type: bool
       returned: always
       sample: true
+    is_in_grace_period:
+      description: True when this resource is past a raw end date and still within the grace period its offering resolves. Independent of whether the resource is paused.
+      type: bool
+      returned: always
+      sample: true
+    grace_period_end_date:
+      description: The last day of this resource's grace window. Empty when the offering gives it no grace period.
+      type: str
+      returned: always
+      sample: '2023-10-01'
     project_end_date_requested_by:
       description: Project end date requested by URL
       type: str
@@ -2241,6 +2255,7 @@ ARGUMENT_SPEC = {
     "has_terminate_date": {"type": "bool"},
     "image_name": {"type": "str"},
     "is_attached": {"type": "bool"},
+    "is_in_grace_period": {"type": "bool"},
     "lexis_links_supported": {"type": "bool"},
     "limit_based": {"type": "bool"},
     "limit_component_count": {"type": "float"},
@@ -2301,6 +2316,7 @@ RUNNER_CONTEXT = {
         "has_terminate_date",
         "image_name",
         "is_attached",
+        "is_in_grace_period",
         "lexis_links_supported",
         "limit_based",
         "limit_component_count",

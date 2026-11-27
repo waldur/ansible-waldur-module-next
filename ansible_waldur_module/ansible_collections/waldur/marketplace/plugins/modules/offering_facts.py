@@ -1001,10 +1001,15 @@ resources:
           returned: always
           sample: true
         disable_grace_period:
-          description: If set to True, this offering's resources ignore the project grace period and are terminated on the project end date. Only staff can change this option.
+          description: 'Deprecated. If set to True, and grace_period_days is unset, this offering''s resources ignore the project grace period and are terminated on the project end date. Prefer grace_period_days: 0. Only staff can change this option.'
           type: bool
           returned: always
           sample: true
+        grace_period_days:
+          description: Days after a project or resource end date before this offering's resources are terminated. Unset inherits the organization and project grace period for the project end date, and keeps a resource's own end date a hard stop. 0 terminates on the raw end date. A value above 0 is that many days past either end date and overrides the organization and project length. Null clears the setting so the offering inherits again. Only staff can change it.
+          type: int
+          returned: always
+          sample: 123
         action_on_usage_limit:
           description: If set to 'pause' or 'downscale', resources are automatically paused or downscaled when reported usage in the current period reaches a component's limit_amount, and the restriction is lifted when usage drops below the limit again (e.g. a new billing period or a raised limit).
           type: str
@@ -1230,6 +1235,11 @@ resources:
           type: str
           returned: always
           sample: quota
+        bill_inactive_instances:
+          description: 'Bill the cores, RAM and other compute of instances that are not running (SHUTOFF, SUSPENDED, SHELVED, SHELVED_OFFLOADED) under usage-based billing (default: true). Storage is billed either way.'
+          type: bool
+          returned: always
+          sample: true
         heappe_cluster_id:
           description: HEAppE cluster id
           type: str

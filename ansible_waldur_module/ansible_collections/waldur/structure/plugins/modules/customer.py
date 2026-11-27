@@ -1153,11 +1153,6 @@ resource:
       type: str
       returned: always
       sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-    call_managing_organization_uuid:
-      description: Call managing organization UUID
-      type: str
-      returned: always
-      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
     billing_price_estimate:
       description: Billing price estimate
       type: dict
@@ -1189,6 +1184,11 @@ resource:
       type: bool
       returned: always
       sample: true
+    call_managing_organization_uuid:
+      description: Call managing organization UUID
+      type: str
+      returned: always
+      sample: a1b2c3d4-e5f6-7890-abcd-ef1234567890
 commands:
   description: A list of HTTP requests that were made (or would be made in check mode) to execute the task.
   type: list
